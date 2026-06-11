@@ -1,0 +1,20 @@
+source_field,description,data_type,example_value,populated_pct,cardinality,controlled_vocab,identifier_type,maps_to_entity,maps_to_attribute,standard_vocab_candidate,quality_notes,fair_relevance
+# TEMPLATE — header + guidance only. Add one row PER REAL FIELD of a real source.
+# Do NOT add fabricated rows, invented values, or made-up percentages.
+# All values must come from direct observation of the actual source.
+# Leave any cell blank (or N/A) when the value is unknown — never guess or infer.
+#
+# Column guidance:
+#   data_type:        string | number | date | list | identifier | boolean | other
+#   example_value:    a REAL representative value copied from the source (redact sensitive data); blank if none observed
+#   populated_pct:    ONLY a measured percentage from the real source; leave BLANK if not measured (do not estimate)
+#   cardinality:      one | many
+#   identifier_type:  doi | orcid | ror | rrid | igsn | internal | none
+#   maps_to_entity:   see docs/KNOWLEDGE_GRAPH_DESIGN.md (Publication, Dataset, Researcher, ...)
+#   maps_to_attribute:target attribute or relationship on that entity
+#   standard_vocab_candidate: a candidate standard term (schema.org / DC / DCAT / PROV-O / ...)
+#   quality_notes:    observed consistency, ambiguity, units, encoding issues
+#   fair_relevance:   any of F, A, I, R (e.g. "F/I")
+#
+# (No example data rows are provided on purpose: this project does not ship
+#  fabricated or illustrative scientific records. Populate from a real source.)

@@ -1,0 +1,17 @@
+source_field,target_type,target_entity,target_attribute_or_relationship,related_entity,identifier_strategy,transformation,confidence,decision,notes
+# TEMPLATE — header + guidance only. Add one row PER REAL field->model mapping decision.
+# Do NOT add fabricated rows or invented mappings. Each row must reflect a real
+# field from a real, selected source. Leave cells blank (or N/A) when unknown.
+#
+# Column guidance:
+#   target_type:        attribute | relationship | identifier | provenance | drop
+#   target_entity:      the SciKG entity the field maps onto (see docs/KNOWLEDGE_GRAPH_DESIGN.md)
+#   related_entity:     for relationships, the entity on the other end of the edge
+#   identifier_strategy:reuse_external | mint_internal | n/a
+#   transformation:     how the real source value is cleaned/normalized/parsed (or "direct")
+#   confidence:         high | medium | low
+#   decision:           accepted | deferred | rejected
+#   notes:              open questions, caveats, follow-ups
+#
+# (No example data rows are provided on purpose: this project does not ship
+#  fabricated or illustrative mappings. Populate from a real, selected source.)

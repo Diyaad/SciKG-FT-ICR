@@ -1,0 +1,62 @@
+# SciKG — Source Inventory Template
+# One record per data source. Copy this file to a source-specific name
+# (e.g. <source>_source_inventory.yaml) and fill it in from a REAL, selected
+# source only.
+#
+# MISSING-VALUE POLICY:
+#   - Leave a value as it is in the source/schema. Do NOT infer or invent values.
+#   - If a value is unknown, leave the field blank or use N/A or null — do not
+#     guess. Add a note rather than fabricating a value or deleting the field.
+#   - Do not normalize all missing values into one format unless required.
+
+source:
+  name:                 # Human-readable source name
+  short_id:             # Short slug used in filenames (e.g. <source>_<subset>)
+  description:          # What this source is and what it contains
+  domain:               # Scientific domain(s) covered
+  url:                  # Homepage / landing page
+
+access:
+  method:               # api | bulk_export | scrape | manual | other
+  endpoint:             # API base URL or export location (if any)
+  protocol:             # https | oai-pmh | sparql | ftp | other
+  auth_required:        # true | false
+  auth_type:            # none | api_key | oauth | login | other
+  rate_limits:          # Any known rate limits / quotas
+  access_notes:         # Practical notes on obtaining the data
+
+licensing:
+  license:              # License name/URL if known
+  usage_terms:          # Permitted uses / restrictions
+  attribution_required: # true | false
+  redistribution:       # allowed | restricted | unknown
+
+content:
+  asset_types:          # e.g. [publications, datasets, instruments]
+  approx_record_count:  # Rough volume
+  update_frequency:     # How often the source changes
+  earliest_record:      # Oldest record date if known
+  latest_record:        # Newest record date if known
+  formats:              # e.g. [json, xml, csv]
+
+identifiers:
+  primary_identifier:   # The source's main record identifier type
+  external_pids:        # e.g. [doi, orcid, ror, rrid, igsn]
+  pid_coverage_notes:   # How well-covered identifiers are
+
+fair_assessment:
+  findable:             # Notes on identifiers + rich metadata
+  accessible:           # Notes on retrieval mechanism + persistence
+  interoperable:        # Notes on standards/vocabularies/formats
+  reusable:             # Notes on provenance/context/licensing
+
+mapping_status:
+  field_inventory_done: # true | false  (field_inventory_template.csv filled?)
+  entity_mapping_done:  # true | false  (entity_mapping_template.csv filled?)
+  notes:                # Open questions, blockers, decisions
+
+provenance:
+  catalogued_by:        # Who created this inventory record
+  catalogued_on:        # YYYY-MM-DD
+  reviewed_by:          # Optional reviewer
+  source_version:       # Source version/snapshot identifier if applicable

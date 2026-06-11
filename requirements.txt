@@ -1,0 +1,39 @@
+# SciKG — candidate dependencies (PLANNING ONLY)
+#
+# DO NOT INSTALL during Phase 0. This file documents the libraries we expect to
+# evaluate as the project moves from research foundation into implementation.
+# Versions are intentionally left unpinned; pin them when a phase actually
+# adopts the dependency. Group by capability so we can adopt incrementally.
+
+# --- Core data handling ---
+# pandas            # tabular metadata wrangling
+# numpy             # numerical support
+# pyyaml            # read/write YAML metadata templates
+# jsonschema        # validate metadata against schemas
+
+# --- Knowledge graph & semantics ---
+# rdflib            # RDF graphs, SPARQL, serialization (Turtle/JSON-LD)
+# networkx          # in-memory graph analysis & prototyping
+# pyshacl           # SHACL validation of graph data
+# owlready2         # ontology authoring/reasoning (optional)
+
+# --- Graph databases / clients (choose later) ---
+# neo4j             # Neo4j driver (property graph option)
+# SPARQLWrapper     # query remote SPARQL endpoints (RDF option)
+
+# --- Identifiers & metadata standards ---
+# idutils           # parse/normalize DOIs, ORCIDs, and other PIDs
+# requests          # HTTP for metadata APIs (Crossref, DataCite, ORCID, ROR)
+
+# --- AI-assisted retrieval (future) ---
+# anthropic         # Claude API for AI-assisted retrieval/agents
+# sentence-transformers  # embeddings for semantic search
+# Note: evaluate a vector store (e.g. FAISS / a managed service) when needed.
+
+# --- Notebooks & exploration ---
+# jupyterlab        # interactive exploration in notebooks/
+
+# --- Quality & tooling ---
+# pytest            # tests (when code arrives)
+# ruff              # linting/formatting
+# pre-commit        # repo hygiene hooks
