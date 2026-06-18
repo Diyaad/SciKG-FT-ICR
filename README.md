@@ -5,12 +5,9 @@ accessibility, interoperability, and reusability** of scientific research
 assets through structured metadata, knowledge graph technologies, and
 AI-assisted exploration.
 
-> **Status:** Research-foundation stage — documentation & design only.
-> No scraping, no databases, no production code, no real data yet. This
-> repository currently holds documentation, *proposed* design notes, and
-> templates that may guide a future build. Nothing here is an approved plan; see
-> [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md)
-> for what is verified versus proposed versus unknown.
+> **Status:** Active build — Week 1 of 6. 2-person team.
+> CI Compass Fellowship. Pipeline under construction.
+> No production data loaded yet.
 
 ---
 
@@ -106,20 +103,17 @@ scikg/
 
 ## Current Focus
 
-Understand scientific metadata ecosystems — how scientific information is
-organized, connected, discovered, and reused. The project brief names the
-National High Magnetic Field Laboratory (NHMFL) publication ecosystem, including
-FT-ICR–related publications, as **one candidate** data source. To be clear: this
-source has **not** been accessed, investigated, or catalogued, and no claims are
-made about its contents here. SciKG is **not** limited to publications; that
-source is a possible early lens, not the scope.
+Building a provenance-aware knowledge graph prototype from ~50
+FT-ICR and proteomics papers sourced from the MagLab publications
+page. Metadata fetched via CrossRef and OpenAlex APIs. Graph
+loaded into Neo4j. Validated against an 11-paper manually reviewed
+ground-truth set.
 
-**Out of scope for now (deliberately):**
-- Scraping / ingestion scripts
-- Database provisioning
-- Dependency installation
+This is a feasibility prototype — Phase 1 of an extensible system.
+Phase 2 will scale to 500+ papers and additional NHMFL facilities.
 
-See the [roadmap](docs/ROADMAP.md) for what comes next.
+Out of scope for this phase: scraping, LLM inference, natural
+language interface, Streamlit UI, chatbot, NetworkX.
 
 ---
 
