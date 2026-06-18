@@ -114,13 +114,13 @@ See [FAIR_PRINCIPLES.md](FAIR_PRINCIPLES.md) for the self-assessment checklist.
 
 ---
 
-## Procedure (abstract — no inventory has been performed)
+## Procedure
 
-> **Important:** No real source has been inventoried. The steps below describe
-> the *procedure* in the abstract. They do **not** report any observed fields,
-> values, or statistics, and must not be read as a completed inventory. Specific
-> field names and values are intentionally omitted until a real source is
-> selected and accessed.
+Inventory performed via automated pipeline extraction.
+See Pipeline metadata coverage section for results.
+Manual review of 17 ground-truth papers completed.
+Instrument names and sample types require Phase 2
+PDF extraction — not available from CrossRef.
 
 For a chosen source, the procedure is:
 

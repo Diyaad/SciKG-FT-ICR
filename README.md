@@ -66,12 +66,28 @@ SciKG is designed around the [FAIR principles](docs/FAIR_PRINCIPLES.md):
 ```
 scikg/
 ├── data/
-│   ├── raw/            # Immutable source data (never edited by hand)
-│   └── processed/      # Cleaned / transformed data derived from raw
-├── scripts/            # Pipeline & utility code (future)
-├── notebooks/          # Exploratory analysis & prototyping
-├── outputs/            # Generated artifacts: graphs, reports, exports
-├── docs/               # Research foundation (see below)
+│   ├── raw/                    # Immutable source data
+│   │   ├── publications/       # Raw CrossRef/OpenAlex responses
+│   │   ├── doi_list.csv        # Master DOI list — hand curated
+│   │   └── manifest.json       # Pipeline state tracker
+│   └── processed/              # Pipeline output at each stage
+│       └── entities/           # Extracted records (JSONL)
+├── scripts/                    # Pipeline scripts — run in order
+│   ├── 01_fetch.py             # Fetch raw metadata from APIs
+│   ├── 02_extract.py           # Extract structured fields
+│   ├── 03_normalize.py         # Normalize against controlled vocabulary
+│   ├── 04_validate.py          # Validate before graph load
+│   └── 05_load.py              # Load into Neo4j
+├── tests/                      # One test file per pipeline script
+│   ├── test_fetch.py
+│   ├── test_extract.py
+│   ├── test_normalize.py
+│   ├── test_validate.py
+│   └── test_load.py
+├── notebooks/                  # Exploratory analysis and demo
+├── outputs/                    # Generated graph exports and reports
+│   └── scikg_v1_0/
+├── docs/                       # Project documentation
 │   ├── ROADMAP.md
 │   ├── FAIR_PRINCIPLES.md
 │   ├── KNOWLEDGE_GRAPH_DESIGN.md
@@ -79,10 +95,12 @@ scikg/
 │   ├── ARCHITECTURE.md
 │   ├── VERIFIED_FACTS_AND_ASSUMPTIONS.md
 │   ├── REVIEW_LOG.md
+│   ├── controlled_vocabulary.md
+│   ├── DISCOVERY_QUESTIONS.md
 │   └── metadata_templates/
 ├── README.md
-├── CLAUDE.md           # Guidance for AI coding assistants
-├── requirements.txt    # Candidate dependencies (not yet installed)
+├── CLAUDE.md
+├── requirements.txt
 └── .gitignore
 ```
 
