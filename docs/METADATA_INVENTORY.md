@@ -6,7 +6,8 @@ metadata inventory is to answer, for any source: *what fields exist, how good ar
 they, what do they mean, and where do they belong in our model?*
 
 This is an **early-stage** activity — inventory first, schema and ingestion
-later. It has **not** been performed yet: no real source has been catalogued.
+later. Initial metadata coverage measured in pipeline Stage 2.
+See Pipeline metadata coverage section below.
 See the proposed workflow in [ROADMAP.md](ROADMAP.md).
 
 ---
@@ -138,3 +139,32 @@ For a chosen source, the procedure is:
 The real output of this procedure is a documented, quality-aware, source-specific
 mapping — produced only from observed data, with gaps left explicit rather than
 filled.
+
+---
+
+## Pipeline metadata coverage
+
+As of Stage 2 (extract), CrossRef provides the following
+coverage across 17 ICR ground-truth papers:
+
+| Field | Coverage |
+|---|---|
+| DOI | 17/17 |
+| Title | 17/17 |
+| Year | 17/17 |
+| Authors | 17/17 |
+| Publisher | 17/17 |
+| Cited-by count | 17/17 |
+| Journal | 16/17 |
+| Volume | 16/17 |
+| Referenced DOIs | 16/17 |
+| Issue | 15/17 |
+| Funders | 12/17 |
+| Abstract | 7/17 |
+| ORCID per author | Sparse — 2 of 11 authors in sample paper |
+| Instrument names | 0/17 — not in CrossRef, PDF only |
+| Sample types | 0/17 — not in CrossRef, PDF only |
+
+Notable gaps: instrument names and sample types are not
+available from CrossRef. These fields require either PDF
+extraction or manual annotation. Flagged as Phase 2.
