@@ -1,0 +1,18 @@
+doi,source_title,has_ground_truth,has_ftcir,notes
+10.1016/j.mcpro.2024.100875,The Hunt Lab Guide to De Novo Peptide Sequence Analysis by Tandem Mass Spectrometry,true,false,TSQ and LCQ only — no FT-ICR
+10.21037/atm.2019.12.67,Top-down proteomics — a near-future technique for clinical diagnosis?,true,true,dx.doi.org prefix cleaned
+10.1021/acs.jproteome.6b00696,Identification and Characterization of Human Proteoforms by Top-Down LC-21 Tesla FT-ICR Mass Spectrometry,true,true,
+10.1016/j.jbc.2022.102768,Mapping the KRAS proteoform landscape in colorectal cancer,true,true,
+10.1021/acs.analchem.5c06165,Mass-Invariant Natural Log-Transformed Mass Spectra Enable Internal Calibration,true,true,year 2026 — verify publication status before fetch
+10.1101/455527,A multi-modal proteomics strategy for characterizing PTMs of tumor suppressor p53,true,true,bioRxiv preprint — check for published journal version before fetch
+10.1021/acs.analchem.5c02420,Internal Calibration without Internal Calibrants by Mass Difference Analysis in FT-ICR MS,true,true,
+10.1002/rcm.4655,Sites and extent of selenomethionine incorporation into recombinant Cas6 protein,true,true,14.5T FT-ICR
+10.1021/ac0108461,Baseline Resolution of Isobaric Phosphorylated and Sulfated Peptides,true,true,9.4T FT-ICR MS
+10.1016/j.watres.2025.124698,Exploring the fluorinome of PFAS-impacted groundwater using 21 tesla FT-ICR MS,true,true,year 2026 — verify publication status
+10.1021/acs.analchem.5c05562,Weak Anion-Exchange Chromatography Coupled with FT-ICR MS,true,true,year 2026 — verify publication status
+10.1021/acs.molpharmaceut.5c00679,Regulatory Challenges for Look-Alike and Sound-Alike Non-Biological Complex Drugs,true,true,year 2026 — verify publication status
+10.1002/pmic.201300438,The first pilot project of the consortium for top-down proteomics,true,true,multi-site consortium — 12T and 9.4T FT-ICR
+10.1002/rcm.7137,Paired single residue-transposed Lys-N and Lys-C digestions for de novo sequencing,true,true,14.5T FT-ICR MS
+10.1029/2025gb008545,Long-Term and Seasonal Drivers of Organic Matter in the Clearwater Tapajós River,true,true,21T FT-ICR MS — environmental DOM
+10.1002/pca.70001,Comparative Metabolic Profiling of Wild and In Vitro Cultivated Cecropia angustifolia,true,true,21T FT-ICR MS
+10.1029/2025jg008899,Signatures of Arctic Change — Molecular-Level Composition of Dissolved Organic Matter,true,true,21T FT-ICR MS — environmental DOM

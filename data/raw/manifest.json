@@ -1,0 +1,176 @@
+{
+  "version": "1.0",
+  "description": "Tracks every source processed through the SciKG pipeline",
+  "papers": {
+    "10.1016/j.mcpro.2024.100875": {
+      "doi": "10.1016/j.mcpro.2024.100875",
+      "fetched_at": "2026-06-17T23:10:35.277172+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1016_j_mcpro_2024_100875.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.21037/atm.2019.12.67": {
+      "doi": "10.21037/atm.2019.12.67",
+      "fetched_at": "2026-06-17T23:10:36.422305+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_21037_atm_2019_12_67.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1021/acs.jproteome.6b00696": {
+      "doi": "10.1021/acs.jproteome.6b00696",
+      "fetched_at": "2026-06-17T23:10:37.576262+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1021_acs_jproteome_6b00696.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1016/j.jbc.2022.102768": {
+      "doi": "10.1016/j.jbc.2022.102768",
+      "fetched_at": "2026-06-17T23:10:38.720085+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1016_j_jbc_2022_102768.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1021/acs.analchem.5c06165": {
+      "doi": "10.1021/acs.analchem.5c06165",
+      "fetched_at": "2026-06-17T23:10:39.890008+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1021_acs_analchem_5c06165.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1101/455527": {
+      "doi": "10.1101/455527",
+      "fetched_at": "2026-06-17T23:10:41.043628+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1101_455527.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1021/acs.analchem.5c02420": {
+      "doi": "10.1021/acs.analchem.5c02420",
+      "fetched_at": "2026-06-17T23:10:42.201991+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1021_acs_analchem_5c02420.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1002/rcm.4655": {
+      "doi": "10.1002/rcm.4655",
+      "fetched_at": "2026-06-17T23:10:43.360559+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1002_rcm_4655.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1021/ac0108461": {
+      "doi": "10.1021/ac0108461",
+      "fetched_at": "2026-06-17T23:10:44.510963+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1021_ac0108461.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1016/j.watres.2025.124698": {
+      "doi": "10.1016/j.watres.2025.124698",
+      "fetched_at": "2026-06-17T23:10:45.674077+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1016_j_watres_2025_124698.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1021/acs.analchem.5c05562": {
+      "doi": "10.1021/acs.analchem.5c05562",
+      "fetched_at": "2026-06-17T23:10:46.831476+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1021_acs_analchem_5c05562.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1021/acs.molpharmaceut.5c00679": {
+      "doi": "10.1021/acs.molpharmaceut.5c00679",
+      "fetched_at": "2026-06-17T23:10:47.970647+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1021_acs_molpharmaceut_5c00679.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1002/pmic.201300438": {
+      "doi": "10.1002/pmic.201300438",
+      "fetched_at": "2026-06-17T23:10:49.138035+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1002_pmic_201300438.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1002/rcm.7137": {
+      "doi": "10.1002/rcm.7137",
+      "fetched_at": "2026-06-17T23:10:50.300473+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1002_rcm_7137.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1029/2025gb008545": {
+      "doi": "10.1029/2025gb008545",
+      "fetched_at": "2026-06-17T23:10:51.457038+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1029_2025gb008545.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1002/pca.70001": {
+      "doi": "10.1002/pca.70001",
+      "fetched_at": "2026-06-17T23:10:52.604665+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1002_pca_70001.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    },
+    "10.1029/2025jg008899": {
+      "doi": "10.1029/2025jg008899",
+      "fetched_at": "2026-06-17T23:10:53.761736+00:00",
+      "source_api": "crossref",
+      "raw_file": "data/raw/publications/10_1029_2025jg008899.json",
+      "stages_complete": [
+        "fetch",
+        "extract"
+      ]
+    }
+  }
+}

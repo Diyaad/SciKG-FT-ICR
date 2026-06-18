@@ -2,9 +2,13 @@
 # Raw and processed data are not tracked by default; keep the folders via
 # .gitkeep but ignore their contents. Adjust when a data-versioning strategy
 # (e.g. DVC, git-lfs) is chosen.
+# Exceptions: doi_list.csv and manifest.json are hand-curated pipeline inputs
+# and are tracked.
 data/raw/*
 data/processed/*
 !data/**/.gitkeep
+!data/raw/doi_list.csv
+!data/raw/manifest.json
 
 # Generated artifacts
 outputs/*
