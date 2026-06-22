@@ -9,6 +9,7 @@ data/processed/*
 !data/**/.gitkeep
 !data/raw/doi_list.csv
 !data/raw/manifest.json
+!data/raw/maglab_icr_publications.csv
 
 # Generated artifacts
 outputs/*
