@@ -126,3 +126,25 @@ When new facts are confirmed (with a traceable basis), move the relevant item
 from "Proposed Ideas" or "Unknowns" into "Verified Facts" and cite the basis.
 When an assumption is removed or a claim rewritten, record it here and in
 `REVIEW_LOG.md`.
+
+## Schema additions confirmed — 2026-06-18
+
+- Modification (PTM) added as first-class node type 
+  in v1.0. UNIMOD IDs used as canonical identifiers.
+  Source: https://www.unimod.org
+- Protein added as first-class node type in v1.0.
+  UniProt accessions used where available.
+  Source: https://www.uniprot.org
+- Organism added as first-class node type in v1.0.
+  NCBI Taxonomy IDs used.
+  Source: https://www.ncbi.nlm.nih.gov/taxonomy
+- Two-tier method normalization adopted: Tier 1 MS 
+  methods become Method nodes with PSI-MS IDs,
+  Tier 2 supporting methods stored as text properties.
+  Source: https://github.com/HUPO-PSI/psi-ms-CV
+- Dataset repositories documented using DataCite 
+  conventions: MassIVE, OSF, ProteomeXchange, Zenodo.
+  Source: https://schema.datacite.org
+- Software entity remains excluded from v1.0.
+  Rationale: too variable across papers, not a
+  primary discovery entity for this corpus.

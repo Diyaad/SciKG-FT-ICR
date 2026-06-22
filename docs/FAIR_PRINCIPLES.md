@@ -142,3 +142,23 @@ itself is access-controlled.
 - [ ] Are its relationships typed and qualified?
 - [ ] Is provenance captured for every fact?
 - [ ] Can processed/output forms be regenerated from raw + code?
+
+## Ontology and Standards Alignment
+
+SciKG uses the following standard vocabularies to 
+ensure interoperability with major scientific databases:
+
+| Standard | Scope | Source | Use in SciKG |
+|---|---|---|---|
+| PSI-MS ontology | MS methods and instruments | github.com/HUPO-PSI/psi-ms-CV | Canonical IDs on Method and Instrument nodes |
+| UNIMOD | Protein modifications | unimod.org | Canonical IDs on Modification nodes |
+| NCBI Taxonomy | Organism names | ncbi.nlm.nih.gov/taxonomy | Canonical IDs on Organism nodes |
+| UniProt | Protein identifiers | uniprot.org | Accession numbers on Protein nodes |
+| DataCite | Dataset metadata | schema.datacite.org | Dataset node structure |
+| ORCID | Researcher identifiers | orcid.org | orcid property on Researcher nodes |
+| ROR | Research organization IDs | ror.org | Optional property on Institution nodes |
+| DOI | Publication identifiers | doi.org | Master key for Publication nodes |
+
+These standards make SciKG interoperable with 
+ProteomeXchange, MassIVE, UniProt, and major 
+proteomics databases without additional mapping.
