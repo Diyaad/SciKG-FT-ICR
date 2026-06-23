@@ -5,9 +5,10 @@ accessibility, interoperability, and reusability** of scientific research
 assets through structured metadata, knowledge graph technologies, and
 AI-assisted exploration.
 
-> **Status:** Active build — Week 1 of 6. 2-person team.
-> CI Compass Fellowship. Pipeline under construction.
-> No production data loaded yet.
+> **Status:** Active build — 8-week project, June 1 – July 31.
+> 2-person team. CI Compass Fellowship. Pipeline operational:
+> publications fetched and extracted; RAW file and CSV extraction
+> in progress; Neo4j load upcoming.
 
 ---
 
@@ -75,6 +76,8 @@ scikg/
 ├── scripts/                    # Pipeline scripts — run in order
 │   ├── 01_fetch.py             # Fetch raw metadata from APIs
 │   ├── 02_extract.py           # Extract structured fields
+│   ├── 02b_extract_csv.py      # Extract structured fields from the MagLab CSV
+│   ├── 02c_extract_rawfiles.py # Extract metadata from Thermo RAW files (filename + fisher_py)
 │   ├── 03_normalize.py         # Normalize against controlled vocabulary
 │   ├── 04_validate.py          # Validate before graph load
 │   └── 05_load.py              # Load into Neo4j
@@ -121,32 +124,44 @@ scikg/
 
 ## Current Focus
 
-Building a provenance-aware knowledge graph prototype from ~50
-FT-ICR and proteomics papers sourced from the MagLab publications
-page. Metadata fetched via CrossRef and OpenAlex APIs. Graph
-loaded into Neo4j. Validated against an 11-paper manually reviewed
-ground-truth set.
+Building a provenance-aware knowledge graph from 806 ICR journal
+articles (from the MagLab CSV) plus four other sources: the CrossRef
+API, the Web Applications Group publications export, 46 Thermo RAW
+files, and manual annotations. Graph loaded into Neo4j (local).
+Validated against a ground-truth set of 8 manually annotated papers.
+Software and Instrument are logged as entities.
 
-This is a feasibility prototype — Phase 1 of an extensible system.
-Phase 2 will scale to 500+ papers and additional NHMFL facilities.
+Extending coverage to further NHMFL facilities is a future phase.
 
-Out of scope for this phase: scraping, LLM inference, natural
-language interface, Streamlit UI, chatbot, NetworkX.
+Out of scope for this phase: scraping, chatbot, Streamlit UI, NetworkX.
 
 ---
 
 ## Getting Started (contributors)
 
 ```bash
-# 1. Read the foundation docs in this order:
-#    README.md → docs/ROADMAP.md → docs/FAIR_PRINCIPLES.md
-#    → docs/KNOWLEDGE_GRAPH_DESIGN.md → docs/ARCHITECTURE.md
-# 2. Review the metadata templates in docs/metadata_templates/
-# 3. Propose changes via PR; keep raw data immutable.
+# 1. Clone the repository
+git clone <repo-url>
+cd scikg
+
+# 2. Install dependencies (requests, neo4j, pytest, python-dotenv)
+pip install -r requirements.txt
+
+# 3. Set up a local Neo4j instance (Neo4j Desktop)
+
+# 4. Run the pipeline scripts in order
+python scripts/01_fetch.py
+python scripts/02_extract.py
+python scripts/02b_extract_csv.py
+python scripts/02c_extract_rawfiles.py
+python scripts/03_normalize.py
+python scripts/04_validate.py
+python scripts/05_load.py
 ```
 
-A Python environment will be introduced in a later phase. `requirements.txt`
-lists *candidate* dependencies for planning only — do not install yet.
+Read the foundation docs first: README.md → docs/ROADMAP.md →
+docs/FAIR_PRINCIPLES.md → docs/KNOWLEDGE_GRAPH_DESIGN.md →
+docs/ARCHITECTURE.md. Propose changes via PR; keep raw data immutable.
 
 ---
 

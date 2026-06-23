@@ -2,16 +2,25 @@
 
 ## What this project is
 A provenance-aware scientific knowledge graph for FT-ICR and
-proteomics research at NHMFL. Built from ~50 papers fetched via
-CrossRef and OpenAlex APIs, loaded into Neo4j, validated against
-an 11-paper manual ground-truth set. 2-person team.
-CI Compass Fellowship project.
+proteomics research at NHMFL. Built from 806 ICR journal articles
+(from David's MagLab CSV) plus four other sources. Five data sources
+total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
+Group publications export, 46 Thermo RAW files, and manual annotations.
+Loaded into Neo4j (local). Validation uses a ground-truth set of 8
+papers manually annotated by the team. 2-person team, CI Compass
+Fellowship, June 1 – July 31 (8 weeks).
 
 ## Pipeline — always run in this exact order
 01_fetch.py     reads  data/raw/doi_list.csv
                 writes data/raw/publications/{doi_safe}.json
 02_extract.py   reads  data/raw/publications/
                 writes data/processed/entities/
+02b_extract_csv.py
+                reads  data/raw/maglab_icr_publications.csv
+                writes data/processed/entities/
+02c_extract_rawfiles.py
+                reads  data/raw/rawfile_names.txt and local .raw files
+                writes data/processed/entities/rawfiles.jsonl
 03_normalize.py reads  data/processed/entities/
                 writes data/processed/normalized/
 04_validate.py  reads  data/processed/normalized/
@@ -42,21 +51,21 @@ CI Compass Fellowship project.
 - Read any file in the repository
 - Suggest additions to requirements.txt with justification
 
-## Ownership
-Person 1 owns: scripts/, Neo4j setup, schema
-Person 2 owns: data/raw/doi_list.csv, docs/controlled_vocabulary.md,
-               docs/DISCOVERY_QUESTIONS.md, all WEEK_FINDINGS.md files
-Shared: docs/SCIKG_SCHEMA.md, docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md,
-        docs/REVIEW_LOG.md, tests/
-
 ## Architecture decisions — do not revisit
-- Graph database: Neo4j (or Kuzu if server setup is a blocker)
-- Metadata sources: CrossRef API then OpenAlex API. DOI is master key
+- Graph database: Neo4j, running locally (Neo4j Desktop)
+- Metadata sources: five sources (CrossRef API, MagLab CSV, Web Apps
+  export, 46 Thermo RAW files, manual annotations). DOI is the master
+  key for publications
 - Provenance: properties on nodes and edges, no ProvenanceRecord node
-- Corpus: ~50 FT-ICR and proteomics papers from MagLab publications page
-- 11 manually reviewed papers are ground-truth validation set only
-- Removed from scope: Software entity, Workflow entity, Streamlit UI,
-  chatbot, NetworkX, ASSOCIATED_WITH relationship, ProvenanceRecord node
+- Corpus: 806 ICR journal articles from the MagLab CSV
+- Ground truth: 8 manually annotated papers (validation set only)
+- Software and Instrument are logged entities
+- Removed from scope: Workflow entity, Streamlit UI, chatbot, NetworkX,
+  ASSOCIATED_WITH relationship, ProvenanceRecord node
+- UNDER REVIEW (confirming with David): RAW-file relationships —
+  whether a RAW file links to a publication, a dataset deposit such as
+  OSF/MassIVE, a project, or stands alone. Do not assert a RAW-file
+  relationship as decided until confirmed
 
 ## If unsure whether something is allowed
 Check docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md first.
