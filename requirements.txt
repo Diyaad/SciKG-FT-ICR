@@ -2,3 +2,9 @@ requests>=2.31.0
 neo4j>=5.0.0
 pytest>=7.0.0
 python-dotenv>=1.0.0
+
+# --- scripts/02d_extract_pdf.py (PDF gap-field extraction) ---
+# Layer 1 (PDF -> text) and Layer 2 (text -> grounded fields). requests is
+# already listed above and is also used here for Unpaywall PDF acquisition.
+docling>=2.0.0        # PDF -> structured Markdown (swappable Layer-1 backend)
+langextract>=1.0.0    # text -> target fields with source grounding

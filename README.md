@@ -77,10 +77,6 @@ scikg/
 │   ├── 01_fetch.py             # Fetch raw metadata from APIs
 │   ├── 02_extract.py           # Extract structured fields
 │   ├── 02b_extract_csv.py      # Extract structured fields from the MagLab CSV
-│   ├── 02c_extract_rawfiles.py # Extract metadata from Thermo RAW files (filename + fisher_py)
-│   ├── 03_normalize.py         # Normalize against controlled vocabulary
-│   ├── 04_validate.py          # Validate before graph load
-│   └── 05_load.py              # Load into Neo4j
 ├── tests/                      # One test file per pipeline script
 │   ├── test_fetch.py
 │   ├── test_extract.py
@@ -88,8 +84,7 @@ scikg/
 │   ├── test_validate.py
 │   └── test_load.py
 ├── notebooks/                  # Exploratory analysis and demo
-├── outputs/                    # Generated graph exports and reports
-│   └── scikg_v1_0/
+├── outputs/                    
 ├── docs/                       # Project documentation
 │   ├── ROADMAP.md
 │   ├── FAIR_PRINCIPLES.md

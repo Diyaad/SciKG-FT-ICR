@@ -172,5 +172,11 @@
         "extract"
       ]
     }
+  },
+  "csv_extraction": {
+    "stage_complete": true,
+    "completed_at": "2026-06-29T18:15:06Z",
+    "rows_processed": 806,
+    "source_file": "data/raw/maglab_icr_publications.csv"
   }
 }
