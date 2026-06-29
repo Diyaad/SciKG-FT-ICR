@@ -1,0 +1,730 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          18
+        ]
+      ],
+      "date-time": "2026-01-18T01:45:11Z",
+      "timestamp": 1768700711929,
+      "version": "3.49.0"
+    },
+    "reference-count": 36,
+    "publisher": "American Chemical Society (ACS)",
+    "issue": "1",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              12,
+              22
+            ]
+          ],
+          "date-time": "2025-12-22T00:00:00Z",
+          "timestamp": 1766361600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              12,
+              22
+            ]
+          ],
+          "date-time": "2025-12-22T00:00:00Z",
+          "timestamp": 1766361600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              12,
+              22
+            ]
+          ],
+          "date-time": "2025-12-22T00:00:00Z",
+          "timestamp": 1766361600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-045"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/100023043",
+        "name": "State of Florida",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100023043",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000001",
+        "name": "National Science Foundation",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "DMR-2128556"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "DMR-2128556"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000001",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Anal. Chem."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          13
+        ]
+      ]
+    },
+    "DOI": "10.1021/acs.analchem.5c05562",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          22
+        ]
+      ],
+      "date-time": "2025-12-22T09:14:30Z",
+      "timestamp": 1766394870000
+    },
+    "page": "601-610",
+    "source": "Crossref",
+    "is-referenced-by-count": 0,
+    "title": [
+      "Weak Anion-Exchange Chromatography Coupled with FT-ICR MS Resolves Polarity-Driven Molecular Signatures in Natural and Anthropogenic Dissolved Organic Matter"
+    ],
+    "prefix": "10.1021",
+    "volume": "98",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-3618-8052",
+        "authenticated-orcid": true,
+        "given": "Joseph W.",
+        "family": "Frye-Jones",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Department of Chemistry and Biochemistry",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-8633-0251",
+        "authenticated-orcid": true,
+        "given": "Lissa C.",
+        "family": "Anderson",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Department of Chemistry and Biochemistry",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-3821-1287",
+        "authenticated-orcid": true,
+        "given": "Winston K.",
+        "family": "Robbins",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-1116-8776",
+        "authenticated-orcid": true,
+        "given": "Germain",
+        "family": "Salvato Vallverdu",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory for Complex Matrices Molecular Characterization, iC2MC, TRTG",
+            "place": [
+              "Gonfreville, France"
+            ]
+          },
+          {
+            "name": "E2S UPPA, CNRS, IPREM, Universit\u00e9 de Pau et des Pays de l\u2019Adour, UMR 5254, 2 Avenue du Pr\u00e9sident Pierre Angot, 64053 Pau, France"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Alvaro J.",
+        "family": "Tello Rodriguez",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Mason C.",
+        "family": "Hagan",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-9375-2532",
+        "authenticated-orcid": true,
+        "given": "Alan G.",
+        "family": "Marshall",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Department of Chemistry and Biochemistry",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5878-6067",
+        "authenticated-orcid": true,
+        "given": "Brice",
+        "family": "Bouyssiere",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory for Complex Matrices Molecular Characterization, iC2MC, TRTG",
+            "place": [
+              "Gonfreville, France"
+            ]
+          },
+          {
+            "name": "E2S UPPA, CNRS, IPREM, Universit\u00e9 de Pau et des Pays de l\u2019Adour, UMR 5254, 2 Avenue du Pr\u00e9sident Pierre Angot, 64053 Pau, France"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-9569-3158",
+        "authenticated-orcid": true,
+        "given": "Pierre",
+        "family": "Giusti",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory for Complex Matrices Molecular Characterization, iC2MC, TRTG",
+            "place": [
+              "Gonfreville, France"
+            ]
+          },
+          {
+            "name": "Total Energies Refining and Chemicals, Total Research and Technology, BP 27, Gonfreville 76700, Harfleur, France"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-1302-2850",
+        "authenticated-orcid": true,
+        "given": "Ryan P.",
+        "family": "Rodgers",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Department of Chemistry and Biochemistry",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "International Joint Laboratory for Complex Matrices Molecular Characterization, iC2MC, TRTG",
+            "place": [
+              "Gonfreville, France"
+            ]
+          },
+          {
+            "name": "E2S UPPA, CNRS, IPREM, Universit\u00e9 de Pau et des Pays de l\u2019Adour, UMR 5254, 2 Avenue du Pr\u00e9sident Pierre Angot, 64053 Pau, France"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-7273-5343",
+        "authenticated-orcid": true,
+        "given": "Martha L.",
+        "family": "Aguilera",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "International Joint Laboratory for Complex Matrices Molecular Characterization, iC2MC, TRTG",
+            "place": [
+              "Gonfreville, France"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "316",
+    "published-online": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          22
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "ref1/cit1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.1997.42.6.1307"
+      },
+      {
+        "key": "ref2/cit2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ngeo618"
+      },
+      {
+        "key": "ref3/cit3",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41586-021-04339-9"
+      },
+      {
+        "key": "ref4/cit4",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.9b00908"
+      },
+      {
+        "key": "ref5/cit5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.4c05169"
+      },
+      {
+        "key": "ref6/cit6",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.2c00582"
+      },
+      {
+        "key": "ref7/cit7",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.2c02936"
+      },
+      {
+        "key": "ref8/cit8",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0108313"
+      },
+      {
+        "key": "ref9/cit9",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.2386"
+      },
+      {
+        "key": "ref10/cit10",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/cr050359b"
+      },
+      {
+        "key": "ref11/cit11",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2011.11.007"
+      },
+      {
+        "key": "ref12/cit12",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ncomms4804"
+      },
+      {
+        "key": "ref13/cit13",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.2c02377"
+      },
+      {
+        "key": "ref14/cit14",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/C9FD00005D"
+      },
+      {
+        "key": "ref15/cit15",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ef5015023"
+      },
+      {
+        "key": "ref16/cit16",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.7b00490"
+      },
+      {
+        "key": "ref17/cit17",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.5b00780"
+      },
+      {
+        "key": "ref18/cit18",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.1c01169"
+      },
+      {
+        "key": "ref19/cit19",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.4c00876"
+      },
+      {
+        "key": "ref20/cit20",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.7b04508"
+      },
+      {
+        "key": "ref21/cit21",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.3c08245"
+      },
+      {
+        "key": "ref22/cit22",
+        "volume-title": "Expanding Molecular Compositional Coverage of Water-Soluble Emerging Contaminants with Liquid Chromatography- Ultrahigh-Resolution Mass Spectrometry",
+        "author": "Frye-Jones J. W.",
+        "year": "2024"
+      },
+      {
+        "key": "ref23/cit23",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-015-1182-2"
+      },
+      {
+        "key": "ref24/cit24",
+        "unstructured": "Corilo, Y. E.\n                      PetroOrg\n                      ; Omics, LLC: Tallahassee, FL, 2014. https://nationalmaglab.org/user-facilities/icr/software/."
+      },
+      {
+        "key": "ref25/cit25",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ijms.2011.03.009"
+      },
+      {
+        "key": "ref26/cit26",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jasms.2c00323"
+      },
+      {
+        "key": "ref27/cit27",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.4c03107"
+      },
+      {
+        "key": "ref28/cit28",
+        "volume-title": "Online LC/21T FT-ICR MS and ICP-MS Analysis of Dissolved Organic Matter (DOM). In 71st ASMS Conference on Mass Spectrometry and Allied Topics",
+        "author": "Rodgers R. P.",
+        "year": "2023"
+      },
+      {
+        "key": "ref29/cit29",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c02158"
+      },
+      {
+        "key": "ref30/cit30",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.1c03058"
+      },
+      {
+        "key": "ref31/cit31",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c02654"
+      },
+      {
+        "key": "ref32/cit32",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jasms.2004.11.021"
+      },
+      {
+        "key": "ref33/cit33",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/mas.10008"
+      },
+      {
+        "key": "ref34/cit34",
+        "volume-title": "PyC2MC: A Novel Software Platform for the Automated Analysis of LC-HRMS Data of Complex Mixtures",
+        "author": "Salvato Vallverdu G.",
+        "year": "2025"
+      },
+      {
+        "key": "ref35/cit35",
+        "volume-title": "PyC2MC: A Workflow-Driven Framework for FTMS Data Processing and Molecular Attribution",
+        "author": "Sueur M.",
+        "year": "2025"
+      },
+      {
+        "key": "ref36/cit36",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.4c05674"
+      }
+    ],
+    "container-title": [
+      "Analytical Chemistry"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/acs.analchem.5c05562",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "unspecified"
+      },
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/acs.analchem.5c05562",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          16
+        ]
+      ],
+      "date-time": "2026-01-16T12:36:23Z",
+      "timestamp": 1768566983000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://pubs.acs.org/doi/10.1021/acs.analchem.5c05562"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          22
+        ]
+      ]
+    },
+    "references-count": 36,
+    "journal-issue": {
+      "issue": "1",
+      "published-print": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            13
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1021/acs.analchem.5c05562"
+    ],
+    "URL": "https://doi.org/10.1021/acs.analchem.5c05562",
+    "relation": {},
+    "ISSN": [
+      "0003-2700",
+      "1520-6882"
+    ],
+    "issn-type": [
+      {
+        "value": "0003-2700",
+        "type": "print"
+      },
+      {
+        "value": "1520-6882",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          22
+        ]
+      ]
+    }
+  }
+}

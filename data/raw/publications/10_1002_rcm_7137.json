@@ -1,0 +1,654 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          26
+        ]
+      ],
+      "date-time": "2025-10-26T21:19:59Z",
+      "timestamp": 1761513599091,
+      "version": "build-2065373602"
+    },
+    "reference-count": 55,
+    "publisher": "Wiley",
+    "issue": "7",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2015,
+              7,
+              26
+            ]
+          ],
+          "date-time": "2015-07-26T00:00:00Z",
+          "timestamp": 1437868800000
+        },
+        "content-version": "vor",
+        "delay-in-days": 102,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/100000078",
+        "name": "NSF Division of Materials Research",
+        "doi-asserted-by": "crossref",
+        "award": [
+          "DMR-11-57490"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "DMR-11-57490"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000078",
+            "id-type": "DOI",
+            "asserted-by": "crossref"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Rapid Comm Mass Spectrometry"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2015,
+          4,
+          15
+        ]
+      ]
+    },
+    "abstract": "<jats:sec>\n                    <jats:title>RATIONALE</jats:title>\n                    <jats:p>Paired Lys\u2010N and Lys\u2010C proteases produce peptides of identical mass and similar retention time, but different tandem mass spectra. Data from these parallel experiments provide constraints that are applied before data analysis. With this approach, we can find matched spectra before analysis, distinguish ion type, and determine residue level confidence.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>METHODS</jats:title>\n                    <jats:p>\n                      Aliquots are digested separately by Lys\u2010N and Lys\u2010C peptidases, and analyzed by reversed\u2010phase nano\u2010flow liquid chromatography, collision\u2010induced dissociation, and 14.5\u00a0T Fourier transform ion cyclotron resonance mass spectrometry. Matched pairs of fragmentation spectra with equal precursor mass and similar retention times from each digestion are compared, leveraging single\u2010residue transposed information with independent interferences to confidently identify fragment ion type, residues, and peptides. The paired spectra are solved together as a single\n                      <jats:italic>de novo</jats:italic>\n                      sequencing problem.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>RESULTS</jats:title>\n                    <jats:p>\n                      Two pairs of spectra of a\n                      <jats:italic>de novo</jats:italic>\n                      sequenced 18\u2010mer are presented. In one example, the 18\u2010mer has coverage of all residues except the N\u2010 and C\u2010 terminal lysines and their adjacent residues. The confidence level is high due to six pairs of transposed ions. In the other example, the coverage is incomplete. Nonetheless, nine pairs of transposed ions facilitate identification of two trimer sequence tags with high confidence, one with medium confidence, and additional sequence information with residue\u2010by\u2010residue confidence, thus demonstrating the value of residue\u2010by\u2010residue confidence.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>CONCLUSIONS</jats:title>\n                    <jats:p>Sequence identity and variability, such as post\u2010translational modifications (PTMs), are essential to understanding biological function and disease. The present method facilitates discovery of new peptides with multiple levels of confidence, promises potential characterization of PTMs, and validates peptides from databases. Independent validation may be of interest for a number of applications. Copyright \u00a9 2015 John Wiley &amp; Sons, Ltd.</jats:p>\n                  </jats:sec>",
+    "DOI": "10.1002/rcm.7137",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2015,
+          3,
+          4
+        ]
+      ],
+      "date-time": "2015-03-04T06:07:52Z",
+      "timestamp": 1425449272000
+    },
+    "page": "659-666",
+    "source": "Crossref",
+    "is-referenced-by-count": 5,
+    "title": [
+      "Paired single residue\u2010transposed Lys\u2010N and Lys\u2010C digestions for label\u2010free identification of N\u2010terminal and C\u2010terminal MS/MS peptide product ions: ultrahigh resolution Fourier transform ion cyclotron resonance mass spectrometry and tandem mass spectrometry for peptide\n                    <i>de novo</i>\n                    sequencing"
+    ],
+    "prefix": "10.1002",
+    "volume": "29",
+    "author": [
+      {
+        "given": "Naomi C.",
+        "family": "Brownstein",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Florida State University  1800 East Paul Dirac Drive Tallahassee FL 32310 USA"
+          },
+          {
+            "name": "Department of Statistics Florida State University  117 N. Woodward Ave. Tallahassee FL 32306 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Xiaoyan",
+        "family": "Guan",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Florida State University  1800 East Paul Dirac Drive Tallahassee FL 32310 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Yuan",
+        "family": "Mao",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Chemistry and Biochemistry Florida State University  95 Chieftain Way Tallahassee FL 32303 USA"
+          },
+          {
+            "name": "Regeneron Pharmaceuticals Inc.  777 Old Saw Mill River Road Tarrytown NY 10591 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Qian",
+        "family": "Zhang",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Chemistry and Biochemistry Florida State University  95 Chieftain Way Tallahassee FL 32303 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Peter A.",
+        "family": "DiMaggio",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Chemical Engineering Imperial College London  South Kensington Campus London SW7 2AZ UK"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Qiangwei",
+        "family": "Xia",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Regeneron Pharmaceuticals Inc.  777 Old Saw Mill River Road Tarrytown NY 10591 USA"
+          },
+          {
+            "name": "CMP Scientific, Corp  760 Parkside Ave Brooklyn NY 11226 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Lichao",
+        "family": "Zhang",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Chemistry University of Virginia  McCormick Rd. Charlottesville VA 22904 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Alan G.",
+        "family": "Marshall",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Florida State University  1800 East Paul Dirac Drive Tallahassee FL 32310 USA"
+          },
+          {
+            "name": "Department of Chemistry and Biochemistry Florida State University  95 Chieftain Way Tallahassee FL 32303 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Nicolas L.",
+        "family": "Young",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Florida State University  1800 East Paul Dirac Drive Tallahassee FL 32310 USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "311",
+    "published-online": {
+      "date-parts": [
+        [
+          2015,
+          7,
+          26
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_2_7_2_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nature01511"
+      },
+      {
+        "key": "e_1_2_7_3_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nmeth.2286"
+      },
+      {
+        "key": "e_1_2_7_4_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1146/annurev-bioeng-061008-124934"
+      },
+      {
+        "key": "e_1_2_7_5_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1146/annurev-anchem-071213-020216"
+      },
+      {
+        "key": "e_1_2_7_6_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1146/annurev.biochem.70.1.437"
+      },
+      {
+        "key": "e_1_2_7_7_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nrm1468"
+      },
+      {
+        "key": "e_1_2_7_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/1044-0305(94)80016-2"
+      },
+      {
+        "key": "e_1_2_7_9_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/bioinformatics/bth092"
+      },
+      {
+        "key": "e_1_2_7_10_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/bioinformatics/bth186"
+      },
+      {
+        "key": "e_1_2_7_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr0499491"
+      },
+      {
+        "key": "e_1_2_7_12_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/bioinformatics/bti439"
+      },
+      {
+        "key": "e_1_2_7_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/(SICI)1522-2683(19991201)20:18<3551::AID-ELPS3551>3.0.CO;2-2"
+      },
+      {
+        "key": "e_1_2_7_14_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.3173"
+      },
+      {
+        "key": "e_1_2_7_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.1198"
+      },
+      {
+        "key": "e_1_2_7_16_1",
+        "first-page": "87",
+        "article-title": "Protein identification by tandem mass spectrometry and sequence database searching",
+        "volume": "367",
+        "author": "Nesvizhskii A. I.",
+        "year": "2007",
+        "journal-title": "Methods Mol. Biol."
+      },
+      {
+        "key": "e_1_2_7_17_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1586/epr.11.54"
+      },
+      {
+        "key": "e_1_2_7_18_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr900172v"
+      },
+      {
+        "key": "e_1_2_7_19_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nbt0303-255"
+      },
+      {
+        "key": "e_1_2_7_20_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S0021-9673(04)00971-9"
+      },
+      {
+        "key": "e_1_2_7_21_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr700657y"
+      },
+      {
+        "key": "e_1_2_7_22_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1089/106652799318300"
+      },
+      {
+        "key": "e_1_2_7_23_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "002",
+        "DOI": "10.1142/S0219720012310026",
+        "article-title": "Tutorial on de novo peptide sequencing using MS/MS mass spectrometry",
+        "volume": "10",
+        "author": "Chong K. F.",
+        "year": "2012",
+        "journal-title": "J. Bioinform. Comput. Biol."
+      },
+      {
+        "key": "e_1_2_7_24_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/978-1-60761-444-9_8"
+      },
+      {
+        "key": "e_1_2_7_25_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.sbi.2003.09.005"
+      },
+      {
+        "key": "e_1_2_7_26_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1074/mcp.O111.014902"
+      },
+      {
+        "key": "e_1_2_7_27_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac048788h"
+      },
+      {
+        "key": "e_1_2_7_28_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.1196"
+      },
+      {
+        "key": "e_1_2_7_29_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0618425"
+      },
+      {
+        "key": "e_1_2_7_30_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0508853"
+      },
+      {
+        "key": "e_1_2_7_31_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/aic.11061"
+      },
+      {
+        "key": "e_1_2_7_32_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1074/mcp.M111.010587"
+      },
+      {
+        "key": "e_1_2_7_33_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1142/S0219720008003503"
+      },
+      {
+        "key": "e_1_2_7_34_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr401300m"
+      },
+      {
+        "key": "e_1_2_7_35_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/1097-0231(20001230)14:24<2348::AID-RCM175>3.0.CO;2-8"
+      },
+      {
+        "key": "e_1_2_7_36_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.3555"
+      },
+      {
+        "key": "e_1_2_7_37_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ab.2011.08.011"
+      },
+      {
+        "key": "e_1_2_7_38_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.2691"
+      },
+      {
+        "key": "e_1_2_7_39_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.97.19.10313"
+      },
+      {
+        "key": "e_1_2_7_40_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr050288x"
+      },
+      {
+        "key": "e_1_2_7_41_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr400173d"
+      },
+      {
+        "key": "e_1_2_7_42_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac071165u"
+      },
+      {
+        "key": "e_1_2_7_43_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/(SICI)1098-2787(1998)17:1<1::AID-MAS1>3.0.CO;2-K"
+      },
+      {
+        "key": "e_1_2_7_44_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac203191t"
+      },
+      {
+        "key": "e_1_2_7_45_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0607764"
+      },
+      {
+        "key": "e_1_2_7_46_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ja7099985"
+      },
+      {
+        "key": "e_1_2_7_47_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac201619t"
+      },
+      {
+        "key": "e_1_2_7_48_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac800386h"
+      },
+      {
+        "key": "e_1_2_7_49_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ijms.2011.03.009"
+      },
+      {
+        "key": "e_1_2_7_50_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1044-0305(97)00126-8"
+      },
+      {
+        "key": "e_1_2_7_51_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac101091w"
+      },
+      {
+        "key": "e_1_2_7_52_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac00278a027"
+      },
+      {
+        "key": "e_1_2_7_53_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1387-3806(99)00226-2"
+      },
+      {
+        "key": "e_1_2_7_54_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1044-0305(02)00622-0"
+      },
+      {
+        "key": "e_1_2_7_55_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac201546d"
+      },
+      {
+        "key": "e_1_2_7_56_1",
+        "unstructured": "Available:http://pubs.acs.org."
+      }
+    ],
+    "container-title": [
+      "Rapid Communications in Mass Spectrometry"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Frcm.7137",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Frcm.7137",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/pdf/10.1002/rcm.7137",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          26
+        ]
+      ],
+      "date-time": "2025-10-26T13:52:36Z",
+      "timestamp": 1761486756000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/rcm.7137"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2015,
+          4,
+          15
+        ]
+      ]
+    },
+    "references-count": 55,
+    "journal-issue": {
+      "issue": "7",
+      "published-print": {
+        "date-parts": [
+          [
+            2015,
+            4,
+            15
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1002/rcm.7137"
+    ],
+    "URL": "https://doi.org/10.1002/rcm.7137",
+    "archive": [
+      "Portico"
+    ],
+    "relation": {},
+    "ISSN": [
+      "0951-4198",
+      "1097-0231"
+    ],
+    "issn-type": [
+      {
+        "type": "print",
+        "value": "0951-4198"
+      },
+      {
+        "type": "electronic",
+        "value": "1097-0231"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2015,
+          4,
+          15
+        ]
+      ]
+    }
+  }
+}

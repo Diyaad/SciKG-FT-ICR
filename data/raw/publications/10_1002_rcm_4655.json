@@ -1,0 +1,384 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          26
+        ]
+      ],
+      "date-time": "2025-10-26T10:02:39Z",
+      "timestamp": 1761472959205,
+      "version": "build-2065373602"
+    },
+    "reference-count": 29,
+    "publisher": "Wiley",
+    "issue": "16",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2010,
+              7,
+              15
+            ]
+          ],
+          "date-time": "2010-07-15T00:00:00Z",
+          "timestamp": 1279152000000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Rapid Comm Mass Spectrometry"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2010,
+          8,
+          30
+        ]
+      ]
+    },
+    "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:p>Selenomethionine\u2010modified proteins can improve X\u2010ray crystallographic structural resolution by multi\u2010wavelength anomalous diffraction (MAD) phasing. However, the specificity and extent of selenomethionine incorporation must first be assessed. Bottom\u2010up and top\u2010down proteomics with a modified 14.5 T LTQ Fourier transform ion cyclotron resonance mass spectrometer offer a quick, accurate, and robust method to locate and quantify selenomethionine incorporation after auxotrophic expression. Selenomethionine (methionine with sulfur replaced by selenium) has a different natural\u2010abundance isotopic distribution and a mass increase of 47.94 Da relative to wild\u2010type methionine. Here, both wild\u2010type and selenomethionine\u2010substituted forms of the Cas6 protein containing 'clustered regularly interspaced short palindromic repeats' (CRISPRs) were expressed and purified. Comparative bottom\u2010up and top\u2010down proteomics confirmed that all six methionines were fully replaced by selenomethionines in Se\u2010Cas6. Copyright \u00a9 2010 John Wiley &amp; Sons, Ltd.</jats:p>",
+    "DOI": "10.1002/rcm.4655",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2010,
+          7,
+          16
+        ]
+      ],
+      "date-time": "2010-07-16T12:48:44Z",
+      "timestamp": 1279284524000
+    },
+    "page": "2386-2392",
+    "source": "Crossref",
+    "is-referenced-by-count": 3,
+    "title": [
+      "Sites and extent of selenomethionine incorporation into recombinant Cas6 protein by top\u2010down and bottom\u2010up proteomics with 14.5 T Fourier transform ion cyclotron resonance mass spectrometry"
+    ],
+    "prefix": "10.1002",
+    "volume": "24",
+    "author": [
+      {
+        "given": "Xu",
+        "family": "Wang",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jeremiah D.",
+        "family": "Tipton",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Mark R.",
+        "family": "Emmett",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Alan G.",
+        "family": "Marshall",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "311",
+    "published-online": {
+      "date-parts": [
+        [
+          2010,
+          7,
+          18
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_2_5_2_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1128/jb.169.12.5429-5433.1987"
+      },
+      {
+        "key": "e_1_2_5_3_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1186/gb-2007-8-4-r61"
+      },
+      {
+        "key": "e_1_2_5_4_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1046/j.1365-2958.2000.01838.x"
+      },
+      {
+        "key": "e_1_2_5_5_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1371/journal.pcbi.0010060"
+      },
+      {
+        "key": "e_1_2_5_6_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jbiotec.2006.03.043"
+      },
+      {
+        "key": "e_1_2_5_7_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/nar/30.2.482"
+      },
+      {
+        "key": "e_1_2_5_8_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1186/1745-6150-1-7"
+      },
+      {
+        "key": "e_1_2_5_9_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00239-004-0046-3"
+      },
+      {
+        "key": "e_1_2_5_10_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1101/gad.1742908"
+      },
+      {
+        "key": "e_1_2_5_11_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1107/S0907444903017700"
+      },
+      {
+        "key": "e_1_2_5_12_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1367-5931(00)00122-8"
+      },
+      {
+        "key": "e_1_2_5_13_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac8002038"
+      },
+      {
+        "key": "e_1_2_5_14_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac034103m"
+      },
+      {
+        "key": "e_1_2_5_15_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/(SICI)1098-2787(1998)17:1<1::AID-MAS1>3.0.CO;2-K"
+      },
+      {
+        "key": "e_1_2_5_16_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ja973655h"
+      },
+      {
+        "key": "e_1_2_5_17_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0415657"
+      },
+      {
+        "key": "e_1_2_5_18_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jasms.2009.08.001"
+      },
+      {
+        "key": "e_1_2_5_19_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.95.20.11532"
+      },
+      {
+        "key": "e_1_2_5_20_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr034058z"
+      },
+      {
+        "key": "e_1_2_5_21_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac800386h"
+      },
+      {
+        "key": "e_1_2_5_22_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nprot.2006.468"
+      },
+      {
+        "key": "e_1_2_5_23_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1044-0305(02)00622-0"
+      },
+      {
+        "key": "e_1_2_5_24_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac00278a027"
+      },
+      {
+        "key": "e_1_2_5_25_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1387-3806(99)00226-2"
+      },
+      {
+        "key": "e_1_2_5_26_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/(SICI)1097-0231(199611)10:14<1839::AID-RCM718>3.0.CO;2-V"
+      },
+      {
+        "key": "e_1_2_5_27_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.93.16.8264"
+      },
+      {
+        "key": "e_1_2_5_28_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/nar/gkm371"
+      },
+      {
+        "volume-title": "Current Protocols in Bioinformatics",
+        "year": "2007",
+        "author": "Leduc RD",
+        "key": "e_1_2_5_29_2"
+      },
+      {
+        "key": "e_1_2_5_30_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1044-0305(02)00913-3"
+      }
+    ],
+    "container-title": [
+      "Rapid Communications in Mass Spectrometry"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Frcm.4655",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Frcm.4655",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/pdf/10.1002/rcm.4655",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          26
+        ]
+      ],
+      "date-time": "2025-10-26T09:56:14Z",
+      "timestamp": 1761472574000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/rcm.4655"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2010,
+          7,
+          18
+        ]
+      ]
+    },
+    "references-count": 29,
+    "journal-issue": {
+      "issue": "16",
+      "published-print": {
+        "date-parts": [
+          [
+            2010,
+            8,
+            30
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1002/rcm.4655"
+    ],
+    "URL": "https://doi.org/10.1002/rcm.4655",
+    "archive": [
+      "Portico"
+    ],
+    "relation": {},
+    "ISSN": [
+      "0951-4198",
+      "1097-0231"
+    ],
+    "issn-type": [
+      {
+        "type": "print",
+        "value": "0951-4198"
+      },
+      {
+        "type": "electronic",
+        "value": "1097-0231"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2010,
+          7,
+          18
+        ]
+      ]
+    }
+  }
+}

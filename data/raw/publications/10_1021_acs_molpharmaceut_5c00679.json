@@ -1,0 +1,911 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          16
+        ]
+      ],
+      "date-time": "2026-01-16T23:10:49Z",
+      "timestamp": 1768605049103,
+      "version": "3.49.0"
+    },
+    "reference-count": 63,
+    "publisher": "American Chemical Society (ACS)",
+    "issue": "1",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              10,
+              29
+            ]
+          ],
+          "date-time": "2025-10-29T00:00:00Z",
+          "timestamp": 1761696000000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              10,
+              29
+            ]
+          ],
+          "date-time": "2025-10-29T00:00:00Z",
+          "timestamp": 1761696000000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              10,
+              29
+            ]
+          ],
+          "date-time": "2025-10-29T00:00:00Z",
+          "timestamp": 1761696000000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-045"
+      }
+    ],
+    "funder": [
+      {
+        "name": "Ichthyol-Gesellschaft Cordes, Hermanni & Co. (GmbH & Co.) KG"
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Mol. Pharmaceutics"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          5
+        ]
+      ]
+    },
+    "DOI": "10.1021/acs.molpharmaceut.5c00679",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          30
+        ]
+      ],
+      "date-time": "2025-10-30T01:02:39Z",
+      "timestamp": 1761786159000
+    },
+    "page": "139-150",
+    "source": "Crossref",
+    "is-referenced-by-count": 0,
+    "title": [
+      "Regulatory Challenges for Look-Alike and Sound-Alike Non-Biological Complex Drugs: Molecular Fingerprint Discrimination of\n                    <i>Ichthammol</i>\n                    Formulations"
+    ],
+    "prefix": "10.1021",
+    "volume": "23",
+    "author": [
+      {
+        "given": "Ole",
+        "family": "Tiemann",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Chair of Analytical Chemistry, Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Department Life, Light & Matter (LLM)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Lukas",
+        "family": "Schwalb",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Chair of Analytical Chemistry, Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Helmholtz Zentrum M\u00fcnchen GmbH, German Research Center for Environmental Health, 85764 Neuherberg, Germany, Cooperation group \u201cComprehensive Molecular Analytics\u201d (CMA)",
+            "place": [
+              "Munich, Germany"
+            ]
+          },
+          {
+            "name": "Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Munich, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Helly J.",
+        "family": "Hansen",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Chair of Analytical Chemistry, Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Department Life, Light & Matter (LLM)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-7273-5343",
+        "authenticated-orcid": true,
+        "given": "Martha L.",
+        "family": "Aguilera",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory\u2212iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "TRTG",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-9882-7388",
+        "authenticated-orcid": true,
+        "given": "Thomas",
+        "family": "Gr\u00f6ger",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Chair of Analytical Chemistry, Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Helmholtz Zentrum M\u00fcnchen GmbH, German Research Center for Environmental Health, 85764 Neuherberg, Germany, Cooperation group \u201cComprehensive Molecular Analytics\u201d (CMA)",
+            "place": [
+              "Munich, Germany"
+            ]
+          },
+          {
+            "name": "Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Munich, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-5099-5988",
+        "authenticated-orcid": true,
+        "given": "Peter",
+        "family": "Huy",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Homogeneous Catalysis and Sustainable Chemistry",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Dirk",
+        "family": "Michalik",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Institute of Chemistry",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Leibniz Institute for Catalysis e.V.",
+            "place": [
+              "Rostock, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Guido",
+        "family": "Gayko",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Ichthyol-Gesellschaft Cordes",
+            "place": [
+              "Hamburg, Germany"
+            ]
+          },
+          {
+            "name": "Hermanni & Co. (GmbH & Co.) KG",
+            "place": [
+              "Hamburg, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-9634-9239",
+        "authenticated-orcid": true,
+        "given": "Christopher P.",
+        "family": "R\u00fcger",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Chair of Analytical Chemistry, Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Department Life, Light & Matter (LLM)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "International Joint Laboratory\u2212iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "TRTG",
+            "place": [
+              "Harfleur, France"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Ralf",
+        "family": "Zimmermann",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Chair of Analytical Chemistry, Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Department Life, Light & Matter (LLM)",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          },
+          {
+            "name": "Helmholtz Zentrum M\u00fcnchen GmbH, German Research Center for Environmental Health, 85764 Neuherberg, Germany, Cooperation group \u201cComprehensive Molecular Analytics\u201d (CMA)",
+            "place": [
+              "Munich, Germany"
+            ]
+          },
+          {
+            "name": "Joint Mass Spectrometry Centre (JMSC)",
+            "place": [
+              "Munich, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "316",
+    "published-online": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          29
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "ref1/cit1",
+        "volume-title": "Global patient safety report 2024",
+        "author": "World Health Organization",
+        "year": "2024"
+      },
+      {
+        "key": "ref2/cit2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1186/s12916-020-01774-9"
+      },
+      {
+        "key": "ref3/cit3",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/bcp.14285"
+      },
+      {
+        "key": "ref4/cit4",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/ajhp/58.21.2033"
+      },
+      {
+        "key": "ref5/cit5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11096-011-9595-x"
+      },
+      {
+        "key": "ref6/cit6",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jen.2005.07.012"
+      },
+      {
+        "key": "ref7/cit7",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/bcp.14644"
+      },
+      {
+        "key": "ref8/cit8",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s43441-023-00557-7"
+      },
+      {
+        "key": "ref9/cit9",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1136/bmjqs-2019-010316"
+      },
+      {
+        "key": "ref10/cit10",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1089/mdr.2019.0390"
+      },
+      {
+        "key": "ref11/cit11",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1208/s12248-013-9532-0"
+      },
+      {
+        "key": "ref12/cit12",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/nyas.14662"
+      },
+      {
+        "key": "ref13/cit13",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ejps.2019.03.029"
+      },
+      {
+        "key": "ref14/cit14",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.yrtph.2012.08.009"
+      },
+      {
+        "key": "ref15/cit15",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5639/gabij.2015.0404.037"
+      },
+      {
+        "key": "ref16/cit16",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.4c01288"
+      },
+      {
+        "key": "ref17/cit17",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-022-04393-w"
+      },
+      {
+        "key": "ref18/cit18",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/j.1468-3083.2010.03616.x"
+      },
+      {
+        "key": "ref19/cit19",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ejps.2022.106152"
+      },
+      {
+        "key": "ref20/cit20",
+        "first-page": "328",
+        "author": "Unna P. G.",
+        "year": "1882",
+        "journal-title": "Monatshefte f\u00fcr Praktische Dermatologie"
+      },
+      {
+        "key": "ref21/cit21",
+        "unstructured": "Ph. Eur. 11.0, Ichthammol\n0917\n                      .2008."
+      },
+      {
+        "key": "ref22/cit22",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.31003/USPNF_M39920_01_01"
+      },
+      {
+        "issue": "10",
+        "key": "ref23/cit23",
+        "first-page": "368",
+        "volume": "113",
+        "author": "Gayko G.",
+        "year": "2000",
+        "journal-title": "Berliner und M\u00fcnchener tier\u00e4rztliche Wochenschrift"
+      },
+      {
+        "key": "ref24/cit24",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1017/S0022215100133547"
+      },
+      {
+        "key": "ref25/cit25",
+        "volume-title": "Ichthyol, Yushizhi, Ichthammol",
+        "author": "People\u2019s Republic of China Pharmacopoeia",
+        "year": "2020"
+      },
+      {
+        "key": "ref26/cit26",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13346-022-01223-5"
+      },
+      {
+        "key": "ref27/cit27",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.xphs.2017.07.012"
+      },
+      {
+        "key": "ref28/cit28",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/B978-0-12-814013-0.00005-3"
+      },
+      {
+        "key": "ref29/cit29",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-023-05093-9"
+      },
+      {
+        "key": "ref30/cit30",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2022JG007188"
+      },
+      {
+        "key": "ref31/cit31",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.2c00486"
+      },
+      {
+        "key": "ref32/cit32",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/molecules21080984"
+      },
+      {
+        "key": "ref33/cit33",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jasms.2c00242"
+      },
+      {
+        "key": "ref34/cit34",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/ansa.202000149"
+      },
+      {
+        "key": "ref35/cit35",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/mas.21858"
+      },
+      {
+        "key": "ref36/cit36",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/molecules28052061"
+      },
+      {
+        "key": "ref37/cit37",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-015-1182-2"
+      },
+      {
+        "key": "ref38/cit38",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac102943z"
+      },
+      {
+        "key": "ref39/cit39",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1177/1469066717694286"
+      },
+      {
+        "key": "ref40/cit40",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.893"
+      },
+      {
+        "key": "ref41/cit41",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-023-04593-y"
+      },
+      {
+        "key": "ref42/cit42",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/C9FD00078J"
+      },
+      {
+        "key": "ref43/cit43",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.38212/2224-6614.3441"
+      },
+      {
+        "key": "ref44/cit44",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.yrtph.2010.09.021"
+      },
+      {
+        "key": "ref45/cit45",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/bk-2018-1282.ch006"
+      },
+      {
+        "key": "ref46/cit46",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.1c02229"
+      },
+      {
+        "key": "ref47/cit47",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jf049596q"
+      },
+      {
+        "key": "ref48/cit48",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.plipres.2010.01.001"
+      },
+      {
+        "key": "ref49/cit49",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11746-013-2407-9"
+      },
+      {
+        "key": "ref50/cit50",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/B978-0-12-811971-6.00021-8"
+      },
+      {
+        "key": "ref51/cit51",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11249-020-01292-y"
+      },
+      {
+        "key": "ref52/cit52",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S0043-1648(00)00445-2"
+      },
+      {
+        "key": "ref53/cit53",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ef00001a001"
+      },
+      {
+        "key": "ref54/cit54",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/anie.201604615"
+      },
+      {
+        "key": "ref55/cit55",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/C6TA09862B"
+      },
+      {
+        "key": "ref56/cit56",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scp.2019.100158"
+      },
+      {
+        "key": "ref57/cit57",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1177/09673911211054269"
+      },
+      {
+        "key": "ref58/cit58",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/C9FD00005D"
+      },
+      {
+        "key": "ref59/cit59",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ie050901m"
+      },
+      {
+        "key": "ref60/cit60",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.tet.2008.11.023"
+      },
+      {
+        "key": "ref61/cit61",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S0079-6700(96)00015-9"
+      },
+      {
+        "key": "ref62/cit62",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/aocs.12403"
+      },
+      {
+        "key": "ref63/cit63",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/bbb.1937"
+      }
+    ],
+    "container-title": [
+      "Molecular Pharmaceutics"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/acs.molpharmaceut.5c00679",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "unspecified"
+      },
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/acs.molpharmaceut.5c00679",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          16
+        ]
+      ],
+      "date-time": "2026-01-16T11:34:01Z",
+      "timestamp": 1768563241000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://pubs.acs.org/doi/10.1021/acs.molpharmaceut.5c00679"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          29
+        ]
+      ]
+    },
+    "references-count": 63,
+    "journal-issue": {
+      "issue": "1",
+      "published-print": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            5
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1021/acs.molpharmaceut.5c00679"
+    ],
+    "URL": "https://doi.org/10.1021/acs.molpharmaceut.5c00679",
+    "relation": {},
+    "ISSN": [
+      "1543-8384",
+      "1543-8392"
+    ],
+    "issn-type": [
+      {
+        "value": "1543-8384",
+        "type": "print"
+      },
+      {
+        "value": "1543-8392",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          29
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,785 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          9
+        ]
+      ],
+      "date-time": "2026-01-09T01:04:02Z",
+      "timestamp": 1767920642998,
+      "version": "3.49.0"
+    },
+    "reference-count": 14,
+    "publisher": "Wiley",
+    "issue": "10",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2014,
+              4,
+              14
+            ]
+          ],
+          "date-time": "2014-04-14T00:00:00Z",
+          "timestamp": 1397433600000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ],
+    "funder": [
+      {
+        "name": "NIH",
+        "award": [
+          "R01GM067193"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "R01GM067193"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "NIH",
+        "award": [
+          "1R01NS065263"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "1R01NS065263"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "NSF",
+        "award": [
+          "CHE-1012622"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "CHE-1012622"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "JSB",
+        "award": [
+          "ABI-1062432"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "ABI-1062432"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "RDL",
+        "award": [
+          "DMR-11-57490"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "DMR-11-57490"
+            ]
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000928",
+        "name": "Welch Foundation",
+        "doi-asserted-by": "crossref",
+        "award": [
+          "F-1155"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "F-1155"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000928",
+            "id-type": "DOI",
+            "asserted-by": "crossref"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "analyticalsciencejournals.onlinelibrary.wiley.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Proteomics"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2014,
+          5
+        ]
+      ]
+    },
+    "abstract": "<jats:p>Pilot Project #1\u2014the identification and characterization of human histone <jats:styled-content style=\"fixed-case\">H</jats:styled-content>4 proteoforms by top\u2010down <jats:styled-content style=\"fixed-case\">MS</jats:styled-content>\u2014is the first project launched by the <jats:styled-content style=\"fixed-case\">C</jats:styled-content>onsortium for <jats:styled-content style=\"fixed-case\">T</jats:styled-content>op\u2010<jats:styled-content style=\"fixed-case\">D</jats:styled-content>own <jats:styled-content style=\"fixed-case\">P</jats:styled-content>roteomics (<jats:styled-content style=\"fixed-case\">CTDP</jats:styled-content>) to refine and validate top\u2010down <jats:styled-content style=\"fixed-case\">MS</jats:styled-content>. Within the initial results from seven participating laboratories, all reported the probability\u2010based identification of human histone <jats:styled-content style=\"fixed-case\">H</jats:styled-content>4 (<jats:styled-content style=\"fixed-case\">U</jats:styled-content>ni<jats:styled-content style=\"fixed-case\">P</jats:styled-content>rot accession P62805) with expectation values ranging from 10<jats:sup>\u221213</jats:sup> to 10<jats:sup>\u2212105</jats:sup>. Regarding characterization, a total of 74 proteoforms were reported, with 21 done so unambiguously; one new <jats:styled-content style=\"fixed-case\">PTM</jats:styled-content>, K79ac, was identified. Inter\u2010laboratory comparison reveals aspects of the results that are consistent, such as the localization of individual <jats:styled-content style=\"fixed-case\">PTM</jats:styled-content>s and binary combinations, while other aspects are more variable, such as the accurate characterization of low\u2010abundance proteoforms harboring &gt;2 <jats:styled-content style=\"fixed-case\">PTM</jats:styled-content>s. An open\u2010access tool and discussion of proteoform scoring are included, along with a description of general challenges that lie ahead including improved proteoform separations prior to mass spectrometric analysis, better instrumentation performance, and software development.</jats:p>",
+    "DOI": "10.1002/pmic.201300438",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2014,
+          3,
+          19
+        ]
+      ],
+      "date-time": "2014-03-19T04:36:35Z",
+      "timestamp": 1395203795000
+    },
+    "page": "1130-1140",
+    "update-policy": "https://doi.org/10.1002/crossmark_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 91,
+    "title": [
+      "The first pilot project of the consortium for top\u2010down proteomics: <scp>A</scp> status report"
+    ],
+    "prefix": "10.1002",
+    "volume": "14",
+    "author": [
+      {
+        "given": "Xibei",
+        "family": "Dang",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory Florida State University  Tallahassee FL USA"
+          },
+          {
+            "name": "Department of Chemistry and Biochemistry Florida State University  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jenna",
+        "family": "Scotcher",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory Florida State University  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Si",
+        "family": "Wu",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Environmental Molecular Sciences Laboratory Pacific Northwest National Laboratory  Richland WA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Rosalie K.",
+        "family": "Chu",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Environmental Molecular Sciences Laboratory Pacific Northwest National Laboratory  Richland WA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Nikola",
+        "family": "Toli\u0107",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Environmental Molecular Sciences Laboratory Pacific Northwest National Laboratory  Richland WA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Ioanna",
+        "family": "Ntai",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Paul M.",
+        "family": "Thomas",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Ryan T.",
+        "family": "Fellers",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Bryan P.",
+        "family": "Early",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Yupeng",
+        "family": "Zheng",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Kenneth R.",
+        "family": "Durbin",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Richard D.",
+        "family": "LeDuc",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "NIH/NCRR Mass Spectrometry Resource Washington University in St. Louis  St. Louis MO USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jeremy J.",
+        "family": "Wolff",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Bruker Daltonics  Billerica MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Christopher J.",
+        "family": "Thompson",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Bruker Daltonics  Billerica MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jingxi",
+        "family": "Pan",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "UVic\u2010Genome BC Proteomics Centre, Department of Biochemistry and Microbiology University of Victoria  Victoria BC Canada"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jun",
+        "family": "Han",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "UVic\u2010Genome BC Proteomics Centre, Department of Biochemistry and Microbiology University of Victoria  Victoria BC Canada"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jared B.",
+        "family": "Shaw",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Chemistry University of Texas  Austin TX USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Joseph P.",
+        "family": "Salisbury",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Pharm. Sci., Barnett Institute Northeastern University  Boston MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Michael",
+        "family": "Easterling",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Bruker Daltonics  Billerica MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Christoph H.",
+        "family": "Borchers",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "UVic\u2010Genome BC Proteomics Centre, Department of Biochemistry and Microbiology University of Victoria  Victoria BC Canada"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jennifer S.",
+        "family": "Brodbelt",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Chemistry University of Texas  Austin TX USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Jeffery N.",
+        "family": "Agar",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Pharm. Sci., Barnett Institute Northeastern University  Boston MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Ljiljana",
+        "family": "Pa\u0161a\u2010Toli\u0107",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Environmental Molecular Sciences Laboratory Pacific Northwest National Laboratory  Richland WA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Neil L.",
+        "family": "Kelleher",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Departments of Chemistry and Molecular Biosciences and the Proteomics Center of Excellence Northwestern University  Evanston IL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Nicolas L.",
+        "family": "Young",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory Florida State University  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "311",
+    "published-online": {
+      "date-parts": [
+        [
+          2014,
+          4,
+          14
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_2_8_2_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0415657"
+      },
+      {
+        "key": "e_1_2_8_3_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/c1an15286f"
+      },
+      {
+        "key": "e_1_2_8_4_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nature10575"
+      },
+      {
+        "key": "e_1_2_8_5_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nmeth.2369"
+      },
+      {
+        "key": "e_1_2_8_6_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1074/jbc.M709796200"
+      },
+      {
+        "key": "e_1_2_8_7_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0600050"
+      },
+      {
+        "key": "e_1_2_8_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.0710515105"
+      },
+      {
+        "key": "e_1_2_8_9_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1074/mcp.M900238-MCP200"
+      },
+      {
+        "key": "e_1_2_8_10_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr050268v"
+      },
+      {
+        "key": "e_1_2_8_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac801123p"
+      },
+      {
+        "key": "e_1_2_8_12_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ja4029654"
+      },
+      {
+        "key": "e_1_2_8_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1074/mcp.M900144-MCP200"
+      },
+      {
+        "key": "e_1_2_8_14_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/nar/gkm371"
+      },
+      {
+        "key": "e_1_2_8_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1074/mcp.M111.008524"
+      }
+    ],
+    "container-title": [
+      "PROTEOMICS"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fpmic.201300438",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fpmic.201300438",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/pdf/10.1002/pmic.201300438",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          21
+        ]
+      ],
+      "date-time": "2025-10-21T10:35:55Z",
+      "timestamp": 1761042955000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/pmic.201300438"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2014,
+          4,
+          14
+        ]
+      ]
+    },
+    "references-count": 14,
+    "journal-issue": {
+      "issue": "10",
+      "published-print": {
+        "date-parts": [
+          [
+            2014,
+            5
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1002/pmic.201300438"
+    ],
+    "URL": "https://doi.org/10.1002/pmic.201300438",
+    "archive": [
+      "Portico"
+    ],
+    "relation": {},
+    "ISSN": [
+      "1615-9853",
+      "1615-9861"
+    ],
+    "issn-type": [
+      {
+        "value": "1615-9853",
+        "type": "print"
+      },
+      {
+        "value": "1615-9861",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2014,
+          4,
+          14
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "2013-10-01",
+        "order": 0,
+        "name": "received",
+        "label": "Received",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2014-03-13",
+        "order": 2,
+        "name": "accepted",
+        "label": "Accepted",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2014-04-14",
+        "order": 3,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ]
+  }
+}

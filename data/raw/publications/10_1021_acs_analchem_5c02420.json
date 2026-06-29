@@ -1,0 +1,1053 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          7
+        ]
+      ],
+      "date-time": "2026-04-07T18:17:45Z",
+      "timestamp": 1775585865308,
+      "version": "3.50.1"
+    },
+    "reference-count": 100,
+    "publisher": "American Chemical Society (ACS)",
+    "issue": "34",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              8,
+              19
+            ]
+          ],
+          "date-time": "2025-08-19T00:00:00Z",
+          "timestamp": 1755561600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              8,
+              19
+            ]
+          ],
+          "date-time": "2025-08-19T00:00:00Z",
+          "timestamp": 1755561600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              8,
+              19
+            ]
+          ],
+          "date-time": "2025-08-19T00:00:00Z",
+          "timestamp": 1755561600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-045"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/100023043",
+        "name": "State of Florida",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100023043",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000078",
+        "name": "Division of Materials Research",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "DMR-2128556"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "DMR-2128556"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000078",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Anal. Chem."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2025,
+          9,
+          2
+        ]
+      ]
+    },
+    "DOI": "10.1021/acs.analchem.5c02420",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          19
+        ]
+      ],
+      "date-time": "2025-08-19T18:59:20Z",
+      "timestamp": 1755629960000
+    },
+    "page": "18543-18552",
+    "source": "Crossref",
+    "is-referenced-by-count": 1,
+    "title": [
+      "Internal Calibration without Internal Calibrants by Mass Difference Analysis in FT-ICR Mass Spectrometry"
+    ],
+    "prefix": "10.1021",
+    "volume": "97",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-1302-2850",
+        "authenticated-orcid": true,
+        "given": "Ryan P.",
+        "family": "Rodgers",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "International Joint Laboratory \u2212 iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "Universite de Pau et des Pays de l\u2019Adour",
+            "place": [
+              "Pau, France"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-4272-2939",
+        "authenticated-orcid": true,
+        "given": "Christopher L.",
+        "family": "Hendrickson",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "International Joint Laboratory \u2212 iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Christopher A.",
+        "family": "Holder Montenegro",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Alvaro J.",
+        "family": "Tello-Rodriguez",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Teja",
+        "family": "Potu",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Benjohn",
+        "family": "Shung",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Mason",
+        "family": "Hagan",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5324-4525",
+        "authenticated-orcid": true,
+        "given": "Chad R.",
+        "family": "Weisbrod",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-9569-3158",
+        "authenticated-orcid": true,
+        "given": "Pierre",
+        "family": "Giusti",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory \u2212 iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "TotalEnergies OneTech",
+            "place": [
+              "Harfleur, France"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-9634-9239",
+        "authenticated-orcid": true,
+        "given": "Christopher P.",
+        "family": "R\u00fcger",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory \u2212 iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "University of Rostock",
+            "place": [
+              "Rostock, Germany"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-7273-5343",
+        "authenticated-orcid": true,
+        "given": "Martha L.",
+        "family": "Aguilera",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          },
+          {
+            "name": "International Joint Laboratory \u2212 iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "Florida State University",
+            "place": [
+              "Tallahassee, United States"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-1116-8776",
+        "authenticated-orcid": true,
+        "given": "Germain Salvato",
+        "family": "Vallverdu",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "International Joint Laboratory \u2212 iC2MC: Complex Matrices Molecular Characterization",
+            "place": [
+              "Harfleur, France"
+            ]
+          },
+          {
+            "name": "Universite de Pau et des Pays de l\u2019Adour",
+            "place": [
+              "Pau, France"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "316",
+    "published-online": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          19
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "ref1/cit1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-019-02205-7"
+      },
+      {
+        "key": "ref2/cit2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jasms.2005.01.027"
+      },
+      {
+        "key": "ref3/cit3",
+        "first-page": "1",
+        "volume": "2",
+        "author": "Schmitt-Kopplin P.",
+        "year": "2012",
+        "journal-title": "Meteorites"
+      },
+      {
+        "key": "ref4/cit4",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/ijms17040439"
+      },
+      {
+        "key": "ref5/cit5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/life9020048"
+      },
+      {
+        "key": "ref6/cit6",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.1c01815"
+      },
+      {
+        "key": "ref7/cit7",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.cej.2012.06.052"
+      },
+      {
+        "key": "ref8/cit8",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c01242"
+      },
+      {
+        "key": "ref9/cit9",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ef502428d"
+      },
+      {
+        "key": "ref10/cit10",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.0c02263"
+      },
+      {
+        "key": "ref11/cit11",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.fuel.2019.115923"
+      },
+      {
+        "key": "ref12/cit12",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.1c02502"
+      },
+      {
+        "key": "ref13/cit13",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.7b02004"
+      },
+      {
+        "key": "ref14/cit14",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.2c02936"
+      },
+      {
+        "key": "ref15/cit15",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.4421"
+      },
+      {
+        "key": "ref16/cit16",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2010.05.009"
+      },
+      {
+        "key": "ref17/cit17",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2015GB005115"
+      },
+      {
+        "key": "ref18/cit18",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.marchem.2006.04.003"
+      },
+      {
+        "key": "ref19/cit19",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.marchem.2004.06.038"
+      },
+      {
+        "key": "ref20/cit20",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.2010.55.4.1467"
+      },
+      {
+        "key": "ref21/cit21",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.2c08816"
+      },
+      {
+        "key": "ref22/cit22",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.watres.2020.116406"
+      },
+      {
+        "key": "ref23/cit23",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1255/ejms.1123"
+      },
+      {
+        "key": "ref24/cit24",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.3c00771"
+      },
+      {
+        "key": "ref25/cit25",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/bs.coac.2016.01.008"
+      },
+      {
+        "key": "ref26/cit26",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.6b06213"
+      },
+      {
+        "key": "ref27/cit27",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.estlett.2c00206"
+      },
+      {
+        "key": "ref28/cit28",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-019-02358-0"
+      },
+      {
+        "key": "ref29/cit29",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.1c08143"
+      },
+      {
+        "key": "ref30/cit30",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c01160"
+      },
+      {
+        "key": "ref31/cit31",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/mas.21438"
+      },
+      {
+        "key": "ref32/cit32",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ef010111z"
+      },
+      {
+        "key": "ref33/cit33",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ar020177t"
+      },
+      {
+        "key": "ref34/cit34",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/D3AY02060F"
+      },
+      {
+        "key": "ref35/cit35",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.fuel.2023.130066"
+      },
+      {
+        "key": "ref36/cit36",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac4025335"
+      },
+      {
+        "key": "ref37/cit37",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2021.151884"
+      },
+      {
+        "key": "ref38/cit38",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1080/10408347.2022.2039093"
+      },
+      {
+        "key": "ref39/cit39",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c02869"
+      },
+      {
+        "key": "ref40/cit40",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c02654"
+      },
+      {
+        "key": "ref41/cit41",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2020.144050"
+      },
+      {
+        "key": "ref42/cit42",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.3c02599"
+      },
+      {
+        "key": "ref43/cit43",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.6b00655"
+      },
+      {
+        "key": "ref44/cit44",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jaap.2022.105611"
+      },
+      {
+        "key": "ref45/cit45",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.fuel.2013.11.019"
+      },
+      {
+        "key": "ref46/cit46",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jaap.2024.106354"
+      },
+      {
+        "key": "ref47/cit47",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.6b00849"
+      },
+      {
+        "key": "ref48/cit48",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/D1EW00020A"
+      },
+      {
+        "key": "ref49/cit49",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jasms.2c00163"
+      },
+      {
+        "key": "ref50/cit50",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-014-8408-1"
+      },
+      {
+        "key": "ref51/cit51",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/acp-24-553-2024"
+      },
+      {
+        "key": "ref52/cit52",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/D3EA00085K"
+      },
+      {
+        "key": "ref53/cit53",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1071/EN11167"
+      },
+      {
+        "key": "ref54/cit54",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.estlett.2c00255"
+      },
+      {
+        "key": "ref55/cit55",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.7b04159"
+      },
+      {
+        "key": "ref56/cit56",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac049733i"
+      },
+      {
+        "key": "ref57/cit57",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-012-0480-1"
+      },
+      {
+        "key": "ref58/cit58",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-015-1182-2"
+      },
+      {
+        "key": "ref59/cit59",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.9b04768"
+      },
+      {
+        "key": "ref60/cit60",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-016-1507-9"
+      },
+      {
+        "key": "ref61/cit61",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.4c01370"
+      },
+      {
+        "key": "ref62/cit62",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac0600306"
+      },
+      {
+        "key": "ref63/cit63",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac901476u"
+      },
+      {
+        "key": "ref64/cit64",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5702/massspectrometry.A0055"
+      },
+      {
+        "key": "ref65/cit65",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jasms.9b00119"
+      },
+      {
+        "key": "ref66/cit66",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac100079z"
+      },
+      {
+        "key": "ref67/cit67",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/es990889n"
+      },
+      {
+        "key": "ref68/cit68",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jasms.2007.05.016"
+      },
+      {
+        "key": "ref69/cit69",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.95.20.11532"
+      },
+      {
+        "key": "ref70/cit70",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac970155y"
+      },
+      {
+        "key": "ref71/cit71",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1186/1471-2105-8-105"
+      },
+      {
+        "key": "ref72/cit72",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac60206a048"
+      },
+      {
+        "key": "ref73/cit73",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/ange.19640761431"
+      },
+      {
+        "key": "ref74/cit74",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1255/ejms.1135"
+      },
+      {
+        "key": "ref75/cit75",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/jms.4480"
+      },
+      {
+        "key": "ref76/cit76",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/amt-16-3273-2023"
+      },
+      {
+        "key": "ref77/cit77",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac010560w"
+      },
+      {
+        "key": "ref78/cit78",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.8b03591"
+      },
+      {
+        "key": "ref79/cit79",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.chemosphere.2022.137443"
+      },
+      {
+        "key": "ref80/cit80",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jpowsour.2023.233516"
+      },
+      {
+        "key": "ref81/cit81",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fmolb.2022.917911"
+      },
+      {
+        "key": "ref82/cit82",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/CSB.2004.1332437"
+      },
+      {
+        "key": "ref83/cit83",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-006-0298-4"
+      },
+      {
+        "key": "ref84/cit84",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.5b02049"
+      },
+      {
+        "key": "ref85/cit85",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.8b04555"
+      },
+      {
+        "key": "ref86/cit86",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S1044-0305(00)00096-9"
+      },
+      {
+        "key": "ref87/cit87",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/pr0501057"
+      },
+      {
+        "key": "ref88/cit88",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1255/ejms.1186"
+      },
+      {
+        "key": "ref89/cit89",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.9b05113"
+      },
+      {
+        "key": "ref90/cit90",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jasms.9b00091"
+      },
+      {
+        "key": "ref91/cit91",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac102943z"
+      },
+      {
+        "key": "ref92/cit92",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac00278a027"
+      },
+      {
+        "key": "ref93/cit93",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ijms.2006.02.001"
+      },
+      {
+        "key": "ref94/cit94",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/jasms.2c00323"
+      },
+      {
+        "key": "ref95/cit95",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac50047a029"
+      },
+      {
+        "key": "ref96/cit96",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/0169-7439(86)80025-9"
+      },
+      {
+        "key": "ref97/cit97",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac000226k"
+      },
+      {
+        "key": "ref98/cit98",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s00216-013-7478-9"
+      },
+      {
+        "key": "ref99/cit99",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361-012-0464-1"
+      },
+      {
+        "key": "ref100/cit100",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/amt-13-4111-2020"
+      }
+    ],
+    "container-title": [
+      "Analytical Chemistry"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/acs.analchem.5c02420",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "unspecified"
+      },
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/acs.analchem.5c02420",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          9,
+          2
+        ]
+      ],
+      "date-time": "2025-09-02T08:12:34Z",
+      "timestamp": 1756800754000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://pubs.acs.org/doi/10.1021/acs.analchem.5c02420"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          19
+        ]
+      ]
+    },
+    "references-count": 100,
+    "journal-issue": {
+      "issue": "34",
+      "published-print": {
+        "date-parts": [
+          [
+            2025,
+            9,
+            2
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1021/acs.analchem.5c02420"
+    ],
+    "URL": "https://doi.org/10.1021/acs.analchem.5c02420",
+    "relation": {},
+    "ISSN": [
+      "0003-2700",
+      "1520-6882"
+    ],
+    "issn-type": [
+      {
+        "value": "0003-2700",
+        "type": "print"
+      },
+      {
+        "value": "1520-6882",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          19
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,1181 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          16
+        ]
+      ],
+      "date-time": "2026-02-16T19:02:09Z",
+      "timestamp": 1771268529288,
+      "version": "3.50.1"
+    },
+    "reference-count": 161,
+    "publisher": "American Geophysical Union (AGU)",
+    "issue": "6",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              21
+            ]
+          ],
+          "date-time": "2025-06-21T00:00:00Z",
+          "timestamp": 1750464000000
+        },
+        "content-version": "vor",
+        "delay-in-days": 20,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              1
+            ]
+          ],
+          "date-time": "2025-06-01T00:00:00Z",
+          "timestamp": 1748736000000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "http://doi.wiley.com/10.1002/tdm_license_1.1"
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "agupubs.onlinelibrary.wiley.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Global Biogeochemical Cycles"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2025,
+          6
+        ]
+      ]
+    },
+    "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:p>The Amazon River exports over 10% of the global riverine dissolved organic carbon (DOC) flux to the ocean. However, several downstream clearwater tributaries, such as the Tapaj\u00f3s River, are typically not included in these measurements, omitting a crucial part of the Amazon carbon cycle. This study investigated near\u2010monthly DOC and dissolved organic matter (DOM) composition via optical, fluorescence spectroscopy, and ultra\u2010high resolution mass spectrometry (FT\u2010ICR MS) of the Tapaj\u00f3s River for 8 years (2016\u20132024) to better understand patterns and drivers of potential organic carbon export to the lower Amazon River. DOM composition and DOC export were driven by the seasonal flood pulse of the Tapaj\u00f3s River, exporting aromatic terrestrial DOM from the watershed during high discharge and internally produced algal or microbial DOM during dry periods. On average, we report that the Tapaj\u00f3s River exports 1.38\u00a0Tg DOC annually to the downstream Amazon mixing zone, representing an amount of DOC exported by other major world rivers such as the Yukon or Mekong River. Furthermore, organic carbon export varied interannually with less DOC exported during dry El Ni\u00f1o events and more algal\u2010derived DOM exported during bloom periods. Finally, as grassland and cropland landcover increased over the study period, we observed an average decrease in aromatic DOM and an increase in microbially processed fluorophores. Our study suggests that temperature, precipitation, and anthropogenic land use changes in clearwater rivers will impact carbon export across the lower Amazon River network.</jats:p>",
+    "DOI": "10.1029/2025gb008545",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          21
+        ]
+      ],
+      "date-time": "2025-06-21T06:29:51Z",
+      "timestamp": 1750487391000
+    },
+    "update-policy": "https://doi.org/10.1002/crossmark_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 0,
+    "title": [
+      "Long\u2010Term and Seasonal Drivers of Organic Matter in the Clearwater Tapaj\u00f3s River and Implications for the Amazon River Basin"
+    ],
+    "prefix": "10.1029",
+    "volume": "39",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-6904-5253",
+        "authenticated-orcid": false,
+        "given": "Martin R.",
+        "family": "Kurek",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Department of Earth Ocean and Atmospheric Science Florida State University  Tallahassee FL USA"
+          },
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Rafael",
+        "family": "Muniz",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Doctoral Graduate Program in Society Nature and Development Institute of Biodiversity and Forestry Federal University of Western Par\u00e1  Santar\u00e9m Brazil"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4962-8870",
+        "authenticated-orcid": false,
+        "given": "Jos\u00e9 M. S.",
+        "family": "Moura",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Applied Ecology Laboratory Interdisciplinary and Intercultural Training Institute Federal University of Western Par\u00e1  Santar\u00e9m Brazil"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Bernhard",
+        "family": "Peucker\u2010Ehrenbrink",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Marine Chemistry and Geochemistry Department Woods Hole Oceanographic Institution  Woods Hole MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Robert M.",
+        "family": "Holmes",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Woodwell Climate Research Center  Falmouth MA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-7213-521X",
+        "authenticated-orcid": false,
+        "given": "Amy M.",
+        "family": "McKenna",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Ion Cyclotron Resonance Facility  Tallahassee FL USA"
+          },
+          {
+            "name": "Department of Soil &amp; Crop Sciences Colorado State University  Fort Collins CO USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-0777-0748",
+        "authenticated-orcid": false,
+        "given": "Robert G. M.",
+        "family": "Spencer",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Earth Ocean and Atmospheric Science Florida State University  Tallahassee FL USA"
+          },
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "13",
+    "published-online": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          21
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_2_9_1_2_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.crte.2017.11.001"
+      },
+      {
+        "key": "e_1_2_9_1_3_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.1996.41.1.0041"
+      },
+      {
+        "key": "e_1_2_9_1_4_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2006.06.003"
+      },
+      {
+        "key": "e_1_2_9_1_5_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1890/100014"
+      },
+      {
+        "key": "e_1_2_9_1_6_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41586\u2010022\u201005500\u20108"
+      },
+      {
+        "key": "e_1_2_9_1_7_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ngeo618"
+      },
+      {
+        "key": "e_1_2_9_1_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/j.2517\u20106161.1995.tb02031.x"
+      },
+      {
+        "key": "e_1_2_9_1_9_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.2019377118"
+      },
+      {
+        "key": "e_1_2_9_1_10_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/ecy.3763"
+      },
+      {
+        "key": "e_1_2_9_1_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1890/01\u20106028"
+      },
+      {
+        "key": "e_1_2_9_1_12_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fmars.2017.00044"
+      },
+      {
+        "key": "e_1_2_9_1_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ngeo2940"
+      },
+      {
+        "key": "e_1_2_9_1_14_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1175/2010EI338.1"
+      },
+      {
+        "key": "e_1_2_9_1_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/gcb.13173"
+      },
+      {
+        "key": "e_1_2_9_1_16_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10021\u2010006\u20109013\u20108"
+      },
+      {
+        "key": "e_1_2_9_1_17_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.7372"
+      },
+      {
+        "key": "e_1_2_9_1_18_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41467\u2010019\u201011543\u20109"
+      },
+      {
+        "key": "e_1_2_9_1_19_1",
+        "unstructured": "Corilo Y.(2014).PetroOrg[Computer Software].https://perto.org"
+      },
+      {
+        "key": "e_1_2_9_1_20_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/es0506962"
+      },
+      {
+        "key": "e_1_2_9_1_21_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lom.2010.8.67"
+      },
+      {
+        "key": "e_1_2_9_1_22_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10750\u2010012\u20101319\u20102"
+      },
+      {
+        "key": "e_1_2_9_1_23_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2004GB002335"
+      },
+      {
+        "key": "e_1_2_9_1_24_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1139/cjfas\u20102014\u20100400"
+      },
+      {
+        "key": "e_1_2_9_1_25_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2017JG003797"
+      },
+      {
+        "key": "e_1_2_9_1_26_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2021.152348"
+      },
+      {
+        "key": "e_1_2_9_1_27_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nature10717"
+      },
+      {
+        "key": "e_1_2_9_1_28_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/lno.11250"
+      },
+      {
+        "key": "e_1_2_9_1_29_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10201\u2010006\u20100179\u20108"
+      },
+      {
+        "key": "e_1_2_9_1_30_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/wrcr.20067"
+      },
+      {
+        "key": "e_1_2_9_1_31_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/95GB01145"
+      },
+      {
+        "key": "e_1_2_9_1_32_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lom.2008.6.230"
+      },
+      {
+        "key": "e_1_2_9_1_33_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fmicb.2017.00882"
+      },
+      {
+        "key": "e_1_2_9_1_34_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2008WR007546"
+      },
+      {
+        "key": "e_1_2_9_1_35_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2020GB006895"
+      },
+      {
+        "key": "e_1_2_9_1_36_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/lol2.10055"
+      },
+      {
+        "key": "e_1_2_9_1_37_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.wace.2021.100406"
+      },
+      {
+        "key": "e_1_2_9_1_38_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S0146\u20106380(01)00103\u20106"
+      },
+      {
+        "key": "e_1_2_9_1_39_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2019EF001198"
+      },
+      {
+        "key": "e_1_2_9_1_40_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10113\u2010016\u20101007\u20102"
+      },
+      {
+        "key": "e_1_2_9_1_41_1",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Friedl M. &Sulla\u2010Menashe D.(2019).MCD12Q1 MODIS/Terra+Aqua land cover type yearly L3 global 500m SIN grid V006[Dataset].NASA EOSDIS Land Processes Distributed Active Archive Center.https://doi.org/10.5067/MODIS/MCD12Q1.006",
+        "DOI": "10.5067/MODIS/MCD12Q1.006"
+      },
+      {
+        "key": "e_1_2_9_1_42_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1175/JCLI\u2010D\u201016\u20100758.1"
+      },
+      {
+        "key": "e_1_2_9_1_43_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/grl.50377"
+      },
+      {
+        "key": "e_1_2_9_1_44_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u201013\u20104279\u20102016"
+      },
+      {
+        "key": "e_1_2_9_1_45_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1126/science.aba3996"
+      },
+      {
+        "key": "e_1_2_9_1_46_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/jgrg.20077"
+      },
+      {
+        "key": "e_1_2_9_1_47_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.chemgeo.2016.08.009"
+      },
+      {
+        "key": "e_1_2_9_1_48_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/gcb.14620"
+      },
+      {
+        "key": "e_1_2_9_1_49_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S0146\u20106380(97)00066\u20101"
+      },
+      {
+        "key": "e_1_2_9_1_50_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.2008.53.3.0955"
+      },
+      {
+        "key": "e_1_2_9_1_51_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361\u2010015\u20101182\u20102"
+      },
+      {
+        "key": "e_1_2_9_1_52_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u201013\u20102257\u20102016"
+      },
+      {
+        "key": "e_1_2_9_1_53_1",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Huffman G. J. STocker E. F. Bolvin D. T. Nelkin E. J. &Tan J.(2019).GPM IMERG late precipitation L3 1 day 0.1 degree x 0.1 degree V06[Dataset].NASA Goddard Earth Sciences Data and Information Services Center.https://doi.org/10.5067/GPM/IMERGDL/DAY/06",
+        "DOI": "10.5067/GPM/IMERGDL/DAY/06"
+      },
+      {
+        "key": "e_1_2_9_1_54_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/srep33130"
+      },
+      {
+        "key": "e_1_2_9_1_55_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13157\u2010011\u20100190\u20107"
+      },
+      {
+        "key": "e_1_2_9_1_56_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.7b05513"
+      },
+      {
+        "key": "e_1_2_9_1_57_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.2386"
+      },
+      {
+        "key": "e_1_2_9_1_58_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.7433"
+      },
+      {
+        "key": "e_1_2_9_1_59_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lom.2013.11.616"
+      },
+      {
+        "key": "e_1_2_9_1_60_1",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Kurek M.(2025).Long\u2010term and seasonal drivers of organic matter in the clearwater Tapaj\u00f3s River and implications for the Amazon River basin[Dataset].OSF.https://doi.org/10.17605/OSF.IO/USH6Y",
+        "DOI": "10.17605/OSF.IO/USH6Y"
+      },
+      {
+        "key": "e_1_2_9_1_61_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.0c05206"
+      },
+      {
+        "key": "e_1_2_9_1_62_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2022GB007301"
+      },
+      {
+        "key": "e_1_2_9_1_63_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2021GB006938"
+      },
+      {
+        "key": "e_1_2_9_1_64_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2023GB007917"
+      },
+      {
+        "key": "e_1_2_9_1_65_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u201013\u20105405\u20102016"
+      },
+      {
+        "key": "e_1_2_9_1_66_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u201011\u20105969\u20102014"
+      },
+      {
+        "key": "e_1_2_9_1_67_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gca.2013.11.009"
+      },
+      {
+        "key": "e_1_2_9_1_68_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2018MS001363"
+      },
+      {
+        "key": "e_1_2_9_1_69_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2022.159620"
+      },
+      {
+        "key": "e_1_2_9_1_70_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acsestwater.2c00621"
+      },
+      {
+        "key": "e_1_2_9_1_71_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41467\u2010020\u201018187\u20100"
+      },
+      {
+        "key": "e_1_2_9_1_72_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/rs8070579"
+      },
+      {
+        "key": "e_1_2_9_1_73_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/rs9080861"
+      },
+      {
+        "key": "e_1_2_9_1_74_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2013JG002442"
+      },
+      {
+        "key": "e_1_2_9_1_75_1",
+        "first-page": "1",
+        "article-title": "On the hydrological cycle of the Amazon basin: A historical review and current state\u2010of\u2010the\u2010art",
+        "volume": "21",
+        "author": "Marengo J. A.",
+        "year": "2006",
+        "journal-title": "Revista Brasileira de Meteorologia"
+      },
+      {
+        "key": "e_1_2_9_1_76_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/0022\u20101694(95)02974\u20105"
+      },
+      {
+        "key": "e_1_2_9_1_77_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nature03880"
+      },
+      {
+        "key": "e_1_2_9_1_78_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/97GB01056"
+      },
+      {
+        "key": "e_1_2_9_1_79_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41467\u2010022\u201029711\u20109"
+      },
+      {
+        "key": "e_1_2_9_1_80_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.2001.46.1.0038"
+      },
+      {
+        "key": "e_1_2_9_1_81_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2015GB005115"
+      },
+      {
+        "key": "e_1_2_9_1_82_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11356\u2010015\u20105503\u20106"
+      },
+      {
+        "key": "e_1_2_9_1_83_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/hyp.1287"
+      },
+      {
+        "key": "e_1_2_9_1_84_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1023/A:1009606801595"
+      },
+      {
+        "key": "e_1_2_9_1_85_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/c3ay41160e"
+      },
+      {
+        "key": "e_1_2_9_1_86_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.advwatres.2015.09.026"
+      },
+      {
+        "key": "e_1_2_9_1_87_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2022JG006846"
+      },
+      {
+        "key": "e_1_2_9_1_88_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2018.03.356"
+      },
+      {
+        "key": "e_1_2_9_1_89_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/piahs\u2010377\u20103\u20102018"
+      },
+      {
+        "key": "e_1_2_9_1_90_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/feart.2016.00095"
+      },
+      {
+        "key": "e_1_2_9_1_91_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.jhydrol.2015.02.018"
+      },
+      {
+        "key": "e_1_2_9_1_92_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/lno.11619"
+      },
+      {
+        "key": "e_1_2_9_1_93_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3354/esr00751"
+      },
+      {
+        "key": "e_1_2_9_1_94_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.6b04142"
+      },
+      {
+        "key": "e_1_2_9_1_95_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2020GL089877"
+      },
+      {
+        "key": "e_1_2_9_1_96_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.1992.37.4.0857"
+      },
+      {
+        "key": "e_1_2_9_1_97_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nature12760"
+      },
+      {
+        "key": "e_1_2_9_1_98_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1890/14\u20101684.1"
+      },
+      {
+        "key": "e_1_2_9_1_99_1",
+        "article-title": "R: A language and environment for statistical computing",
+        "author": "R Core Team",
+        "year": "2020",
+        "journal-title": "The R Project for Statistical Computing"
+      },
+      {
+        "key": "e_1_2_9_1_100_1",
+        "unstructured": "Revelle W.(2024).psych: Procedures for psychological psychometric and personality Research (version 2.4.6.26)[Computer Software].https://cran.r\u2010project.org/web/packages/psych/index.html"
+      },
+      {
+        "key": "e_1_2_9_1_101_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.1990.35.2.0352"
+      },
+      {
+        "key": "e_1_2_9_1_102_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/GB003i003p00191"
+      },
+      {
+        "key": "e_1_2_9_1_103_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/feart.2016.00085"
+      },
+      {
+        "key": "e_1_2_9_1_104_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s40899\u2010020\u201000440\u20105"
+      },
+      {
+        "key": "e_1_2_9_1_105_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/hyp.13235"
+      },
+      {
+        "key": "e_1_2_9_1_106_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2023GC011273"
+      },
+      {
+        "key": "e_1_2_9_1_107_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3133/tm4A5"
+      },
+      {
+        "key": "e_1_2_9_1_108_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/WR015i005p01250"
+      },
+      {
+        "key": "e_1_2_9_1_109_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1371/journal.pone.0053550"
+      },
+      {
+        "key": "e_1_2_9_1_110_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac102943z"
+      },
+      {
+        "key": "e_1_2_9_1_111_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/gcb.12646"
+      },
+      {
+        "key": "e_1_2_9_1_112_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fmars.2017.00076"
+      },
+      {
+        "key": "e_1_2_9_1_113_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10533\u2010016\u20100279\u20104"
+      },
+      {
+        "key": "e_1_2_9_1_114_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.marchem.2015.06.019"
+      },
+      {
+        "key": "e_1_2_9_1_115_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2016.07.033"
+      },
+      {
+        "key": "e_1_2_9_1_116_1",
+        "volume-title": "Soil erosion and carbon dynamics",
+        "author": "Seyler P.",
+        "year": "2005"
+      },
+      {
+        "key": "e_1_2_9_1_117_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2019.01.013"
+      },
+      {
+        "key": "e_1_2_9_1_118_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gca.2021.06.036"
+      },
+      {
+        "key": "e_1_2_9_1_119_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/978-94-009-6542-3"
+      },
+      {
+        "key": "e_1_2_9_1_120_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.7b04159"
+      },
+      {
+        "key": "e_1_2_9_1_121_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/metabo14030144"
+      },
+      {
+        "key": "e_1_2_9_1_122_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2009JG001180"
+      },
+      {
+        "key": "e_1_2_9_1_123_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2011JG001928"
+      },
+      {
+        "key": "e_1_2_9_1_124_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2018JG004910"
+      },
+      {
+        "key": "e_1_2_9_1_125_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/B978-0-443-13858-4.00014-9"
+      },
+      {
+        "key": "e_1_2_9_1_126_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/S0304\u20104203(03)00072\u20100"
+      },
+      {
+        "key": "e_1_2_9_1_127_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.apgeochem.2005.06.001"
+      },
+      {
+        "key": "e_1_2_9_1_128_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2018JG004470"
+      },
+      {
+        "key": "e_1_2_9_1_129_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.6008/CBPC2179\u20106858.2020.006.0025"
+      },
+      {
+        "key": "e_1_2_9_1_130_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1139/f80\u2010017"
+      },
+      {
+        "key": "e_1_2_9_1_131_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1098/rstb.2018.0084"
+      },
+      {
+        "key": "e_1_2_9_1_132_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gloenvcha.2012.11.002"
+      },
+      {
+        "key": "e_1_2_9_1_133_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2018JG004817"
+      },
+      {
+        "key": "e_1_2_9_1_134_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.5b00525"
+      },
+      {
+        "key": "e_1_2_9_1_135_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2016JG003342"
+      },
+      {
+        "key": "e_1_2_9_1_136_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ngeo1817"
+      },
+      {
+        "key": "e_1_2_9_1_137_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.marchem.2015.06.013"
+      },
+      {
+        "key": "e_1_2_9_1_138_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/es030360x"
+      },
+      {
+        "key": "e_1_2_9_1_139_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/978-3-319-24277-4"
+      },
+      {
+        "key": "e_1_2_9_1_140_1",
+        "unstructured": "WISER. (2022).IAEA water isotope system for electronic retrieval[Dataset]. Retrieved fromhttps://nucleus.iaea.org/wiser"
+      },
+      {
+        "key": "e_1_2_9_1_141_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41467\u2010023\u201037061\u20103"
+      },
+      {
+        "key": "e_1_2_9_1_142_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac101091w"
+      },
+      {
+        "key": "e_1_2_9_1_143_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2024.104846"
+      },
+      {
+        "key": "e_1_2_9_1_144_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.watres.2014.02.051"
+      },
+      {
+        "key": "e_1_2_9_2_2_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3354/ame01890"
+      },
+      {
+        "key": "e_1_2_9_2_3_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ecss.2016.08.046"
+      },
+      {
+        "key": "e_1_2_9_2_4_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ijms.2011.03.009"
+      },
+      {
+        "key": "e_1_2_9_2_5_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.4838"
+      },
+      {
+        "key": "e_1_2_9_2_6_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1063/1.4883179"
+      },
+      {
+        "key": "e_1_2_9_2_7_1",
+        "article-title": "Flow\u2010velocity model for hydrokinetic energy availability assessment in the Amazon",
+        "volume": "42",
+        "author": "Cruz J. S.",
+        "year": "2020",
+        "journal-title": "Acta Scientiarum. Technology"
+      },
+      {
+        "key": "e_1_2_9_2_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2017.11.067"
+      },
+      {
+        "key": "e_1_2_9_2_9_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac010560w"
+      },
+      {
+        "key": "e_1_2_9_2_10_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac302678v"
+      },
+      {
+        "key": "e_1_2_9_2_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac60206a048"
+      },
+      {
+        "key": "e_1_2_9_2_12_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41598\u2010018\u201020969\u2010y"
+      },
+      {
+        "key": "e_1_2_9_2_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/abac36"
+      },
+      {
+        "key": "e_1_2_9_2_14_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.watres.2011.08.066"
+      },
+      {
+        "key": "e_1_2_9_2_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2009JG000990"
+      },
+      {
+        "key": "e_1_2_9_2_16_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2016JG003677"
+      },
+      {
+        "key": "e_1_2_9_2_17_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.7b03260"
+      },
+      {
+        "key": "e_1_2_9_2_18_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10236\u2010010\u20100365\u20104"
+      },
+      {
+        "key": "e_1_2_9_2_19_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10021\u2010011\u20109469\u2010z"
+      }
+    ],
+    "container-title": [
+      "Global Biogeochemical Cycles"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2025GB008545",
+        "content-type": "application/pdf",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/full-xml/10.1029/2025GB008545",
+        "content-type": "application/xml",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2025GB008545",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          16
+        ]
+      ],
+      "date-time": "2026-02-16T18:07:04Z",
+      "timestamp": 1771265224000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2025GB008545"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          6
+        ]
+      ]
+    },
+    "references-count": 161,
+    "journal-issue": {
+      "issue": "6",
+      "published-print": {
+        "date-parts": [
+          [
+            2025,
+            6
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1029/2025GB008545"
+    ],
+    "URL": "https://doi.org/10.1029/2025gb008545",
+    "archive": [
+      "Portico"
+    ],
+    "relation": {},
+    "ISSN": [
+      "0886-6236",
+      "1944-9224"
+    ],
+    "issn-type": [
+      {
+        "value": "0886-6236",
+        "type": "print"
+      },
+      {
+        "value": "1944-9224",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2025,
+          6
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "2025-02-19",
+        "order": 0,
+        "name": "received",
+        "label": "Received",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2025-06-08",
+        "order": 2,
+        "name": "accepted",
+        "label": "Accepted",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2025-06-21",
+        "order": 3,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ],
+    "article-number": "e2025GB008545"
+  }
+}

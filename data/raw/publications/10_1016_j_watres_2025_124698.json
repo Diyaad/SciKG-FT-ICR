@@ -1,0 +1,1096 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          1
+        ]
+      ],
+      "date-time": "2026-05-01T15:51:34Z",
+      "timestamp": 1777650694227,
+      "version": "3.51.4"
+    },
+    "reference-count": 64,
+    "publisher": "Elsevier BV",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              1,
+              1
+            ]
+          ],
+          "date-time": "2026-01-01T00:00:00Z",
+          "timestamp": 1767225600000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2026,
+              1,
+              1
+            ]
+          ],
+          "date-time": "2026-01-01T00:00:00Z",
+          "timestamp": 1767225600000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/legal/tdmrep-license"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              9,
+              30
+            ]
+          ],
+          "date-time": "2025-09-30T00:00:00Z",
+          "timestamp": 1759190400000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/100000165",
+        "name": "Division of Chemistry",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100000165",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100023043",
+        "name": "State of Florida",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100023043",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100013316",
+        "name": "Strategic Environmental Research and Development Program",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "ER20\\u20131265"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "ER20\\u20131265"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100013316",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100006597",
+        "name": "Florida State University",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100006597",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000001",
+        "name": "National Science Foundation",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100000001",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000078",
+        "name": "Division of Materials Research",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "DMR-2128556"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "DMR-2128556"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000078",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "elsevier.com",
+        "sciencedirect.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Water Research"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2026,
+          1
+        ]
+      ]
+    },
+    "DOI": "10.1016/j.watres.2025.124698",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          9,
+          29
+        ]
+      ],
+      "date-time": "2025-09-29T15:01:08Z",
+      "timestamp": 1759158068000
+    },
+    "page": "124698",
+    "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 2,
+    "special_numbering": "PB",
+    "title": [
+      "Exploring the fluorinome of PFAS-impacted groundwater using 21 tesla FT-ICR mass spectrometry"
+    ],
+    "prefix": "10.1016",
+    "volume": "288",
+    "author": [
+      {
+        "given": "Wenchao",
+        "family": "Lu",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-6545-4917",
+        "authenticated-orcid": false,
+        "given": "Lydia",
+        "family": "Babcock-Adams",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-6990-0635",
+        "authenticated-orcid": false,
+        "given": "Hamidreza",
+        "family": "Sharifan",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "John J.",
+        "family": "Kornuc",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Shilai",
+        "family": "Hao",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-6220-8673",
+        "authenticated-orcid": false,
+        "given": "Christopher P.",
+        "family": "Higgins",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Robert B.",
+        "family": "Young",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Amy M.",
+        "family": "McKenna",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-2740-836X",
+        "authenticated-orcid": false,
+        "given": "Jens",
+        "family": "Blotevogel",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "78",
+    "reference": [
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0001",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.envadv.2022.100167",
+        "article-title": "Characterization of relevant site-specific PFAS fate and transport processes at multiple AFFF sites",
+        "volume": "7",
+        "author": "Adamson",
+        "year": "2022",
+        "journal-title": "Environ. Adv."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0002",
+        "doi-asserted-by": "crossref",
+        "first-page": "202",
+        "DOI": "10.1016/j.chroma.2014.07.056",
+        "article-title": "Orthogonal zirconium diol/C18 liquid chromatography\u2013tandem mass spectrometry analysis of poly and perfluoroalkyl substances in landfill leachate",
+        "volume": "1359",
+        "author": "Allred",
+        "year": "2014",
+        "journal-title": "J. Chromatogr. A"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0003",
+        "doi-asserted-by": "crossref",
+        "first-page": "5226",
+        "DOI": "10.1021/es3034999",
+        "article-title": "Zwitterionic, cationic, and anionic fluorinated chemicals in aqueous film forming foam formulations and groundwater from U.S. military bases by nonaqueous large-volume injection HPLC-MS/MS",
+        "volume": "47",
+        "author": "Backe",
+        "year": "2013",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0004",
+        "doi-asserted-by": "crossref",
+        "first-page": "11382",
+        "DOI": "10.1021/acs.analchem.2c02377",
+        "article-title": "Improved dynamic range, resolving power, and sensitivity achievable with FT-ICR mass spectrometry at 21 T reveals the hidden complexity of natural organic matter",
+        "volume": "94",
+        "author": "Bahureksa",
+        "year": "2022",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0005",
+        "doi-asserted-by": "crossref",
+        "first-page": "2047",
+        "DOI": "10.1021/acs.est.6b05843",
+        "article-title": "Discovery of 40 classes of per- and polyfluoroalkyl substances in historical aqueous film-forming foams (AFFFs) and AFFF-impacted groundwater",
+        "volume": "51",
+        "author": "Barzen-Hanson",
+        "year": "2017",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0006",
+        "doi-asserted-by": "crossref",
+        "first-page": "246",
+        "DOI": "10.1016/j.ijms.2011.03.009",
+        "article-title": "Predator data station: a fast data acquisition system for advanced FT-ICR MS experiments",
+        "volume": "306",
+        "author": "Blakney",
+        "year": "2011",
+        "journal-title": "Int. J. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0007",
+        "article-title": "Ultrahigh-resolution Fourier-transform ion cyclotron resonance mass spectrometry for fingerprinting, source tracking, and allocation of per- and polyfluoroalkyl substances (PFASs)",
+        "author": "Blotevogel",
+        "year": "2021",
+        "journal-title": "Final Rep. Ph. I"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0008",
+        "doi-asserted-by": "crossref",
+        "first-page": "122",
+        "DOI": "10.1002/rcm.4838",
+        "article-title": "Fourier transform ion cyclotron resonance cell with dynamic harmonization of the electric field in the whole volume by shaping of the excitation and detection electrode assembly",
+        "volume": "25",
+        "author": "Boldin",
+        "year": "2011",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0009",
+        "doi-asserted-by": "crossref",
+        "first-page": "243",
+        "DOI": "10.1002/etc.2407",
+        "article-title": "Biotransformation pathways of fluorotelomer-based polyfluoroalkyl substances: a review",
+        "volume": "33",
+        "author": "Butt",
+        "year": "2014",
+        "journal-title": "Environ. Toxicol. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0010",
+        "doi-asserted-by": "crossref",
+        "first-page": "473",
+        "DOI": "10.1021/acs.estlett.2c00206",
+        "article-title": "Communicating confidence of per- and polyfluoroalkyl substance identification via high-resolution mass spectrometry",
+        "volume": "9",
+        "author": "Charbonnet",
+        "year": "2022",
+        "journal-title": "Environ. Sci. Technol. Lett."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0011",
+        "doi-asserted-by": "crossref",
+        "first-page": "7237",
+        "DOI": "10.1021/acs.est.0c08506",
+        "article-title": "Environmental source tracking of per- and polyfluoroalkyl substances within a forensic context: current and future techniques",
+        "volume": "55",
+        "author": "Charbonnet",
+        "year": "2021",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0012",
+        "doi-asserted-by": "crossref",
+        "first-page": "9061",
+        "DOI": "10.1021/acs.est.6b01156",
+        "article-title": "4 years after the deepwater horizon spill: molecular transformation of Macondo Well Oil in Louisiana salt marsh sediments revealed by FT-ICR mass spectrometry",
+        "volume": "50",
+        "author": "Chen",
+        "year": "2016",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0013",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1063/1.4883179",
+        "article-title": "Note: optimized circuit for excitation and detection with one pair of electrodes for improved Fourier transform ion cyclotron resonance mass spectrometry",
+        "volume": "85",
+        "author": "Chen",
+        "year": "2014",
+        "journal-title": "Rev. Sci. Instrum."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0014",
+        "doi-asserted-by": "crossref",
+        "first-page": "9064",
+        "DOI": "10.1021/ac401604u",
+        "article-title": "Oil spill source identification by principal component analysis of electrospray ionization Fourier transform ion cyclotron resonance mass spectra",
+        "volume": "85",
+        "author": "Corilo",
+        "year": "2013",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0015",
+        "doi-asserted-by": "crossref",
+        "first-page": "4833",
+        "DOI": "10.1007/s00216-024-05426-2",
+        "article-title": "An automated and high-throughput data processing workflow for PFAS identification in biota by direct infusion ultra-high resolution mass spectrometry",
+        "volume": "416",
+        "author": "Dud\u00e1\u0161ov\u00e1",
+        "year": "2024",
+        "journal-title": "Anal. Bioanal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0016",
+        "doi-asserted-by": "crossref",
+        "first-page": "333",
+        "DOI": "10.1016/S1044-0305(97)00287-0",
+        "article-title": "Application of micro-electrospray liquid chromatography techniques to FT-ICR MS to enable high-sensitivity biological analysis",
+        "volume": "9",
+        "author": "Emmett",
+        "year": "1998",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0017",
+        "first-page": "eabg9065",
+        "article-title": "Per- and polyfluoroalkyl substances in the environment",
+        "volume": "375",
+        "author": "Evich",
+        "year": "2022",
+        "journal-title": "Science (1979)"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0018",
+        "doi-asserted-by": "crossref",
+        "first-page": "5698",
+        "DOI": "10.1021/acs.analchem.4c06674",
+        "article-title": "Development of a nontargeted algorithm for per- and polyfluoroalkyl substances in the FT-ICR mass spectra of complex organic mixtures",
+        "volume": "97",
+        "author": "Fu",
+        "year": "2025",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0019",
+        "doi-asserted-by": "crossref",
+        "first-page": "53",
+        "DOI": "10.1111/gwmr.12666",
+        "article-title": "Data evaluation framework for refining PFAS conceptual site models",
+        "volume": "44",
+        "author": "Gamlin",
+        "year": "2024",
+        "journal-title": "Groundw. Monit. Remediat."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0020",
+        "first-page": "2345",
+        "article-title": "An overview of the uses of per- and polyfluoroalkyl substances (PFAS)",
+        "volume": "22",
+        "author": "Gl\u00fcge",
+        "year": "2020",
+        "journal-title": "Environ. Sci.: Process. Impacts"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0021",
+        "doi-asserted-by": "crossref",
+        "first-page": "5548",
+        "DOI": "10.1038/s41467-024-49753-5",
+        "article-title": "Lithium-ion battery components are at the nexus of sustainable energy and environmental release of per- and polyfluoroalkyl substances",
+        "volume": "15",
+        "author": "Guelfo",
+        "year": "2024",
+        "journal-title": "Nat. Commun."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0022",
+        "doi-asserted-by": "crossref",
+        "first-page": "3283",
+        "DOI": "10.1021/acs.est.0c06906",
+        "article-title": "Hydrothermal alkaline treatment for destruction of per- and polyfluoroalkyl substances in aqueous film-forming foam",
+        "volume": "55",
+        "author": "Hao",
+        "year": "2021",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0023",
+        "doi-asserted-by": "crossref",
+        "first-page": "1626",
+        "DOI": "10.1007/s13361-015-1182-2",
+        "article-title": "21 Tesla fourier transform ion cyclotron resonance mass spectrometer: a national resource for ultrahigh resolution mass analysis",
+        "volume": "26",
+        "author": "Hendrickson",
+        "year": "2015",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0024",
+        "unstructured": "Higgins, C.P., Alvarez-Cohen, L., Field, J.A., Schaefer, C.E., 2021. Key fate and transport processes impacting the mass discharge, attenuation, and treatment of poly- and perfluoroalkyl substances and comingled chlorinated solvents or aromatic hydrocarbons."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0025",
+        "doi-asserted-by": "crossref",
+        "first-page": "79",
+        "DOI": "10.1016/0003-2670(92)85299-L",
+        "article-title": "An innovative approach to data analysis in hydrocarbon characterization by on-line liquid chromatography-mass spectrometry",
+        "volume": "264",
+        "author": "Hsu",
+        "year": "1992",
+        "journal-title": "Anal. Chim. Acta"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0026",
+        "doi-asserted-by": "crossref",
+        "first-page": "4676",
+        "DOI": "10.1021/ac010560w",
+        "article-title": "Kendrick mass defect spectrum: a compact visual analysis for ultrahigh-resolution broadband mass spectra",
+        "volume": "73",
+        "author": "Hughey",
+        "year": "2001",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0027",
+        "doi-asserted-by": "crossref",
+        "first-page": "863",
+        "DOI": "10.1016/j.orggeochem.2004.02.008",
+        "article-title": "Acidic and neutral polar NSO compounds in Smackover oils of different thermal maturity revealed by electrospray high field Fourier transform ion cyclotron resonance mass spectrometry",
+        "volume": "35",
+        "author": "Hughey",
+        "year": "2004",
+        "journal-title": "Org. Geochem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0028",
+        "doi-asserted-by": "crossref",
+        "first-page": "265",
+        "DOI": "10.1021/ac302678v",
+        "article-title": "Tailored ion radius distribution for increased dynamic range in FT-ICR mass analysis of complex mixtures",
+        "volume": "85",
+        "author": "Kaiser",
+        "year": "2013",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0029",
+        "doi-asserted-by": "crossref",
+        "first-page": "2146",
+        "DOI": "10.1021/ac60206a048",
+        "article-title": "A mass scale based on CH2 = 14.0000 for high resolution mass spectrometry of organic compounds",
+        "volume": "35",
+        "author": "Kendrick",
+        "year": "1963",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0030",
+        "doi-asserted-by": "crossref",
+        "first-page": "105",
+        "DOI": "10.1186/1471-2105-8-105",
+        "article-title": "Seven golden rules for heuristic filtering of molecular formulas obtained by accurate mass spectrometry",
+        "volume": "8",
+        "author": "Kind",
+        "year": "2007",
+        "journal-title": "BMC. Bioinformatics."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0031",
+        "doi-asserted-by": "crossref",
+        "first-page": "1758",
+        "DOI": "10.1021/ac061949s",
+        "article-title": "Fundamentals of molecular formula assignment to ultrahigh resolution mass data of natural organic matter",
+        "volume": "79",
+        "author": "Koch",
+        "year": "2007",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0032",
+        "doi-asserted-by": "crossref",
+        "first-page": "2030",
+        "DOI": "10.1016/j.gca.2011.01.020",
+        "article-title": "Degradation of natural organic matter: a thermodynamic analysis",
+        "volume": "75",
+        "author": "LaRowe",
+        "year": "2011",
+        "journal-title": "Geochim. Cosmochim. Acta"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0033",
+        "doi-asserted-by": "crossref",
+        "first-page": "5665",
+        "DOI": "10.1021/acs.analchem.7b00096",
+        "article-title": "Think negative: finding the best electrospray ionization/MS mode for your analyte",
+        "volume": "89",
+        "author": "Liigand",
+        "year": "2017",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0034",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.trac.2019.02.021",
+        "article-title": "High-resolution mass spectrometry (HRMS) methods for nontarget discovery and characterization of poly- and per-fluoroalkyl substances (PFASs) in environmental and human samples",
+        "volume": "121",
+        "author": "Liu",
+        "year": "2019",
+        "journal-title": "TrAC Trends in Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0035",
+        "doi-asserted-by": "crossref",
+        "first-page": "5700",
+        "DOI": "10.1021/acs.est.0c00234",
+        "article-title": "Bioaccumulation of novel per- and polyfluoroalkyl substances in mice dosed with an aqueous film-forming foam",
+        "volume": "54",
+        "author": "McDonough",
+        "year": "2020",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0036",
+        "doi-asserted-by": "crossref",
+        "first-page": "8313",
+        "DOI": "10.1021/acs.est.7b02028",
+        "article-title": "Novel fluoroalkylated surfactants in soils following firefighting foam deployment during the lac-m\u00e9gantic railway accident",
+        "volume": "51",
+        "author": "Mejia-Avenda\u00f1o",
+        "year": "2017",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0037",
+        "doi-asserted-by": "crossref",
+        "first-page": "6380",
+        "DOI": "10.1021/acs.est.1c07949",
+        "article-title": "Ultra-short-chain PFASs in the sources of German drinking water: prevalent, overlooked, difficult to remove, and unregulated",
+        "volume": "56",
+        "author": "Neuwald",
+        "year": "2022",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0038",
+        "doi-asserted-by": "crossref",
+        "first-page": "313",
+        "DOI": "10.1021/acs.est.0c04473",
+        "article-title": "Spatial trends of anionic, zwitterionic, and cationic PFASs at an AFFF-impacted site",
+        "volume": "55",
+        "author": "Nickerson",
+        "year": "2021",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0039",
+        "unstructured": "OECD Report, 2018. Toward a new comprehensive global database of per-and polyfluoroalkyl substances (PFASs): Summary report on updating the OECD 2007 list of per- and polyfluorinated substances (PFASs) (No. ENV/JM/MONO20187)."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0040",
+        "series-title": "Suspect List of Possible Per- and Polyfluoroalkyl Substances (PFAS)",
+        "author": "Place",
+        "year": "2023"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0041",
+        "doi-asserted-by": "crossref",
+        "first-page": "7120",
+        "DOI": "10.1021/es301465n",
+        "article-title": "Identification of novel fluorochemicals in aqueous film-forming foams used by the US military",
+        "volume": "46",
+        "author": "Place",
+        "year": "2012",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0042",
+        "series-title": "Interpretation of Mass Spectra",
+        "author": "Rose",
+        "year": "1994"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0043",
+        "doi-asserted-by": "crossref",
+        "first-page": "1732",
+        "DOI": "10.1021/ac102943z",
+        "article-title": "Parts-per-billion fourier transform ion cyclotron resonance mass measurement accuracy with a \u201cwalking\u201d calibration equation",
+        "volume": "83",
+        "author": "Savory",
+        "year": "2011",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0044",
+        "doi-asserted-by": "crossref",
+        "first-page": "10689",
+        "DOI": "10.1021/acs.est.8b02726",
+        "article-title": "Electrochemical transformations of perfluoroalkyl acid (PFAA) precursors and PFAAs in groundwater impacted with aqueous film forming foams",
+        "volume": "52",
+        "author": "Schaefer",
+        "year": "2018",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0045",
+        "doi-asserted-by": "crossref",
+        "first-page": "2097",
+        "DOI": "10.1021/es5002105",
+        "article-title": "Identifying small molecules via high resolution mass spectrometry: communicating confidence",
+        "volume": "48",
+        "author": "Schymanski",
+        "year": "2014",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0046",
+        "doi-asserted-by": "crossref",
+        "first-page": "16918",
+        "DOI": "10.1021/acs.est.3c04855",
+        "article-title": "Per- and polyfluoroalkyl substances (PFAS) in PubChem: 7 million and growing",
+        "volume": "57",
+        "author": "Schymanski",
+        "year": "2023",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0047",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.cej.2021.131778",
+        "article-title": "Sonolytic destruction of per- and polyfluoroalkyl substances in groundwater, aqueous film-forming foams, and investigation derived waste",
+        "volume": "425",
+        "author": "Singh Kalra",
+        "year": "2021",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0048",
+        "doi-asserted-by": "crossref",
+        "first-page": "2041",
+        "DOI": "10.1021/acs.analchem.7b04159",
+        "article-title": "21 Tesla FT-ICR mass spectrometer for ultrahigh-resolution analysis of complex organic mixtures",
+        "volume": "90",
+        "author": "Smith",
+        "year": "2018",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0049",
+        "doi-asserted-by": "crossref",
+        "first-page": "1275",
+        "DOI": "10.1021/ac026106p",
+        "article-title": "Exact masses and chemical formulas of individual Suwannee River fulvic acids from ultrahigh resolution electrospray ionization Fourier transform ion cyclotron resonance mass spectra",
+        "volume": "75",
+        "author": "Stenson",
+        "year": "2003",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0050",
+        "doi-asserted-by": "crossref",
+        "first-page": "415",
+        "DOI": "10.1255/ejms.1135",
+        "article-title": "Kendrick-analogous network visualisation of ion cyclotron resonance fourier transform mass spectra: improved options for the assignment of elemental compositions and the classification of organic molecular complexity",
+        "volume": "17",
+        "author": "Tziotis",
+        "year": "2011",
+        "journal-title": "Eur. J. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0051",
+        "first-page": "269",
+        "article-title": "Graphical-statistical method for the study of structure and reaction processes of coal",
+        "volume": "29",
+        "author": "Van Krevelen",
+        "year": "1950",
+        "journal-title": "Fuel"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0052",
+        "doi-asserted-by": "crossref",
+        "first-page": "8355",
+        "DOI": "10.1021/acs.est.3c00374",
+        "article-title": "Legacy and emerging per- and polyfluoroalkyl substances in a subtropical marine food web: suspect screening, isomer profile, and identification of analytical interference",
+        "volume": "57",
+        "author": "Wang",
+        "year": "2023",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0053",
+        "unstructured": "Wang, Z., 2018. S25, OECDPFAS, list of PFAS from the OECD."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0054",
+        "doi-asserted-by": "crossref",
+        "first-page": "2508",
+        "DOI": "10.1021/acs.est.6b04806",
+        "article-title": "A never-ending story of per- and polyfluoroalkyl substances (PFASs)?",
+        "volume": "51",
+        "author": "Wang",
+        "year": "2017",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0055",
+        "doi-asserted-by": "crossref",
+        "first-page": "2465",
+        "DOI": "10.1021/jasms.4c00261",
+        "article-title": "Selective gas-phase depletion of chemical contaminants in dissolved organic matter increases compositional coverage by FT-ICR mass spectrometry",
+        "volume": "35",
+        "author": "Weisbrod",
+        "year": "2024",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0056",
+        "doi-asserted-by": "crossref",
+        "first-page": "61",
+        "DOI": "10.1186/s13321-017-0247-6",
+        "article-title": "The CompTox chemistry dashboard: a community data resource for environmental chemistry",
+        "volume": "9",
+        "author": "Williams",
+        "year": "2017",
+        "journal-title": "J. Cheminform."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0057",
+        "doi-asserted-by": "crossref",
+        "first-page": "8807",
+        "DOI": "10.1021/ac101091w",
+        "article-title": "Automated broadband phase correction of Fourier transform ion cyclotron resonance mass spectra",
+        "volume": "82",
+        "author": "Xian",
+        "year": "2010",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0058",
+        "doi-asserted-by": "crossref",
+        "first-page": "482",
+        "DOI": "10.1016/j.watres.2017.07.024",
+        "article-title": "Emerging poly- and perfluoroalkyl substances in the aquatic environment: a review of current literature",
+        "volume": "124",
+        "author": "Xiao",
+        "year": "2017",
+        "journal-title": "Water. Res."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0059",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.jhazmat.2022.129313",
+        "article-title": "The first quantitative investigation of compounds generated from PFAS, PFAS-containing aqueous film-forming foams and commercial fluorosurfactants in pyrolytic processes",
+        "volume": "436",
+        "author": "Yao",
+        "year": "2022",
+        "journal-title": "J. Hazard. Mater."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0060",
+        "doi-asserted-by": "crossref",
+        "first-page": "2455",
+        "DOI": "10.1021/acs.est.1c08143",
+        "article-title": "PFAS analysis with ultrahigh resolution 21T FT-ICR MS: suspect and nontargeted screening with unrivaled mass resolving power and accuracy",
+        "volume": "56",
+        "author": "Young",
+        "year": "2022",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0061",
+        "doi-asserted-by": "crossref",
+        "first-page": "20194",
+        "DOI": "10.1021/acs.est.3c05859",
+        "article-title": "Nontarget identification of novel per- and polyfluoroalkyl substances (PFAS) in soils from an oil refinery in southwestern China: a combined approach with TOP assay",
+        "volume": "57",
+        "author": "Zhao",
+        "year": "2023",
+        "journal-title": "Environ. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0062",
+        "doi-asserted-by": "crossref",
+        "first-page": "4721",
+        "DOI": "10.1021/acs.energyfuels.9b04408",
+        "article-title": "Sunlight-induced molecular progression of oil into oxidized oil soluble species, interfacial material, and dissolved organic matter",
+        "volume": "34",
+        "author": "Zito",
+        "year": "2020",
+        "journal-title": "Energy Fuels"
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0063",
+        "doi-asserted-by": "crossref",
+        "first-page": "349",
+        "DOI": "10.1007/s00216-023-05070-2",
+        "article-title": "PF\u0394Screen \u2014 an open-source tool for automated PFAS feature prioritization in non-target HRMS data",
+        "volume": "416",
+        "author": "Zweigle",
+        "year": "2024",
+        "journal-title": "Anal. Bioanal. Chem."
+      },
+      {
+        "key": "10.1016/j.watres.2025.124698_bib0064",
+        "doi-asserted-by": "crossref",
+        "first-page": "1791",
+        "DOI": "10.1007/s00216-023-04601-1",
+        "article-title": "Efficient PFAS prioritization in non-target HRMS data: systematic evaluation of the novel MD/C-m/C approach",
+        "volume": "415",
+        "author": "Zweigle",
+        "year": "2023",
+        "journal-title": "Anal. Bioanal. Chem."
+      }
+    ],
+    "container-title": [
+      "Water Research"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S004313542501601X?httpAccept=text/xml",
+        "content-type": "text/xml",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S004313542501601X?httpAccept=text/plain",
+        "content-type": "text/plain",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          10
+        ]
+      ],
+      "date-time": "2026-03-10T12:29:20Z",
+      "timestamp": 1773145760000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://linkinghub.elsevier.com/retrieve/pii/S004313542501601X"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          1
+        ]
+      ]
+    },
+    "references-count": 64,
+    "alternative-id": [
+      "S004313542501601X"
+    ],
+    "URL": "https://doi.org/10.1016/j.watres.2025.124698",
+    "relation": {
+      "is-supplemented-by": [
+        {
+          "id-type": "uri",
+          "id": "https://osf.io/k75w3/?view_only=1f0dbc53f78843d19be50040c3e057ea",
+          "asserted-by": "subject"
+        }
+      ]
+    },
+    "ISSN": [
+      "0043-1354"
+    ],
+    "issn-type": [
+      {
+        "value": "0043-1354",
+        "type": "print"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2026,
+          1
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "Elsevier",
+        "name": "publisher",
+        "label": "This article is maintained by"
+      },
+      {
+        "value": "Exploring the fluorinome of PFAS-impacted groundwater using 21 tesla FT-ICR mass spectrometry",
+        "name": "articletitle",
+        "label": "Article Title"
+      },
+      {
+        "value": "Water Research",
+        "name": "journaltitle",
+        "label": "Journal Title"
+      },
+      {
+        "value": "https://doi.org/10.1016/j.watres.2025.124698",
+        "name": "articlelink",
+        "label": "CrossRef DOI link to publisher maintained version"
+      },
+      {
+        "value": "article",
+        "name": "content_type",
+        "label": "Content Type"
+      },
+      {
+        "value": "\u00a9 2025 The Authors. Published by Elsevier Ltd.",
+        "name": "copyright",
+        "label": "Copyright"
+      }
+    ],
+    "article-number": "124698"
+  }
+}

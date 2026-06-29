@@ -1,0 +1,467 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          21
+        ]
+      ],
+      "date-time": "2026-02-21T07:39:36Z",
+      "timestamp": 1771659576890,
+      "version": "3.50.1"
+    },
+    "reference-count": 27,
+    "publisher": "Wiley",
+    "issue": "6",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              18
+            ]
+          ],
+          "date-time": "2025-06-18T00:00:00Z",
+          "timestamp": 1750204800000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100002411",
+        "name": "Universidad ICESI",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "CA04130107"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "CA04130107"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/501100002411",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "analyticalsciencejournals.onlinelibrary.wiley.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Phytochemical Analysis"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2025,
+          8
+        ]
+      ]
+    },
+    "abstract": "<jats:title>ABSTRACT</jats:title>\n                  <jats:sec>\n                    <jats:title>Introduction</jats:title>\n                    <jats:p>\n                      <jats:italic>Cecropia\u2009angustifolia</jats:italic>\n                      roots are a traditional source of pentacyclic triterpene acids (PTAs), bioactive compounds with promising therapeutic potential. In\u00a0vitro cultivation offers a sustainable alternative to metabolite production while minimizing the impact on wild populations.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Objective</jats:title>\n                    <jats:p>\n                      To compare the metabolic profiles of wild and in\u00a0vitro cultivated\n                      <jats:styled-content style=\"fixed-case\">\n                        <jats:italic>C.\u2009angustifolia</jats:italic>\n                      </jats:styled-content>\n                      roots using ultrahigh\u2010resolution mass spectrometry.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Methods</jats:title>\n                    <jats:p>Root fractions from wild and in\u00a0vitro cultivated materials were analyzed using negative\u2010ion electrospray ionization Fourier transform ion cyclotron resonance mass spectrometry (ESI(\u2212)\u2010FT\u2010ICR\u2010MS) at 21 Tesla.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>Molecular analysis revealed diverse PTA species in both wild and in\u00a0vitro root fractions. While in\u00a0vitro cultivation produced a more streamlined metabolic profile, PTA content remained significantly enriched.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Conclusion</jats:title>\n                    <jats:p>\n                      In vitro cultivation of\n                      <jats:styled-content style=\"fixed-case\">\n                        <jats:italic>C.\u2009angustifolia</jats:italic>\n                      </jats:styled-content>\n                      roots represents a viable strategy for sustainably producing pharmacologically relevant PTAs, supporting both conservation and the biotechnological use of natural products.\n                    </jats:p>\n                  </jats:sec>",
+    "DOI": "10.1002/pca.70001",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          29
+        ]
+      ],
+      "date-time": "2025-06-29T10:22:34Z",
+      "timestamp": 1751192554000
+    },
+    "page": "1829-1839",
+    "update-policy": "https://doi.org/10.1002/crossmark_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 3,
+    "title": [
+      "Comparative Metabolic Profiling of Wild and In\u00a0Vitro Cultivated\n                    <i>Cecropia\u2009angustifolia</i>\n                    Roots Fraction Reveals Conservation of Pentacyclic Triterpene Acid Biosynthesis"
+    ],
+    "prefix": "10.1002",
+    "volume": "36",
+    "author": [
+      {
+        "given": "Luis\u00a0M.",
+        "family": "D\u00edaz\u2010S\u00e1nchez",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Escuela de Qu\u00edmica Universidad Industrial de Santander  Bucaramanga Santander Colombia"
+          },
+          {
+            "name": "Departamento de Qu\u00edmica Universidad de Pamplona  Pamplona Norte de Santander Colombia"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Martha\u00a0L.",
+        "family": "Chac\u00f3n\u2010Pati\u00f1o",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Florida State University  Tallahassee Florida USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Cristian",
+        "family": "Blanco\u2010Tirado",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Escuela de Qu\u00edmica Universidad Industrial de Santander  Bucaramanga Santander Colombia"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Marianny\u00a0Y.",
+        "family": "Combariza",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Escuela de Qu\u00edmica Universidad Industrial de Santander  Bucaramanga Santander Colombia"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-3963-9007",
+        "authenticated-orcid": false,
+        "given": "Guillermo",
+        "family": "Montoya",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "BioInc. Center for Biomass Valorization Research Universidad Icesi  Cali Valle del Cauca Colombia"
+          },
+          {
+            "name": "Facultad Barberi de Ingenier\u00eda, Dise\u00f1o y Ciencias Aplicadas. Escuela de Ciencias Aplicadas e Industria Sostenible, Departamento de Ciencias Farmac\u00e9uticas y Qu\u00edmicas Universidad Icesi  Cali Valle del Cauca Colombia"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "311",
+    "published-online": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          18
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_2_7_2_1",
+        "volume-title": "Flora Neotropica",
+        "author": "Berg C. C.",
+        "year": "2005"
+      },
+      {
+        "key": "e_1_2_7_3_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/molecules25071486"
+      },
+      {
+        "key": "e_1_2_7_4_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/pca.3252"
+      },
+      {
+        "key": "e_1_2_7_5_1",
+        "first-page": "1",
+        "article-title": "Corosolic Acid Isolated From Eriobotrya\u2009japonica Leaves Reduces Glucose Level in Human Hepatocellular Carcinoma Cells, Zebrafish and Rats",
+        "volume": "9",
+        "author": "Xu S.",
+        "year": "2019",
+        "journal-title": "Scientific Reports"
+      },
+      {
+        "key": "e_1_2_7_6_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.jnatprod.8b00079.81.10"
+      },
+      {
+        "key": "e_1_2_7_7_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.phymed.2018.09.011"
+      },
+      {
+        "key": "e_1_2_7_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.foodchem.2020.126676"
+      },
+      {
+        "key": "e_1_2_7_9_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41598-021-03032-1"
+      },
+      {
+        "key": "e_1_2_7_10_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11240-014-0467-7"
+      },
+      {
+        "key": "e_1_2_7_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/biomedicines12081786"
+      },
+      {
+        "key": "e_1_2_7_12_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/mas.21731"
+      },
+      {
+        "key": "e_1_2_7_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.tibtech.2005.02.002"
+      },
+      {
+        "key": "e_1_2_7_14_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1590/S0102-695X2013000500006"
+      },
+      {
+        "key": "e_1_2_7_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.1803908115"
+      },
+      {
+        "key": "e_1_2_7_16_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/molecules26041064"
+      },
+      {
+        "key": "e_1_2_7_17_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/molecules23061444"
+      },
+      {
+        "key": "e_1_2_7_18_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.7b04159"
+      },
+      {
+        "key": "e_1_2_7_19_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.energyfuels.0c03349"
+      },
+      {
+        "key": "e_1_2_7_20_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1093/nar/gkx925"
+      },
+      {
+        "key": "e_1_2_7_21_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac200464q"
+      },
+      {
+        "key": "e_1_2_7_22_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/jms.1472"
+      },
+      {
+        "key": "e_1_2_7_23_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fpls.2017.01886"
+      },
+      {
+        "key": "e_1_2_7_24_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/d2np00063f"
+      },
+      {
+        "key": "e_1_2_7_25_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fpls.2019.01520"
+      },
+      {
+        "key": "e_1_2_7_26_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1039/b000711k"
+      },
+      {
+        "key": "e_1_2_7_27_1",
+        "first-page": "161",
+        "article-title": "Phenolic Profile and Nutritional Value of Dahlia\u2009x\u2009hortorum Flowers",
+        "volume": "28",
+        "author": "Hern\u00e1ndez\u2010Epigmenio F.",
+        "year": "2022",
+        "journal-title": "Revista Chapingo. Serie Horticultura"
+      },
+      {
+        "key": "e_1_2_7_28_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fpls.2020.571399"
+      }
+    ],
+    "container-title": [
+      "Phytochemical Analysis"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/pdf/10.1002/pca.70001",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          29
+        ]
+      ],
+      "date-time": "2025-11-29T13:39:22Z",
+      "timestamp": 1764423562000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/pca.70001"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          18
+        ]
+      ]
+    },
+    "references-count": 27,
+    "journal-issue": {
+      "issue": "6",
+      "published-print": {
+        "date-parts": [
+          [
+            2025,
+            8
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1002/pca.70001"
+    ],
+    "URL": "https://doi.org/10.1002/pca.70001",
+    "archive": [
+      "Portico"
+    ],
+    "relation": {},
+    "ISSN": [
+      "0958-0344",
+      "1099-1565"
+    ],
+    "issn-type": [
+      {
+        "value": "0958-0344",
+        "type": "print"
+      },
+      {
+        "value": "1099-1565",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          18
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "2025-01-20",
+        "order": 0,
+        "name": "received",
+        "label": "Received",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2025-06-10",
+        "order": 2,
+        "name": "accepted",
+        "label": "Accepted",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2025-06-18",
+        "order": 3,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ]
+  }
+}

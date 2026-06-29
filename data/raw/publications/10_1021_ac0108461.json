@@ -1,0 +1,897 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          24
+        ]
+      ],
+      "date-time": "2026-03-24T15:12:18Z",
+      "timestamp": 1774365138281,
+      "version": "3.50.1"
+    },
+    "reference-count": 79,
+    "publisher": "American Chemical Society (ACS)",
+    "issue": "7",
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Anal. Chem."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2002,
+          4,
+          1
+        ]
+      ]
+    },
+    "DOI": "10.1021/ac0108461",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2002,
+          7,
+          26
+        ]
+      ],
+      "date-time": "2002-07-26T04:39:01Z",
+      "timestamp": 1027658341000
+    },
+    "page": "1674-1679",
+    "source": "Crossref",
+    "is-referenced-by-count": 64,
+    "title": [
+      "Baseline Resolution of Isobaric Phosphorylated and Sulfated Peptides and Nucleotides by Electrospray Ionization FTICR MS:\u2009 Another Step toward Mass Spectrometry-Based Proteomics"
+    ],
+    "prefix": "10.1021",
+    "volume": "74",
+    "author": [
+      {
+        "given": "Robert E.",
+        "family": "Bossio",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory, Florida State University, 1800 East Paul Dirac Drive, Tallahassee, Florida 32310"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Alan G.",
+        "family": "Marshall",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory, Florida State University, 1800 East Paul Dirac Drive, Tallahassee, Florida 32310"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "316",
+    "published-online": {
+      "date-parts": [
+        [
+          2002,
+          2,
+          21
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "ac0108461b00001/ac0108461b00001_1",
+        "first-page": "588",
+        "volume": "112",
+        "author": "Jensen O. N.",
+        "year": "1999",
+        "journal-title": "Methods Mol. Biol."
+      },
+      {
+        "key": "ac0108461b00002/ac0108461b00002_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "8",
+        "DOI": "10.1016/S0168-9525(00)00089-5",
+        "volume": "16",
+        "author": "Yates J. R. I.",
+        "year": "2000",
+        "journal-title": "Trends Genet."
+      },
+      {
+        "key": "ac0108461b00003/ac0108461b00003_1",
+        "first-page": "9895",
+        "volume": "97",
+        "author": "Gygi S. P.",
+        "year": "2000",
+        "journal-title": "Proc. Natl. Acad. Sci. U.S.A."
+      },
+      {
+        "key": "ac0108461b00004/ac0108461b00004_1",
+        "first-page": "569",
+        "volume": "112",
+        "author": "Yates J. R. I.",
+        "year": "1999",
+        "journal-title": "Methods Mol. Biol."
+      },
+      {
+        "key": "ac0108461b00005/ac0108461b00005_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "7403",
+        "DOI": "10.1021/ja9531236",
+        "volume": "118",
+        "author": "Miranker A.",
+        "year": "1996",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ac0108461b00006/ac0108461b00006_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "32220",
+        "DOI": "10.1074/jbc.272.51.32215",
+        "volume": "272",
+        "author": "Kelleher N. L.",
+        "year": "1997",
+        "journal-title": "J. Biol. Chem."
+      },
+      {
+        "key": "ac0108461b00007/ac0108461b00007_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "131",
+        "DOI": "10.1093/glycob/9.2.125",
+        "volume": "9",
+        "author": "Gawlitzek M.",
+        "year": "1999",
+        "journal-title": "Glycobiology"
+      },
+      {
+        "key": "ac0108461b00008/ac0108461b00008_1",
+        "first-page": "390",
+        "volume": "12",
+        "author": "Gao H. Y.",
+        "year": "2000",
+        "journal-title": "J. Microcolumn"
+      },
+      {
+        "key": "ac0108461b00009/ac0108461b00009_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "1380",
+        "DOI": "10.1002/(SICI)1522-2683(20000401)21:7<1372::AID-ELPS1372>3.0.CO;2-Y",
+        "volume": "21",
+        "author": "Jensen P. K.",
+        "year": "2000",
+        "journal-title": "Electrophoresis"
+      },
+      {
+        "key": "ac0108461b00010/ac0108461b00010_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "1681",
+        "DOI": "10.1002/1097-0231(20000930)14:18<1677::AID-RCM84>3.0.CO;2-N",
+        "volume": "14",
+        "author": "Weckwerth W.",
+        "year": "2000",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00011/ac0108461b00011_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "434",
+        "DOI": "10.1021/ja9630046",
+        "volume": "119",
+        "author": "Marshall A. G.",
+        "year": "1997",
+        "journal-title": "J. Am. Chem. Soc."
+      },
+      {
+        "key": "ac0108461b00012/ac0108461b00012_1",
+        "first-page": "4402",
+        "volume": "71",
+        "author": "Li W.",
+        "year": "1999",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00013/ac0108461b00013_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "573",
+        "DOI": "10.1021/ac990811p",
+        "volume": "72",
+        "author": "Zubarev R. A.",
+        "year": "2000",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00014/ac0108461b00014_1",
+        "first-page": "26",
+        "volume": "19",
+        "author": "Zidarov D.",
+        "year": "1990",
+        "journal-title": "J. Biomed. Environ. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00015/ac0108461b00015_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "3798",
+        "DOI": "10.1021/ac00116a028",
+        "volume": "67",
+        "author": "Zubarev R. A.",
+        "year": "1995",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00016/ac0108461b00016_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "4063",
+        "DOI": "10.1021/ac9604651",
+        "volume": "68",
+        "author": "Zubarev R. A.",
+        "year": "1996",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00017/ac0108461b00017_1",
+        "first-page": "295",
+        "volume": "12",
+        "author": "van der Rest G.",
+        "year": "2001",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00018/ac0108461b00018_1",
+        "first-page": "369",
+        "volume": "16",
+        "author": "Tackach E. J.",
+        "year": "1997",
+        "journal-title": "J. Protein Chem."
+      },
+      {
+        "key": "ac0108461b00019/ac0108461b00019_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "3354",
+        "DOI": "10.1021/ac0002386",
+        "volume": "72",
+        "author": "Conrads T. P.",
+        "year": "2000",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00020/ac0108461b00020_1",
+        "first-page": "2882",
+        "volume": "71",
+        "author": "Clauser K. R.",
+        "year": "1998",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00021/ac0108461b00021_1",
+        "first-page": "322",
+        "volume": "4",
+        "author": "Falick A. M.",
+        "year": "1990",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00022/ac0108461b00022_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "336",
+        "DOI": "10.1016/1044-0305(92)87060-C",
+        "volume": "3",
+        "author": "Hines W. M.",
+        "year": "1992",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00023/ac0108461b00023_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "4399",
+        "DOI": "10.1021/ac00096a002",
+        "volume": "66",
+        "author": "Mann M.",
+        "year": "1994",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00024/ac0108461b00024_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "1058",
+        "DOI": "10.1002/(SICI)1097-0231(19990615)13:11<1052::AID-RCM604>3.0.CO;2-Y",
+        "volume": "13",
+        "author": "Bahr U.",
+        "year": "1999",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00025/ac0108461b00025_1",
+        "volume-title": "CA 2000; ThOE3:00",
+        "author": "Marshall A. G."
+      },
+      {
+        "key": "ac0108461b00026/ac0108461b00026_1",
+        "first-page": "650",
+        "volume": "73",
+        "author": "He F.",
+        "year": "2001",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00027/ac0108461b00027_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "19671",
+        "DOI": "10.1074/jbc.M010193200",
+        "volume": "276",
+        "author": "Piwien-Pilipuk G.",
+        "year": "2001",
+        "journal-title": "J. Biol. Chem."
+      },
+      {
+        "key": "ac0108461b00028/ac0108461b00028_1",
+        "first-page": "10183",
+        "volume": "274",
+        "author": "Muller T.",
+        "year": "1999",
+        "journal-title": "J. Biol. Chem."
+      },
+      {
+        "key": "ac0108461b00029/ac0108461b00029_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "489",
+        "DOI": "10.1006/bbrc.2001.4986",
+        "volume": "284",
+        "author": "Hartigan J. A.",
+        "year": "2001",
+        "journal-title": "Biochem. Biophys. Res. Commun."
+      },
+      {
+        "key": "ac0108461b00030/ac0108461b00030_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "503",
+        "DOI": "10.1152/jappl.2001.91.1.497",
+        "volume": "91",
+        "author": "Pfitzer G.",
+        "year": "2001",
+        "journal-title": "J. Appl. Physiol."
+      },
+      {
+        "key": "ac0108461b00031/ac0108461b00031_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "266",
+        "DOI": "10.1016/S0962-8924(01)01990-0",
+        "volume": "11",
+        "author": "Ostman A.",
+        "year": "2001",
+        "journal-title": "Trends Cell Biol."
+      },
+      {
+        "key": "ac0108461b00032/ac0108461b00032_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "265",
+        "DOI": "10.1046/j.1365-201x.2001.00828.x",
+        "volume": "171",
+        "author": "Bruton J. D.",
+        "year": "2001",
+        "journal-title": "Acta Physiol. Scand."
+      },
+      {
+        "key": "ac0108461b00033/ac0108461b00033_1",
+        "first-page": "158",
+        "volume": "8",
+        "author": "Abiko T.",
+        "year": "2001",
+        "journal-title": "Protein Pept. Lett."
+      },
+      {
+        "key": "ac0108461b00034/ac0108461b00034_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "5654",
+        "DOI": "10.1021/bi002865v",
+        "volume": "40",
+        "author": "Bleasdale J. E.",
+        "year": "2001",
+        "journal-title": "Biochemistry"
+      },
+      {
+        "key": "ac0108461b00035/ac0108461b00035_1",
+        "volume-title": "Neuropeptides and Their Peptidases",
+        "author": "Turner A. J.",
+        "year": "1987"
+      },
+      {
+        "key": "ac0108461b00036/ac0108461b00036_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "7131",
+        "DOI": "10.1073/pnas.96.13.7131",
+        "volume": "96",
+        "author": "Keough T.",
+        "year": "1999",
+        "journal-title": "Proc. Natl. Acad. Sci. U.S.A."
+      },
+      {
+        "key": "ac0108461b00037/ac0108461b00037_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "929",
+        "DOI": "10.1002/(SICI)1097-0231(20000530)14:10<924::AID-RCM967>3.0.CO;2-X",
+        "volume": "14",
+        "author": "Bauer M. D.",
+        "year": "2000",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00038/ac0108461b00038_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "271",
+        "DOI": "10.1016/0009-2797(94)90068-X",
+        "volume": "92",
+        "author": "Niehrs C.",
+        "year": "1994",
+        "journal-title": "Chem.-Biol. Interact."
+      },
+      {
+        "key": "ac0108461b00039/ac0108461b00039_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "282",
+        "DOI": "10.1016/0021-9673(96)00299-3",
+        "volume": "743",
+        "author": "Schepky A. G.",
+        "year": "1996",
+        "journal-title": "J. Chromatogr., A"
+      },
+      {
+        "key": "ac0108461b00040/ac0108461b00040_1",
+        "first-page": "203",
+        "volume": "375",
+        "author": "Schepky A. G.",
+        "year": "1994",
+        "journal-title": "Biol. Chem. Hoppe-Seyler"
+      },
+      {
+        "key": "ac0108461b00041/ac0108461b00041_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "261",
+        "DOI": "10.1016/0021-9673(94)00683-Z",
+        "volume": "691",
+        "author": "Schepky A. G.",
+        "year": "1995",
+        "journal-title": "J. Chromatogr., A"
+      },
+      {
+        "key": "ac0108461b00042/ac0108461b00042_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "151",
+        "DOI": "10.1515/bchm3.1990.371.1.145",
+        "volume": "371",
+        "author": "Blode H.",
+        "year": "1990",
+        "journal-title": "Biol. Chem. Hoppe-Seyler"
+      },
+      {
+        "key": "ac0108461b00043/ac0108461b00043_1",
+        "first-page": "9420",
+        "volume": "30",
+        "author": "Farrell D. H.",
+        "year": "1991",
+        "journal-title": "Biochemistry"
+      },
+      {
+        "key": "ac0108461b00044/ac0108461b00044_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "136",
+        "DOI": "10.1016/S0378-4347(01)00261-4",
+        "volume": "760",
+        "author": "Westra D. F.",
+        "year": "2001",
+        "journal-title": "J. Chromatogr., B"
+      },
+      {
+        "key": "ac0108461b00045/ac0108461b00045_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "733",
+        "DOI": "10.1021/bp010051f",
+        "volume": "17",
+        "author": "Yeomans-Reina H.",
+        "year": "2001",
+        "journal-title": "Biotechnol. Prog."
+      },
+      {
+        "key": "ac0108461b00046/ac0108461b00046_1",
+        "first-page": "471",
+        "volume": "23",
+        "author": "Lin F. Y.",
+        "year": "2000",
+        "journal-title": "Bioprocess Eng."
+      },
+      {
+        "key": "ac0108461b00047/ac0108461b00047_1",
+        "first-page": "235",
+        "volume": "853",
+        "author": "Cao P.",
+        "year": "1999",
+        "journal-title": "J. Chromatogr., A"
+      },
+      {
+        "key": "ac0108461b00048/ac0108461b00048_1",
+        "first-page": "1606",
+        "volume": "14",
+        "author": "Cao P.",
+        "year": "2000",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00049/ac0108461b00049_1",
+        "first-page": "6596",
+        "volume": "96",
+        "author": "Oda Y.",
+        "year": "1999",
+        "journal-title": "Proc. Natl. Acad. Sci. U.S. Am."
+      },
+      {
+        "key": "ac0108461b00050/ac0108461b00050_1",
+        "first-page": "382",
+        "volume": "19",
+        "author": "Oda Y.",
+        "year": "2001",
+        "journal-title": "Nat. Biotechnol."
+      },
+      {
+        "key": "ac0108461b00051/ac0108461b00051_1",
+        "first-page": "20",
+        "volume": "33",
+        "author": "Liao P. C.",
+        "year": "1994",
+        "journal-title": "Anal. Biochem."
+      },
+      {
+        "key": "ac0108461b00052/ac0108461b00052_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "864",
+        "DOI": "10.1006/jmbi.1999.3415",
+        "volume": "295",
+        "author": "Abraham J.",
+        "year": "2000",
+        "journal-title": "J. Mol. Biol."
+      },
+      {
+        "key": "ac0108461b00053/ac0108461b00053_1",
+        "first-page": "16396",
+        "volume": "34",
+        "author": "Zhang Z.-Y.",
+        "year": "1995",
+        "journal-title": "Biochemistry"
+      },
+      {
+        "key": "ac0108461b00054/ac0108461b00054_1",
+        "first-page": "185",
+        "volume": "22",
+        "author": "Zanini A.",
+        "year": "1980",
+        "journal-title": "Eur. J. Cell Biol."
+      },
+      {
+        "key": "ac0108461b00055/ac0108461b00055_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "454",
+        "DOI": "10.1002/(SICI)1096-9888(199904)34:4<447::AID-JMS801>3.0.CO;2-1",
+        "volume": "34",
+        "author": "Wolfender J. L.",
+        "year": "1999",
+        "journal-title": "J. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00056/ac0108461b00056_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "501",
+        "DOI": "10.1016/0076-6879(90)93435-N",
+        "volume": "193",
+        "author": "Gibson B. W.",
+        "year": "1990",
+        "journal-title": "Methods Enzymol."
+      },
+      {
+        "key": "ac0108461b00057/ac0108461b00057_1",
+        "first-page": "3311",
+        "volume": "73",
+        "author": "Flora J. W.",
+        "year": "2001",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00058/ac0108461b00058_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "4253",
+        "DOI": "10.1021/ac990684x",
+        "volume": "71",
+        "author": "Kelleher N. L.",
+        "year": "1999",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00059/ac0108461b00059_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "1800",
+        "DOI": "10.1002/1097-0231(20001015)14:19<1793::AID-RCM95>3.0.CO;2-Q",
+        "volume": "14",
+        "author": "Stensballe A.",
+        "year": "2000",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00060/ac0108461b00060_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "22",
+        "DOI": "10.1021/ac012376g",
+        "volume": "73",
+        "author": "Shi S. D.-H.",
+        "year": "2001",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "ac0108461b00061/ac0108461b00061_1",
+        "first-page": "844",
+        "volume": "284",
+        "author": "Zhu Z. X.",
+        "year": "2001",
+        "journal-title": "Biochem. Biophys. Res. Commun."
+      },
+      {
+        "key": "ac0108461b00062/ac0108461b00062_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "276",
+        "DOI": "10.1038/299273a0",
+        "volume": "299",
+        "author": "Huttner W. B.",
+        "year": "1982",
+        "journal-title": "Nature"
+      },
+      {
+        "key": "ac0108461b00063/ac0108461b00063_1",
+        "first-page": "A389",
+        "volume": "95",
+        "author": "Huttner W. B.",
+        "year": "1982",
+        "journal-title": "J. Cell Biol."
+      },
+      {
+        "key": "ac0108461b00064/ac0108461b00064_1",
+        "first-page": "1008",
+        "volume": "365",
+        "author": "Huttner W. B.",
+        "year": "1984",
+        "journal-title": "Hoppe-Seylers Z. . Physiol. Chem."
+      },
+      {
+        "key": "ac0108461b00065/ac0108461b00065_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "149",
+        "DOI": "10.1002/(SICI)1097-0231(19960115)10:1<144::AID-RCM452>3.0.CO;2-D",
+        "volume": "10",
+        "author": "Boschenok J.",
+        "year": "1996",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00066/ac0108461b00066_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "396",
+        "DOI": "10.1255/ejms.360",
+        "volume": "6",
+        "author": "Favre A.",
+        "year": "2000",
+        "journal-title": "Eur. J. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00067/ac0108461b00067_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "82",
+        "DOI": "10.1016/0168-1176(93)87016-L",
+        "volume": "128",
+        "author": "Phillips D. R.",
+        "year": "1993",
+        "journal-title": "Int. J. Mass Spectrom. Ion Processes"
+      },
+      {
+        "key": "ac0108461b00068/ac0108461b00068_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "1085",
+        "DOI": "10.1002/(SICI)1096-9888(199610)31:10<1073::AID-JMS438>3.0.CO;2-X",
+        "volume": "31",
+        "author": "Polce M. J.",
+        "year": "1996",
+        "journal-title": "J. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00069/ac0108461b00069_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "976",
+        "DOI": "10.1016/S1044-0305(97)00126-8",
+        "volume": "8",
+        "author": "Senko M. W.",
+        "year": "1997",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00070/ac0108461b00070_1",
+        "first-page": "1828",
+        "volume": "10",
+        "author": "Senko M. W.",
+        "year": "1996",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00071/ac0108461b00071_1",
+        "first-page": "1844",
+        "volume": "10",
+        "author": "Senko M. W.",
+        "year": "1996",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00072/ac0108461b00072_1",
+        "volume-title": "Mass Spectrom",
+        "author": "Blakney G. T.",
+        "year": "2001"
+      },
+      {
+        "key": "ac0108461b00073/ac0108461b00073_1",
+        "first-page": "11537",
+        "volume": "95",
+        "author": "Shi S. D.-H.",
+        "year": "1998",
+        "journal-title": "Proc. Natl. Acad. Sci. U.S.A."
+      },
+      {
+        "key": "ac0108461b00074/ac0108461b00074_1",
+        "first-page": "598",
+        "volume": "195",
+        "author": "Shi S. D.-H.",
+        "year": "2000",
+        "journal-title": "Int. J. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00075/ac0108461b00075_1",
+        "unstructured": "Senko, M. W., 1998, IsoPro version 3.1(http://members.aol.com/msmssoft)."
+      },
+      {
+        "key": "ac0108461b00076/ac0108461b00076_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "340",
+        "DOI": "10.1016/S1044-0305(97)00287-0",
+        "volume": "9",
+        "author": "Emmett M. R.",
+        "year": "1998",
+        "journal-title": "J. Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "ac0108461b00077/ac0108461b00077_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "124",
+        "DOI": "10.1016/0014-2999(80)90221-6",
+        "volume": "65",
+        "author": "Innis R. B.",
+        "year": "1980",
+        "journal-title": "Eur. J. Pharmacol."
+      },
+      {
+        "key": "ac0108461b00078/ac0108461b00078_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "6921",
+        "DOI": "10.1073/pnas.77.11.6917",
+        "volume": "77",
+        "author": "Innis R. B.",
+        "year": "1980",
+        "journal-title": "Proc. Natl. Acad. Sci. U.S.A."
+      },
+      {
+        "key": "ac0108461b00079/ac0108461b00079_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "235",
+        "DOI": "10.1002/1097-0231(20010215)15:3<232::AID-RCM218>3.0.CO;2-P",
+        "volume": "15",
+        "author": "Marshall A. G.",
+        "year": "2001",
+        "journal-title": "Rapid Commun. Mass Spectrom."
+      }
+    ],
+    "container-title": [
+      "Analytical Chemistry"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://pubs.acs.org/doi/pdf/10.1021/ac0108461",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          19
+        ]
+      ],
+      "date-time": "2023-04-19T00:57:04Z",
+      "timestamp": 1681865824000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://pubs.acs.org/doi/10.1021/ac0108461"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2002,
+          2,
+          21
+        ]
+      ]
+    },
+    "references-count": 79,
+    "journal-issue": {
+      "issue": "7",
+      "published-print": {
+        "date-parts": [
+          [
+            2002,
+            4,
+            1
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1021/ac0108461"
+    ],
+    "URL": "https://doi.org/10.1021/ac0108461",
+    "relation": {},
+    "ISSN": [
+      "0003-2700",
+      "1520-6882"
+    ],
+    "issn-type": [
+      {
+        "value": "0003-2700",
+        "type": "print"
+      },
+      {
+        "value": "1520-6882",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2002,
+          2,
+          21
+        ]
+      ]
+    }
+  }
+}

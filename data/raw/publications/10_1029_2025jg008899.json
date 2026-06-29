@@ -1,0 +1,1148 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          22
+        ]
+      ],
+      "date-time": "2025-08-22T12:40:02Z",
+      "timestamp": 1755866402667,
+      "version": "3.44.0"
+    },
+    "reference-count": 136,
+    "publisher": "American Geophysical Union (AGU)",
+    "issue": "7",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2025,
+              7,
+              16
+            ]
+          ],
+          "date-time": "2025-07-16T00:00:00Z",
+          "timestamp": 1752624000000
+        },
+        "content-version": "vor",
+        "delay-in-days": 15,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/100000001",
+        "name": "National Science Foundation",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100000001",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100023043",
+        "name": "State of Florida",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100023043",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "agupubs.onlinelibrary.wiley.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "JGR Biogeosciences"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2025,
+          7
+        ]
+      ]
+    },
+    "abstract": "<jats:title>Abstract</jats:title><jats:p>The Arctic is experiencing unprecedented rates of climate change, leading to numerous disturbances on the terrestrial landscape, including shrubification, increased frequency of wildfires, and permafrost thaw. These changes may impact the mobilization of terrestrial organic carbon into Arctic rivers and are hypothesized to lead to distinct alterations to the molecular composition and thus the reactivity of riverine dissolved organic matter (DOM). To understand how these three major perturbations may impact DOM dynamics in Arctic fluvial and coastal systems, we examined the concentration and bioavailability of dissolved organic carbon (DOC) together with the molecular\u2010level DOM composition of different source endmember leachates from the Yukon River watershed using biodegradation incubation experiments and Fourier transform ion cyclotron resonance mass spectrometry (FT\u2010ICR MS). Simulated climate\u2010related landscape perturbations generally led to increased leachate DOC concentrations. Incubations demonstrated that the biodegradability of leachate DOC was lowest for vegetation endmembers, particularly for shrubs (12.3% DOC loss), and highest for thawing Yedoma permafrost (64.9% loss) and organic\u2010rich tundra soil (70.9% loss). FT\u2010ICR MS highlighted that aliphatic and high\u2010H/C molecular formulas were preferentially biodegraded, whereas condensed aromatic and polyphenolic compounds were relatively enriched post\u2010biodegradation in all endmember leachates. Together these findings suggest that with continued climate change and landscape perturbation, larger amounts of less bioavailable DOC will be mobilized into Arctic rivers leading to higher relative amounts of highly aromatic, biologically stable DOM being exported into receiving ecosystems and the Arctic Ocean, potentially altering the rates and mechanisms of carbon turnover in the coastal zone.</jats:p>",
+    "DOI": "10.1029/2025jg008899",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          17
+        ]
+      ],
+      "date-time": "2025-07-17T05:44:47Z",
+      "timestamp": 1752731087000
+    },
+    "update-policy": "https://doi.org/10.1002/crossmark_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 0,
+    "title": [
+      "Signatures of Arctic Change: Molecular\u2010Level Composition and Bioavailability of Shifting Dissolved Organic Matter Sources"
+    ],
+    "prefix": "10.1029",
+    "volume": "130",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0009-0004-1464-2490",
+        "authenticated-orcid": false,
+        "given": "A. E.",
+        "family": "Slentz",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group and Department of Earth, Ocean, and Atmospheric Science Florida State University  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-7213-521X",
+        "authenticated-orcid": false,
+        "given": "A. M.",
+        "family": "McKenna",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Ion Cyclotron Resonance Facility  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-7348-4814",
+        "authenticated-orcid": false,
+        "given": "A. M.",
+        "family": "Kellerman",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group and Department of Earth, Ocean, and Atmospheric Science Florida State University  Tallahassee FL USA"
+          },
+          {
+            "name": "Department of Earth and Environmental Science University of Pennsylvania  Philadelphia PA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "A. D.",
+        "family": "Holt",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group and Department of Earth, Ocean, and Atmospheric Science Florida State University  Tallahassee FL USA"
+          },
+          {
+            "name": "Program on the Environment and Alaska Coastal Rainforest Center University of Alaska Southeast  Juneau AK USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0009-0004-0803-3170",
+        "authenticated-orcid": false,
+        "given": "A. J.",
+        "family": "Burns",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Land and Water Resources University of California  Davis CA USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0009-0009-3785-9218",
+        "authenticated-orcid": false,
+        "given": "M. G.",
+        "family": "Miller",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Earth and Environmental Sciences and Center for Environmental Stable Isotope Analysis Rensselaer Polytechnic Institute  Troy NY USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-6184-5734",
+        "authenticated-orcid": false,
+        "given": "S.",
+        "family": "Wagner",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Earth and Environmental Sciences and Center for Environmental Stable Isotope Analysis Rensselaer Polytechnic Institute  Troy NY USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-4510-7827",
+        "authenticated-orcid": false,
+        "given": "M.",
+        "family": "Tzortziou",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Earth and Atmospheric Sciences Department The City College of New York  New York NY USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "H.",
+        "family": "Smith",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Ocean Ecology Laboratory (Code 616) NASA Goddard Space Flight Center  Greenbelt MD USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-0938-7219",
+        "authenticated-orcid": false,
+        "given": "A.",
+        "family": "Mannino",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Ocean Ecology Laboratory (Code 616) NASA Goddard Space Flight Center  Greenbelt MD USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-3303-9708",
+        "authenticated-orcid": false,
+        "given": "J. P.",
+        "family": "Chanton",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group and Department of Earth, Ocean, and Atmospheric Science Florida State University  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-0777-0748",
+        "authenticated-orcid": false,
+        "given": "R. G. M.",
+        "family": "Spencer",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "National High Magnetic Field Laboratory Geochemistry Group and Department of Earth, Ocean, and Atmospheric Science Florida State University  Tallahassee FL USA"
+          }
+        ],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "member": "13",
+    "published-online": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          16
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_2_8_2_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2013gb004764"
+      },
+      {
+        "key": "e_1_2_8_3_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.soilbio.2024.109393"
+      },
+      {
+        "key": "e_1_2_8_4_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gca.2012.07.015"
+      },
+      {
+        "key": "e_1_2_8_5_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2007jg000508"
+      },
+      {
+        "key": "e_1_2_8_6_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2014jg002722"
+      },
+      {
+        "key": "e_1_2_8_7_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.2307/3432481"
+      },
+      {
+        "key": "e_1_2_8_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.0909396107"
+      },
+      {
+        "key": "e_1_2_8_9_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.2c02377"
+      },
+      {
+        "key": "e_1_2_8_10_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/s0146\u20106380(02)00062\u20101"
+      },
+      {
+        "key": "e_1_2_8_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2020gb006871"
+      },
+      {
+        "key": "e_1_2_8_12_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/j.1461\u20100248.2011.01736.x"
+      },
+      {
+        "key": "e_1_2_8_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ismej.2009.120"
+      },
+      {
+        "key": "e_1_2_8_14_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/gcb.16121"
+      },
+      {
+        "key": "e_1_2_8_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1657/1938\u20104246\u201041.4.407"
+      },
+      {
+        "key": "e_1_2_8_16_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.1017982108"
+      },
+      {
+        "key": "e_1_2_8_17_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1146/annurev\u2010earth\u2010060614\u2010105038"
+      },
+      {
+        "key": "e_1_2_8_18_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.ijms.2011.03.009"
+      },
+      {
+        "key": "e_1_2_8_19_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2023.165026"
+      },
+      {
+        "key": "e_1_2_8_20_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/aafc1b"
+      },
+      {
+        "key": "e_1_2_8_21_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ngeo2940"
+      },
+      {
+        "key": "e_1_2_8_22_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/hess\u201022\u20104455\u20102018"
+      },
+      {
+        "key": "e_1_2_8_23_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2023jg007812"
+      },
+      {
+        "key": "e_1_2_8_24_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41467\u2010024\u201046789\u20105"
+      },
+      {
+        "key": "e_1_2_8_25_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.soilbio.2024.109517"
+      },
+      {
+        "key": "e_1_2_8_26_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.2307/2265504"
+      },
+      {
+        "key": "e_1_2_8_27_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.2307/1939337"
+      },
+      {
+        "key": "e_1_2_8_28_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2022jg007139"
+      },
+      {
+        "volume-title": "PetroOrg software",
+        "year": "2014",
+        "author": "Corilo Y. E.",
+        "key": "e_1_2_8_29_1"
+      },
+      {
+        "key": "e_1_2_8_30_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.7400"
+      },
+      {
+        "key": "e_1_2_8_31_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lom.2008.6.230"
+      },
+      {
+        "key": "e_1_2_8_32_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1046/j.0269\u20108463.2001.00596.x"
+      },
+      {
+        "key": "e_1_2_8_33_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2017jg004311"
+      },
+      {
+        "key": "e_1_2_8_34_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.est.8b01051"
+      },
+      {
+        "key": "e_1_2_8_35_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1073/pnas.1511705112"
+      },
+      {
+        "key": "e_1_2_8_36_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nclimate1465"
+      },
+      {
+        "key": "e_1_2_8_37_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/s1044\u20100305(97)00287\u20100"
+      },
+      {
+        "key": "e_1_2_8_38_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/35051650"
+      },
+      {
+        "key": "e_1_2_8_39_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.soilbio.2004.07.012"
+      },
+      {
+        "key": "e_1_2_8_40_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/fenvs.2025.1525574"
+      },
+      {
+        "key": "e_1_2_8_41_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nrmicro2652"
+      },
+      {
+        "key": "e_1_2_8_42_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2019jg005236"
+      },
+      {
+        "key": "e_1_2_8_43_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41598\u2010021\u201089327\u20109"
+      },
+      {
+        "key": "e_1_2_8_44_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1146/annurev.micro.50.1.553"
+      },
+      {
+        "key": "e_1_2_8_45_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.scitotenv.2016.02.031"
+      },
+      {
+        "key": "e_1_2_8_46_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/s0146\u20106380(97)00066\u20101"
+      },
+      {
+        "key": "e_1_2_8_47_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s13361\u2010015\u20101182\u20102"
+      },
+      {
+        "key": "e_1_2_8_48_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/feart.2017.00009"
+      },
+      {
+        "key": "e_1_2_8_49_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gca.2016.05.015"
+      },
+      {
+        "key": "e_1_2_8_50_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/9781118470596.ch1"
+      },
+      {
+        "key": "e_1_2_8_51_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s12237\u2010011\u20109386\u20106"
+      },
+      {
+        "key": "e_1_2_8_52_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2007gl032837"
+      },
+      {
+        "key": "e_1_2_8_53_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac010560w"
+      },
+      {
+        "key": "e_1_2_8_54_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10533\u2010019\u201000619\u20109"
+      },
+      {
+        "key": "e_1_2_8_55_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2017jg004337"
+      },
+      {
+        "key": "e_1_2_8_56_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ncomms4804"
+      },
+      {
+        "key": "e_1_2_8_57_1",
+        "article-title": "Unifying concepts linking dissolved organic matter composition to persistence in aquatic ecosystems",
+        "volume": "11",
+        "author": "Kellerman A. M.",
+        "year": "2018",
+        "journal-title": "Environmental Science and Technology"
+      },
+      {
+        "key": "e_1_2_8_58_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.marchem.2023.104281"
+      },
+      {
+        "key": "e_1_2_8_59_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/ngeo2440"
+      },
+      {
+        "key": "e_1_2_8_60_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac60206a048"
+      },
+      {
+        "key": "e_1_2_8_61_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/fire5040106"
+      },
+      {
+        "key": "e_1_2_8_62_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac034415p"
+      },
+      {
+        "key": "e_1_2_8_63_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u201021\u20104723\u20102024"
+      },
+      {
+        "key": "e_1_2_8_64_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2008.03.021"
+      },
+      {
+        "key": "e_1_2_8_65_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.7433"
+      },
+      {
+        "key": "e_1_2_8_66_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/rcm.2386"
+      },
+      {
+        "key": "e_1_2_8_67_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.chemosphere.2011.06.074"
+      },
+      {
+        "key": "e_1_2_8_68_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2021jg006578"
+      },
+      {
+        "key": "e_1_2_8_69_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gca.2011.01.020"
+      },
+      {
+        "key": "e_1_2_8_70_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1175/jcli\u2010d\u201011\u201000334.1"
+      },
+      {
+        "key": "e_1_2_8_71_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.18637/jss.v025.i01"
+      },
+      {
+        "key": "e_1_2_8_72_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.gca.2008.09.028"
+      },
+      {
+        "key": "e_1_2_8_73_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/ac6965"
+      },
+      {
+        "key": "e_1_2_8_74_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/gcb.12416"
+      },
+      {
+        "key": "e_1_2_8_75_1",
+        "first-page": "1",
+        "article-title": "Reviews and syntheses: Arctic fire regimes and emissions in the 21st century",
+        "volume": "2021",
+        "author": "McCarty J. L.",
+        "year": "2021",
+        "journal-title": "Biogeosciences Discussions"
+      },
+      {
+        "key": "e_1_2_8_76_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41561\u2010020\u201000645\u20105"
+      },
+      {
+        "key": "e_1_2_8_77_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s12237\u2010010\u20109357\u20103"
+      },
+      {
+        "key": "e_1_2_8_78_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/abf28b"
+      },
+      {
+        "key": "e_1_2_8_79_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/aabf28"
+      },
+      {
+        "key": "e_1_2_8_80_1",
+        "first-page": "203",
+        "volume-title": "IPCC Special Report on the Ocean and Cryosphere in a Changing Climate",
+        "author": "Meredith M.",
+        "year": "2019"
+      },
+      {
+        "key": "e_1_2_8_81_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s43017\u2010021\u201000230\u20103"
+      },
+      {
+        "key": "e_1_2_8_82_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/11/12/124028"
+      },
+      {
+        "key": "e_1_2_8_83_1",
+        "unstructured": "Moon T. A. Druckenmiller M. L. &Thoman R. L.(2024).Arctic Report Card 2024."
+      },
+      {
+        "key": "e_1_2_8_84_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2014gl062762"
+      },
+      {
+        "key": "e_1_2_8_85_1",
+        "unstructured": "Natali S. M. Rogers B. Schuur E. A. Romanovsky V. Alcock H. Arndt K. et\u00a0al. (2024).NOAA Arctic report card 2024: Arctic terrestrial carbon cycling."
+      },
+      {
+        "key": "e_1_2_8_86_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1890/13\u20100602.1"
+      },
+      {
+        "key": "e_1_2_8_87_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/j.1365\u20102745.2011.01925.x"
+      },
+      {
+        "key": "e_1_2_8_88_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2006gl028222"
+      },
+      {
+        "key": "e_1_2_8_89_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.orggeochem.2012.12.008"
+      },
+      {
+        "key": "e_1_2_8_90_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2016jg003431"
+      },
+      {
+        "key": "e_1_2_8_91_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2009jg001153"
+      },
+      {
+        "key": "e_1_2_8_92_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.marchem.2009.05.003"
+      },
+      {
+        "key": "e_1_2_8_93_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/s0964\u20108305(03)00052\u20100"
+      },
+      {
+        "key": "e_1_2_8_94_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10533\u2010013\u20109922\u20105"
+      },
+      {
+        "key": "e_1_2_8_95_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/hyp.6247"
+      },
+      {
+        "key": "e_1_2_8_96_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10021\u2010016\u20109984\u2010z"
+      },
+      {
+        "key": "e_1_2_8_97_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u20103\u2010397\u20102006"
+      },
+      {
+        "key": "e_1_2_8_98_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s43247\u2010022\u201000498\u20103"
+      },
+      {
+        "key": "e_1_2_8_99_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2007gb002934"
+      },
+      {
+        "key": "e_1_2_8_100_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/gcb.15113"
+      },
+      {
+        "key": "e_1_2_8_101_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10533\u2010023\u201001102\u20102"
+      },
+      {
+        "key": "e_1_2_8_102_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41598\u2010020\u201065520\u20100"
+      },
+      {
+        "key": "e_1_2_8_103_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2020jg005977"
+      },
+      {
+        "key": "e_1_2_8_104_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1371/journal.pone.0053550"
+      },
+      {
+        "key": "e_1_2_8_105_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac102943z"
+      },
+      {
+        "key": "e_1_2_8_106_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/es401430f"
+      },
+      {
+        "key": "e_1_2_8_107_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1641/b580807"
+      },
+      {
+        "key": "e_1_2_8_108_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/nature14338"
+      },
+      {
+        "key": "e_1_2_8_109_1",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Slentz A. E.(2023).Terrigenous dissolved organic matter in the Yukon River Delta[Dataset].OSF.https://doi.org/10.17605/OSF.IO/QJHS9",
+        "DOI": "10.17605/OSF.IO/QJHS9"
+      },
+      {
+        "key": "e_1_2_8_110_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/acs.analchem.7b04159"
+      },
+      {
+        "key": "e_1_2_8_111_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2008gb003231"
+      },
+      {
+        "key": "e_1_2_8_112_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2015gl063498"
+      },
+      {
+        "key": "e_1_2_8_113_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2022jg007073"
+      },
+      {
+        "key": "e_1_2_8_114_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/feart.2021.758360"
+      },
+      {
+        "key": "e_1_2_8_115_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lom.2012.10.347"
+      },
+      {
+        "key": "e_1_2_8_116_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.2010.55.4.1467"
+      },
+      {
+        "key": "e_1_2_8_117_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/35079180"
+      },
+      {
+        "key": "e_1_2_8_118_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1525/9780520407114"
+      },
+      {
+        "key": "e_1_2_8_119_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41561\u2010023\u201001247\u20107"
+      },
+      {
+        "key": "e_1_2_8_120_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/j.1365\u20102486.2006.01128.x"
+      },
+      {
+        "key": "e_1_2_8_121_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/feart.2019.00275"
+      },
+      {
+        "key": "e_1_2_8_122_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2013jg002492"
+      },
+      {
+        "key": "e_1_2_8_123_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/2017jg004007"
+      },
+      {
+        "key": "e_1_2_8_124_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.4319/lo.2009.54.6_part_2.2298"
+      },
+      {
+        "key": "e_1_2_8_125_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.coesh.2021.100277"
+      },
+      {
+        "key": "e_1_2_8_126_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/grl.50348"
+      },
+      {
+        "key": "e_1_2_8_127_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5194/bg\u201012\u20106915\u20102015"
+      },
+      {
+        "key": "e_1_2_8_128_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1038/s41467\u2010021\u201024477\u2010y"
+      },
+      {
+        "key": "e_1_2_8_129_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3389/feart.2017.00075"
+      },
+      {
+        "key": "e_1_2_8_130_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1088/1748\u20109326/abd7ae"
+      },
+      {
+        "key": "e_1_2_8_131_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/978-3-319-24277-4_12"
+      },
+      {
+        "key": "e_1_2_8_132_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1029/2012gb004342"
+      },
+      {
+        "key": "e_1_2_8_133_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s10021\u2010007\u20109101\u20104"
+      },
+      {
+        "key": "e_1_2_8_134_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1111/j.1365\u20102486.2009.01896.x"
+      },
+      {
+        "key": "e_1_2_8_135_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1021/ac101091w"
+      },
+      {
+        "key": "e_1_2_8_136_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/w16131773"
+      },
+      {
+        "key": "e_1_2_8_137_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1126/science.1128908"
+      }
+    ],
+    "container-title": [
+      "Journal of Geophysical Research: Biogeosciences"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/am-pdf/10.1029/2025JG008899",
+        "content-type": "application/pdf",
+        "content-version": "am",
+        "intended-application": "syndication"
+      },
+      {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2025JG008899",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          22
+        ]
+      ],
+      "date-time": "2025-08-22T12:00:22Z",
+      "timestamp": 1755864022000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2025JG008899"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7
+        ]
+      ]
+    },
+    "references-count": 136,
+    "journal-issue": {
+      "issue": "7",
+      "published-print": {
+        "date-parts": [
+          [
+            2025,
+            7
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1029/2025JG008899"
+    ],
+    "URL": "https://doi.org/10.1029/2025jg008899",
+    "archive": [
+      "Portico"
+    ],
+    "relation": {},
+    "ISSN": [
+      "2169-8953",
+      "2169-8961"
+    ],
+    "issn-type": [
+      {
+        "type": "print",
+        "value": "2169-8953"
+      },
+      {
+        "type": "electronic",
+        "value": "2169-8961"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2025,
+          7
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "2025-02-28",
+        "order": 0,
+        "name": "received",
+        "label": "Received",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2025-07-05",
+        "order": 2,
+        "name": "accepted",
+        "label": "Accepted",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2025-07-16",
+        "order": 3,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ],
+    "article-number": "e2025JG008899"
+  }
+}

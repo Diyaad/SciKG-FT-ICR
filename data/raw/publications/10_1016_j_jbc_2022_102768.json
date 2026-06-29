@@ -1,0 +1,1328 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          9
+        ]
+      ],
+      "date-time": "2026-06-09T22:10:42Z",
+      "timestamp": 1781043042010,
+      "version": "3.54.1"
+    },
+    "reference-count": 73,
+    "publisher": "Elsevier BV",
+    "issue": "1",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              1,
+              1
+            ]
+          ],
+          "date-time": "2023-01-01T00:00:00Z",
+          "timestamp": 1672531200000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              1,
+              1
+            ]
+          ],
+          "date-time": "2023-01-01T00:00:00Z",
+          "timestamp": 1672531200000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/legal/tdmrep-license"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2022-12-01T00:00:00Z",
+          "timestamp": 1669852800000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/100007059",
+        "name": "Northwestern University",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "T32GM008382"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "T32GM008382"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100007059",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100007059",
+        "name": "Northwestern University",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "F32CA246894"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "F32CA246894"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100007059",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100007059",
+        "name": "Northwestern University",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "P41 GM108569"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "P41 GM108569"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100007059",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100007059",
+        "name": "Northwestern University",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "S10OD025194"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "S10OD025194"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100007059",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100012892",
+        "name": "National High Magnetic Field Laboratory",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100012892",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000001",
+        "name": "National Science Foundation",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "DMR-1644779"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "DMR-1644779"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000001",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000002",
+        "name": "National Institutes of Health",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "F32CA246894"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "F32CA246894"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/100000002",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/100000054",
+        "name": "National Cancer Institute",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/100000054",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "jbc.org",
+        "elsevier.com",
+        "sciencedirect.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Journal of Biological Chemistry"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2023,
+          1
+        ]
+      ]
+    },
+    "DOI": "10.1016/j.jbc.2022.102768",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2022,
+          12,
+          5
+        ]
+      ],
+      "date-time": "2022-12-05T01:10:59Z",
+      "timestamp": 1670202659000
+    },
+    "page": "102768",
+    "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 37,
+    "title": [
+      "Mapping the KRAS proteoform landscape in colorectal cancer identifies truncated KRAS4B that decreases MAPK signaling"
+    ],
+    "prefix": "10.1016",
+    "volume": "299",
+    "author": [
+      {
+        "given": "Lauren M.",
+        "family": "Adams",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Caroline J.",
+        "family": "DeHart",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-5631-512X",
+        "authenticated-orcid": false,
+        "given": "Bryon S.",
+        "family": "Drown",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-8633-0251",
+        "authenticated-orcid": false,
+        "given": "Lissa C.",
+        "family": "Anderson",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "William",
+        "family": "Bocik",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Emily S.",
+        "family": "Boja",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Tara M.",
+        "family": "Hiltke",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-4272-2939",
+        "authenticated-orcid": false,
+        "given": "Christopher L.",
+        "family": "Hendrickson",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Henry",
+        "family": "Rodriguez",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-8636-0706",
+        "authenticated-orcid": false,
+        "given": "Michael",
+        "family": "Caldwell",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Reza",
+        "family": "Vafabakhsh",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Neil L.",
+        "family": "Kelleher",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "78",
+    "reference": [
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib1",
+        "doi-asserted-by": "crossref",
+        "first-page": "779",
+        "DOI": "10.1146/annurev.bi.56.070187.004023",
+        "article-title": "Ras genes",
+        "volume": "56",
+        "author": "Barbacid",
+        "year": "1987",
+        "journal-title": "Annu. Rev. Biochem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib2",
+        "doi-asserted-by": "crossref",
+        "first-page": "842",
+        "DOI": "10.1038/nrc2960",
+        "article-title": "Ras superfamily GEFs and GAPs: validated and tractable targets for cancer therapy?",
+        "volume": "10",
+        "author": "Vigil",
+        "year": "2011",
+        "journal-title": "Nat. Rev. Cancer"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib3",
+        "doi-asserted-by": "crossref",
+        "first-page": "2969",
+        "DOI": "10.1158/0008-5472.CAN-19-3682",
+        "article-title": "The frequency of ras mutations in cancer",
+        "volume": "80",
+        "author": "Prior",
+        "year": "2020",
+        "journal-title": "Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib4",
+        "doi-asserted-by": "crossref",
+        "first-page": "2457",
+        "DOI": "10.1158/0008-5472.CAN-11-2612",
+        "article-title": "A\u00a0comprehensive survey of Ras mutations in cancer",
+        "volume": "72",
+        "author": "Prior",
+        "year": "2012",
+        "journal-title": "Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib5",
+        "doi-asserted-by": "crossref",
+        "first-page": "686",
+        "DOI": "10.1016/j.trecan.2017.08.006",
+        "article-title": "KRAS alleles: the devil is in the detail",
+        "volume": "3",
+        "author": "Haigis",
+        "year": "2017",
+        "journal-title": "Trends Cancer"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib6",
+        "doi-asserted-by": "crossref",
+        "first-page": "57",
+        "DOI": "10.1186/s13046-018-0719-1",
+        "article-title": "Targeting KRAS in metastatic colorectal cancer: current strategies and emerging opportunities",
+        "volume": "37",
+        "author": "Porru",
+        "year": "2018",
+        "journal-title": "J.\u00a0Exp. Clin. Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib7",
+        "doi-asserted-by": "crossref",
+        "first-page": "1127",
+        "DOI": "10.1007/s10555-020-09902-w",
+        "article-title": "K-Ras prenylation as a potential anticancer target",
+        "volume": "39",
+        "author": "Baranyi",
+        "year": "2020",
+        "journal-title": "Cancer Metastasis Rev."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib8",
+        "doi-asserted-by": "crossref",
+        "first-page": "119",
+        "DOI": "10.1038/s41596-018-0085-7",
+        "article-title": "A\u00a0comprehensive pipeline for translational top-down proteomics from a single blood draw",
+        "volume": "14",
+        "author": "Toby",
+        "year": "2019",
+        "journal-title": "Nat. Protoc."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib9",
+        "doi-asserted-by": "crossref",
+        "first-page": "1819",
+        "DOI": "10.1158/1078-0432.CCR-14-3214",
+        "article-title": "Targeting RAS membrane association: back to the future for anti-RAS drug discovery?",
+        "volume": "21",
+        "author": "Cox",
+        "year": "2015",
+        "journal-title": "Clin. Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib10",
+        "doi-asserted-by": "crossref",
+        "first-page": "548",
+        "DOI": "10.1038/nature12796",
+        "article-title": "K-Ras(G12C) inhibitors allosterically control GTP affinity and effector interactions",
+        "volume": "503",
+        "author": "Ostrem",
+        "year": "2013",
+        "journal-title": "Nature"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib11",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1101/cshperspect.a031484",
+        "article-title": "Post-translational modifications of RAS proteins",
+        "volume": "8",
+        "author": "Ahearn",
+        "year": "2018",
+        "journal-title": "Cold Spring Harb. Perspect. Med."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib12",
+        "doi-asserted-by": "crossref",
+        "first-page": "1167",
+        "DOI": "10.1016/0092-8674(89)90054-8",
+        "article-title": "All ras proteins are polyisoprenylated but only some are palmitoylated",
+        "volume": "57",
+        "author": "Hancock",
+        "year": "1989",
+        "journal-title": "Cell"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib13",
+        "doi-asserted-by": "crossref",
+        "first-page": "133",
+        "DOI": "10.1016/0092-8674(90)90294-O",
+        "article-title": "A\u00a0polybasic domain or palmitoylation is required in addition to the CAAX motif to localise p21ras to the plasma membrane",
+        "volume": "63",
+        "author": "Hancock",
+        "year": "1990",
+        "journal-title": "Cell"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib14",
+        "doi-asserted-by": "crossref",
+        "first-page": "4033",
+        "DOI": "10.1002/j.1460-2075.1991.tb04979.x",
+        "article-title": "A\u00a0CAAX or a CAAL motif and a second signal are sufficient for plasma membrane targeting of ras proteins",
+        "volume": "10",
+        "author": "Hancock",
+        "year": "1991",
+        "journal-title": "EMBO J."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib15",
+        "doi-asserted-by": "crossref",
+        "first-page": "373",
+        "DOI": "10.1038/nrm1105",
+        "article-title": "Ras proteins: different signals from different locations",
+        "volume": "4",
+        "author": "Hancock",
+        "year": "2003",
+        "journal-title": "Nat. Rev. Mol. Cell Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib16",
+        "doi-asserted-by": "crossref",
+        "first-page": "4377",
+        "DOI": "10.1128/MCB.00050-08",
+        "article-title": "Electrostatic interactions positively regulate K-ras nanocluster formation and function",
+        "volume": "28",
+        "author": "Plowman",
+        "year": "2008",
+        "journal-title": "Mol. Cell Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib17",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.3389/fmolb.2021.659861",
+        "article-title": "Palmitoylation as a key regulator of ras localization and function",
+        "volume": "8",
+        "author": "Busquets-Hernandez",
+        "year": "2021",
+        "journal-title": "Front. Mol. Biosci."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib18",
+        "doi-asserted-by": "crossref",
+        "first-page": "9465",
+        "DOI": "10.1074/jbc.M114.620724",
+        "article-title": "Mechanisms of membrane binding of small GTPase K-Ras4B farnesylated hypervariable region",
+        "volume": "290",
+        "author": "Jang",
+        "year": "2015",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib19",
+        "doi-asserted-by": "crossref",
+        "first-page": "4582",
+        "DOI": "10.1038/sj.onc.1203818",
+        "article-title": "Structure and function of the C-terminal hypervariable region of K-Ras4B in plasma membrane targetting and transformation",
+        "volume": "19",
+        "author": "Welman",
+        "year": "2000",
+        "journal-title": "Oncogene"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib20",
+        "doi-asserted-by": "crossref",
+        "first-page": "583",
+        "DOI": "10.1038/310583a0",
+        "article-title": "The p21 ras C-terminus is required for transformation and membrane association",
+        "volume": "310",
+        "author": "Willumsen",
+        "year": "1984",
+        "journal-title": "Nature"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib21",
+        "doi-asserted-by": "crossref",
+        "first-page": "883",
+        "DOI": "10.1194/jlr.R600004-JLR200",
+        "article-title": "Thematic review series: lipid posttranslational modifications. CAAX modification and membrane targeting of ras",
+        "volume": "47",
+        "author": "Wright",
+        "year": "2006",
+        "journal-title": "J.\u00a0Lipid Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib22",
+        "doi-asserted-by": "crossref",
+        "first-page": "10843",
+        "DOI": "10.1073/pnas.1201487109",
+        "article-title": "Regulation of RAS oncogenicity by acetylation",
+        "volume": "109",
+        "author": "Yang",
+        "year": "2012",
+        "journal-title": "Proc. Natl. Acad. Sci. U. S. A."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib23",
+        "doi-asserted-by": "crossref",
+        "first-page": "1072",
+        "DOI": "10.1158/1541-7786.MCR-13-0040-T",
+        "article-title": "HDAC6 and SIRT2 regulate the acetylation state and oncogenic activity of mutant K-RAS",
+        "volume": "11",
+        "author": "Yang",
+        "year": "2013",
+        "journal-title": "Mol. Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib24",
+        "doi-asserted-by": "crossref",
+        "first-page": "1071",
+        "DOI": "10.1515/hsz-2016-0118",
+        "article-title": "Insights into K-Ras 4B regulation by post-translational lysine acetylation",
+        "volume": "397",
+        "author": "Knyphausen",
+        "year": "2016",
+        "journal-title": "Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib25",
+        "doi-asserted-by": "crossref",
+        "first-page": "4323",
+        "DOI": "10.1074/jbc.272.7.4323",
+        "article-title": "A\u00a0molecular redox switch on p21ras",
+        "volume": "272",
+        "author": "Lander",
+        "year": "1997",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib26",
+        "doi-asserted-by": "crossref",
+        "first-page": "21195",
+        "DOI": "10.1074/jbc.270.36.21195",
+        "article-title": "p21ras as a common signaling target of reactive free radicals and cellular redox stress",
+        "volume": "270",
+        "author": "Lander",
+        "year": "1995",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib27",
+        "doi-asserted-by": "crossref",
+        "first-page": "6376",
+        "DOI": "10.1073/pnas.1037299100",
+        "article-title": "Structural and biochemical studies of p21Ras S-nitrosylation and nitric oxide-mediated guanine nucleotide exchange",
+        "volume": "100",
+        "author": "Williams",
+        "year": "2003",
+        "journal-title": "Proc. Natl. Acad. Sci. U. S. A."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib28",
+        "doi-asserted-by": "crossref",
+        "first-page": "1423",
+        "DOI": "10.1016/j.jmb.2004.12.050",
+        "article-title": "Mechanism of free Radical nitric oxide-mediated ras guanine nucleotide dissociation",
+        "volume": "346",
+        "author": "Heo",
+        "year": "2005",
+        "journal-title": "J.\u00a0Mol. Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib29",
+        "doi-asserted-by": "crossref",
+        "first-page": "5410",
+        "DOI": "10.1038/ncomms6410",
+        "article-title": "Decreased tumorigenesis in mice with a Kras point mutation at C118",
+        "volume": "5",
+        "author": "Huang",
+        "year": "2014",
+        "journal-title": "Nat. Commun."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib30",
+        "doi-asserted-by": "crossref",
+        "first-page": "2688",
+        "DOI": "10.1016/S0021-9258(18)61562-5",
+        "article-title": "Phorbol ester- andP rotein Kinase C-mediated phosphorylation of the cellular kirsten ras gene product",
+        "volume": "262",
+        "author": "Ballester",
+        "year": "1987",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib31",
+        "first-page": "4553",
+        "article-title": "Oncogenic K-ras segregates at spatially distinct plasma membrane signaling platforms according to its phosphorylation status",
+        "volume": "126",
+        "author": "Barcelo",
+        "year": "2013",
+        "journal-title": "J.\u00a0Cell Sci."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib32",
+        "doi-asserted-by": "crossref",
+        "first-page": "1190",
+        "DOI": "10.1158/0008-5472.CAN-13-1750",
+        "article-title": "Phosphorylation at Ser-181 of oncogenic KRAS is required for tumor growth",
+        "volume": "74",
+        "author": "Barcelo",
+        "year": "2013",
+        "journal-title": "Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib33",
+        "doi-asserted-by": "crossref",
+        "first-page": "5911",
+        "DOI": "10.1038/onc.2010.298",
+        "article-title": "K-Ras4B phosphorylation at Ser181 is inhibited by calmodulin and modulates K-Ras activity and function",
+        "volume": "29",
+        "author": "Alvarez-Moya",
+        "year": "2010",
+        "journal-title": "Oncogene"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib34",
+        "doi-asserted-by": "crossref",
+        "first-page": "224",
+        "DOI": "10.1038/s41467-018-08115-8",
+        "article-title": "Tyrosyl phosphorylation of KRAS stalls GTPase cycle via alteration of switch I and II conformation",
+        "volume": "10",
+        "author": "Kano",
+        "year": "2019",
+        "journal-title": "Nat. Commun."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib35",
+        "doi-asserted-by": "crossref",
+        "first-page": "679",
+        "DOI": "10.1016/j.molcel.2006.02.011",
+        "article-title": "Differential modification of ras proteins by ubiquitination",
+        "volume": "21",
+        "author": "Jura",
+        "year": "2006",
+        "journal-title": "Mol. Cell"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib36",
+        "doi-asserted-by": "crossref",
+        "first-page": "46",
+        "DOI": "10.1038/nsmb.2430",
+        "article-title": "Site\u2013specific monoubiquitination activates ras by impeding GTPase activating protein function",
+        "volume": "20",
+        "author": "Baker",
+        "year": "2013",
+        "journal-title": "Nat. Struct. Mol. Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib37",
+        "doi-asserted-by": "crossref",
+        "first-page": "36856",
+        "DOI": "10.1074/jbc.C113.525691",
+        "article-title": "Differences in the regulation of K-ras and H-ras isoforms by monoubiquitination",
+        "volume": "288",
+        "author": "Baker",
+        "year": "2013",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib38",
+        "article-title": "Ubiquitination of K-ras enhances activation and facilitates binding to Select downstream effectors",
+        "volume": "4",
+        "author": "Sasaki",
+        "year": "2011",
+        "journal-title": "Cell Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib39",
+        "doi-asserted-by": "crossref",
+        "first-page": "180",
+        "DOI": "10.1016/j.sbi.2021.06.015",
+        "article-title": "Post-translational modification of RAS proteins",
+        "volume": "71",
+        "author": "Campbell",
+        "year": "2021",
+        "journal-title": "Curr. Opin. Struct. Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib40",
+        "doi-asserted-by": "crossref",
+        "first-page": "499",
+        "DOI": "10.1146/annurev-anchem-071015-041550",
+        "article-title": "Progress in top-down proteomics and the analysis of proteoforms",
+        "volume": "9",
+        "author": "Toby",
+        "year": "2016",
+        "journal-title": "Annu. Rev. Anal. Chem. (Palo Alto Calif.)"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib41",
+        "doi-asserted-by": "crossref",
+        "first-page": "4140",
+        "DOI": "10.1073/pnas.1716122115",
+        "article-title": "Precise characterization of KRAS4b proteoforms in human colorectal cells and tumors reveals mutation/modification cross-talk",
+        "volume": "115",
+        "author": "Ntai",
+        "year": "2018",
+        "journal-title": "Proc. Natl. Acad. Sci. U. S. A."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib42",
+        "series-title": "Ras Activity and Signaling: Methods and Protocols",
+        "first-page": "47",
+        "article-title": "Precise characterization of KRAS4B proteoforms by combining immunoprecipitation with top-down mass spectrometry",
+        "author": "Adams",
+        "year": "2021"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib43",
+        "doi-asserted-by": "crossref",
+        "first-page": "1087",
+        "DOI": "10.1021/acs.jproteome.6b00696",
+        "article-title": "Identification and characterization of human proteoforms by top-down LC-21 tesla FT-ICR mass spectrometry",
+        "volume": "16",
+        "author": "Anderson",
+        "year": "2017",
+        "journal-title": "J.\u00a0Proteome Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib44",
+        "doi-asserted-by": "crossref",
+        "first-page": "1626",
+        "DOI": "10.1007/s13361-015-1182-2",
+        "article-title": "21 tesla fourier transform ion cyclotron resonance mass spectrometer: a national resource for ultrahigh resolution mass analysis",
+        "volume": "26",
+        "author": "Hendrickson",
+        "year": "2015",
+        "journal-title": "J.\u00a0Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib45",
+        "doi-asserted-by": "crossref",
+        "first-page": "1091",
+        "DOI": "10.1038/emboj.2010.7",
+        "article-title": "Genetic analysis of Ras signalling pathways in cell proliferation, migration and survival",
+        "volume": "29",
+        "author": "Drosten",
+        "year": "2010",
+        "journal-title": "EMBO J."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib46",
+        "doi-asserted-by": "crossref",
+        "first-page": "1035",
+        "DOI": "10.1016/j.cell.2019.03.030",
+        "article-title": "Proteogenomic analysis of human Colon cancer reveals new therapeutic opportunities",
+        "volume": "177",
+        "author": "Vasaikar",
+        "year": "2019",
+        "journal-title": "Cell"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib47",
+        "doi-asserted-by": "crossref",
+        "first-page": "18",
+        "DOI": "10.1158/0008-5472.CAN-15-1536",
+        "article-title": "A\u00a0new view of ras isoforms in cancers",
+        "volume": "76",
+        "author": "Nussinov",
+        "year": "2016",
+        "journal-title": "Cancer Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib48",
+        "doi-asserted-by": "crossref",
+        "first-page": "482",
+        "DOI": "10.1038/s41586-019-1832-9",
+        "article-title": "KRAS4A directly regulates hexokinase 1",
+        "volume": "576",
+        "author": "Amendola",
+        "year": "2019",
+        "journal-title": "Nature"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib49",
+        "doi-asserted-by": "crossref",
+        "first-page": "4288",
+        "DOI": "10.1038/s41467-021-24498-7",
+        "article-title": "Targeting KRAS4A splicing through the RBM39/DCAF15 pathway inhibits cancer stem cells",
+        "volume": "12",
+        "author": "Chen",
+        "year": "2021",
+        "journal-title": "Nat. Commun."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib50",
+        "doi-asserted-by": "crossref",
+        "first-page": "7354",
+        "DOI": "10.18632/oncotarget.6931",
+        "article-title": "Comparison of liver oncogenic potential among human RAS isoforms",
+        "volume": "7",
+        "author": "Chung",
+        "year": "2016",
+        "journal-title": "Oncotarget"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib51",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.7554/eLife.32436",
+        "article-title": "SIRT2 and lysine fatty acylation regulate the transforming activity of K-Ras4a",
+        "volume": "6",
+        "author": "Jing",
+        "year": "2017",
+        "journal-title": "Elife"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib52",
+        "doi-asserted-by": "crossref",
+        "first-page": "779",
+        "DOI": "10.1073/pnas.1412811112",
+        "article-title": "K-Ras4A splice variant is widely expressed in cancer and uses a hybrid membrane-targeting motif",
+        "volume": "112",
+        "author": "Tsai",
+        "year": "2015",
+        "journal-title": "Proc. Natl. Acad. Sci. U. S. A."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib53",
+        "doi-asserted-by": "crossref",
+        "first-page": "71",
+        "DOI": "10.1021/acscentsci.7b00440",
+        "article-title": "Comparative nucleotide-dependent interactome analysis reveals shared and differential properties of KRas4a and KRas4b",
+        "volume": "4",
+        "author": "Zhang",
+        "year": "2018",
+        "journal-title": "ACS Cent. Sci."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib54",
+        "doi-asserted-by": "crossref",
+        "first-page": "337",
+        "DOI": "10.1038/nature10098",
+        "article-title": "Global quantification of mammalian gene expression control",
+        "volume": "473",
+        "author": "Schwanhausser",
+        "year": "2011",
+        "journal-title": "Nature"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib55",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1371/journal.pone.0142674",
+        "article-title": "Absolute quantification of endogenous ras isoform abundance",
+        "volume": "10",
+        "author": "Mageean",
+        "year": "2015",
+        "journal-title": "PLoS One"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib56",
+        "doi-asserted-by": "crossref",
+        "first-page": "115",
+        "DOI": "10.1593/neo.14184",
+        "article-title": "KRAS protein stability is regulated through SMURF2: UBCH5 complex-mediated beta-TrCP1 degradation",
+        "volume": "16",
+        "author": "Shukla",
+        "year": "2014",
+        "journal-title": "Neoplasia"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib57",
+        "doi-asserted-by": "crossref",
+        "first-page": "1535",
+        "DOI": "10.1021/pr501191a",
+        "article-title": "Differential reprogramming of isogenic colorectal cancer cells by distinct activating KRAS mutations",
+        "volume": "14",
+        "author": "Hammond",
+        "year": "2015",
+        "journal-title": "J.\u00a0Proteome Res."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib58",
+        "article-title": "Identification of lysine methylation in the core GTPase domain by GoMADScan",
+        "volume": "14",
+        "author": "Yoshino",
+        "year": "2019",
+        "journal-title": "PLoS One"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib59",
+        "doi-asserted-by": "crossref",
+        "first-page": "459",
+        "DOI": "10.1016/j.cell.2014.02.051",
+        "article-title": "KRas localizes to the plasma membrane by spatial cycles of solubilization, trapping and vesicular transport",
+        "volume": "157",
+        "author": "Schmick",
+        "year": "2014",
+        "journal-title": "Cell"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib60",
+        "doi-asserted-by": "crossref",
+        "first-page": "1176",
+        "DOI": "10.1038/s41467-021-21422-x",
+        "article-title": "KRAS interaction with RAF1 RAS-binding domain and cysteine-rich domain provides insights into RAS-mediated RAF activation",
+        "volume": "12",
+        "author": "Tran",
+        "year": "2021",
+        "journal-title": "Nat. Commun."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib61",
+        "doi-asserted-by": "crossref",
+        "first-page": "493",
+        "DOI": "10.1002/mrd.1080420418",
+        "article-title": "Interactions between ras and Raf: key regulatory proteins in cellular transformation",
+        "volume": "42",
+        "author": "Marshall",
+        "year": "1995",
+        "journal-title": "Mol. Reprod. Dev."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib62",
+        "first-page": "1997",
+        "article-title": "ERK/MAPK signalling pathway and tumorigenesis",
+        "volume": "19",
+        "author": "Guo",
+        "year": "2020",
+        "journal-title": "Exp. Ther. Med."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib63",
+        "doi-asserted-by": "crossref",
+        "first-page": "10813",
+        "DOI": "10.1074/jbc.M107684200",
+        "article-title": "A\u00a0distinct class of dominant negative ras mutants: cytosolic GTP-bound ras effector domain mutants that inhibit ras signaling and transformation and enhance cell adhesion",
+        "volume": "277",
+        "author": "Fiordalisi",
+        "year": "2002",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib64",
+        "doi-asserted-by": "crossref",
+        "first-page": "26802",
+        "DOI": "10.1074/jbc.270.45.26802",
+        "article-title": "Ras CAAX peptidomimetic FTI-277 selectively blocks oncogenic Ras signaling by inducing cytoplasmic accumulation of inactive Ras-Raf complexes",
+        "volume": "270",
+        "author": "Lerner",
+        "year": "1995",
+        "journal-title": "J.\u00a0Biol. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib65",
+        "doi-asserted-by": "crossref",
+        "first-page": "5079",
+        "DOI": "10.1016/j.jmb.2020.03.016",
+        "article-title": "Ste24: an integral membrane protein zinc metalloprotease with provocative structure and emergent biology",
+        "volume": "432",
+        "author": "Goblirsch",
+        "year": "2020",
+        "journal-title": "J.\u00a0Mol. Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib66",
+        "doi-asserted-by": "crossref",
+        "first-page": "1152",
+        "DOI": "10.1038/nchem.2591",
+        "article-title": "Mass spectrometry captures off-target drug binding and provides mechanistic insights into the human metalloprotease ZMPSTE24",
+        "volume": "8",
+        "author": "Mehmood",
+        "year": "2016",
+        "journal-title": "Nat. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib67",
+        "doi-asserted-by": "crossref",
+        "first-page": "1787",
+        "DOI": "10.1007/s13361-017-1702-3",
+        "article-title": "Front-end electron transfer dissociation coupled to a 21 tesla FT-ICR mass spectrometer for intact protein sequence analysis",
+        "volume": "28",
+        "author": "Weisbrod",
+        "year": "2017",
+        "journal-title": "J.\u00a0Am. Soc. Mass Spectrom."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib68",
+        "doi-asserted-by": "crossref",
+        "first-page": "1235",
+        "DOI": "10.1002/pmic.201400313",
+        "article-title": "ProSight lite: graphical software to analyze top-down mass spectrometry data",
+        "volume": "15",
+        "author": "Fellers",
+        "year": "2015",
+        "journal-title": "Proteomics"
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib69",
+        "doi-asserted-by": "crossref",
+        "first-page": "381",
+        "DOI": "10.1007/978-1-4939-6783-4_18",
+        "article-title": "Bioinformatics analysis of top-down mass spectrometry data with ProSight lite",
+        "volume": "1558",
+        "author": "DeHart",
+        "year": "2017",
+        "journal-title": "Met. Mol. Biol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib70",
+        "doi-asserted-by": "crossref",
+        "first-page": "8421",
+        "DOI": "10.1021/acs.analchem.8b00984",
+        "article-title": "Accurate sequence analysis of a monoclonal antibody by TopDown and middle-down orbitrap mass spectrometry applying multiple ion activation techniques",
+        "volume": "90",
+        "author": "Fornelli",
+        "year": "2018",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib71",
+        "doi-asserted-by": "crossref",
+        "first-page": "4271",
+        "DOI": "10.1021/ac0600050",
+        "article-title": "Quantitative analysis of modified proteins and their positional isomers by tandem mass spectrometry: human Histone H4",
+        "volume": "78",
+        "author": "Pesavento",
+        "year": "2006",
+        "journal-title": "Anal. Chem."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib72",
+        "doi-asserted-by": "crossref",
+        "first-page": "24",
+        "DOI": "10.1038/nbt.1754",
+        "article-title": "Integrative genomics viewer",
+        "volume": "29",
+        "author": "Robinson",
+        "year": "2011",
+        "journal-title": "Nat. Biotechnol."
+      },
+      {
+        "key": "10.1016/j.jbc.2022.102768_bib73",
+        "doi-asserted-by": "crossref",
+        "first-page": "676",
+        "DOI": "10.1038/nmeth.2019",
+        "article-title": "Fiji: an open-source platform for biological-image analysis",
+        "volume": "9",
+        "author": "Schindelin",
+        "year": "2012",
+        "journal-title": "Nat. Met."
+      }
+    ],
+    "container-title": [
+      "Journal of Biological Chemistry"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S002192582201211X?httpAccept=text/xml",
+        "content-type": "text/xml",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S002192582201211X?httpAccept=text/plain",
+        "content-type": "text/plain",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          28
+        ]
+      ],
+      "date-time": "2026-04-28T22:04:54Z",
+      "timestamp": 1777413894000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://linkinghub.elsevier.com/retrieve/pii/S002192582201211X"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          1
+        ]
+      ]
+    },
+    "references-count": 73,
+    "journal-issue": {
+      "issue": "1",
+      "published-print": {
+        "date-parts": [
+          [
+            2023,
+            1
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "S002192582201211X"
+    ],
+    "URL": "https://doi.org/10.1016/j.jbc.2022.102768",
+    "relation": {},
+    "ISSN": [
+      "0021-9258"
+    ],
+    "issn-type": [
+      {
+        "value": "0021-9258",
+        "type": "print"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2023,
+          1
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "Elsevier",
+        "name": "publisher",
+        "label": "This article is maintained by"
+      },
+      {
+        "value": "Mapping the KRAS proteoform landscape in colorectal cancer identifies truncated KRAS4B that decreases MAPK signaling",
+        "name": "articletitle",
+        "label": "Article Title"
+      },
+      {
+        "value": "Journal of Biological Chemistry",
+        "name": "journaltitle",
+        "label": "Journal Title"
+      },
+      {
+        "value": "https://doi.org/10.1016/j.jbc.2022.102768",
+        "name": "articlelink",
+        "label": "CrossRef DOI link to publisher maintained version"
+      },
+      {
+        "value": "article",
+        "name": "content_type",
+        "label": "Content Type"
+      },
+      {
+        "value": "\u00a9 2022 THE AUTHORS. Published by Elsevier Inc on behalf of American Society for Biochemistry and Molecular Biology.",
+        "name": "copyright",
+        "label": "Copyright"
+      }
+    ],
+    "article-number": "102768"
+  }
+}
