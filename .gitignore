@@ -1,15 +1,25 @@
 # --- Data ---
 # Raw and processed data are not tracked by default; keep the folders via
-# .gitkeep but ignore their contents. Adjust when a data-versioning strategy
-# (e.g. DVC, git-lfs) is chosen.
-# Exceptions: doi_list.csv and manifest.json are hand-curated pipeline inputs
-# and are tracked.
+# .gitkeep but ignore their contents.
+# Exceptions: hand-curated inputs in data/raw/, CrossRef fetched JSONs,
+# FOXDEN RAW file metadata, and processed entity/relationship outputs.
+# These are tracked so reviewers can see the graph data without re-running
+# the pipeline.
 data/raw/*
 data/processed/*
 !data/**/.gitkeep
 !data/raw/doi_list.csv
 !data/raw/manifest.json
 !data/raw/maglab_icr_publications.csv
+!data/raw/rawfile_metadata.csv
+!data/raw/publications/
+!data/raw/publications/*.json
+!data/raw/rawfiles_metadata/
+!data/raw/rawfiles_metadata/*.json
+!data/processed/entities/
+!data/processed/entities/*.jsonl
+!data/processed/relationships/
+!data/processed/relationships/*.jsonl
 
 # Generated artifacts
 outputs/*
