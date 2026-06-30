@@ -43,7 +43,7 @@
 # Rule: all entity names in the graph must resolve to
 # a canonical label in this file.
 # Variants go in the Aliases column.
-# Last updated: 2026-06-18
+# Last updated: 2026-06-29
 
 ## Instruments
 
@@ -120,6 +120,9 @@
 
 ## Sample Types
 
+# WCL is an abbreviation for Whole Cell Lysate, used in RAW file
+# filenames and confirmed by David Butcher 2026-06-29.
+
 | Canonical | Aliases |
 |---|---|
 | Intact proteins | intact protein, whole protein, recombinant protein |
@@ -133,6 +136,7 @@
 | Dissolved organic matter | DOM, dissolved organic matter |
 | Environmental samples | environmental contaminant, groundwater |
 | Cerebrospinal fluid | CSF |
+| Whole cell lysate | WCL, whole cell lysate, MG1655 WCL |
 
 ## Organisms
 

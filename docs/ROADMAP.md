@@ -1,125 +1,81 @@
-# SciKG Proposed Research Workflow
+# SciKG 8-Week Roadmap
 
-> **Status: PROPOSED / EVOLVING — not an approved plan.**
-> This document is a *suggested* way of sequencing the work. It was drafted as a
-> starting point and has **not** been reviewed or approved by the research
-> supervisor. The number of stages, their order, their scope, and whether any of
-> them happen at all are all open. Treat everything below as a thinking aid, not
-> a commitment. Stages may be added, removed, merged, reordered, or abandoned as
-> the research develops.
+CI Compass Fellowship project: June 1 - July 31, 2026
+2-person team: Diya and Veronika, mentored by David Butcher at NHMFL.
 
-This is a workflow sketch, not a roadmap with fixed phases or timelines. There
-are **no approved phase counts, no approved scope, and no timelines.** Dates are
-deliberately absent.
+## Week 1 (Jun 1-7) - Foundation
+Status: DONE
 
-> **Guiding intent (proposed):** keep the work FAIR-aligned and
-> provenance-preserving throughout. See [FAIR_PRINCIPLES.md](FAIR_PRINCIPLES.md).
+- Repository setup
+- CrossRef fetch (01_fetch.py)
+- 17 papers extracted (02_extract.py)
+- Controlled vocabulary drafted with PSI-MS, UNIMOD, NCBI Taxonomy, UniProt
+- FAIR principles documented
 
----
+## Week 2 (Jun 8-15) - Design
+Status: DONE
 
-## How to read this document
+- Manual annotation of 8 ground-truth papers (paper_reviews.md)
+- Initial schema sketched
+- Ontology standards confirmed: PSI-MS, UNIMOD, NCBI Taxonomy, UniProt, 
+  ORCID, ROR, DataCite, Bioschemas, PROV-O
 
-- Stages are described by *intent*, not as a locked sequence.
-- "Possible activities" and "possible outputs" are options to consider, not
-  deliverables that have been agreed.
-- Anything that depends on real data (e.g. cataloguing a source) has **not** been
-  done; describing it here does not imply it has.
+## Week 3 (Jun 16-22) - Extraction infrastructure
+Status: DONE
 
----
+- MagLab CSV with 806 papers integrated into raw data
+- Repository audit run (audit_repo.py)
+- Schema locked in docs/SCIKG_SCHEMA.md
+- Naming conventions and identifier strategy decided
+- 02b_extract_csv.py written and run on full 806-row CSV
+- 7 entity JSONL files and 1 relationships file produced
+- FOXDEN-formatted metadata for 46 RAW files added to data/raw/
 
-## Current stage — Research foundation & design *(where the project is now)*
+## Week 4 (Jun 23-29) - RAW files and normalization
+Status: IN PROGRESS
 
-**Intent:** Understand the scientific metadata ecosystem and establish an
-extensible documentation/design foundation before writing any pipeline code.
+- Decisions confirmed with David: WCL = Whole Cell Lysate, J = run 
+  letter
+- ANALYZED_IN target still pending verification
+- 02c_extract_rawfiles.py to be written this week
+- 03_normalize.py started
 
-**Possible activities**
-- Establish repository structure and documentation (done as initial scaffolding).
-- Survey scientific metadata standards, vocabularies, and persistent-identifier
-  systems relevant to research assets.
-- Draft an initial, conceptual knowledge-graph entity/relationship model.
-- Draft metadata inventory templates.
-- Identify *candidate* data sources to consider later (the project brief names the
-  NHMFL / FT-ICR publication ecosystem as one candidate; it has **not** been
-  investigated or catalogued).
+## Week 5 (Jun 30 - Jul 6) - Neo4j load and validation
+Status: PLANNED
 
-**Possible outputs**
-- Project documentation (`README.md`, `CLAUDE.md`)
-- This proposed-workflow document
-- FAIR data notes (`FAIR_PRINCIPLES.md`)
-- Conceptual knowledge graph design notes (`KNOWLEDGE_GRAPH_DESIGN.md`)
-- Metadata inventory templates (`metadata_templates/`)
-- Forward-looking architecture notes (`ARCHITECTURE.md`)
+- Neo4j Aura Free instance setup
+- 04_validate.py written and run
+- 05_load.py written and run
+- Full pipeline runs end-to-end producing the graph
+- ANALYZED_IN target verification: inspect RAW file FOXDEN JSONs for 
+  DOI references to confirm or reject the PEPPI-MS hypothesis
+- Optional: start PDF extraction (02d_extract_pdf.py) on RCC
 
-**Explicitly out of scope right now:** scraping scripts, databases, dependency
-installs, any real data ingestion.
+## Week 6 (Jul 7-13) - Discovery queries and refinement
+Status: PLANNED
 
----
+- Cypher queries for all 17 discovery questions
+- Query performance tuning
+- Accuracy checks against the 8 annotated papers
+- ICR group review of results
 
-## Possible later stages (unordered, unapproved)
+## Week 7 (Jul 14-20) - Poster and documentation
+Status: PLANNED
 
-The following are *candidate* directions the research could take. They are listed
-for context only. None is scheduled, scoped, or approved, and the grouping below
-is one possible decomposition among many.
+- Poster design
+- README finalization
+- Schema diagram export
+- Deliverable package for handoff
 
-### Metadata ecosystem mapping *(possible)*
-- Catalogue available metadata fields for a candidate source using the inventory
-  templates — **only after** a source is selected and access is confirmed.
-- Assess metadata quality, completeness, consistency, and identifier coverage
-  using real, observed values (never inferred).
-- Map source fields to the conceptual entity model (gap analysis).
-- Document access pathways, licensing, and constraints.
+## Week 8 (Jul 21-27) - Buffer and presentation
+Status: PLANNED
 
-### Schema & vocabulary specification *(possible)*
-- Turn the conceptual model into machine-readable schemas (e.g. JSON Schema /
-  SHACL) — vocabulary and format choices remain open.
-- Consider alignment with standard vocabularies (candidates only; none chosen).
-- Consider a persistent-identifier strategy.
-- Consider a provenance model.
+- Final fixes from poster feedback
+- Presentation rehearsal
+- Optional extensions
 
-### Ingestion & knowledge graph construction *(possible — first stage that would write code / provision storage)*
-- Implement ingestion for a selected source into `data/raw` → `data/processed`.
-- Construct a knowledge graph in a backend **to be decided** (see
-  [ARCHITECTURE.md](ARCHITECTURE.md) — no backend has been chosen).
-- Validate against schemas; capture provenance for every node/edge.
-
-### Discovery & retrieval interfaces *(possible)*
-- Structured query interface and saved query patterns.
-- Faceted / metadata-driven search.
-- Semantic search via embeddings (candidate approach).
-
-### AI-assisted & agent-based retrieval *(possible)*
-- Natural-language → structured-query translation grounded in a schema.
-- Retrieval-augmented answering with citations back to provenance.
-- Agent-based multi-step retrieval.
-
-### Scale, integration & sustainability *(possible)*
-- Additional sources and external repositories.
-- Entity resolution / deduplication across sources.
-- Access control, licensing/governance, maintenance, versioning, citation policy.
-
----
-
-## Cross-cutting intentions (proposed, apply throughout)
-
-- **FAIR alignment** — check designs against `FAIR_PRINCIPLES.md`.
-- **Provenance preservation** — outputs should trace to raw sources.
-- **Reproducibility** — processed data and outputs should regenerate from raw +
-  code.
-- **Data integrity** — no fabricated, inferred, or placeholder data; missing
-  values remain as they are in the source/schema (see `CLAUDE.md`).
-- **Extensibility** — additive, schema-driven changes over hard-coded
-  assumptions.
-- **Documentation** — record design decisions in `docs/` as they are actually
-  made, and log review-worthy changes in [REVIEW_LOG.md](REVIEW_LOG.md).
-
-## Open questions (to revisit continuously)
-
-- RDF triplestore vs. property graph (or hybrid)? — undecided.
-- Which standard vocabularies, if any, become canonical for SciKG? — undecided.
-- Internal PID minting strategy vs. reliance on external PIDs? — undecided.
-- Entity-resolution strategy across heterogeneous sources? — undecided.
-- Data-versioning approach for `data/`? — undecided.
-- Which candidate data source (if any) is investigated first? — undecided.
-
-See [VERIFIED_FACTS_AND_ASSUMPTIONS.md](VERIFIED_FACTS_AND_ASSUMPTIONS.md) for a
-clear separation of what is known versus proposed versus unknown.
+## Open questions (still pending)
+- RCC access setup completion
+- LangExtract vs Gemini API decision for PDF extraction
+- PDF extraction approach refinement
+- ANALYZED_IN target for 46 RAW files
