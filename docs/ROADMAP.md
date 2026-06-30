@@ -1,7 +1,7 @@
 # SciKG 8-Week Roadmap
 
 CI Compass Fellowship project: June 1 - July 31, 2026
-2-person team: Diya and Veronika, mentored by David Butcher at NHMFL.
+2-person team: Diya and Veronika, mentored by the project supervisor at NHMFL.
 
 ## Week 1 (Jun 1-7) - Foundation
 Status: DONE
@@ -34,7 +34,7 @@ Status: DONE
 ## Week 4 (Jun 23-29) - RAW files and normalization
 Status: IN PROGRESS
 
-- Decisions confirmed with David: WCL = Whole Cell Lysate, J = run 
+- Decisions confirmed: WCL = Whole Cell Lysate, J = run 
   letter
 - ANALYZED_IN target still pending verification
 - 02c_extract_rawfiles.py to be written this week

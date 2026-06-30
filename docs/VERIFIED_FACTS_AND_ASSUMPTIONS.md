@@ -49,9 +49,9 @@ by the current state of this repository. Each carries its basis.
 | Funder and Grant are separate node types | Confirmed 2026-06-23 |
 | Author emails from CSV are never propagated. Author emails from PDF byline or footnote can be extracted in Phase 2 if present. | CSV emails are MagLab-internal contact data; PDF emails are publicly published. |
 | 02b_extract_csv.py written and run on full 806-row MagLab CSV | Completed 2026-06-29 |
-| WCL in RAW file filenames means "Whole Cell Lysate" | Confirmed by David Butcher 2026-06-29 |
-| "J" in M9-J-YYYYMMDD is a run letter assigned to a sample preparation series. Letters A through J have been observed in this corpus. Position is not interpreted as ordering. | Confirmed by David Butcher 2026-06-29 |
-| Magnet System Status column from CSV is excluded from the graph | Confirmed by David Butcher 2026-06-29 |
+| WCL in RAW file filenames means "Whole Cell Lysate" | Confirmed 2026-06-29 |
+| "J" in M9-J-YYYYMMDD is a run letter assigned to a sample preparation series. Letters A through J have been observed in this corpus. Position is not interpreted as ordering. | Confirmed 2026-06-29 |
+| Magnet System Status column from CSV is excluded from the graph | Confirmed 2026-06-29 |
 | magnet_system_raw property on Instrument is excluded | Decided 2026-06-29 |
 | instrument_model_raw on RawDataFile (from FOXDEN/Thermo headers) is retained as distinct from CSV Magnet Systems | Decided 2026-06-29 |
 

@@ -1,7 +1,7 @@
 # SciKG Discovery Questions
 # These questions drive the schema and evaluation.
 # The graph must be able to answer all of these.
-# Source: project review session + David consultation
+# Source: project review session + supervisor consultation
 
 ## Core questions
 

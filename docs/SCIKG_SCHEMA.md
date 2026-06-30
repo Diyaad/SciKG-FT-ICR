@@ -141,7 +141,7 @@ with CrossRef metadata
 | `pages` | string | O | CSV | Kept as string |
 | `abstract` | string | O | CrossRef | About 41% coverage |
 | `month_published` | string | O | CSV | Month name |
-| `maglab_significant` | boolean | O | CSV | David's flag |
+| `maglab_significant` | boolean | O | CSV | Supervisor flag |
 | `acknowledged_nsf_grant` | boolean | O | CSV | |
 | `software_mentioned` | list[string] | O | annotation | Raw strings |
 | `is_ground_truth` | boolean | M | derived | True for the 8 annotated papers |
@@ -321,10 +321,10 @@ during extraction, `instrument:raw:{normalized_raw_string}`
 - **`magnet_system_raw` is NOT stored on Instrument.** The CSV's "Magnet 
   Systems" column is used during extraction to determine which Instrument 
   node a Publication should connect to (via `USES_INSTRUMENT`), but the 
-  raw string itself is not preserved as a property. (David's decision, 
+  raw string itself is not preserved as a property. (Established 
   2026-06-29.)
 - **`magnet_system_status` is NOT stored.** This column from the CSV is 
-  excluded from the graph entirely. (David's decision, 2026-06-29.)
+  excluded from the graph entirely. (Established 2026-06-29.)
 - **`instrument_serial` is NOT stored.** Excluded to avoid hardware-tracking 
   detail not needed for any discovery question.
 
@@ -502,13 +502,13 @@ Source 5 only. One node per Thermo `.raw` file.
 |---|---|---|---|
 | `filename` | string | M | Full name including `.raw` |
 | `operator_initials` | string | M | E.g., "DSB" |
-| `operator_name` | string | R | E.g., "David S. Butcher" |
+| `operator_name` | string | R | Full name of the operator (expands operator_initials) |
 | `date_acquired` | date | M | ISO 8601 |
 | `sample_organism_strain` | string | R | E.g., "EcoliMG1655" |
-| `sample_state` | string | O | E.g., "WCL" (= Whole Cell Lysate). Confirmed by David 2026-06-29. |
+| `sample_state` | string | O | E.g., "WCL" (= Whole Cell Lysate). Confirmed 2026-06-29. |
 | `sample_growth_medium` | string | O | E.g., "M9" |
 | `sample_growth_date` | date | O | |
-| `sample_growth_label` | string | O | Run letter assigned to a sample preparation series. Letters A through J have been observed in this corpus. Position in sequence is not interpreted as ordering. Confirmed by David 2026-06-29. |
+| `sample_growth_label` | string | O | Run letter assigned to a sample preparation series. Letters A through J have been observed in this corpus. Position in sequence is not interpreted as ordering. Confirmed 2026-06-29. |
 | `sample_prep_method` | string | O | |
 | `fractionation_method` | string | O | `GELFrEE`, `PEPPI`, or null |
 | `processing_id` | string | O | E.g., "GF01", "F01" |
@@ -589,8 +589,8 @@ Every relationship carries the six provenance properties listed above.
 ### ANALYZED_IN status
 
 **PENDING — target not yet confirmed.** Hypothesized to be the PEPPI-MS 
-paper (`doi:10.1021/acs.jproteome.0c00303`), but David has not confirmed 
-this. To be verified by inspecting RAW file FOXDEN JSONs for embedded 
+paper (`doi:10.1021/acs.jproteome.0c00303`), but this has not been 
+confirmed. To be verified by inspecting RAW file FOXDEN JSONs for embedded 
 DOI references after pipeline load (Week 5 task). Not loaded into v1.0 
 until verification.
 

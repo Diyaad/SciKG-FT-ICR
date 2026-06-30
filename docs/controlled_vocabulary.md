@@ -121,7 +121,7 @@
 ## Sample Types
 
 # WCL is an abbreviation for Whole Cell Lysate, used in RAW file
-# filenames and confirmed by David Butcher 2026-06-29.
+# filenames and confirmed 2026-06-29.
 
 | Canonical | Aliases |
 |---|---|
