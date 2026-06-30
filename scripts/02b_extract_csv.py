@@ -76,6 +76,30 @@ NULL_TOKENS = {"", "n/a", "na", "none", "null"}
 
 DOI_RE = re.compile(r"^10\.\d{4,}/.+")
 
+GROUND_TRUTH_DOIS = None  # lazily loaded
+
+
+def load_ground_truth_dois():
+    """Load DOIs of the 8 annotated ground-truth papers."""
+    global GROUND_TRUTH_DOIS
+    if GROUND_TRUTH_DOIS is not None:
+        return GROUND_TRUTH_DOIS
+    GROUND_TRUTH_DOIS = set()
+    annotations_path = Path("docs/annotations/paper_reviews.md")
+    if annotations_path.exists():
+        with open(annotations_path, encoding="utf-8") as f:
+            content = f.read()
+        for match in re.findall(r'10\.\d{4,}/[^\s\)\]]+', content):
+            GROUND_TRUTH_DOIS.add(match.lower())
+    return GROUND_TRUTH_DOIS
+
+
+def is_ground_truth(doi):
+    """Check if a DOI is in the ground-truth annotated set."""
+    if not doi:
+        return False
+    return doi.lower() in load_ground_truth_dois()
+
 
 # ---------------------------------------------------------------------------
 # Small value helpers
@@ -436,8 +460,8 @@ class Extractor:
                 "doi": doi,
                 "title": clean(row.get("Title")),
                 "publication_year": year,
+                "resource_type": "JournalArticle",
                 "month_published": clean(row.get("Month Published")),
-                "day_published": parse_int(row.get("Day Published")),
                 "volume": clean(row.get("Volume")),
                 "issue": clean(row.get("Issue")),
                 "pages": clean(row.get("Pages")),
@@ -446,9 +470,7 @@ class Extractor:
                 "acknowledged_nsf_grant": parse_bool(
                     row.get("Acknowledgement of the MagLab's NSF core grant")
                 ),
-                "ucgp_supported": parse_bool(row.get("UCGP Supported")),
-                "nhmfl_author_pct": parse_float(row.get("% of NHMFL Authors")),
-                "external_author_pct": parse_float(row.get("% of Ext Authors")),
+                "is_ground_truth": is_ground_truth(doi),
             }
             self.add_entity("Publication", primary_id, pub_props,
                             "publications_written")
@@ -547,7 +569,7 @@ class Extractor:
         # The CSV Magnet Systems column is used to determine which
         # Instrument node to connect to (via USES_INSTRUMENT relationship),
         # but the raw string is no longer stored as a property.
-        # Per David's decision 2026-06-29.
+        # Per established decision 2026-06-29.
         for magnet in split_multi(row.get("Magnet Systems"), ","):
             instrument_id = f"instrument:raw:{slugify(magnet)}"
             self.add_entity("Instrument", instrument_id, {
