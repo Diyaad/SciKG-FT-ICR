@@ -8,7 +8,7 @@ This file exists to keep SciKG documentation honest. It separates what is
 > traceable basis, it should be read as proposed or unknown — not as established
 > fact.
 
-Last updated: 2026-06-11.
+Last updated: 2026-06-29.
 
 ---
 
@@ -26,9 +26,34 @@ by the current state of this repository. Each carries its basis.
 | 5 | The FAIR principles, including their canonical sub-principles (F1–F4, A1–A2, I1–I3, R1.1–R1.3), are an externally published framework. | Wilkinson et al. (2016), *The FAIR Guiding Principles for scientific data management and stewardship*, Scientific Data 3:160018. https://doi.org/10.1038/sdata.2016.18 |
 | 6 | The external standards/identifiers referenced as *candidates* (DOI, ORCID, ROR, RRID, IGSN, Crossref Funder ID; schema.org, Dublin Core, DCAT, PROV-O, FOAF, ORG, SPAR/FaBiO/CiTO) exist as real, published specifications. | These are well-known public standards. SciKG's *use* of any of them is not yet decided (see Proposed Ideas / Unknowns). |
 | 7 | `requirements.txt` lists candidate dependencies only; none are installed and none are pinned. | Direct observation of the file. |
+| 8 | Knowledge graph entity/relationship model is now locked in `docs/SCIKG_SCHEMA.md`. | Schema v1.0 locked 2026-06-23 after team review. (Moved from Proposed Ideas.) |
+| 9 | Graph backend confirmed: Neo4j. | Decided 2026-06-24. (Moved from Proposed Ideas.) |
+| 10 | Persistent-identifier strategy confirmed: reuse external PIDs and mint internal PIDs. | Decided 2026-06-23. (Moved from Proposed Ideas.) |
+| 11 | Provenance model confirmed: PROV-O, realized via the 6 universal properties on every node and edge. | Adopted in `docs/SCIKG_SCHEMA.md`. (Moved from Proposed Ideas.) |
+| 12 | Standard vocabularies adopted: DataCite, Bioschemas, PSI-MS, UNIMOD, NCBI Taxonomy, UniProt, ORCID, ROR, PROV-O. | Adopted across `controlled_vocabulary.md` and `docs/SCIKG_SCHEMA.md`. (Moved from Proposed Ideas.) |
 
-> Note: item 6 verifies only that these standards *exist*. Whether SciKG adopts
-> any specific one is a proposed idea / open question, not a fact.
+> Note: item 6 verifies only that these standards *exist*. Items 8–12 record
+> which of those candidates SciKG has since adopted.
+
+---
+
+## Confirmed This Week (2026-06-23 to 2026-06-29)
+
+| Fact | Basis / Source |
+|---|---|
+| Schema v1.0 locked in docs/SCIKG_SCHEMA.md | Locked 2026-06-23 after team review |
+| Neo4j Aura Free is the v1.0 graph database | Decided 2026-06-24 |
+| Naming conventions adopted: snake_case properties, PascalCase entity labels, SCREAMING_SNAKE_CASE relationships, namespace:value identifiers | Locked in CLAUDE.md and SCIKG_SCHEMA.md |
+| DOI is preferred Publication identifier when present; pub:maglab:{id} is the fallback for the 404 papers without DOI | Decided 2026-06-23 |
+| Software is a logged entity (Tier 3) with PSI-MS IDs where available | Decision reversed from "excluded" on 2026-06-23 |
+| Funder and Grant are separate node types | Confirmed 2026-06-23 |
+| Author emails from CSV are never propagated. Author emails from PDF byline or footnote can be extracted in Phase 2 if present. | CSV emails are MagLab-internal contact data; PDF emails are publicly published. |
+| 02b_extract_csv.py written and run on full 806-row MagLab CSV | Completed 2026-06-29 |
+| WCL in RAW file filenames means "Whole Cell Lysate" | Confirmed 2026-06-29 |
+| "J" in M9-J-YYYYMMDD is a run letter assigned to a sample preparation series. Letters A through J have been observed in this corpus. Position is not interpreted as ordering. | Confirmed 2026-06-29 |
+| Magnet System Status column from CSV is excluded from the graph | Confirmed 2026-06-29 |
+| magnet_system_raw property on Instrument is excluded | Decided 2026-06-29 |
+| instrument_model_raw on RawDataFile (from FOXDEN/Thermo headers) is retained as distinct from CSV Magnet Systems | Decided 2026-06-29 |
 
 ---
 
@@ -38,18 +63,8 @@ Future concepts, architecture ideas, KG designs, retrieval/chatbot ideas, and
 implementation possibilities. **None of these is decided, approved, or
 implemented.**
 
-- **Knowledge graph entity/relationship model** — the entity catalogue and
-  relationship types in `KNOWLEDGE_GRAPH_DESIGN.md` are a *conceptual draft*, not
-  validated against any real data.
 - **Layered architecture** — the six-layer design in `ARCHITECTURE.md` is a
   forward-looking sketch; most components do not exist.
-- **Graph backend** — RDF triplestore vs. labeled property graph vs. hybrid:
-  proposed options, undecided.
-- **Persistent-identifier strategy** — reusing external PIDs and minting internal
-  PIDs: a proposed approach, undecided.
-- **Provenance model** — PROV-O (Entity/Activity/Agent) is a proposed candidate.
-- **Standard vocabularies** — schema.org / DC / DCAT / PROV-O / SPAR etc. are
-  proposed candidates for alignment; none chosen.
 - **AI-assisted & agent-based retrieval** — embeddings/semantic search, NL→query
   translation, RAG-with-citations, agentic multi-step retrieval, and a
   natural-language search interface are all proposed future capabilities.
@@ -67,19 +82,20 @@ implemented.**
 Open questions that require investigation. These must **not** be treated as
 facts or quietly resolved by assumption.
 
+- **ANALYZED_IN target for the 46 RAW files** — hypothesized to be the PEPPI-MS
+  paper (DOI 10.1021/acs.jproteome.0c00303) but not verified. To be checked after
+  pipeline load by inspecting the RAW file FOXDEN JSONs for embedded DOI
+  references. This relationship is **not loaded in v1.0** until confirmed.
+- RCC access setup completion.
+- LangExtract vs. Gemini API decision for PDF extraction.
 - Which candidate data source (if any) is investigated first, and is access to it
   actually available and licensed for this use?
 - What metadata fields does any real candidate source actually expose, and how
   complete/consistent are they? (No field has been observed yet.)
-- RDF vs. property graph vs. hybrid — which backend, and why?
-- Which standard vocabularies (if any) become canonical for SciKG?
-- What is the internal PID minting scheme, if internal PIDs are used at all?
 - How is entity resolution / deduplication handled across heterogeneous sources?
 - How are `data/` and the graph itself versioned over time?
 - What are the access-control, licensing, and governance requirements?
 - Which embedding model and vector store (if any) are appropriate?
-- Is Python the right implementation language? (Currently an assumption implied by
-  `requirements.txt`.)
 - Should this repository be a git repository? (It is not currently initialized as
   one.)
 - What are the licensing and citation terms for SciKG itself?

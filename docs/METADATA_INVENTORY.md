@@ -118,7 +118,8 @@ See [FAIR_PRINCIPLES.md](FAIR_PRINCIPLES.md) for the self-assessment checklist.
 
 Inventory performed via automated pipeline extraction.
 See Pipeline metadata coverage section for results.
-Manual review of 17 ground-truth papers completed.
+Manual review of 8 ground-truth papers completed for annotation.
+17 papers fetched from CrossRef for bibliographic enrichment.
 Instrument names and sample types require Phase 2
 PDF extraction — not available from CrossRef.
 
@@ -145,7 +146,8 @@ filled.
 ## Pipeline metadata coverage
 
 As of Stage 2 (extract), CrossRef provides the following
-coverage across 17 ICR ground-truth papers:
+coverage across 17 CrossRef-fetched papers (which include the 8
+manually annotated ground-truth papers):
 
 | Field | Coverage |
 |---|---|
@@ -168,3 +170,20 @@ coverage across 17 ICR ground-truth papers:
 Notable gaps: instrument names and sample types are not
 available from CrossRef. These fields require either PDF
 extraction or manual annotation. Flagged as Phase 2.
+
+---
+
+## MagLab CSV inventory (Phase 1)
+
+The MagLab CSV (data/raw/maglab_icr_publications.csv) contains 806
+rows and 48 columns. Inventory completed 2026-06-29.
+
+Key findings:
+- 402 of 806 rows have a DOI (49.9%)
+- 404 of 806 rows have no DOI but always have a maglab_id
+- 12 columns are 100% empty (Conference/Presentation/Location/Academic
+  block — never populated for this ICR corpus)
+- 152 rows have Magnet Systems populated (18.9%), all containing
+  "21T ICR"
+- 242 rows have at least one Data Set URL (30.0%)
+- Email columns are explicitly excluded from extraction

@@ -1,7 +1,7 @@
 # SciKG Discovery Questions
 # These questions drive the schema and evaluation.
 # The graph must be able to answer all of these.
-# Source: project review session + David consultation
+# Source: project review session + supervisor consultation
 
 ## Core questions
 
@@ -35,4 +35,18 @@
     published in paper X?
 15. Which raw files have associated MassIVE deposits?
 
+## Questions added 2026-06-29
+
+16. Can we identify which datasets (raw files) correspond to specific 
+    publications, and what experimental parameters were used (polarity, 
+    scan settings, activation types, etc.)?
+
+17. Which collaborators or institutions most frequently co-publish 
+    with MagLab ICR facility users, and are there identifiable networks 
+    around particular research topics?
+
+## Note on status
+
+This file is a working draft. More questions are expected from the 
+ICR research group; they will be added as they arrive.
 

@@ -3,7 +3,7 @@
 ## What this project is
 A provenance-aware scientific knowledge graph for FT-ICR and
 proteomics research at NHMFL. Built from 806 ICR journal articles
-(from David's MagLab CSV) plus four other sources. Five data sources
+(from the MagLab CSV) plus four other sources. Five data sources
 total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, and manual annotations.
 Loaded into Neo4j (local). Validation uses a ground-truth set of 8
@@ -62,7 +62,7 @@ Fellowship, June 1 – July 31 (8 weeks).
 - Software and Instrument are logged entities
 - Removed from scope: Workflow entity, Streamlit UI, chatbot, NetworkX,
   ASSOCIATED_WITH relationship, ProvenanceRecord node
-- UNDER REVIEW (confirming with David): RAW-file relationships —
+- UNDER REVIEW (pending confirmation): RAW-file relationships —
   whether a RAW file links to a publication, a dataset deposit such as
   OSF/MassIVE, a project, or stands alone. Do not assert a RAW-file
   relationship as decided until confirmed
