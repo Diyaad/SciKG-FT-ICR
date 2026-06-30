@@ -6,9 +6,9 @@ assets through structured metadata, knowledge graph technologies, and
 AI-assisted exploration.
 
 > **Status:** Active build — 8-week project, June 1 – July 31.
-> 2-person team. CI Compass Fellowship. Pipeline operational:
-> publications fetched and extracted; RAW file and CSV extraction
-> in progress; Neo4j load upcoming.
+> 2-person team. CI Compass Fellowship. Extraction complete for all
+> three sources (CrossRef, MagLab CSV, 46 RAW files); normalization,
+> validation, and Neo4j load (stages 03-05) are the current work.
 
 ---
 
@@ -67,34 +67,51 @@ SciKG is designed around the [FAIR principles](docs/FAIR_PRINCIPLES.md):
 ```
 scikg/
 ├── data/
-│   ├── raw/                    # Immutable source data
-│   │   ├── publications/       # Raw CrossRef/OpenAlex responses
-│   │   ├── doi_list.csv        # Master DOI list — hand curated
-│   │   └── manifest.json       # Pipeline state tracker
-│   └── processed/              # Pipeline output at each stage
-│       └── entities/           # Extracted records (JSONL)
-├── scripts/                    # Pipeline scripts — run in order
-│   ├── 01_fetch.py             # Fetch raw metadata from APIs
-│   ├── 02_extract.py           # Extract structured fields
-│   ├── 02b_extract_csv.py      # Extract structured fields from the MagLab CSV
-├── tests/                      # One test file per pipeline script
+│   ├── raw/                         # Immutable source data
+│   │   ├── publications/            # Raw CrossRef/OpenAlex responses
+│   │   ├── maglab_icr_publications.csv
+│   │   ├── rawfiles_metadata.csv    # Manual RAW-file filename metadata
+│   │   ├── rawfiles_metadata/       # Original FOXDEN JSON (46 files)
+│   │   ├── doi_list.csv
+│   │   └── manifest.json            # Pipeline state tracker
+│   └── processed/                   # Pipeline output at each stage
+│       ├── rawfiles_enriched/       # FOXDEN + filename metadata merged (46 files)
+│       ├── entities/                # Extracted records (JSONL)
+│       ├── relationships/           # Extracted relationships (JSONL)
+│       ├── normalized/              # (not yet populated)
+│       └── validated/               # (not yet populated)
+├── scripts/                         # Pipeline scripts — run in order
+│   ├── 01_fetch.py
+│   ├── 02_extract.py
+│   ├── 02b_extract_csv.py
+│   ├── merge_rawfile_metadata.py
+│   ├── 02c_extract_rawfiles.py
+│   ├── 03_normalize.py              # (not yet written)
+│   ├── 04_validate.py              # (not yet written)
+│   ├── 05_load.py                  # (not yet written)
+│   └── db.py                       # (not yet written)
+├── tests/                           # One test file per pipeline script
 │   ├── test_fetch.py
 │   ├── test_extract.py
+│   ├── test_extract_csv.py
+│   ├── test_extract_rawfiles.py
 │   ├── test_normalize.py
 │   ├── test_validate.py
 │   └── test_load.py
-├── notebooks/                  # Exploratory analysis and demo
+├── notebooks/                       # Exploratory analysis and demo
 ├── outputs/                    
-├── docs/                       # Project documentation
+├── docs/                            # Project documentation
+│   ├── SCIKG_SCHEMA.md
 │   ├── ROADMAP.md
 │   ├── FAIR_PRINCIPLES.md
-│   ├── KNOWLEDGE_GRAPH_DESIGN.md
 │   ├── METADATA_INVENTORY.md
-│   ├── ARCHITECTURE.md
 │   ├── VERIFIED_FACTS_AND_ASSUMPTIONS.md
 │   ├── REVIEW_LOG.md
 │   ├── controlled_vocabulary.md
 │   ├── DISCOVERY_QUESTIONS.md
+│   ├── archive/                     # Superseded design docs
+│   │   ├── KNOWLEDGE_GRAPH_DESIGN.md
+│   │   └── ARCHITECTURE.md
 │   └── metadata_templates/
 ├── README.md
 ├── CLAUDE.md
@@ -106,18 +123,24 @@ scikg/
 
 | Document | Purpose |
 |---|---|
+| [docs/SCIKG_SCHEMA.md](docs/SCIKG_SCHEMA.md) | Authoritative v1.0 schema — node types, relationships, identifiers, provenance rules |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Proposed, evolving research workflow (not an approved plan) |
 | [docs/FAIR_PRINCIPLES.md](docs/FAIR_PRINCIPLES.md) | FAIR notes and how each principle maps to design decisions |
-| [docs/KNOWLEDGE_GRAPH_DESIGN.md](docs/KNOWLEDGE_GRAPH_DESIGN.md) | Entity/relationship model and ontology notes |
 | [docs/METADATA_INVENTORY.md](docs/METADATA_INVENTORY.md) | Metadata cataloguing approach + template usage |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Forward-looking architecture notes (nothing finalized) |
+| [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md) | The 17 questions the graph is designed to answer |
 | [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md) | Verified facts vs. proposed ideas vs. unknowns |
 | [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md) | Log of review-worthy changes and assumptions |
+| [docs/archive/KNOWLEDGE_GRAPH_DESIGN.md](docs/archive/KNOWLEDGE_GRAPH_DESIGN.md) | Entity/relationship model and ontology notes (superseded by SCIKG_SCHEMA.md) |
+| [docs/archive/ARCHITECTURE.md](docs/archive/ARCHITECTURE.md) | Forward-looking architecture notes (superseded) |
 | [docs/metadata_templates/](docs/metadata_templates/) | Fillable inventory templates (CSV/YAML), no fabricated rows |
 
 ---
 
 ## Current Focus
+
+Extraction stages are complete for all three sources (CrossRef API,
+MagLab CSV, and 46 RAW files). Normalization, validation, and Neo4j
+load (stages 03-05) are the current work.
 
 Building a provenance-aware knowledge graph from 806 ICR journal
 articles (from the MagLab CSV) plus four other sources: the CrossRef

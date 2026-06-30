@@ -18,9 +18,17 @@ Fellowship, June 1 – July 31 (8 weeks).
 02b_extract_csv.py
                 reads  data/raw/maglab_icr_publications.csv
                 writes data/processed/entities/
+merge_rawfile_metadata.py
+                reads  data/raw/rawfiles_metadata.csv
+                reads  data/raw/rawfiles_metadata/*.json
+                writes data/processed/rawfiles_enriched/*.json
 02c_extract_rawfiles.py
-                reads  data/raw/rawfile_names.txt and local .raw files
+                reads  data/processed/rawfiles_enriched/*.json
                 writes data/processed/entities/rawfiles.jsonl
+                writes data/processed/entities/samples.jsonl
+                writes data/processed/entities/software.jsonl
+                writes data/processed/entities/instruments.jsonl (append)
+                writes data/processed/relationships/rawfile_relationships.jsonl
 03_normalize.py reads  data/processed/entities/
                 writes data/processed/normalized/
 04_validate.py  reads  data/processed/normalized/
@@ -52,6 +60,9 @@ Fellowship, June 1 – July 31 (8 weeks).
 - Suggest additions to requirements.txt with justification
 
 ## Architecture decisions — do not revisit
+- Authoritative schema: docs/SCIKG_SCHEMA.md (node types,
+  relationships, identifiers, provenance properties, normalization
+  and validation rules)
 - Graph database: Neo4j, running locally (Neo4j Desktop)
 - Metadata sources: five sources (CrossRef API, MagLab CSV, Web Apps
   export, 46 Thermo RAW files, manual annotations). DOI is the master
@@ -62,10 +73,12 @@ Fellowship, June 1 – July 31 (8 weeks).
 - Software and Instrument are logged entities
 - Removed from scope: Workflow entity, Streamlit UI, chatbot, NetworkX,
   ASSOCIATED_WITH relationship, ProvenanceRecord node
-- UNDER REVIEW (pending confirmation): RAW-file relationships —
-  whether a RAW file links to a publication, a dataset deposit such as
-  OSF/MassIVE, a project, or stands alone. Do not assert a RAW-file
-  relationship as decided until confirmed
+- RAW-file relationships: OPERATED_BY, CONTAINS_SAMPLE, COLLECTED_ON,
+  and ACQUIRED_WITH are active and loaded (confirmed 2026-06-30,
+  implemented in 02c_extract_rawfiles.py).
+- UNDER REVIEW (pending confirmation): ANALYZED_IN (RAW file ->
+  Publication) — target publication not yet confirmed. Do not
+  assert this relationship as decided or load it until confirmed.
 
 ## If unsure whether something is allowed
 Check docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md first.
