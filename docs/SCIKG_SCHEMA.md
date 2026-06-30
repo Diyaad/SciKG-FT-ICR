@@ -82,7 +82,7 @@ CREATE CONSTRAINT rawfile_filename   FOR (r:RawDataFile)  REQUIRE r.filename IS 
 - **Identifiers:** lowercase namespace + `:` + value
   - `doi:10.1021/acs.analchem.5c06165`
   - `pub:maglab:18517`
-  - `researcher:butcher_d_2019`
+  - `researcher:lastname_f_2019`
   - `facility:icr_facility`
   - `instrument:raw:21t_icr`
 - **PSI-MS IDs:** uppercase, `MS:XXXXXXX` format
@@ -618,7 +618,7 @@ In order of preference:
    `inst:`, `dataset:`, `instrument:`, `sample:`
 
 Internal PIDs are lowercase, underscored, and human-readable. Example: 
-`researcher:butcher_d_2019`.
+`researcher:lastname_f_2019`.
 
 JSON-LD export format uses namespace prefix (`doi:10.1021/...`, 
 `orcid:0000-...`, `ms:1000079`). Internal Neo4j storage may use bare 
