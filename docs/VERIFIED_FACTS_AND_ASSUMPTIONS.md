@@ -161,6 +161,12 @@ When an assumption is removed or a claim rewritten, record it here and in
 - Dataset repositories documented using DataCite 
   conventions: MassIVE, OSF, ProteomeXchange, Zenodo.
   Source: https://schema.datacite.org
-- Software entity remains excluded from v1.0.
-  Rationale: too variable across papers, not a
-  primary discovery entity for this corpus.
+- Software included as a logged entity in v1.0.
+  Corrected 2026-06-30: the earlier 2026-06-18 entry
+  excluded Software ("too variable across papers, not a
+  primary discovery entity for this corpus"). That is
+  superseded — the RAW-file (fisher_py/FOXDEN) metadata
+  yields clean, consistent acquisition-software records
+  (name + version), so Software is a logged entity, as
+  CLAUDE.md already states. Software nodes are written by
+  02c_extract_rawfiles.py.

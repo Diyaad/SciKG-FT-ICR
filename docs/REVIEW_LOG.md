@@ -13,6 +13,7 @@ Needed?" honest — when in doubt, mark **Yes**.
 
 | Date | File | Issue Found | Action Taken | Reason | Review Needed | Notes |
 |---|---|---|---|---|---|---|
+| 2026-06-30 | docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md | Stale "Software entity remains excluded from v1.0" line from 2026-06-18 contradicted CLAUDE.md and the actual schema | Corrected to reflect Software as a logged entity; quoted superseded rationale for audit trail | 02c_extract_rawfiles.py already writes software.jsonl; doc was out of sync with practice | No | — |
 | 2026-06-29 | docs/SCIKG_SCHEMA.md | Confirmed WCL meaning, J run letter meaning, and Magnet System Status exclusion (established 2026-06-29). ANALYZED_IN target NOT confirmed; remains pending. | Created authoritative schema doc reflecting confirmed decisions. Removed magnet_system_raw and magnet_system_status from Instrument node. ANALYZED_IN target requires verification by inspecting FOXDEN JSONs. | Lock the active schema in writing | Yes | ANALYZED_IN verification task added to Week 5 |
 | 2026-06-29 | docs/controlled_vocabulary.md | WCL was missing from Sample Types | Added "Whole cell lysate" canonical name with WCL alias | Confirmed WCL = Whole Cell Lysate (established 2026-06-29) | No | — |
 | 2026-06-29 | scripts/02b_extract_csv.py | Script was reading Magnet System Status and storing magnet_system_raw which are now excluded | Updated script to skip these. Will need re-run to regenerate instruments.jsonl. | Confirmed exclusion of both fields (established 2026-06-29) | Yes | Re-run script after edit |
