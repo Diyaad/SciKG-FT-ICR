@@ -89,7 +89,7 @@ def clean(value):
     """Trim whitespace; map empty/N-A-style placeholders to None.
 
     Only the entire-cell placeholder tokens are nulled — a legitimate value such
-    as "No" (MagLab Significant) or "Don't Know" (Magnet System Status) is kept.
+    as "No" (MagLab Significant) is kept.
     """
     if value is None:
         return None
@@ -544,12 +544,13 @@ class Extractor:
                                   facility_id, "Facility", {})
 
         # --- Instruments (multi-value on comma) ---
-        magnet_status = clean(row.get("Magnet System Status"))  # categorical
+        # The CSV Magnet Systems column is used to determine which
+        # Instrument node to connect to (via USES_INSTRUMENT relationship),
+        # but the raw string is no longer stored as a property.
+        # Per David's decision 2026-06-29.
         for magnet in split_multi(row.get("Magnet Systems"), ","):
             instrument_id = f"instrument:raw:{slugify(magnet)}"
             self.add_entity("Instrument", instrument_id, {
-                "magnet_system_raw": magnet,
-                "magnet_system_status": magnet_status,
                 "canonical_name": None,  # filled in 03_normalize.py
                 "psi_ms_id": None,       # filled in 03_normalize.py
             }, "instruments_written")
