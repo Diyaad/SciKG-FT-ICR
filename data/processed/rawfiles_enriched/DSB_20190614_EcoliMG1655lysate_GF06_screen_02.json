@@ -1,0 +1,288 @@
+{
+  "filename_metadata": {
+    "operator_initials": "DSB",
+    "operator_name": "David S. Butcher",
+    "date_acquired": "2019-06-14",
+    "sample_organism_strain": "MG1655",
+    "sample_state": "lysate",
+    "sample_growth_medium": null,
+    "sample_growth_date": null,
+    "bioreplicate_id": null,
+    "sample_prep_method": null,
+    "fractionation_method": "GELFrEE",
+    "fraction_id": "GF06",
+    "experimental_parameters": "screen",
+    "run_number": 2,
+    "merged_at": "2026-06-30T16:23:52Z",
+    "merge_source": "data/raw/rawfiles_metadata.csv"
+  },
+  "did": "/nhmfl_facility=/nhmfl_proposal_identifier=/nhmfl_experiment_identifier=/filename=DSB_20190614_EcoliMG1655lysate_GF06_screen_02.raw/dateCreated=2019-07-07T17:36:43/datatier=derived",
+  "parent_did": "/nhmfl_facility=/nhmfl_proposal_identifier=/nhmfl_experiment_identifier=/dataset_name=",
+  "nhmfl_facility": "",
+  "nhmfl_proposal_identifier": "",
+  "nhmfl_experiment_identifier": "",
+  "data_creator": [],
+  "system_name": "ICR-3680",
+  "system_ip_address": "146.201.201.12",
+  "dataset_name": "",
+  "dataset_description": "",
+  "filename": "DSB_20190614_EcoliMG1655lysate_GF06_screen_02.raw",
+  "filepath": "\\\\zdrive\\icr\\David Butcher\\21T data\\20190612_EcoliMG1655_GELFrEE_screens\\DSB_20190614_EcoliMG1655lysate_GF06_screen_02.raw",
+  "sha256_hash": "5426db860176d3f400a61d00d99a7d6e82defe3d364c389245d7c179fecadd56",
+  "dateCreated": "2019-07-07T17:36:43",
+  "dateModified": "2019-06-15T10:33:07",
+  "nhmfl_instrument": "",
+  "user_metadata": {
+    "@context": [
+      "https://schema.org/",
+      {
+        "spdx": "http://spdx.org/rdf/terms#",
+        "modsci": "https://w3id.org/skgo/modsci#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "sosa": "http://www.w3.org/ns/sosa/"
+      }
+    ],
+    "@type": "DigitalDocument",
+    "name": "DSB_20190614_EcoliMG1655lysate_GF06_screen_02.raw",
+    "dateCreated": "2019-07-07T17:36:43",
+    "dateModified": "2019-06-15T10:33:07",
+    "encodingFormat": "application/x-thermo-raw",
+    "spdx:checksum": {
+      "@type": "spdx:Checksum",
+      "spdx:checksumValue": "5426db860176d3f400a61d00d99a7d6e82defe3d364c389245d7c179fecadd56",
+      "spdx:algorithm": {
+        "@id": "spdx:checksumAlgorithm_sha256"
+      }
+    },
+    "prov:isPartOf": {
+      "@type": "Dataset",
+      "name": "",
+      "description": "",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "Dataset Identifier",
+        "description": "A unique dataset identifier used internally by the FOXDEN metadata service.",
+        "value": "/nhmfl_facility=/nhmfl_proposal_identifier=/nhmfl_experiment_identifier=/dataset_name="
+      }
+    },
+    "creator": [],
+    "prov:wasGeneratedBy": {
+      "@type": "prov:Activity",
+      "prov:qualifiedUsage": [
+        {
+          "@type": "prov:Usage",
+          "prov:entity": {
+            "@type": "sosa:Sample",
+            "name": "",
+            "description": ""
+          },
+          "prov:hadRole": "analyte"
+        },
+        {
+          "@type": "prov:Usage",
+          "prov:entity": null,
+          "prov:hadRole": "data acquisition"
+        }
+      ],
+      "prov:wasAssociatedWith": null
+    },
+    "contributor": [
+      null
+    ],
+    "provider": {},
+    "funding": [],
+    "measurementTechnique": {
+      "@type": "DefinedTerm",
+      "name": "Mass spectrometry",
+      "termCode": "PRIDE:0000027",
+      "url": "http://purl.obolibrary.org/obo/PRIDE_0000027",
+      "inDefinedTermSet": "https://raw.githubusercontent.com/PRIDE-Archive/pride-ontology/master/pride_cv.owl"
+    },
+    "hasPart": [
+      {
+        "@type": "Metadata",
+        "description": "A set of data that describes and gives information about other data.",
+        "instrument": {
+          "@type": "modsci:Scientific Instrument",
+          "name": "LTQ Orbitrap Velos",
+          "model": "LTQ FT Ultra",
+          "serialNumber": {
+            "@type": "PropertyValue",
+            "name": "instrument serial number",
+            "value": "",
+            "propertyID": {
+              "@type": "DefinedTerm",
+              "name": "instrument serial number",
+              "termCode": "MS:1000529",
+              "url": "http://purl.obolibrary.org/obo/MS_1000529",
+              "inDefinedTermSet": "https://raw.githubusercontent.com/HUPO-PSI/psi-ms-CV/master/psi-ms.owl"
+            }
+          },
+          "firmwareVersion": "",
+          "Number of scans": 3160,
+          "originalFilePath": "C:\\Data\\Lissa\\DSB_20190614_EcoliMG1655lysate_GF06_screen_02.raw",
+          "instrumentMethodFilePath": "C:\\Xcalibur\\methods\\LCA_DSB_06112019_FT_Top2_CID.meth"
+        },
+        "software": {
+          "@type": "SoftwareApplication",
+          "name": "Xcalibur",
+          "softwareVersion": "2.7.0 SP2"
+        },
+        "instrumentMethod": {
+          "Creator": "weisbrod",
+          "Last modified": "6/11/2019 by weisbrod",
+          "MS Run Time (min)": 148.0,
+          "notes": [
+            "Sequence override of method parameters not enabled.",
+            "Real-time modifications to method not enabled",
+            "Stepped collision energy not enabled",
+            "MS2     0        0",
+            "MS3     0        0",
+            "MS4     0        0",
+            "MS5     0        0",
+            "MS6     0        0",
+            "MS7     0        0",
+            "MS8     0        0",
+            "MS9     0        0",
+            "MS10    0        0"
+          ],
+          "Divert Valve": "not used during run",
+          "Contact Closure": "not used during run",
+          "Syringe Pump": "not used during run",
+          "MS Detector Settings": "",
+          "Additional Microscans": "",
+          "segments": [
+            {
+              "name": "Segment 1 Information",
+              "Duration (min)": 145.0,
+              "Number of Scan Events": 3,
+              "Tune Method": "20190507_IPS",
+              "Scan Event Details": ""
+            },
+            {
+              "name": "Segment 2 Information",
+              "scan_events": [
+                {
+                  "event": "1:  FTMS + p norm !corona !pi res=100000 o(600.0-2000.0)",
+                  "notes": [
+                    "SID = 20.0V",
+                    "CV = 0.0V"
+                  ]
+                },
+                {
+                  "event": "2:  FTMS + p norm !corona !pi res=100000 Dep MS/MS o(300.0-2000.0) Most intense ion from (1)",
+                  "Activation Type": "CID",
+                  "Min. Signal Required": 500.0,
+                  "Isolation Width": 10.0,
+                  "Normalized Coll. Energy": 35.0,
+                  "Default Charge State": 10,
+                  "Activation Q": 0.25,
+                  "Activation Time": 10.0,
+                  "FT ECD": "not enabled",
+                  "FT IRMPD": "Energy 60.0    Delay 0.00   Duration 50.00",
+                  "FT first mass mode": "fixed at m/z",
+                  "FT first mass value": 100.0,
+                  "notes": [
+                    "SID = 20.0V",
+                    "CV = 0.0V"
+                  ]
+                },
+                {
+                  "event": "3:  FTMS + p norm !corona !pi res=100000 Dep MS/MS o(300.0-2000.0) 2nd most intense ion from (1)",
+                  "Activation Type": "CID",
+                  "Min. Signal Required": 500.0,
+                  "Isolation Width": 10.0,
+                  "Normalized Coll. Energy": 35.0,
+                  "Default Charge State": 10,
+                  "Activation Q": 0.25,
+                  "Activation Time": 10.0,
+                  "FT ECD": "not enabled",
+                  "FT IRMPD": "Energy 60.0    Delay 0.00   Duration 50.00",
+                  "FT first mass mode": "fixed at m/z",
+                  "FT first mass value": 100.0,
+                  "notes": [
+                    "SID = 20.0V",
+                    "CV = 0.0V",
+                    "Use separate polarity settings disabled",
+                    "Most intense if no parent masses found not enabled",
+                    "Add/subtract mass not enabled",
+                    "FT master scan preview mode not enabled",
+                    "Charge state screening enabled",
+                    "Monoisotopic precursor selection not enabled",
+                    "Charge state rejection enabled",
+                    "Chromatography mode is disabled"
+                  ],
+                  "Data Dependent Settings": "",
+                  "Parent Mass List": "(none)",
+                  "Reject Mass List": "(none)",
+                  "Neutral Loss Mass List": "(none)",
+                  "Product Mass List": "(none)",
+                  "Neutral loss in top": 4,
+                  "Product in top": 3,
+                  "Unassigned charge states": "not rejected",
+                  "Charge state 1": "rejected",
+                  "Charge state 2": "rejected",
+                  "Charge state 3": "not rejected",
+                  "Charge states 4+": "not rejected",
+                  "Duration (min)": 3.0,
+                  "Number of Scan Events": 1,
+                  "Tune Method": "20190507_IPS",
+                  "Scan Event Details": ""
+                },
+                {
+                  "event": "1:  ITMS - c norm !corona !pi o(150.0-2000.0)",
+                  "notes": [
+                    "SID = 15.0V",
+                    "CV = 0.0V",
+                    "Predict ion injection time not enabled",
+                    "Use global parent and reject mass lists not enabled",
+                    "Exclude parent mass from data dependent selection not enabled",
+                    "Exclusion mass width by mass",
+                    "Parent mass width by mass",
+                    "Reject mass width by mass",
+                    "Zoom/UltraZoom scan mass width by mass",
+                    "Neutral Loss candidates processed by decreasing intensity",
+                    "Neutral Loss mass width by mass",
+                    "Product candidates processed by decreasing intensity",
+                    "Product mass width by mass",
+                    "MSn mass range by mass",
+                    "Use m/z values as masses not enabled",
+                    "Analog UV data dep. not enabled",
+                    "Dynamic exclusion enabled",
+                    "Exclusion mass width by mass",
+                    "Isotopic data dependence not enabled",
+                    "Mass Tags data dependence not enabled",
+                    "Not enabled"
+                  ],
+                  "Global Data Dependent Settings": "",
+                  "Exclusion mass width low": 5.0,
+                  "Exclusion mass width high": 5.0,
+                  "Parent mass width low": 0.5,
+                  "Parent mass width high": 0.5,
+                  "Reject mass width low": 0.5,
+                  "Reject mass width high": 0.5,
+                  "Zoom/UltraZoom scan mass width low": 5.0,
+                  "Zoom/UltraZoom scan mass width high": 5.0,
+                  "FT Narrow SIM scan mass width low": 5.0,
+                  "FT Narrow SIM scan mass width high": 5.0,
+                  "Neutral Loss mass width low": 0.5,
+                  "Neutral Loss mass width high": 0.5,
+                  "Product mass width low": 0.5,
+                  "Product mass width high": 0.5,
+                  "MS mass range": "700.00-1400.00",
+                  "MSn mass range": "0.00-1000000.00",
+                  "Repeat Count": 1,
+                  "Repeat Duration": 240.0,
+                  "Exclusion List Size": 500,
+                  "Exclusion Duration": 240.0,
+                  "Expiration": "disabled",
+                  "Custom Data Dependent Settings": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

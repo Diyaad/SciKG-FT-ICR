@@ -20,6 +20,8 @@ data/processed/*
 !data/processed/entities/*.jsonl
 !data/processed/relationships/
 !data/processed/relationships/*.jsonl
+!data/processed/rawfiles_enriched/
+!data/processed/rawfiles_enriched/*.json
 
 # Generated artifacts
 outputs/*
