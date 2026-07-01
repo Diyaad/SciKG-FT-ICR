@@ -82,10 +82,10 @@ implemented.**
 Open questions that require investigation. These must **not** be treated as
 facts or quietly resolved by assumption.
 
-- **ANALYZED_IN target for the 46 RAW files** — hypothesized to be the PEPPI-MS
-  paper (DOI 10.1021/acs.jproteome.0c00303) but not verified. To be checked after
-  pipeline load by inspecting the RAW file FOXDEN JSONs for embedded DOI
-  references. This relationship is **not loaded in v1.0** until confirmed.
+- **ANALYZED_IN target for the 46 RAW files** — target publication not yet
+  identified. To be checked after pipeline load by inspecting the RAW file
+  FOXDEN JSONs for embedded DOI references. This relationship is **not loaded
+  in v1.0** until confirmed.
 - RCC access setup completion.
 - LangExtract vs. Gemini API decision for PDF extraction.
 - Which candidate data source (if any) is investigated first, and is access to it

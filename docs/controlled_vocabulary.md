@@ -43,7 +43,7 @@
 # Rule: all entity names in the graph must resolve to
 # a canonical label in this file.
 # Variants go in the Aliases column.
-# Last updated: 2026-06-29
+# Last updated: 2026-07-01
 
 ## Instruments
 
@@ -53,17 +53,19 @@
 # Peripherals: ACQUITY M-Class, NanoMate, NanoLC,
 # APPI Ion Max, MIDAS 160, GELFrEE 8100
 
-| Canonical | PSI-MS ID | Aliases |
-|---|---|---|
-| 21T FT-ICR MS | MS:1000079 | 21 T FT-ICR MS, 21 T FT-ICR mass spectrometer, Custom-built 21 T FT-ICR MS, 21T ICR, 21 T FT-ICR, 21 Tesla FT-ICR MS, 21 T FT-ICR MS |
-| 14.5T FT-ICR MS | MS:1000079 | 14.5 T FT-ICR, 14.5T FT-ICR, 14.5 T superconducting magnet, Modified 14.5 T FT-ICR, LTQ-FT MS |
-| 9.4T FT-ICR MS | MS:1000079 | 9.4 T FT-ICR MS, 9.4T FT-ICR, Home-built 9.4 T FTICR instrument, 9.4 T FTICR |
-| Orbitrap Eclipse Tribrid | MS:1000484 | Orbitrap Eclipse Tribrid Mass Spectrometer |
-| Q-Exactive HF | MS:1000484 | Q Exactive HF Hybrid Quadrupole-Orbitrap, Q-Exactive HF BioPharma, Q Exactive HF |
-| Velos Pro | MS:1000484 | Velos Pro dual-cell linear ion trap, Velos Pro linear ion trap |
-| TOF MS | MS:1000084 | TOF, time-of-flight |
-| Finnigan TSQ | MS:1000031 | Finnigan TSQ |
-| Finnigan LCQ | MS:1000031 | Finnigan LCQ, Finnigan LSQ |
+| Canonical | PSI-MS ID | Aliases | Vendor |
+|---|---|---|---|
+| 21T FT-ICR MS | MS:1000079 | 21 T FT-ICR MS, 21 T FT-ICR mass spectrometer, Custom-built 21 T FT-ICR MS, 21T ICR, 21 T FT-ICR, 21 Tesla FT-ICR MS, 21 T FT-ICR MS | — |
+| 14.5T FT-ICR MS | MS:1000079 | 14.5 T FT-ICR, 14.5T FT-ICR, 14.5 T superconducting magnet, Modified 14.5 T FT-ICR, LTQ-FT MS | — |
+| 9.4T FT-ICR MS | MS:1000079 | 9.4 T FT-ICR MS, 9.4T FT-ICR, Home-built 9.4 T FTICR instrument, 9.4 T FTICR | — |
+| Orbitrap Eclipse Tribrid | MS:1000484 | Orbitrap Eclipse Tribrid Mass Spectrometer | — |
+| Q-Exactive HF | MS:1000484 | Q Exactive HF Hybrid Quadrupole-Orbitrap, Q-Exactive HF BioPharma, Q Exactive HF | — |
+| Velos Pro | MS:1000484 | Velos Pro dual-cell linear ion trap, Velos Pro linear ion trap | — |
+| TOF MS | MS:1000084 | TOF, time-of-flight | — |
+| Finnigan TSQ | MS:1000031 | Finnigan TSQ | — |
+| Finnigan LCQ | MS:1000031 | Finnigan LCQ, Finnigan LSQ | — |
+| LTQ Orbitrap Velos | MS:1001742 | LTQ Orbitrap Velos | Thermo Scientific |
+| LTQ FT Ultra | MS:1000557 | LTQ FT Ultra | Thermo Scientific |
 
 ## Methods — Tier 1 Primary MS Methods
 
