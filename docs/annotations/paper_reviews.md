@@ -844,7 +844,7 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Facility named (e.g., NHMFL ICR) | National High Magnetic Field Laboratory, Northwestern Proteomics Core Facility |
 | Ionization / technique stated (ESI, MALDI, …) | Electrospray ionization (ESI) |
 | Other instruments mentioned | ACQUITY M-Class(Waters) |
-| Software / data-processing tools named | Dionex UltiMate 3000  |
+| Software / data-processing tools named | ProSight Lite 1.4; ProSight PD 4.0; TDValidator 1.0 (Proteinaceous); Protein Annotator; Xcalibur QualBrowser; Mascot (Matrix Science, version 2.8.0); Scaffold version 5.0.1 (Proteome Software); Fiji ImageJ; Integrative Genomics Viewer (version 2.9.4, Broad Institute); GDC Data Transfer Tool Client (version 1.6.1) |
 | Field strength / resolving power stated? (Yes / No) | Yes  FT-ICR: "r.p. of 150,000 or 300,000 (at 400 m/z)"; QE-HF: "r.p.) of 120,000 (at 200 m/z)" (MS1), "r.p. of 60,000 (at 200 m/z)" (MS2) |
 
 ### **4\. Metadata observed**
@@ -1251,4 +1251,3 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 A few things worth noting for the Week 1 run: the **At-a-glance** block is what makes the 10 papers comparable at a glance, so ask both reviewers to always fill it. The constraint about not inferring is baked in — every analytical field offers Yes/No/N/A — but it's worth agreeing up front on a shared short label set for sections 6 and 7 (e.g., always "21 T FT-ICR MS," not sometimes "21 Tesla instrument"), since inconsistent wording is what breaks later aggregation.
 
 If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx` (imports cleanly into Google Docs with the tables intact) or a `.md` — just say which.
-
