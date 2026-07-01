@@ -257,9 +257,21 @@ def acquire_pdf(doi, doi_safe):
 # STAGE 2 — PDF -> text (Layer 1, swappable backend)
 # ---------------------------------------------------------------------------
 def _docling_to_text(pdf_path):
-    from docling.document_converter import DocumentConverter
+    from docling.datamodel.base_models import InputFormat
+    from docling.datamodel.pipeline_options import PdfPipelineOptions
+    from docling.document_converter import DocumentConverter, PdfFormatOption
 
-    converter = DocumentConverter()
+    # OCR disabled: RapidOCR is broken on this install
+    # ("Unsupported configuration: torch.PP-OCRv6.det.small") and the PDFs are
+    # born-digital, so OCR is unnecessary.
+    pipeline_options = PdfPipelineOptions()
+    pipeline_options.do_ocr = False
+
+    converter = DocumentConverter(
+        format_options={
+            InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
+        }
+    )
     result = converter.convert(str(pdf_path))
     return result.document.export_to_markdown()
 
@@ -463,7 +475,10 @@ def extract_fields(text):
             model_id=MODEL_ID,
             api_key=LANGEXTRACT_API_KEY,
         )
-    except Exception:
+    except Exception as e:
+        import traceback
+        print("LANGEXTRACT ERROR:", repr(e))
+        traceback.print_exc()
         return None, [], ["langextract_failed"]
 
     for ex in getattr(result, "extractions", []) or []:
@@ -721,7 +736,14 @@ def main():
     identity_counts = {"ok": 0, "mismatch": 0, "unverifiable": 0}
     mismatch_dois = []
 
-    for doi in dois:
+    for doi_index, doi in enumerate(dois):
+        # Rate-limit to stay under the free-tier Gemini limit (5 req/min).
+        # Delay BETWEEN papers only — never before the first, never after the
+        # last. Placed at the top of the loop so it applies on every path,
+        # including the early `continue` branches below.
+        if doi_index > 0:
+            time.sleep(15)
+
         doi_safe = make_doi_safe(doi)
         crossref_rec = crossref_index.get(doi.lower().strip())
 
