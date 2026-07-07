@@ -106,6 +106,12 @@ DOWNLOAD_HEADERS = {"User-Agent": "SciKG/0.1 (mailto:scikg@research.org)"}
 DEFAULT_MODEL_ID = "gemini-2.5-flash"
 MODEL_ID = os.environ.get("LANGEXTRACT_MODEL_ID", DEFAULT_MODEL_ID)
 LANGEXTRACT_API_KEY = os.environ.get("LANGEXTRACT_API_KEY")
+# Backend: "ollama" (default, local, no API key) or "gemini".
+LANGEXTRACT_BACKEND = os.environ.get("LANGEXTRACT_BACKEND", "ollama")
+OLLAMA_MODEL_ID = os.environ.get("OLLAMA_MODEL_ID", "llama3.1:8b")
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
+# The model that actually runs — use this for provenance/logging.
+ACTIVE_MODEL = OLLAMA_MODEL_ID if LANGEXTRACT_BACKEND == "ollama" else MODEL_ID
 
 # --- Layer-1 backend (swappable) -------------------------------------------
 # "docling" (default) or "pdfplumber". The rest of the script does not care
@@ -468,13 +474,25 @@ def extract_fields(text):
     try:
         import langextract as lx
 
-        result = lx.extract(
-            text_or_documents=text,
-            prompt_description=EXTRACTION_PROMPT,
-            examples=build_examples(),
-            model_id=MODEL_ID,
-            api_key=LANGEXTRACT_API_KEY,
-        )
+        if LANGEXTRACT_BACKEND == "ollama":
+            result = lx.extract(
+                text_or_documents=text,
+                prompt_description=EXTRACTION_PROMPT,
+                examples=build_examples(),
+                model_id=OLLAMA_MODEL_ID,
+                model_url=OLLAMA_URL,
+                fence_output=False,
+                use_schema_constraints=False,
+                timeout=300,
+            )
+        else:
+            result = lx.extract(
+                text_or_documents=text,
+                prompt_description=EXTRACTION_PROMPT,
+                examples=build_examples(),
+                model_id=MODEL_ID,
+                api_key=LANGEXTRACT_API_KEY,
+            )
     except Exception as e:
         import traceback
         print("LANGEXTRACT ERROR:", repr(e))
@@ -650,7 +668,7 @@ def build_output_record(doi, fields, all_extractions, pdf_source, text_source,
         "source": SOURCE_LABEL,
         "pdf_source": pdf_source,
         "text_source": text_source,
-        "model_used": MODEL_ID,
+        "model_used": ACTIVE_MODEL,
         "extracted_at": now_iso(),
         "evidence_note": evidence_note,
         "crossref_check": crossref_check,
@@ -683,7 +701,7 @@ def build_log_record(doi, pdf_source, docling_ok, text_source, fields,
         "fields": field_log,
         "identity_status": identity_status,
         "flags": sorted(set(flags)),
-        "model_used": MODEL_ID,
+        "model_used": ACTIVE_MODEL,
     }
 
 
@@ -741,7 +759,7 @@ def main():
         # Delay BETWEEN papers only — never before the first, never after the
         # last. Placed at the top of the loop so it applies on every path,
         # including the early `continue` branches below.
-        if doi_index > 0:
+        if doi_index > 0 and LANGEXTRACT_BACKEND != "ollama":
             time.sleep(15)
 
         doi_safe = make_doi_safe(doi)
@@ -833,7 +851,7 @@ def main():
 
         evidence_note = (
             "Gap fields extracted from PDF via Docling + LangExtract "
-            f"(model {MODEL_ID}); identity cross-checked against CrossRef "
+            f"(model {ACTIVE_MODEL}); identity cross-checked against CrossRef "
             "record. CrossRef bibliographic fields are never overwritten."
         )
         record = build_output_record(
