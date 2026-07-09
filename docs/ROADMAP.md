@@ -48,7 +48,7 @@ Status: PLANNED
 - 05_load.py written and run
 - Full pipeline runs end-to-end producing the graph
 - ANALYZED_IN target verification: inspect RAW file FOXDEN JSONs for 
-  DOI references to confirm or reject the PEPPI-MS hypothesis
+  DOI references to identify the target publication (not yet identified)
 - Optional: start PDF extraction (02d_extract_pdf.py) on RCC
 
 ## Week 6 (Jul 7-13) - Discovery queries and refinement

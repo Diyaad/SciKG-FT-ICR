@@ -588,11 +588,9 @@ Every relationship carries the six provenance properties listed above.
 
 ### ANALYZED_IN status
 
-**PENDING — target not yet confirmed.** Hypothesized to be the PEPPI-MS 
-paper (`doi:10.1021/acs.jproteome.0c00303`), but this has not been 
-confirmed. To be verified by inspecting RAW file FOXDEN JSONs for embedded 
-DOI references after pipeline load (Week 5 task). Not loaded into v1.0 
-until verification.
+**PENDING — target publication not yet identified.** To be identified by 
+inspecting RAW file FOXDEN JSONs for embedded DOI references after pipeline 
+load (Week 5 task). Not loaded into v1.0 until verification.
 
 ### Relationship properties
 
