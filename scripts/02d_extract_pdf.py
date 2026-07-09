@@ -483,7 +483,6 @@ def extract_fields(text):
                 model_url=OLLAMA_URL,
                 fence_output=False,
                 use_schema_constraints=False,
-                timeout=300,
             )
         else:
             result = lx.extract(

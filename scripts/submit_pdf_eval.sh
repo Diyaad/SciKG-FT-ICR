@@ -14,12 +14,12 @@
 # There is no general-access "gpu" partition, so do NOT use --partition here.
 # Verify you have backfill2 with:  rcctool my:queues
 # ==========================================================================
-#SBATCH -A backfill2
+#SBATCH -A icr_q
 #SBATCH --job-name=scikg_pdf_eval
 #SBATCH --gres=gpu:1                  # one GPU. Do NOT add -N/--nodes on backfill2, or GPUs are refused.
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=16G
-#SBATCH --time=01:00:00               # 8 papers is well under 1h; shorter = sooner start + smaller preemption window
+#SBATCH --mem=64G
+#SBATCH --time=08:00:00               # 8 papers is well under 1h; shorter = sooner start + smaller preemption window
 #SBATCH --output=slurm-%j.out
 
 set -e
@@ -51,6 +51,9 @@ export OLLAMA_MODEL_ID="llama3.1:8b"
 export OLLAMA_URL="http://localhost:11434"
 # Silence the Windows-style HF symlink warning (harmless, and we're on Linux now).
 export HF_HUB_DISABLE_SYMLINKS_WARNING=1
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
+export HF_DATASETS_OFFLINE=1
 
 # ---------------------------------------------------------------------------
 # Start the Ollama server on this compute node, in the background.
