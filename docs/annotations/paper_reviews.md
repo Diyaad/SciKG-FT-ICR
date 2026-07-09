@@ -204,9 +204,9 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | FT-ICR mentioned? (Yes / No) | Yes |
 | Instrument / magnet stated (e.g., 21 T FT-ICR MS) | Custom-built 21 T FT-ICR mass spectrometer |
 | Facility named (e.g., NHMFL ICR) | National High Magnetic Field Laboratory (NHMFL) |
-| Ionization / technique stated (ESI, MALDI, …) | ESI, APPI, FT-ICR MS, Mass Difference Analysis (MDA), Walking Calibration |
+| Ionization / technique stated (ESI, MALDI, …) | ESI; APPI; FT-ICR MS; Mass Difference Analysis (MDA); Walking Calibration |
 | Other instruments mentioned | APPI Ion Max source, external multipole ion trap, dynamically harmonized ICR cell |
-| Software / data-processing tools named | PyC2MC, Predator Software |
+| Software / data-processing tools named | PyC2MC; Predator Software |
 | Field strength / resolving power stated? (Yes / No) | Yes, 21 T field strength |
 
 ### **4\. Metadata observed**
@@ -223,7 +223,7 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Data availability statement | yes | Data publicly available through OSF repository |
 | Dataset identifier / accession | yes |  |
 | Repository named | yes | Open Science Framework (OSF) |
-| Sample / specimen identifiers | yes | HVGO, BO |
+| Sample / specimen identifiers | yes | HVGO; BO |
 | Instrument identifier (RRID / serial) | no |  |
 | Funding / grant IDs | yes | DMR-2128556  |
 | References / cited works | yes |  |
@@ -381,9 +381,9 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | FT-ICR mentioned? (Yes / No) | yes |
 | Instrument / magnet stated (e.g., 21 T FT-ICR MS) | Modified LTQ-FT mass spectrometer, 14.5 T FT-ICR  |
 | Facility named (e.g., NHMFL ICR) | Ion Cyclotron Resonance Program, National High Magnetic Field Laboratory |
-| Ionization / technique stated (ESI, MALDI, …) | ESI, FT-ICR MS, LC-MS/MS, top-down proteomics, bottom-up proteomics, CID |
+| Ionization / technique stated (ESI, MALDI, …) | ESI; FT-ICR MS; LC-MS/MS; top-down proteomics; bottom-up proteomics; CID |
 | Other instruments mentioned | Advion BioSystems NanoMate, Eksigent NanoLC |
-| Software / data-processing tools named | Xcalibur, MIDAS, MASCOT, ProSight 2.0, custom peak-picking algorithm |
+| Software / data-processing tools named | Xcalibur; MIDAS; MASCOT; ProSight 2.0; custom peak-picking algorithm |
 | Field strength / resolving power stated? (Yes / No) | Yes, 14.5 T; resolving power ≈ 370,000 at m/z 800 |
 
 ### **4\. Metadata observed**
@@ -433,7 +433,7 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Protein / biomolecule | Cas6 protein |
 | Modification | Selenomethionine incorporation, methionine substitution |
 | Amino acid | Methionine, selenomethionine |
-| Software / tool | Xcalibur, MIDAS, MASCOT, ProSight 2.0, custom peak-picking algorithm |
+| Software / tool | Xcalibur; MIDAS; MASCOT; ProSight 2.0; custom peak-picking algorithm |
 | Funder / grant | NSF Division of Materials Research, DMR-06-54118, State of Florida |
 | Journal / venue | Rapid Communications in Mass Spectrometry |
 | Research topic / area | Proteomics, top-down proteomics, bottom-up proteomics, protein characterization, selenomethionine incorporation |
@@ -840,8 +840,8 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Field | Value (or N/A) |
 | ----- | ----- |
 | FT-ICR mentioned? (Yes / No) | Yes |
-| Instrument / magnet stated (e.g., 21 T FT-ICR MS) | 21 T FT-ICR MS, Q Exactive HF Hybrid Quadrupole-Orbitrap Mass Spectrometer, Q-Exactive HF BioPharma mass spectrometer |
-| Facility named (e.g., NHMFL ICR) | National High Magnetic Field Laboratory, Northwestern Proteomics Core Facility |
+| Instrument / magnet stated (e.g., 21 T FT-ICR MS) | 21 T FT-ICR MS; Q Exactive HF Hybrid Quadrupole-Orbitrap Mass Spectrometer; Q-Exactive HF BioPharma mass spectrometer |
+| Facility named (e.g., NHMFL ICR) | National High Magnetic Field Laboratory; Northwestern Proteomics Core Facility |
 | Ionization / technique stated (ESI, MALDI, …) | Electrospray ionization (ESI) |
 | Other instruments mentioned | ACQUITY M-Class(Waters) |
 | Software / data-processing tools named | ProSight Lite 1.4; ProSight PD 4.0; TDValidator 1.0 (Proteinaceous); Protein Annotator; Xcalibur QualBrowser; Mascot (Matrix Science, version 2.8.0); Scaffold version 5.0.1 (Proteome Software); Fiji ImageJ; Integrative Genomics Viewer (version 2.9.4, Broad Institute); GDC Data Transfer Tool Client (version 1.6.1) |
@@ -1000,9 +1000,9 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Field | Value (or N/A) |
 | ----- | ----- |
 | FT-ICR mentioned? (Yes / No) | Yes |
-| Instrument / magnet stated (e.g., 21 T FT-ICR MS) | 21 T FT-ICR, Orbitrap Eclipse Tribrid |
+| Instrument / magnet stated (e.g., 21 T FT-ICR MS) | 21 T FT-ICR; Orbitrap Eclipse Tribrid |
 | Facility named (e.g., NHMFL ICR) | National High Magnetic Field Laboratory |
-| Ionization / technique stated (ESI, MALDI, …) | ESI (positive), Direct Infusion, High-performance liquid chromatography |
+| Ionization / technique stated (ESI, MALDI, …) | ESI (positive); Direct Infusion; High-performance liquid chromatography |
 | Other instruments mentioned | n/a |
 | Software / data-processing tools named | FLASHDeconv (OpenMS); ChatGPT/OpenAI noted for manuscript drafting; Agilent ExDViewer |
 | Field strength / resolving power stated? (Yes / No) | yes |
@@ -1021,7 +1021,7 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Data availability statement | yes |  |
 | Dataset identifier / accession | yes | [https://osf.io/5ar6h/overview](https://osf.io/5ar6h/overview)  |
 | Repository named | yes | Open Science Framework |
-| Sample / specimen identifiers | yes | apomyoglobin (equine, 17 kDa), Protein G (Streptococcus, 21 kDa), and Carbonic Anhydrase II (bovine, 29 kDa) |
+| Sample / specimen identifiers | yes | apomyoglobin (equine, 17 kDa); Protein G (Streptococcus, 21 kDa); Carbonic Anhydrase II (bovine, 29 kDa) |
 | Instrument identifier (RRID / serial) | n/a |  |
 | Funding / grant IDs | yes | NSF DMR-2128556; State of Florida; NSF CCF 2523717 |
 | References / cited works | Yes |  |
