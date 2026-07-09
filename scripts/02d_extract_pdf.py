@@ -322,7 +322,22 @@ _DATA_AVAIL_RE = re.compile(
     r"accession|deposited)",
     re.IGNORECASE,
 )
-_HEADING_RE = re.compile(r"^#{1,6}\s+\S")
+
+# A slice shorter than this is treated as a failed isolation, not a short
+# section — fall back to the full text rather than feeding the model a
+# heading-only stub (the original bug reproduced the few-shot examples).
+MIN_SECTION_CHARS = 500
+
+# \s* (not \s+) so this agrees with _METHODS_RE/_DATA_AVAIL_RE, which also use
+# \s*. If they disagreed, "##Methods" would match a section regex but return no
+# level, and the fallback would silently reintroduce the every-heading-is-a-
+# terminator bug.
+_HEADING_LEVEL_RE = re.compile(r"^(#{1,6})\s*\S")
+
+
+def _heading_level(line):
+    m = _HEADING_LEVEL_RE.match(line)
+    return len(m.group(1)) if m else None
 
 
 def isolate_relevant_sections(markdown):
@@ -330,26 +345,40 @@ def isolate_relevant_sections(markdown):
 
     Pulls the Methods/Experimental section and the data-availability statement
     (the regions where instrument/ionization/sample/facility/software/accession
-    are reported). Falls back to the full text when neither can be reliably
-    located.
+    are reported). A section runs from its heading until the next heading at the
+    same or higher level (same or fewer '#'), so subsections are kept. Overlapping
+    or nested spans are merged so a "### Data availability" nested inside
+    "## Methods" is not emitted twice. Falls back to the full text when no span is
+    found or the joined slice is shorter than MIN_SECTION_CHARS.
     """
     lines = markdown.splitlines()
-    chunks = []
-
-    def grab_from(start_idx):
-        collected = [lines[start_idx]]
-        for j in range(start_idx + 1, len(lines)):
-            if _HEADING_RE.match(lines[j]):
-                break
-            collected.append(lines[j])
-        return "\n".join(collected)
-
+    spans = []
     for i, line in enumerate(lines):
-        if _METHODS_RE.match(line) or _DATA_AVAIL_RE.match(line):
-            chunks.append(grab_from(i))
+        if not (_METHODS_RE.match(line) or _DATA_AVAIL_RE.match(line)):
+            continue
+        # Fall back to 1 (permissive) when the level is unknown — NOT 6, which
+        # would make every heading a terminator and restore the original bug.
+        start_level = _heading_level(line) or 1
+        end = len(lines)
+        for j in range(i + 1, len(lines)):
+            lvl = _heading_level(lines[j])
+            if lvl is not None and lvl <= start_level:
+                end = j
+                break
+        spans.append((i, end))
 
-    if chunks:
-        return "\n\n".join(chunks), "methods"
+    spans.sort()
+    merged = []
+    for s, e in spans:
+        if merged and s < merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], e))
+        else:
+            merged.append((s, e))
+
+    if merged:
+        text = "\n\n".join("\n".join(lines[s:e]) for s, e in merged)
+        if len(text) >= MIN_SECTION_CHARS:
+            return text, "methods"
     return markdown, "full"
 
 
