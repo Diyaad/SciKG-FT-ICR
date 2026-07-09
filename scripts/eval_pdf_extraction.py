@@ -422,10 +422,6 @@ def match_values(predicted_val, expected_items, alias_map):
         if normalise(pred_canonical) == normalise(exp_canonical):
             return "canonical"
 
-        pred_tokens = set(pred_canonical.lower().split())
-        exp_tokens = set(exp_canonical.lower().split())
-        if pred_tokens & exp_tokens:
-            return "canonical"
 
     return None
 
