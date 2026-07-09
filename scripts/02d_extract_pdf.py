@@ -130,11 +130,31 @@ TARGET_FIELDS = [
     "dataset_accession",
 ]
 
+# LangExtract alignment statuses we accept as grounded.
+ACCEPTED_ALIGNMENTS = ("MATCH_EXACT", "MATCH_FUZZY")
+# For any other status, the aligned span must cover at least this
+# fraction of the extracted value's length.
+MIN_SPAN_COVERAGE = 0.55
+
 SOURCE_LABEL = "pdf_docling_langextract"
 
 # Title-similarity threshold for the identity check (token Jaccard). Documented,
 # deliberately simple, not over-engineered.
 TITLE_JACCARD_THRESHOLD = 0.7
+
+
+def _is_grounded(ex, char):
+    if char is None:
+        return False
+    status = str(getattr(ex, "alignment_status", "") or "")
+    if any(status.endswith(s) for s in ACCEPTED_ALIGNMENTS):
+        return True
+    # MATCH_LESSER and anything unrecognised: require the aligned span to
+    # cover most of the value, so a one-word overlap cannot ground a long
+    # fabricated string.
+    value_len = len(ex.extraction_text or "")
+    span_len = max(0, char.end_pos - char.start_pos)
+    return value_len > 0 and (span_len / value_len) >= MIN_SPAN_COVERAGE
 
 
 def now_iso():
@@ -538,9 +558,11 @@ def extract_fields(text):
     for ex in getattr(result, "extractions", []) or []:
         cls = ex.extraction_class
         char = getattr(ex, "char_interval", None)
-        grounded = char is not None
-        span = [char.start_pos, char.end_pos] if grounded else None
+        grounded = _is_grounded(ex, char)
+        span = [char.start_pos, char.end_pos] if char is not None else None
         align = getattr(ex, "alignment_status", None)
+        span_len = max(0, char.end_pos - char.start_pos) if char is not None else 0
+        value_len = len(ex.extraction_text or "")
 
         all_extractions.append(
             {
@@ -549,6 +571,9 @@ def extract_fields(text):
                 "grounded": grounded,
                 "char_span": span,
                 "alignment_status": str(align) if align is not None else None,
+                "span_coverage": round(span_len / value_len, 3)
+                if (char and ex.extraction_text)
+                else None,
             }
         )
 
