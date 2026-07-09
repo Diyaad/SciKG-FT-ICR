@@ -498,13 +498,19 @@ def extract_fields(text):
         traceback.print_exc()
         return None, [], ["langextract_failed"]
 
+    # Collect, per extraction_class, ONLY the grounded extractions, preserving
+    # order and de-duplicating on the normalized extraction_text so the same
+    # value is not listed twice. Every extraction (grounded or not) is still
+    # appended to all_extractions, unchanged, as the full provenance record.
+    grounded_by_class = {f: [] for f in TARGET_FIELDS}
+    seen_by_class = {f: set() for f in TARGET_FIELDS}
+    seen_classes = set()
+
     for ex in getattr(result, "extractions", []) or []:
         cls = ex.extraction_class
         char = getattr(ex, "char_interval", None)
         grounded = char is not None
         span = [char.start_pos, char.end_pos] if grounded else None
-        snippet = ex.extraction_text if grounded else None
-        confidence = "grounded" if grounded else "ungrounded"
         align = getattr(ex, "alignment_status", None)
 
         all_extractions.append(
@@ -517,19 +523,40 @@ def extract_fields(text):
             }
         )
 
+        if cls in seen_by_class:
+            seen_classes.add(cls)
+
         if not grounded:
             flags.append("ungrounded_field")
+            continue
 
-        # First extraction per class fills the structured slot; every
-        # extraction is retained in all_extractions so nothing is dropped.
-        if cls in fields and fields[cls]["value"] is None:
+        if cls not in grounded_by_class:
+            continue
+
+        # De-dup on case-insensitive, whitespace-collapsed text.
+        norm = re.sub(r"\s+", " ", ex.extraction_text).strip().lower()
+        if norm in seen_by_class[cls]:
+            continue
+        seen_by_class[cls].add(norm)
+        grounded_by_class[cls].append(ex)
+
+    # Fill each field from its grounded extractions. If a class had extractions
+    # but none grounded, record it so the log distinguishes "model said
+    # nothing" from "model hallucinated and we rejected it". Never fall back to
+    # an ungrounded value — null-never-inferred.
+    for cls in TARGET_FIELDS:
+        grounded_exs = grounded_by_class[cls]
+        if grounded_exs:
+            first = grounded_exs[0]
             fields[cls] = {
-                "value": ex.extraction_text,
-                "source_snippet": snippet,
-                "grounded": grounded,
-                "confidence": confidence,
-                "char_span": span,
+                "value": "; ".join(g.extraction_text for g in grounded_exs),
+                "source_snippet": first.extraction_text,
+                "grounded": True,
+                "confidence": "grounded",
+                "char_span": [first.char_interval.start_pos, first.char_interval.end_pos],
             }
+        elif cls in seen_classes:
+            flags.append("field_all_ungrounded:" + cls)
 
     return fields, all_extractions, flags
 
