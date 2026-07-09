@@ -78,3 +78,5 @@ Thumbs.db
 # --- Logs ---
 *.log
 logs/
+slurm-*.out
+data/processed/entities/pdf_extracted.jsonl
