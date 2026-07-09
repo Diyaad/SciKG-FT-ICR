@@ -221,7 +221,7 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Abstract | yes |  |
 | Methods / experimental section | yes |  |
 | Data availability statement | yes | Data publicly available through OSF repository |
-| Dataset identifier / accession | yes |  |
+| Dataset identifier / accession | yes | OSF 10.17605/OSF.IO/D7G3N |
 | Repository named | yes | Open Science Framework (OSF) |
 | Sample / specimen identifiers | yes | HVGO; BO |
 | Instrument identifier (RRID / serial) | no |  |
@@ -859,7 +859,7 @@ If you'd rather hand reviewers a ready-made file, I can drop this into a `.docx`
 | Abstract | yes | Labelled in bold |
 | Methods / experimental section | yes | SwissProt Homo sapiens database |
 | Data availability statement | Yes | Mass spectra raw files, custom databases, and analysis result files are available on MassIVE (MSV000088748). RNA-Seq data were acquired from dbGaP Study Accession phs000892.v6.p1. Confocal microscopy images are available upon request from the corresponding author. |
-| Dataset identifier / accession | yes |  |
+| Dataset identifier / accession | yes | MassIVE MSV000088748 |
 | Repository named | yes | [https://github.com/bdrown/ras-cptac-analysis](https://github.com/bdrown/ras-cptac-analysis)  |
 | Sample / specimen identifiers | yes | cell-line names, mutation status, source; CPTAC tumor IDs |
 | Instrument identifier (RRID / serial) | n/a |  |

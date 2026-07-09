@@ -6,9 +6,10 @@ assets through structured metadata, knowledge graph technologies, and
 AI-assisted exploration.
 
 > **Status:** Active build — 8-week project, June 1 – July 31.
-> 2-person team. CI Compass Fellowship. Extraction complete for all
-> three sources (CrossRef, MagLab CSV, 46 RAW files); normalization,
-> validation, and Neo4j load (stages 03-05) are the current work.
+> 2-person team. CI Compass Fellowship. Extraction complete for three
+> sources (CrossRef, MagLab CSV, 46 RAW files); PDF gap-field extraction
+> (stage 02d) exists and is under evaluation. Normalization, validation,
+> and Neo4j load (stages 03-05) are the current work.
 
 ---
 
@@ -138,8 +139,9 @@ scikg/
 
 ## Current Focus
 
-Extraction stages are complete for all three sources (CrossRef API,
-MagLab CSV, and 46 RAW files). Normalization, validation, and Neo4j
+Extraction stages are complete for three sources (CrossRef API,
+MagLab CSV, and 46 RAW files). PDF gap-field extraction (stage 02d)
+exists and is under evaluation. Normalization, validation, and Neo4j
 load (stages 03-05) are the current work.
 
 Building a provenance-aware knowledge graph from 806 ICR journal
@@ -172,6 +174,7 @@ python scripts/01_fetch.py
 python scripts/02_extract.py
 python scripts/02b_extract_csv.py
 python scripts/02c_extract_rawfiles.py
+python scripts/02d_extract_pdf.py     # PDF gap-field extraction (under evaluation)
 python scripts/03_normalize.py
 python scripts/04_validate.py
 python scripts/05_load.py

@@ -8,3 +8,10 @@ python-dotenv>=1.0.0
 # already listed above and is also used here for Unpaywall PDF acquisition.
 docling>=2.0.0        # PDF -> structured Markdown (swappable Layer-1 backend)
 langextract>=1.0.0    # text -> target fields with source grounding
+#
+# NOTE: docling's PDF models run on GPU on the RCC GPU nodes, which have a
+# CUDA 12.9 driver. Do NOT add torch as a plain requirement here — the default
+# resolution pulls torch 2.13.0+cu130, which cannot use a CUDA 12.9 driver and
+# silently falls back to CPU. Install torch from the CUDA 12.8 wheel index
+# instead (separate index, not pinnable in this file):
+#   uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
