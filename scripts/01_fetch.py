@@ -13,6 +13,7 @@ data/raw/publications/ are never overwritten — data/raw/ is immutable.
 
 import csv
 import json
+import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,7 +24,20 @@ DOI_LIST = Path("data/raw/doi_list.csv")
 PUBLICATIONS_DIR = Path("data/raw/publications")
 MANIFEST = Path("data/raw/manifest.json")
 
-CROSSREF_HEADERS = {"User-Agent": "SciKG/0.1 (mailto:scikg@research.org)"}
+# Contact for the polite User-Agent (same operator, same env var 02d reads).
+# CrossRef uses this mailto to route requests to its faster "polite pool" and to
+# reach the operator; a fake address is worse than none, so the mailto is
+# omitted when unset. A missing contact degrades the header but never blocks a
+# fetch. Built lazily so a runtime override of the contact is reflected instead
+# of frozen at import time.
+CONTACT_EMAIL = os.environ.get("UNPAYWALL_EMAIL", "").strip()
+
+
+def crossref_headers():
+    ua = "SciKG/0.1"
+    if CONTACT_EMAIL:
+        ua += f" (mailto:{CONTACT_EMAIL})"
+    return {"User-Agent": ua}
 
 
 def now_iso():
@@ -66,7 +80,7 @@ def save_json(path, data):
 
 def fetch_crossref(doi):
     url = f"https://api.crossref.org/works/{doi}"
-    response = requests.get(url, headers=CROSSREF_HEADERS)
+    response = requests.get(url, headers=crossref_headers())
     time.sleep(1)
     if response.status_code == 200:
         return response.json()
