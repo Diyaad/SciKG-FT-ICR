@@ -244,13 +244,30 @@ def query_unpaywall(doi):
 
 
 def download_pdf(url, dest):
-    """Download a PDF to dest. Returns True on success."""
+    """Download a PDF to dest. Returns True on success.
+
+    Verifies the payload is actually a PDF (starts with the %PDF- magic bytes)
+    before writing. Publishers routinely return HTML paywall/error pages with
+    HTTP 200; since data/raw/pdfs is immutable after write, saving one would
+    poison every future run, so a non-PDF response is rejected and logged rather
+    than written.
+    """
     response = requests.get(url, headers=DOWNLOAD_HEADERS, timeout=60)
     time.sleep(1)
-    if response.status_code == 200 and response.content:
-        dest.write_bytes(response.content)
-        return True
-    return False
+    if response.status_code != 200 or not response.content:
+        return False
+    if not response.content.startswith(b"%PDF-"):
+        preview = response.content[:80].decode("utf-8", errors="replace")
+        print(
+            "REJECT non-PDF download (not written): "
+            f"url={url} status={response.status_code} "
+            f"content_type={response.headers.get('Content-Type')!r} "
+            f"first80={preview!r}",
+            file=sys.stderr,
+        )
+        return False
+    dest.write_bytes(response.content)
+    return True
 
 
 def acquire_pdf(doi, doi_safe):
@@ -538,7 +555,7 @@ def extract_fields(text):
                 model_id=OLLAMA_MODEL_ID,
                 model_url=OLLAMA_URL,
                 fence_output=False,
-                use_schema_constraints=False,
+                use_schema_constraints=True,
             )
         else:
             result = lx.extract(
@@ -918,7 +935,18 @@ def main():
             continue
 
         # Save the full Markdown as a human-inspectable debugging artifact.
-        (PDF_TEXT_DIR / f"{doi_safe}.md").write_text(markdown, encoding="utf-8")
+        # Docling can emit undecodable bytes as lone surrogates; a strict UTF-8
+        # write would raise and kill the whole run on a single bad paper. Write
+        # with errors="replace" and, when any character actually had to be
+        # replaced, flag the paper so the log records which ones were affected
+        # instead of silently corrupting them.
+        try:
+            markdown.encode("utf-8")
+        except UnicodeEncodeError:
+            flags.append("text_decode_replaced")
+        (PDF_TEXT_DIR / f"{doi_safe}.md").write_text(
+            markdown, encoding="utf-8", errors="replace"
+        )
 
         text, text_source = isolate_relevant_sections(markdown)
 
