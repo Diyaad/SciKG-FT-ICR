@@ -29,6 +29,11 @@ merge_rawfile_metadata.py
                 writes data/processed/entities/software.jsonl
                 writes data/processed/entities/instruments.jsonl (append)
                 writes data/processed/relationships/rawfile_relationships.jsonl
+02d_extract_pdf.py
+                reads  data/processed/entities/publications.jsonl
+                reads  data/raw/pdfs/{doi_safe}.pdf
+                writes data/processed/pdf_text/{doi_safe}.md
+                writes data/processed/entities/pdf_extracted.jsonl
 03_normalize.py reads  data/processed/entities/
                 writes data/processed/normalized/
 04_validate.py  reads  data/processed/normalized/
