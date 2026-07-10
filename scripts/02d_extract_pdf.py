@@ -98,7 +98,20 @@ MANIFEST = Path("data/raw/manifest.json")
 # the environment or in a .env file at the repo root:
 #     UNPAYWALL_EMAIL=you@example.org
 UNPAYWALL_EMAIL = os.environ.get("UNPAYWALL_EMAIL", "").strip()
-DOWNLOAD_HEADERS = {"User-Agent": "SciKG/0.1 (mailto:scikg@research.org)"}
+
+# Contact for the polite User-Agent on PDF downloads (same operator, same env
+# var). Publishers use this mailto to reach the operator of bulk-download
+# traffic, so a fake address is worse than none: the mailto is omitted when
+# unset rather than sending a placeholder. Built lazily so a runtime override of
+# the contact is reflected instead of frozen at import time.
+CONTACT_EMAIL = os.environ.get("UNPAYWALL_EMAIL", "").strip()
+
+
+def download_headers():
+    ua = "SciKG/0.1"
+    if CONTACT_EMAIL:
+        ua += f" (mailto:{CONTACT_EMAIL})"
+    return {"User-Agent": ua}
 
 # --- LLM / extractor config ------------------------------------------------
 # Model choice and API key come from the environment / .env (never hard-coded).
@@ -258,7 +271,7 @@ def download_pdf(url, dest):
     poison every future run, so a non-PDF response is rejected and logged rather
     than written.
     """
-    response = requests.get(url, headers=DOWNLOAD_HEADERS, timeout=60)
+    response = requests.get(url, headers=download_headers(), timeout=60)
     time.sleep(1)
     if response.status_code != 200 or not response.content:
         return False
