@@ -343,46 +343,53 @@ _DATA_AVAIL_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Docling flattens all headings to level 2, so heading level carries no
+# information. A Methods section therefore runs until the next MAJOR
+# section, identified by name. Derived from the 8-paper ground-truth set;
+# papers using other conventions fall back to full text via
+# MIN_SECTION_CHARS.
+_SECTION_STOP_RE = re.compile(
+    r"^#{1,6}\s*[\W_]*\s*(?:\d+(?:\.\d+)*\.?\s*)?"
+    r"(results?|discussion|conclusions?|acknowledg(?:e)?ments?|"
+    r"references?|associated\s+content|author\s+information|"
+    r"abbreviations?|supporting\s+information|footnotes?|"
+    r"data\s+availability|competing\s+interests?|conflicts?\s+of\s+interest)"
+    r"\b",
+    re.IGNORECASE,
+)
+
 # A slice shorter than this is treated as a failed isolation, not a short
 # section — fall back to the full text rather than feeding the model a
 # heading-only stub (the original bug reproduced the few-shot examples).
 MIN_SECTION_CHARS = 500
-
-# \s* (not \s+) so this agrees with _METHODS_RE/_DATA_AVAIL_RE, which also use
-# \s*. If they disagreed, "##Methods" would match a section regex but return no
-# level, and the fallback would silently reintroduce the every-heading-is-a-
-# terminator bug.
-_HEADING_LEVEL_RE = re.compile(r"^(#{1,6})\s*\S")
-
-
-def _heading_level(line):
-    m = _HEADING_LEVEL_RE.match(line)
-    return len(m.group(1)) if m else None
-
 
 def isolate_relevant_sections(markdown):
     """Return (text, text_source) where text_source is "methods" or "full".
 
     Pulls the Methods/Experimental section and the data-availability statement
     (the regions where instrument/ionization/sample/facility/software/accession
-    are reported). A section runs from its heading until the next heading at the
-    same or higher level (same or fewer '#'), so subsections are kept. Overlapping
-    or nested spans are merged so a "### Data availability" nested inside
-    "## Methods" is not emitted twice. Falls back to the full text when no span is
-    found or the joined slice is shorter than MIN_SECTION_CHARS.
+    are reported). Because Docling flattens every heading to level 2, heading
+    level carries no information; a section instead runs from its heading until
+    the next heading matching _SECTION_STOP_RE (a named major section), or the
+    document end. Every other heading — subsections, repeated running headers —
+    is ignored and its content collected. A stop heading that is ALSO a
+    data-availability heading ends the current span and begins a new one (that is
+    where an accession is found), so it is never swallowed. Overlapping or nested
+    spans are merged so a section is not emitted twice. Falls back to the full
+    text when no span is found or the joined slice is shorter than
+    MIN_SECTION_CHARS.
     """
     lines = markdown.splitlines()
     spans = []
     for i, line in enumerate(lines):
         if not (_METHODS_RE.match(line) or _DATA_AVAIL_RE.match(line)):
             continue
-        # Fall back to 1 (permissive) when the level is unknown — NOT 6, which
-        # would make every heading a terminator and restore the original bug.
-        start_level = _heading_level(line) or 1
+        # Collect lines until the next MAJOR-section heading (or document end).
+        # Start scanning at i+1 so this heading never terminates its own span,
+        # even when it is itself a stop heading (e.g. "## Data availability").
         end = len(lines)
         for j in range(i + 1, len(lines)):
-            lvl = _heading_level(lines[j])
-            if lvl is not None and lvl <= start_level:
+            if _SECTION_STOP_RE.match(lines[j]):
                 end = j
                 break
         spans.append((i, end))
