@@ -94,9 +94,10 @@ LOG = Path("data/processed/logs/pdf_extraction_log.jsonl")
 MANIFEST = Path("data/raw/manifest.json")
 
 # --- External services -----------------------------------------------------
-# Unpaywall requires a contact email in every request. Set this to a real,
-# monitored address before running against many DOIs.
-UNPAYWALL_EMAIL = "scikg@research.org"
+# Unpaywall requires a real contact email in every request. Set it in
+# the environment or in a .env file at the repo root:
+#     UNPAYWALL_EMAIL=you@example.org
+UNPAYWALL_EMAIL = os.environ.get("UNPAYWALL_EMAIL", "").strip()
 DOWNLOAD_HEADERS = {"User-Agent": "SciKG/0.1 (mailto:scikg@research.org)"}
 
 # --- LLM / extractor config ------------------------------------------------
@@ -233,6 +234,11 @@ def mark_manifest_pdf_extract(manifest, key):
 # ---------------------------------------------------------------------------
 def query_unpaywall(doi):
     """Return an open-access PDF URL for this DOI, or None."""
+    if not UNPAYWALL_EMAIL:
+        raise RuntimeError(
+            "UNPAYWALL_EMAIL is not set. Export it or add it to .env. "
+            "Unpaywall's terms require a real contact address."
+        )
     url = f"https://api.unpaywall.org/v2/{doi}?email={UNPAYWALL_EMAIL}"
     response = requests.get(url, timeout=30)
     time.sleep(1)
