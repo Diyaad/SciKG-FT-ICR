@@ -201,7 +201,10 @@ def load_crossref_index(path):
                 rec = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            doi = rec.get("doi")
+            # DOI is nested under "properties" in the stage-02 records;
+            # fall back to a top-level "doi" if a record ever has one.
+            props = rec.get("properties") or {}
+            doi = props.get("doi") or rec.get("doi")
             if doi:
                 index[doi.lower().strip()] = rec
     return index
@@ -478,7 +481,7 @@ def build_examples():
                 "Orbitrap mass spectrometer equipped with a nanoelectrospray "
                 "ionization source. Raw files were processed with MaxQuant "
                 "v1.6. Data are available at ProteomeXchange under accession "
-                "PXD012345."
+                "PXD000000."
             ),
             extractions=[
                 lx.data.Extraction(
@@ -499,7 +502,7 @@ def build_examples():
                 ),
                 lx.data.Extraction(
                     extraction_class="dataset_accession",
-                    extraction_text="PXD012345",
+                    extraction_text="PXD000000",
                 ),
             ],
         ),
@@ -546,6 +549,50 @@ def empty_field():
         "confidence": None,
         "char_span": None,
     }
+
+
+# ---------------------------------------------------------------------------
+# dataset_accession format validation
+# ---------------------------------------------------------------------------
+# Real repository accessions match published identifier schemes; placeholder
+# echoes and prose non-answers do not. Used to gate dataset_accession before it
+# fills a slot (grounding alone cannot tell "PXD000000" from a real accession,
+# since the placeholder is literally present in the prompt example).
+_ACCESSION_PATTERNS = [
+    r"PXD\d{6}",                          # ProteomeXchange
+    r"MSV\d{9}",                          # MassIVE
+    r"PRJNA\d+", r"PRJEB\d+", r"PRJDB\d+",  # BioProject
+    r"SRP\d{6,}", r"SRR\d+", r"SRX\d+", r"SRS\d+",  # SRA
+    r"SAMN\d+",                           # BioSample
+    r"GSE\d+", r"GSM\d+",                 # GEO
+    r"E-\w+-\d+",                         # ArrayExpress
+    r"MTBLS\d+",                          # MetaboLights
+    r"10\.17605/OSF\.IO/\w+",            # OSF DOI
+    r"10\.5281/zenodo\.\d+",             # Zenodo DOI
+    r"10\.5061/dryad\.\w+",              # Dryad DOI
+    r"10\.\d{4,9}/[^\s\"'<>]+",          # generic DOI (HydroShare, etc.)
+    r"BCO-DMO\s*\d+",                     # BCO-DMO
+    r"osf\.io/\w+",                       # bare OSF short link
+]
+_ACCESSION_RE = re.compile(
+    "|".join(f"(?:{p})" for p in _ACCESSION_PATTERNS), re.IGNORECASE
+)
+# Placeholders / degenerate forms rejected even if they match a pattern above.
+_ACCESSION_BLOCKLIST_RE = re.compile(
+    r"PXD0{6}|MSV0{9}|zenodo\.0+\b|10\.\d{4,9}/?\s*$",
+    re.IGNORECASE,
+)
+
+
+def valid_accession(value):
+    """True if value contains a well-formed, non-placeholder repository
+    accession. Gates dataset_accession before it fills a field slot."""
+    if not value:
+        return False
+    v = value.strip()
+    if _ACCESSION_BLOCKLIST_RE.search(v):
+        return False
+    return bool(_ACCESSION_RE.search(v))
 
 
 def extract_fields(text):
@@ -630,6 +677,12 @@ def extract_fields(text):
         if cls not in grounded_by_class:
             continue
 
+        # dataset_accession is format-validatable: reject a grounded value that
+        # is a placeholder ("PXD000000"), prose ("not mentioned"), or a
+        # truncated/fragment identifier, even though it is grounded in the text.
+        if cls == "dataset_accession" and not valid_accession(ex.extraction_text):
+            flags.append("invalid_accession_rejected")
+            continue
         # De-dup on case-insensitive, whitespace-collapsed text.
         norm = re.sub(r"\s+", " ", ex.extraction_text).strip().lower()
         if norm in seen_by_class[cls]:
@@ -850,7 +903,22 @@ def resolve_input_dois(argv):
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    dois = resolve_input_dois(sys.argv[1:])
+    _ALL_PDFS_MODE = "--all-pdfs" in sys.argv[1:]
+    if _ALL_PDFS_MODE:
+        # Map make_doi_safe(doi) -> doi over the CrossRef index, then match
+        # each PDF stem in PDFS_DIR. Unmatched PDFs are still processed under
+        # their stem (identity stays "unverifiable"), so nothing on disk is
+        # dropped. This is the no-hardcoding path: the PDFs present ARE the set.
+        _xref = load_crossref_index(CROSSREF_ENTITIES)
+        _safe_to_doi = {make_doi_safe(d): d for d in _xref}
+        _stems = sorted(p.stem for p in PDFS_DIR.glob("*.pdf"))
+        dois = [_safe_to_doi.get(s, s) for s in _stems]
+        print(f"--all-pdfs: {len(dois)} PDF(s) in {PDFS_DIR} "
+              f"({sum(1 for s in _stems if s in _safe_to_doi)} matched to "
+              f"CrossRef, {sum(1 for s in _stems if s not in _safe_to_doi)} "
+              f"unmatched -> unverifiable).")
+    else:
+        dois = resolve_input_dois(sys.argv[1:])
 
     if not dois:
         print(
@@ -864,6 +932,24 @@ def main():
     PDF_TEXT_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     LOG.parent.mkdir(parents=True, exist_ok=True)
+    # --- Fresh-run truncation (added to stop append-mode duplicate stacking) ---
+    # append_jsonl() opens OUTPUT/LOG in "a" mode, so a rerun over the corpus
+    # would stack a second copy of every record. On a full run (built-in DOIS
+    # list, or a single DOIs-file argument) clear both files once so the run
+    # produces exactly one record per paper. Explicit DOI arguments append,
+    # so topping up an existing harvest with one paper does not wipe it.
+    _FRESH_RUN_TRUNCATE = _ALL_PDFS_MODE or (not sys.argv[1:]) or (
+        len(sys.argv[1:]) == 1 and Path(sys.argv[1]).exists()
+    )
+    if _FRESH_RUN_TRUNCATE:
+        OUTPUT.write_text("", encoding="utf-8")
+        LOG.write_text("", encoding="utf-8")
+        print(f"Fresh run: cleared {OUTPUT} and {LOG} before extracting.")
+    else:
+        print(
+            f"Append mode ({len(sys.argv[1:])} explicit DOI arg(s)): "
+            f"keeping existing {OUTPUT.name}."
+        )
 
     crossref_index = load_crossref_index(CROSSREF_ENTITIES)
     manifest = load_manifest()
