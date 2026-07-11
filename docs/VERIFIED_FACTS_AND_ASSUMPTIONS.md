@@ -170,3 +170,52 @@ When an assumption is removed or a claim rewritten, record it here and in
   (name + version), so Software is a logged entity, as
   CLAUDE.md already states. Software nodes are written by
   02c_extract_rawfiles.py.
+
+## Controlled-vocabulary PSI-MS audit — 2026-07-10
+
+Every ontology accession already in `docs/controlled_vocabulary.md` was
+resolved live against the authoritative PSI-MS ontology via the EBI OLS4 API
+(`https://www.ebi.ac.uk/ols4/api/ontologies/ms/...`). None was confirmed from
+memory.
+
+**Bug class found (the "MS:1000079 class"):** generic *analyzer* or *parent*
+accessions had been minted as if they were *specific instruments*. ~9 authored
+rows carried the wrong accession — the ID was real but denoted a different
+concept. One term (MS:1000013) was also **obsolete**.
+
+**Instrument-ID fixes applied (Instruments table — these are the ones that
+actively corrupt the graph, because `03_normalize.py` writes `psi_ms_id` onto
+Instrument nodes):**
+- 21T / 14.5T / 9.4T FT-ICR MS: `MS:1000079` (analyzer "fourier transform ion
+  cyclotron resonance") -> `MS:1003948` ("fourier transform ion cyclotron
+  resonance instrument").
+- Orbitrap Eclipse Tribrid: `MS:1000484` (analyzer "orbitrap") -> `MS:1003029`.
+- Q-Exactive HF: `MS:1000484` -> `MS:1002523`.
+- Velos Pro: `MS:1000484` -> `MS:1003495`.
+- TOF MS: `MS:1000084` (analyzer "time-of-flight") -> `MS:1003951`
+  ("time-of-flight instrument").
+- Finnigan TSQ: `MS:1000031` (generic parent "instrument model") -> `MS:1000750`
+  ("TSQ").
+
+Only the **Instruments-table** uses of `MS:1000079` (three rows) were wrong. The
+Methods-table row (FT-ICR MS) keeps `MS:1000079` — that is the correct analyzer/
+method sense and was **left untouched**.
+
+**Tier B latent fixes (Methods table, not yet consumed by any script):** Top-down
+proteomics `MS:1002586` -> `MS:1003351`; Bottom-up proteomics `MS:1002314` ->
+`MS:1003355`; Internal calibration `MS:1000787` -> `MS:1000759`.
+
+**PENDING — decisions in flight, sent to supervisor (left flagged in the vocab,
+IDs unchanged):**
+- Finnigan LCQ (`MS:1000031`): no generic PSI-MS "LCQ" term exists; needs the
+  specific submodel identified by the lab (e.g. LCQ Deca, LCQ Fleet).
+- MS/MS (`MS:1000013`): **obsolete** and resolves to "resolution type"; no clean
+  PSI-MS replacement found.
+- LC-MS/MS (`MS:1000073`): resolves to "electrospray ionization"; no single
+  PSI-MS term for LC-MS/MS.
+- De novo sequencing (`MS:1001954`): resolves to "acquisition parameter"; no
+  clean PSI-MS term.
+
+**Forward action:** `03_normalize.py` must be re-run so the corrected instrument
+accessions are minted onto Instrument nodes; until then, previously loaded nodes
+carry the old (wrong) `psi_ms_id`.
