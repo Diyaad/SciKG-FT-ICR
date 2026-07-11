@@ -55,15 +55,15 @@
 
 | Canonical | PSI-MS ID | Aliases | Vendor |
 |---|---|---|---|
-| 21T FT-ICR MS | MS:1000079 | 21 T FT-ICR MS, 21 T FT-ICR mass spectrometer, Custom-built 21 T FT-ICR MS, 21T ICR, 21 T FT-ICR, 21 Tesla FT-ICR MS, 21 T FT-ICR MS | — |
-| 14.5T FT-ICR MS | MS:1000079 | 14.5 T FT-ICR, 14.5T FT-ICR, 14.5 T superconducting magnet, Modified 14.5 T FT-ICR, LTQ-FT MS | — |
-| 9.4T FT-ICR MS | MS:1000079 | 9.4 T FT-ICR MS, 9.4T FT-ICR, Home-built 9.4 T FTICR instrument, 9.4 T FTICR | — |
-| Orbitrap Eclipse Tribrid | MS:1000484 | Orbitrap Eclipse Tribrid Mass Spectrometer | — |
-| Q-Exactive HF | MS:1000484 | Q Exactive HF Hybrid Quadrupole-Orbitrap, Q-Exactive HF BioPharma, Q Exactive HF | — |
-| Velos Pro | MS:1000484 | Velos Pro dual-cell linear ion trap, Velos Pro linear ion trap | — |
-| TOF MS | MS:1000084 | TOF, time-of-flight | — |
-| Finnigan TSQ | MS:1000031 | Finnigan TSQ | — |
-| Finnigan LCQ | MS:1000031 | Finnigan LCQ, Finnigan LSQ | — |
+| 21T FT-ICR MS | MS:1003948 | 21 T FT-ICR MS, 21 T FT-ICR mass spectrometer, Custom-built 21 T FT-ICR MS, 21T ICR, 21 T FT-ICR, 21 Tesla FT-ICR MS, 21 T FT-ICR MS | — |
+| 14.5T FT-ICR MS | MS:1003948 | 14.5 T FT-ICR, 14.5T FT-ICR, 14.5 T superconducting magnet, Modified 14.5 T FT-ICR, LTQ-FT MS | — |
+| 9.4T FT-ICR MS | MS:1003948 | 9.4 T FT-ICR MS, 9.4T FT-ICR, Home-built 9.4 T FTICR instrument, 9.4 T FTICR | — |
+| Orbitrap Eclipse Tribrid | MS:1003029 | Orbitrap Eclipse Tribrid Mass Spectrometer | — |
+| Q-Exactive HF | MS:1002523 | Q Exactive HF Hybrid Quadrupole-Orbitrap, Q-Exactive HF BioPharma, Q Exactive HF | — |
+| Velos Pro | MS:1003495 | Velos Pro dual-cell linear ion trap, Velos Pro linear ion trap | — |
+| TOF MS | MS:1003951 | TOF, time-of-flight | — |
+| Finnigan TSQ | MS:1000750 | Finnigan TSQ | — |
+| Finnigan LCQ | MS:1000031 | Finnigan LCQ, Finnigan LSQ | — [PENDING: MS:1000031 is a generic parent ("instrument model"); no generic PSI-MS LCQ term exists — needs specific submodel, supervisor decision] |
 | LTQ Orbitrap Velos | MS:1001742 | LTQ Orbitrap Velos | Thermo Scientific |
 | LTQ FT Ultra | MS:1000557 | LTQ FT Ultra | Thermo Scientific |
 
@@ -83,12 +83,12 @@
 | CID | MS:1000133 | Collision Induced Dissociation |
 | ETD | MS:1000598 | Electron Transfer Dissociation, front-end ETD |
 | ECD | MS:1000250 | Electron Capture Dissociation |
-| MS/MS | MS:1000013 | Tandem MS, tandem mass spectrometry |
-| Top-down proteomics | MS:1002586 | Top-down MS/MS, top-down LC-MS/MS, TDMS, IP-TDMS, top-down |
-| Bottom-up proteomics | MS:1002314 | Bottom-up MS, shotgun proteomics |
-| De novo sequencing | MS:1001954 | top-down de novo sequencing, de-novo sequencing |
-| Internal calibration | MS:1000787 | Mass Difference Analysis, MDA, Walking Calibration |
-| LC-MS/MS | MS:1000073 | reversed-phase nano-LC, nano-LC, LC-MS |
+| MS/MS | MS:1000013 | Tandem MS, tandem mass spectrometry [PENDING: MS:1000013 is OBSOLETE and resolves to "resolution type"; no clean PSI-MS replacement — supervisor decision] |
+| Top-down proteomics | MS:1003351 | Top-down MS/MS, top-down LC-MS/MS, TDMS, IP-TDMS, top-down |
+| Bottom-up proteomics | MS:1003355 | Bottom-up MS, shotgun proteomics |
+| De novo sequencing | MS:1001954 | top-down de novo sequencing, de-novo sequencing [PENDING: MS:1001954 resolves to "acquisition parameter" (wrong); no clean PSI-MS term — supervisor decision] |
+| Internal calibration | MS:1000759 | Mass Difference Analysis, MDA, Walking Calibration |
+| LC-MS/MS | MS:1000073 | reversed-phase nano-LC, nano-LC, LC-MS [PENDING: MS:1000073 resolves to "electrospray ionization" (wrong for LC-MS/MS); no single PSI-MS term — supervisor decision] |
 
 ## Methods — Tier 2 Supporting Methods
 
