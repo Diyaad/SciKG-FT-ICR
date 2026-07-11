@@ -183,7 +183,7 @@
   },
   "csv_extraction": {
     "stage_complete": true,
-    "completed_at": "2026-06-30T16:18:59Z",
+    "completed_at": "2026-07-11T19:26:06Z",
     "rows_processed": 806,
     "source_file": "data/raw/maglab_icr_publications.csv"
   }
