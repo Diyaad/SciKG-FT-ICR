@@ -206,7 +206,7 @@ def build_rawfile_entity(record, run_ts, log_events):
 
     props = {
         "filename": filename,
-        "sha256": record.get("sha256_hash"),
+        "sha256_hash": record.get("sha256_hash"),
         # KEEP the raw model string. Do NOT use instrument.name — for this
         # corpus it says "Orbitrap Velos Pro" and is wrong; model is authoritative.
         "instrument_model_raw": inst.get("model"),
