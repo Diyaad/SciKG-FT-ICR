@@ -1,0 +1,653 @@
+SciKG — Survey of Actual Data on Disk (local device, not git)
+Read-only. Purpose: build the per-type identity map for 04_validate against
+reality, not against the schema's stale description. Nothing was changed.
+Date: 2026-07-13.
+
+================================================================================
+1. ENTITY / RELATIONSHIP / NORMALIZED FILES + SIZES
+================================================================================
+
+entities/ (raw extractor output):
+  publications.jsonl    805      rawfiles.jsonl        46
+  researchers.jsonl    5031      rawfiles_pxd.jsonl   984
+  journals.jsonl        806      instruments.jsonl    159
+  facilities.jsonl      819      software.jsonl         8
+  funders.jsonl         383      samples.jsonl          3
+  datasets.jsonl        279
+
+relationships/:
+  csv_relationships.jsonl        7477
+  rawfile_relationships.jsonl     184
+  rawfiles_pxd_relationships.jsonl 2856
+
+normalized/ (has an entity file for all 10 types) + logs:
+  csv_relationships 7464 · rawfile_relationships 184 ·
+  rawfiles_pxd_relationships 2728 · normalization_log 5149 ·
+  review_queue 5 · crosswalk.jsonl = 0 (EMPTY)
+
+================================================================================
+2. IDENTITY FIELD PER NODE TYPE — THE MAP
+================================================================================
+
+The real identity field is a single top-level `identifier` (namespace:value),
+present on 100% of records in every type. No node uses top-level id/doi/issn/
+filename — those domain keys live INSIDE `properties`. The schema's per-type
+id/doi/issn/filename identity story is stale; the data is uniform.
+
+  entity_type | identity field | prefix(es) in data      | domain key in properties
+  ------------|----------------|--------------------------|--------------------------
+  Publication | identifier     | doi: (397), pub: (408)   | properties.doi (397 only)
+  Researcher  | identifier     | researcher: (5031)       | — (ZERO orcid:)
+  Journal     | identifier     | journal: (806)           | — (ZERO issn:)
+  Funder      | identifier     | funder: (383)            | properties.ror_id
+  Facility    | identifier     | facility: (819)          | —
+  Instrument  | identifier     | instrument: (159)        | properties.psi_ms_id (no ms:)
+  Dataset     | identifier     | dataset: (311)           | properties.accession
+  RawDataFile | identifier     | rawfile: (998)           | properties.filename
+  Sample      | identifier     | sample: (3)              | —
+  Software    | identifier     | software: (8)            | — (no ms:)
+
+For 04_validate: key every node on `identifier`; treat it as required + unique.
+Do NOT require top-level id/doi/issn/filename (they don't exist). The schema's
+"preferred external PID" strategies are unrealized: Researcher never uses orcid:,
+Journal never issn:, Software/Instrument never ms: — all use minted internal
+PIDs. Fine, but don't validate against the external-PID-preferred rule.
+
+WARNING — entity_type != file. rawfiles_pxd.jsonl (984 lines) is 952 RawDataFile
++ 32 Dataset records. So Dataset lives in TWO files (datasets.jsonl 279 +
+rawfiles_pxd.jsonl 32 = 311). The validator's identifier set and dangling-ref
+check must scan ALL entity files, not assume one file per type.
+
+================================================================================
+3. RELATIONSHIP ENDPOINT + TYPE INVENTORY
+================================================================================
+
+Endpoint keys are subject_id / subject_type / object_id / object_type (not
+source/target/from/to), present on all 10,517 edges. Referential integrity =
+resolve subject_id/object_id against entity `identifier`.
+
+  edge            | endpoints                | count | in schema?
+  ----------------|--------------------------|-------|----------------------------
+  AUTHORED_BY     | Publication->Researcher  | 5036  | yes
+  COLLECTED_ON    | RawDataFile->Instrument  |  998  | yes
+  ACQUIRED_WITH   | RawDataFile->Software    |  998  | yes
+  DERIVED_FROM    | RawDataFile->Dataset     |  952  | NO — not in schema
+  CONDUCTED_AT    | Publication->Facility    |  819  | yes
+  PUBLISHED_IN    | Publication->Journal     |  806  | yes
+  FUNDED_BY       | Publication->Funder      |  383  | schema says ->Grant (mismatch)
+  HAS_DATASET     | Publication->Dataset     |  279  | yes
+  USES_INSTRUMENT | Publication->Instrument  |  154  | yes
+  CONTAINS_SAMPLE | RawDataFile->Sample      |   46  | yes
+  OPERATED_BY     | RawDataFile->Researcher  |   46  | yes
+
+Two endpoint-typing mismatches to reconcile against the schema:
+- DERIVED_FROM (952) is entirely absent from the schema. Its objects are the 32
+  PXD Datasets embedded in rawfiles_pxd.jsonl.
+- FUNDED_BY goes Publication->Funder in the data, but the schema declares
+  Publication->Grant (with AWARDED_BY Grant->Funder). There are ZERO Grant nodes
+  and ZERO AWARDED_BY edges — the Grant layer was collapsed; FUNDED_BY points
+  straight at Funder.
+
+Schema edges with ZERO data: AFFILIATED_WITH, AWARDED_BY, CITES, USES_METHOD,
+ANALYZES_SAMPLE, ANALYZES_PROTEIN, INVOLVES_ORGANISM, STUDIES_PTM, USES_SOFTWARE,
+ANALYZED_IN (pending).
+
+================================================================================
+4. ON DISK BUT NOT FLOWING INTO THE NORMALIZED GRAPH
+================================================================================
+
+  on disk                                  | flows in?        | intentional?
+  -----------------------------------------|------------------|------------------
+  data/raw/rawfiles_pxd/ (953 files)       | yes (02f)        | yes
+  data/processed/rawfiles_enriched/ (46)   | no               | intentional —
+                                           |                  | intermediate for 02c
+  logs/pxd_extract_log.jsonl               | no               | intentional (log)
+  data/raw/publications/ (18 CrossRef JSON)| NO, not extracted| GAP — zero api-
+                                           |                  | sourced records;
+                                           |                  | all 805 pubs are csv
+  02d PDF extraction (pdf_text/,           | ABSENT           | dormant — built,
+    pdf_extracted.jsonl)                   |                  | not run
+  data/processed/validated/                | empty (.gitkeep) | expected (04/05 unbuilt)
+  crosswalk.jsonl                          | 0 lines (empty)  | note — nothing written
+
+Consequence — the 6 schema node types with ZERO data map exactly to the two
+dormant sources:
+  - Institution + Grant  <- CrossRef (source 1, not extracted)
+  - Method + Protein + Organism + Modification <- manual annotations (Tier 3,
+    not extracted; only Sample=3 and Software=8 made it in)
+So the graph today is CSV (sources 2/3) + RAW/PXD (sources 5/6). Sources 1 and 4
+are largely dormant.
+
+Note this bites the just-recorded activation decision: activation_types_raw
+currently sits in RawDataFile.properties (present on all 998), and there are ZERO
+Method nodes — the "one Method per RAW file with activation_types list" model
+isn't built yet.
+
+================================================================================
+5. NORMALIZATION STATUS
+================================================================================
+
+All 10 entity types in entities/ also appear in normalized/ — nothing dropped at
+the type level. Normalization is heavy dedup to canonical nodes:
+
+  Facility     819 -> 6        Journal      806 -> 192
+  Funder       383 -> 1        Researcher  5031 -> 2076
+  Instrument   159 -> 7        Dataset      311 -> 289
+  RawDataFile  998 -> 934      Publication  805 -> 805 (no dedup)
+  Sample         3 -> 3        Software       8 -> 7
+
+review_queue = 5 records (only diverted items). RawDataFile 998->934: the 952 PXD
+files dedup to 888 (64 cross-deposited merged) + 46 Thermo = 934. Nothing silent
+— drops are dedup, logged in normalization_log (5149) and review_queue.
+
+================================================================================
+6. PROVENANCE COMPLETENESS + source_type RECONCILIATION
+================================================================================
+
+Every record in every entity file carries all 6 provenance fields — zero
+missing, zero blank lines, zero parse errors. Solid.
+
+schema_version = v1.0 uniformly on all types (including the new PXD RawDataFiles
+and DERIVED_FROM-target Datasets). Confirms: new work is tagged v1.0, so a
+v1.0-pinned validator will PASS it (blessing under-documented records), not
+reject.
+
+source_type values on disk vs the schema enum {api, csv, manual_annotation,
+fisher_py, llm_extraction}:
+
+  value on disk       | where                                       | in enum?
+  --------------------|---------------------------------------------|----------
+  csv                 | most CSV-derived types                      | yes
+  fisher_py           | Software, PXD RawDataFiles (952), PXD        | yes
+                      | Datasets (32), 5 Instruments                |
+  manual_annotation   | Sample (3)                                  | yes
+  merged_csv_foxden   | the 46 Thermo RawDataFiles                  | NO
+  api                 | —                                           | in enum, 0 on disk
+  llm_extraction      | —                                           | in enum, 0 on disk
+
+Two things that make 04_validate enforce the wrong thing if it trusts the enum:
+1. merged_csv_foxden is not in the schema enum -> a strict enum check quarantines
+   all 46 Thermo RawDataFiles.
+2. The PXD (6th) source has no dedicated source_type — it reuses fisher_py. PXD
+   is distinguished only by file/prefix, not provenance. Don't rely on
+   source_type to separate source 5 vs 6.
+
+================================================================================
+BOTTOM LINE FOR THE IDENTITY MAP
+================================================================================
+
+Key everything on `identifier` (uniform, 100% populated, namespaced by type);
+resolve edges via subject_id/object_id against that set built from ALL entity
+files (Dataset spans two); accept null/absent external PIDs; and before writing
+the enum/version/endpoint checks, reconcile four real deltas from the schema:
+  - merged_csv_foxden source_type (not in enum)
+  - DERIVED_FROM edge (not in schema)
+  - FUNDED_BY -> Funder, not -> Grant (no Grant layer exists)
+  - the 6 empty node types from the two dormant sources (CrossRef, annotations)
+
+
+################################################################################
+SCHEMA RECONCILIATION APPLIED — 2026-07-13
+Edits to docs/SCIKG_SCHEMA.md and docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md so the
+schema is truthful to disk before 04_validate is written. Edit-in-place, no
+duplicate definitions. controlled_vocabulary.md untouched (another owner).
+################################################################################
+
+The nine reconciliations (each grepped first, edited in place):
+
+1. IDENTITY = uniform `identifier`.
+   Before: Cypher keyed on .doi/.id/.issn/.filename; per-node tables show `id`;
+     no uniform rule existed.
+   After: added authoritative "Universal Identity" section; rewrote all 16 Cypher
+     constraints to `identifier`; documented that `id` rows mean the top-level
+     `identifier`, domain keys live in properties, Dataset spans two files, and
+     RawDataFile identifier is not globally unique.
+
+2. source_type ENUM.
+   Before: api, csv, manual_annotation, fisher_py, llm_extraction (no
+     merged_csv_foxden).
+   After: added merged_csv_foxden; note that PXD reuses fisher_py, source_type is
+     provenance not a query gate, api/llm_extraction currently dormant.
+
+3. KEEP v1.0.
+   Before: "Bump to v1.1 instead."
+   After: current work stays v1.0; validator requires v1.0; no re-tag; a bump is
+     reserved for a future breaking migration.
+
+4. ADD DERIVED_FROM.
+   Before: absent from schema.
+   After: added row RawDataFile->Dataset (952, Active) + a subsection (objects are
+     the 32 PXD Datasets in rawfiles_pxd.jsonl, carries the 6 provenance props).
+
+5. FIX FUNDED_BY.
+   Before: Publication->Grant, with AWARDED_BY Grant->Funder.
+   After: Publication->Funder (383); Grant node + AWARDED_BY marked PLANNED; note
+     added explaining the collapsed Grant layer.
+
+6. STALE MS:1000079.
+   Before: one left at identifier-strategy example (ms:1000079); Instrument
+     example already fixed a prior turn.
+   After: changed to ms:1003948; Method-context analyzer use left untouched.
+
+7. RAWDATAFILE UNIQUENESS -> sha256.
+   Before: REQUIRE r.filename IS UNIQUE.
+   After: constraint moved to sha256_hash (made M); rawfile:{filename} kept as the
+     human-readable identifier; documented filenames not globally unique.
+
+8. MARK DORMANT/UNBUILT.
+   Before: 6 node types + Tier1/Tier3 edges presented as active.
+   After: PLANNED banners on Institution, Grant, Method, Protein, Organism,
+     Modification; Status columns on Tier1/Tier3 edge tables; activation_types_raw
+     ADDED as a RawDataFile property NOW; Method's one-per-RAW activation model
+     reframed as decided-but-not-built.
+
+9. FLOATING DECISIONS written in.
+   Before: schema said ontology_id; on-disk field is psi_ms_id; zero NMR mentions
+     anywhere.
+   After: Instrument reconciled to on-disk psi_ms_id (value space PSI-MS/nmrCV/
+     null), ontology_source marked PLANNED; VERIFIED_FACTS decision 3 refined as
+     not-yet-built; decision 4 (NMR/nmrCV, 900 MHz / 600 MHz DNP) added;
+     decisions 1-2 wording aligned so the doc isn't self-contradictory.
+
+TWO THINGS TO FLAG
+------------------
+- Extra truthfulness fix inside #9: the survey showed Instrument on-disk
+  properties are `model_raw` and `name_raw`, but the schema said
+  `instrument_model_raw` and omitted name_raw. Corrected both while rewriting that
+  table. (Slightly beyond the literal nine.)
+- sha256_hash was set to M (mandatory) because it is now the uniqueness key. Disk
+  also carries a duplicate `sha256` field — decide which is canonical before
+  04_validate enforces sha256_hash as required.
+
+controlled_vocabulary.md ROWS THE OTHER OWNER WILL NEED (not edited here):
+- Finnigan LCQ (MS:1000031): mark as null-ontology label; drop pending-submodel
+  flag.
+- nmrCV instrument terms for the NMR magnets (900 MHz, 600 MHz DNP) with
+  ontology_source = NMRCV — none exist yet.
+- Dissociation-method CV terms for the planned Method activation_types (CID
+  MS:1000133, HCD MS:1000422, ETD MS:1000598) — verify HCD is present.
+
+
+################################################################################
+sha256 FIELD-NAME SPLIT FIX — 2026-07-13
+The two RawDataFile sources wrote the checksum under different keys. Canonical
+name = sha256_hash (matches 02c and the reconciled schema's mandatory uniqueness
+key). Fixed both the extractor and the existing data. No git, no push, no full
+pipeline run.
+################################################################################
+
+STEP 1 — DIAGNOSIS (read-only, confirmed):
+  entities/rawfiles*.jsonl RawDataFile records:
+    {'sha256': 952, 'sha256_hash': 46}
+  02c/Thermo (46) write sha256_hash; 02f/PXD (952) wrote sha256; zero overlap.
+  Consequence pre-fix: 952 PXD records would fail validation on the mandatory
+  sha256_hash field, and the uniqueness constraint would cover only 46.
+
+STEP 2 — EXTRACTOR PATCH (scripts/02f_extract_pxd_rawfiles.py):
+  Line 209 was the ONLY sha256 occurrence in 02f; nothing reads it back under the
+  old name. Renamed the output property key only; value/source unchanged.
+      props = {
+          "filename": filename,
+    -     "sha256": record.get("sha256_hash"),
+    +     "sha256_hash": record.get("sha256_hash"),
+
+STEP 3 — DATA MIGRATION (in place, byte/order-preserving key rename):
+  - data/processed/entities/rawfiles_pxd.jsonl    — 952 RawDataFile records
+  - data/processed/normalized/rawfiles_pxd.jsonl  — 888 RawDataFile records
+  Untouched: 46 Thermo records (rawfiles.jsonl, already correct) and the 32
+  embedded Dataset records (no sha256 key). Line counts unchanged (984 / 920).
+  Note: 03 regenerates normalized output on next run, so the extractor patch is
+  the durable fix; migrating normalized/ now just keeps the current on-disk graph
+  consistent without forcing a re-run.
+
+STEP 4 — VERIFY:
+  - entities glob (the Step 1 check): {'sha256_hash': 998}  -> 998 / 0 / 0  OK
+  - normalized output:                {'sha256_hash': 934}  -> 934 / 0 / 0  OK
+    (46 Thermo + 888 deduped PXD = 934, the post-dedup count)
+  All 998 RawDataFiles now carry sha256_hash; none carry the old sha256.
+
+
+################################################################################
+NORMALIZATION DEDUP INVESTIGATION — 2026-07-13 (read-only, nothing changed)
+Concern: Funder 383->1 and Facility 819->6 looked aggressive. Question: are these
+legitimate merges (same real-world entity) or a bug (distinct entities collapsed)?
+VERDICT: LEGITIMATE exact-identifier dedup, not over-merge.
+################################################################################
+
+1. FUNDER (383 -> 1) — CLEAN.
+   Raw funders.jsonl has 1 distinct identifier and 1 distinct name — all 383
+   records are funder:nsf / "National Science Foundation". Survivor: funder:nsf
+   (ror_id https://ror.org/021nxhr62). 383 identical records -> 1 node is correct.
+   SCOPE NOTE (not a normalization issue): NIH/DOE/etc. are absent from the raw
+   funder file entirely — the extractor emits ONLY NSF, by design (schema: "Only
+   canonical funders in controlled_vocabulary.md become Funder nodes; smaller
+   acknowledgments stay as text on Grant"). Normalization did not eat other
+   funders; they were never minted as nodes. Confirm that scope is intended.
+
+2. FACILITY (819 -> 6) — CLEAN. Raw has 6 distinct names = 6 distinct identifiers,
+   mapping 1:1 to the 6 survivors:
+     806  ICR Facility                    -> facility:icr_facility
+       4  NMR Facility                    -> facility:nmr_facility
+       3  Geochemistry Facility           -> facility:geochemistry_facility
+       3  EMR Facility                    -> facility:emr_facility
+       2  DC Field Facility               -> facility:dc_field_facility
+       1  Center for FAIR & Open Science  -> facility:center_for_fair_open_science
+   6 distinct entities in, 6 out. The ratio is just 806 papers citing ICR.
+
+3. DEDUP KEY — exact `identifier` (safe). 03_normalize.py Pass 2 (lines 320-337)
+   groups on rec["identifier"] verbatim; same identifier = same node. The fuzzy
+   norm_match_key() is used ONLY for instrument controlled-vocabulary matching
+   (lines 246/251/399/410) — it never touches Funder or Facility. So these types
+   can only merge on identical identifiers. No coarse-slug collision occurred
+   (Funder 1 name->1 id; Facility 6 names->6 ids, all 1:1).
+
+4. MERGE LOG — no conflicts.
+   - 382 Funder merge_entity events (383 - 1), all survivor=retired=funder:nsf,
+     reason=duplicate_identifier.
+   - 813 Facility merge_entity events (819 - 6), same pattern.
+   - ZERO *conflict* events in the log (merge_value_conflict count = 0); every
+     merge shows filled_null_fields=[] — no differing values were ever reconciled.
+
+PLAIN ANSWER: legitimate dedup. The big ratios come from the extractor emitting
+one record per publication-mention (806 ICR-facility papers, 383 NSF acks), not
+from distinct entities being merged. The only thing worth attention is a SCOPE
+fact, not a bug: only NSF exists as a Funder node — confirm before load.
+
+
+################################################################################
+MINT-EVERY-FUNDER/FACILITY SCOPING SURVEY — 2026-07-13 (read-only, nothing changed)
+Goal: make EVERY funder and facility a paper names a node, not just NSF.
+HEADLINE: Facilities already do this (no filter). Funders CANNOT be expanded from
+the CSV — the source has no funder data beyond one NSF boolean. Corpus-wide
+funders require fetching CrossRef for all 806 papers (only 17 fetched today).
+################################################################################
+
+1. RAW FUNDER STRINGS — what the CSV actually contains.
+   The MagLab CSV has NO funder/funding/acknowledgment name column. The header's
+   only funding fields are two booleans:
+     col 31 "Acknowledgement of the MagLab's NSF core grant" -> Yes 383 / No 19 / blank 404
+     col 32 "Should have acknowledged the MagLab's NSF core grant" -> Yes 12 / blank 794
+   There is NO free text listing NIH/DOE/etc. So from the CSV, NSF is literally
+   the only funder knowable. "Mint every funder" is not a filter to relax — the
+   data isn't in this source.
+
+   CrossRef (source 1) DOES carry a funder registry — but only 17 of 806 papers
+   were fetched, and 12 of those 17 have a funder array. Across those 17 papers:
+     - 22 distinct funder NAME strings, and they are MESSY. Examples of the mess:
+         "NIH" (2) vs "National Institutes of Health" (2) vs
+           "National Institute of General Medical Sciences" (1) vs
+           "National Cancer Institute" (1) vs "U.S. Department of Health and
+           Human Services" (1)  -- all HHS/NIH-family, five different strings
+         "NSF" (1) vs "National Science Foundation" (5) vs
+           "NSF Division of Materials Research" (1) vs
+           "National Science Foundation Division of Materials Research" (1) vs
+           "Division of Materials Research" (3) vs "Division of Chemistry" (1)
+         plus clear GARBAGE: "JSB" (1), "RDL" (1) -- these are award-owner
+           initials miscoded as funder names in CrossRef metadata.
+     - 14 distinct funder-registry DOIs (10.13039/...). Of 38 funder entries, 32
+       carry a registry DOI, 6 do not (notably the bare "NIH"/"NSF" entries had
+       DOI=None in the sample). The DOI is the clean canonical key WHEN present.
+
+   Takeaway on volume: "mint everything" does NOT yield ~20 clean funders across
+   the corpus. It yields NSF (from the CSV flag on 383 papers) plus a messy ~22
+   name-strings / 14-DOI set covering only ~17 papers. 788 papers have no funder
+   data at all in the sources currently on disk.
+
+2. HOW 02b CURRENTLY "FILTERS" FUNDERS — it doesn't; it hardcodes NSF.
+   scripts/02b_extract_csv.py lines 609-616:
+     # --- Funder (only when the NSF grant was acknowledged) ---
+     if parse_bool(row.get("Acknowledgement of the MagLab's NSF core grant")) is True:
+         self.add_entity("Funder", "funder:nsf", {
+             "name": "National Science Foundation",
+             "ror_id": "https://ror.org/021nxhr62",
+         }, "funders_written")
+         self.add_relationship("FUNDED_BY", primary_id, "Publication",
+                               "funder:nsf", "Funder", {})
+   This is NOT a controlled-vocabulary whitelist over a funder list — it is a
+   single hardcoded funder gated on one boolean column. (The earlier report's
+   phrasing "only canonical funders in controlled_vocabulary.md become nodes"
+   describes the effect, not the mechanism; there is no per-funder filter.)
+   controlled_vocabulary.md DOES have a "Funding Agencies" table (lines 180-183):
+       NSF | https://ror.org/021nxhr62 | National Science Foundation
+       NIH | https://ror.org/01cwqze88 | National Institutes of Health
+       DOE | —                         | Department of Energy
+   ...but 02b never reads it. It is available to become the seed of a funder
+   name->canonical crosswalk (needs extending; DOE has no ROR yet).
+
+3. FACILITY — NOT filtered. Already minting everything.
+   scripts/02b_extract_csv.py lines 560-564:
+     # --- Facilities (multi-value on comma) ---
+     for fac in split_multi(row.get("Facilities"), ","):
+         facility_id = f"facility:{slugify(fac)}"
+         self.add_entity("Facility", facility_id, {"name": fac}, "facilities_written")
+         self.add_relationship("CONDUCTED_AT", primary_id, "Publication",
+                               facility_id, "Facility", {})
+   Every value in the "Facilities" column (comma-split) becomes a node. The 6
+   nodes ARE all that appear in the source; nothing is dropped. Raw strings are
+   already clean (6 distinct, exact 1:1 to the 6 nodes) — no NIH-style variants.
+   No ROR in the source: facilities carry only {"name"} (ror_id would need a
+   vocab lookup). CONCLUSION: the facility half of the ask is already satisfied;
+   no extractor change needed for facilities.
+
+4. DEDUP FEASIBILITY (funders only — the part that needs work).
+   03_normalize dedups Funder on EXACT identifier only (fuzzy matcher is
+   instruments-only). slugify() = lowercase, non-alphanumerics -> "_". So:
+     slugify("NIH")                          -> "nih"
+     slugify("National Institutes of Health")-> "national_institutes_of_health"
+   => DIFFERENT identifiers => they would NOT dedup. Minting
+   funder:{slugify(name)} per raw string fragments every variant (the 22 strings
+   above would become ~22 nodes, not ~6 real funders).
+   To mint-everything AND dedup you need the extractor to assign a CANONICAL
+   identifier per raw string. Two crosswalk sources exist:
+     (a) CrossRef funder-registry DOI (10.13039/...) — clean, but null for some
+         (bare NIH/NSF entries), and only present for the 17 fetched papers.
+     (b) controlled_vocabulary.md Funding Agencies (name/ROR) — clean but tiny
+         (3 rows) and unused; would need a real alias table (NIH = National
+         Institutes of Health = NIGMS? = NCI? — note sub-agency rollup is a
+         policy call).
+   There is no existing name-normalization step to reuse; it would be new work.
+
+BOTTOM LINE:
+- Facilities: done already, no change.
+- Funders: the blocker is the SOURCE, not the filter. To get more than NSF you
+  must (1) fetch + extract CrossRef for the full 806-paper corpus (today only 17
+  exist, source 1 dormant), and (2) add a funder canonicalization step keyed on
+  the CrossRef funder DOI, with a name-alias fallback seeded from the vocab's
+  Funding Agencies table. Only then does exact-identifier dedup stay safe.
+  Relaxing 02b's NSF gate alone changes nothing — there are no other funders in
+  the CSV to mint.
+
+
+################################################################################
+04_VALIDATE SPEC — RECONCILED SCHEMA (verbatim) + DISK, SIDE BY SIDE — 2026-07-13
+Read-only pull of the CURRENT reconciled docs/SCIKG_SCHEMA.md validation-
+relevant sections, paired with the actual on-disk entity/relationship dump. This
+is the exact spec 04_validate.py must enforce: what the schema SAYS and what the
+data legitimately IS. Nothing changed — no code, no git.
+################################################################################
+
+--- SCHEMA §1  UNIVERSAL IDENTITY (verbatim, lines 99-124) --------------------
+Every node carries a single top-level `identifier` (lowercase `namespace:value`)
+— THE required, unique identity field for EVERY node type, 100% populated on disk
+across all 10 populated types. On-disk key is `identifier`, NOT `id`: where a
+per-node table shows an `id` row it means this top-level `identifier`.
+Domain keys — doi, issn, accession, filename, ror_id — live INSIDE `properties`,
+not as the identity field. External-PID-preferred rules are aspirational only:
+Researcher never uses orcid:, Journal never issn:, Software/Instrument never ms:
+— all use minted internal PIDs.
+Uniqueness: `identifier` is unique for every type EXCEPT RawDataFile, whose
+`rawfile:{filename}` value is not globally unique (64 PXD cross-deposits share
+filenames); RawDataFile global uniqueness is enforced on `sha256_hash` instead.
+One type spans multiple files: Dataset lives in TWO files — datasets.jsonl (CSV)
+and embedded in rawfiles_pxd.jsonl (32 PXD datasets). Identity, uniqueness, and
+dangling-ref checks must scan ALL entity files.
+
+--- SCHEMA §2  SIX UNIVERSAL PROVENANCE PROPERTIES (verbatim, lines 132-139) --
+  source_type    | string   | api, csv, manual_annotation, fisher_py,
+                 |          |   merged_csv_foxden, llm_extraction
+  confidence     | string   | high, medium, low
+  extracted_at   | ISO 8601 | 2026-06-29T14:00:00Z
+  evidence_note  | string   | free text
+  source_id      | string   | DOI, MagLab Id, filename, annotation file path
+  schema_version | string   | v1.0
+Every node AND every relationship carries all six. Missing any one -> quarantine.
+
+--- SCHEMA §3  source_type ENUM ---------------------------------------------
+{api, csv, manual_annotation, fisher_py, merged_csv_foxden, llm_extraction}.
+merged_csv_foxden IS now in the enum. Only 4 appear on disk (api/llm_extraction
+dormant). Note: PXD (6th source) reuses fisher_py — do NOT gate on source_type.
+
+--- SCHEMA §4  schema_version RULE -------------------------------------------
+Every node/rel carries schema_version:"v1.0". 04_validate requires ==\"v1.0\";
+!= "v1.0" -> quarantine. Current in-flight work stays v1.0 (no bump, no re-tag).
+
+--- SCHEMA §5  NODE TYPES: id-namespace + M/R/O per property ------------------
+(M=Mandatory R=Recommended O=Optional. * = PLANNED, 0 nodes on disk.)
+  Publication  doi:{doi} else pub:maglab:{id}
+     M: maglab_id,title,publication_year,publisher,resource_type,is_ground_truth
+     M-when-present: doi | O: volume,issue,pages,abstract,month_published,
+        maglab_significant,acknowledged_nsf_grant,software_mentioned
+  Researcher   orcid:{v} else researcher:{fam}_{gi}_{yr}
+     M: id,name_full,family_name | R: given_name
+     O: orcid,initials,is_nhmfl_author,is_corresponding_author
+  Institution* ror:{id} else inst:{name}
+     M: id,name | R: ror_id | O: university,department,city,state,country
+  Journal      issn:{issn} else journal:{name}
+     M: name ; M-when-present: issn | O: abbreviation
+  Grant*       grant:{funder}:{award}   M: id,award_id
+  Funder       ror:{id} else funder:{name}
+     M: id,name | R: ror_id | O: crossref_funder_id
+  Facility     ror:{id} else facility:{name}   M: id,name | O: ror_id
+  Instrument   instrument:{canon} (extract: instrument:raw:{raw})
+     M: id ; M-after-normalization: canonical_name
+     O(nullable): psi_ms_id | O: ontology_source(PLANNED),model_raw,name_raw
+  Dataset      dataset:{repo}:{accession}
+     M: id,repository,accession,url | O: access_status
+  Method*      ms:{psi}:{canon}
+     M: id,canonical_name,psi_ms_id,tier | O-PLANNED: activation_types
+  Sample       sample:{canon}
+     M: id,canonical_name
+     O: sample_class,organism_strain,sample_state,growth_medium,growth_date,
+        growth_label,prep_method
+  Protein*     uniprot:{acc} else protein:{canon}  M: id,canonical_name | R: uniprot
+  Organism*    ncbitaxon:{id}   M: id,canonical_name,ncbi_taxonomy_id
+  Modification* unimod:{id}     M: id,canonical_name,unimod_id
+  Software     ms:{psi} else software:{canon}:{ver}
+     M: id,canonical_name | R: software_version,psi_ms_id | O: vendor,category
+  RawDataFile  rawfile:{filename} (uniqueness on sha256_hash)
+     M: filename,operator_initials,date_acquired,sha256_hash
+     R: operator_name,sample_organism_strain,instrument_name_raw,
+        instrument_model_raw,acquisition_software_name,
+        acquisition_software_version,date_created
+     O: sample_state,sample_growth_medium,sample_growth_date,sample_growth_label,
+        sample_prep_method,fractionation_method,processing_id,
+        experimental_parameters,run_number,scan_count,ms_run_time_minutes,
+        acquisition_method_creator,acquisition_method_file,activation_types_raw,
+        original_filepath,date_modified ; PENDING: analyzed_in_doi
+
+--- SCHEMA §6  RELATIONSHIP TYPES: endpoints + status ------------------------
+Tier1: AUTHORED_BY Pub->Researcher Active | AFFILIATED_WITH Researcher->Inst
+  PLANNED | PUBLISHED_IN Pub->Journal Active | FUNDED_BY Pub->Funder Active
+  (direct to Funder) | AWARDED_BY Grant->Funder PLANNED | CONDUCTED_AT
+  Pub->Facility Active | USES_INSTRUMENT Pub->Instrument Active | HAS_DATASET
+  Pub->Dataset Active | CITES Pub->Pub PLANNED
+Tier3 (ALL PLANNED, 0 on disk): USES_METHOD Pub->Method | ANALYZES_SAMPLE
+  Pub->Sample | ANALYZES_PROTEIN Pub->Protein | INVOLVES_ORGANISM Pub->Organism
+  | STUDIES_PTM Pub->Modification | USES_SOFTWARE Pub->Software
+RAW: COLLECTED_ON RawDataFile->Instrument Active(998) | OPERATED_BY
+  RawDataFile->Researcher Active(46) | CONTAINS_SAMPLE RawDataFile->Sample
+  Active(46) | ACQUIRED_WITH RawDataFile->Software Active(998) | DERIVED_FROM
+  RawDataFile->Dataset Active(952, objects = 32 PXD Datasets in rawfiles_pxd.jsonl)
+  | ANALYZED_IN RawDataFile->Publication PENDING (do not load)
+
+--- SCHEMA §7  RawDataFile UNIQUENESS + IDENTIFIER ---------------------------
+identifier = rawfile:{filename}, human-readable, NOT globally unique. Global
+uniqueness enforced on sha256_hash (Cypher: REQUIRE r.sha256_hash IS UNIQUE).
+sha256_hash is M (FOXDEN spdx:checksum).
+
+--- SCHEMA §8  NULL psi_ms_id VALID (verbatim, lines 368-376) -----------------
+Only MS (PSI-MS) and NMR (nmrCV) instruments map to an ontology. Every other
+analytical instrument is a real node with psi_ms_id = null — null is VALID and
+EXPECTED, not a failure. 04_validate MUST accept null psi_ms_id for non-MS/non-NMR
+instruments. On-disk field keeps the name psi_ms_id; value space = PSI-MS accession
+OR nmrCV accession OR null.
+
+--- DISK DUMP A — ENTITIES ---------------------------------------------------
+entity counts: Facility 819, RawDataFile 998, Dataset 311, Researcher 5031,
+  Instrument 159, Journal 806, Publication 805, Sample 3, Software 8, Funder 383
+source_types: csv 8277, fisher_py 997, manual_annotation 3, merged_csv_foxden 46
+schema_versions: v1.0 9323
+property keys per type:
+  Dataset:     accession, manual_review_needed, repository, source_url, url
+  Facility:    name
+  Funder:      name, ror_id
+  Instrument:  canonical_name, model_raw, name_raw, psi_ms_id
+  Journal:     abbreviation, name
+  Publication: acknowledged_nsf_grant, doi, is_ground_truth, issue, maglab_id,
+               maglab_significant, month_published, pages, publication_year,
+               resource_type, title, url, volume
+  RawDataFile: acquisition_software_name, acquisition_software_version,
+               activation_types_raw, bioreplicate_id, date_acquired,
+               date_file_created, date_file_modified, experimental_parameters,
+               filename, fraction_id, fractionation_method, instrument_model_raw,
+               instrument_name_raw, maglab_acquired_confirmed, method_creator_raw,
+               ms_run_time_min, operator_initials, operator_name,
+               original_filepath, run_number, sample_growth_date,
+               sample_growth_medium, sample_organism_strain, sample_prep_method,
+               sample_state, scan_count, sha256_hash, software_name, software_version
+  Researcher:  family_name, given_name, is_corresponding_author, is_nhmfl_author,
+               name_full
+  Sample:      sample_growth_date, sample_growth_medium, sample_organism_strain,
+               sample_state
+  Software:    name, version
+
+--- DISK DUMP B — RELATIONSHIPS ----------------------------------------------
+rel types+counts: AUTHORED_BY 5036, PUBLISHED_IN 806, CONDUCTED_AT 819,
+  USES_INSTRUMENT 154, HAS_DATASET 279, FUNDED_BY 383, CONTAINS_SAMPLE 46,
+  OPERATED_BY 46, COLLECTED_ON 998, ACQUIRED_WITH 998, DERIVED_FROM 952
+rel keys: confidence, evidence_note, extracted_at, object_id, object_type,
+  properties, relationship_type, schema_version, source_id, source_type,
+  subject_id, subject_type
+
+--- CROSS-CHECK — SCHEMA SAYS vs DISK IS (gaps that will bite 04_validate) ----
+CLEAN: all 9323 entity records + all 10517 edges carry the 6 provenance keys +
+  schema_version v1.0. On-disk source_type values are all in the enum.
+
+PROPERTY-NAME MISMATCHES (schema table name != on-disk key — validate on the
+on-disk name or Software/RawDataFile M-fields false-fail):
+  Software     schema canonical_name/software_version/psi_ms_id -> disk name/version
+               (no psi_ms_id on disk)
+  RawDataFile  ms_run_time_minutes -> ms_run_time_min
+               date_created/date_modified -> date_file_created/date_file_modified
+               acquisition_method_creator -> method_creator_raw
+               processing_id -> absent (instead fraction_id, bioreplicate_id)
+  Instrument   prose instrument_name_raw/instrument_model_raw -> node keys
+               name_raw/model_raw (the instrument_*_raw keys live on RawDataFile)
+
+EXTRA on-disk keys NOT in schema tables (do NOT quarantine as unknown):
+  Publication: url | Dataset: source_url, manual_review_needed (and no
+  access_status) | RawDataFile: bioreplicate_id, fraction_id,
+  maglab_acquired_confirmed, plus BOTH software_name/software_version AND
+  acquisition_software_name/acquisition_software_version.
+
+COUNTS vs claims:
+  Publication 805 on disk (schema says 806 corpus) — one short.
+  Sample 3 nodes but CONTAINS_SAMPLE 46 edges -> many-to-one; dangling check must
+    confirm the 46 object_ids resolve to the 3 identifiers (legit).
+  Software 8 nodes, ACQUIRED_WITH 998 edges -> same collapse.
+  Dataset 311 = datasets.jsonl + 32 PXD embedded in rawfiles_pxd.jsonl; HAS_DATASET
+    (279) and DERIVED_FROM (952) dangling checks MUST scan both files.
+
+ENDPOINT KEYS: on-disk keys are subject_id/object_id/subject_type/object_type
+  (not subject/object). Build the existence set from each entity's top-level
+  `identifier` and resolve subject_id/object_id against it.
+
+RAWDATAFILE IDENTITY: enforce uniqueness on sha256_hash (998 files, filenames
+  repeat), NOT on identifier. All other types: identifier unique.
+
+INSTRUMENT psi_ms_id: null is valid (159 nodes, many non-MS) — do not quarantine.
+
+ALL 11 relationship types on disk are Active per schema; zero PLANNED/Tier-3
+edges leaked. DERIVED_FROM 952, COLLECTED_ON/ACQUIRED_WITH 998,
+OPERATED_BY/CONTAINS_SAMPLE 46 — all match.
+

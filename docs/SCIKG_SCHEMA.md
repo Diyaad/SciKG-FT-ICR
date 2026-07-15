@@ -182,6 +182,8 @@ with CrossRef metadata
 | `maglab_significant` | boolean | O | CSV | Supervisor flag |
 | `acknowledged_nsf_grant` | boolean | O | CSV | |
 | `software_mentioned` | list[string] | O | annotation | Raw strings |
+| `facilities_mentioned_raw` | array[string] | O | PDF (llm_extraction) | Verbatim facility/location strings from PDF extraction that are too generic to identify a specific organization (e.g. "the laboratory", "greenhouse facility", "Clinical Haematology Department"). Text-only provenance carried on the Publication; never resolved to a node, never an identifier or edge endpoint. Distinct from `CONDUCTED_AT` (→Facility) and `INVOLVES_INSTITUTION` (→Institution): those assert a real place; this preserves an unmintable mention without fabricating one. Two papers sharing such a string do NOT imply the same location. Rationale mirrors the controlled-vocabulary peripherals rule (record as text, not as a node). |
+| `instruments_mentioned_raw` | array[string] | O | PDF (llm_extraction) | Verbatim instrument-adjacent strings from PDF extraction that the controlled vocabulary (controlled_vocabulary.md lines 50–54) excludes from Instrument nodes: LC/UPLC/nanoLC systems, ion sources, ICR cells, NanoMate, APPI Ion Max, MIDAS, GELFrEE. Text-only provenance carried on the Publication; never a node, never an identifier or edge endpoint. Implements the CV's explicit peripherals rule; mirrors `facilities_mentioned_raw`. Distinct from `USES_INSTRUMENT` (→Instrument), which asserts a real instrument node. |
 | `is_ground_truth` | boolean | M | derived | True for the 8 annotated papers |
 
 ### Source merge rule
@@ -237,10 +239,17 @@ itself, not to any other PDF location.
 
 ## Node: Institution
 
-Sources 1 and 2.
+Currently populated from PDF extraction (the 378-paper gap-field extraction,
+`llm_extraction`). The CrossRef/CSV affiliation path (sources 1 and 2) is PLANNED.
 
-**Status: PLANNED — not yet populated.** Zero Institution nodes on disk;
-CrossRef (source 1) is not extracted. Definition retained for when it is.
+**Status: Active — partially populated.** 62 Institution nodes on disk, all
+from PDF extraction (`source_type: llm_extraction`): EXTERNAL organizations named
+in article methods (analysis cores, contract labs, collaborating institutions),
+linked to their publications via `INVOLVES_INSTITUTION` (89 edges). Grown from 21
+(134-paper batch) to 62 by the 378-paper batch via an alias-aware exact+fuzzy
+resolver (existing identifiers frozen, no duplicates). CrossRef (source 1)
+affiliation extraction remains unbuilt, so the CrossRef/CSV population path and
+the `AFFILIATED_WITH` (Researcher → Institution) edge are still PLANNED.
 
 **Conforms to:** schema.org/Organization, DataCite affiliation, ROR  
 **Identifier:** `ror:{ror_id}` when present; otherwise `inst:{normalized_name}`
@@ -250,8 +259,9 @@ CrossRef (source 1) is not extracted. Definition retained for when it is.
 | Property | Type | M/R/O | Source | Notes |
 |---|---|---|---|---|
 | `id` | string | M | derived | |
-| `name` | string | M | CrossRef, CSV | Canonical or raw |
-| `ror_id` | string | R | controlled vocab | |
+| `name` | string | M | CrossRef, CSV | Canonical name |
+| `aliases` | array of strings | O | ROR API + observed raw strings | Verified alternate names and acronyms for the same real-world entity (e.g. `["ETH Zürich", "Swiss Federal Institute of Technology Zurich", "ETHZ"]`). Populated from a matched ROR record's `aliases` + `acronyms` fields, PLUS auto-collected from the raw strings that actually resolved to this node. **Never LLM-generated** — a hallucinated alias would mis-resolve future mentions, so aliases come only from ROR (fetched) or actually-observed source strings. |
+| `ror_id` | string | R | ROR API | The institution's ROR identifier (`https://ror.org/...`) when resolved via the ROR API. Enables future dedup with CrossRef-affiliation institutions that are also ROR-keyed. |
 | `university` | string | O | CSV | |
 | `department` | string | O | CSV | |
 | `city` | string | O | CSV | |
@@ -261,6 +271,11 @@ CrossRef (source 1) is not extracted. Definition retained for when it is.
 **Note:** Per the MagLab CSV inventory, the University/Department/City/
 State/Country columns are 0% populated in the corpus. These properties 
 exist for future enrichment from CrossRef affiliations.
+
+**Alias-aware matching:** when resolving a new institution string, check it
+against existing nodes' `name` AND `aliases` before minting a new node, so variant
+spellings/acronyms resolve to the existing node instead of duplicating it. Matching
+behavior for the transform — not a Cypher constraint.
 
 ---
 
@@ -338,16 +353,30 @@ Source 2.
 | Property | Type | M/R/O | Source | Notes |
 |---|---|---|---|---|
 | `id` | string | M | derived | |
-| `name` | string | M | CSV | From "Facilities" column |
-| `ror_id` | string | O | controlled vocab | |
+| `name` | string | M | CSV | Canonical name, from "Facilities" column |
+| `aliases` | array of strings | O | ROR API + observed raw strings | Verified alternate names and acronyms for the same facility (e.g. NHMFL variants: `["NHMFL", "National High Magnetic Field Laboratory", "ICR User Facility"]`). Populated from a matched ROR record's `aliases` + `acronyms` fields, PLUS auto-collected from the raw strings that actually resolved to this node. **Never LLM-generated** — a hallucinated alias would mis-resolve future mentions, so aliases come only from ROR (fetched) or actually-observed source strings. |
+| `ror_id` | string | O | ROR API | The facility's ROR identifier (`https://ror.org/...`) when resolved via the ROR API. Enables future dedup with ROR-keyed institutions. |
 
 **Note:** v1.0 corpus is dominated by "NHMFL ICR Facility."
+
+**Alias-aware matching:** when resolving a new facility string, check it against
+existing nodes' `name` AND `aliases` before minting a new node, so the many NHMFL
+spelling variants resolve to the existing node instead of duplicating it. Matching
+behavior for the transform — not a Cypher constraint.
 
 ---
 
 ## Node: Instrument
 
-Sources 2, 4, and 5.
+Sources 2, 4, 5, and PDF extraction (llm_extraction).
+
+**Status: Active — populated.** 469 Instrument nodes on disk: 7 raw-form nodes from
+02c/02f (RAW files, source_type csv/fisher_py) + 462 from the 378-paper PDF extraction
+(source_type llm_extraction, raw-form `instrument:raw:{slug}`, `canonical_name`/`psi_ms_id`
+null pending 03, `ontology_source` set: 164 PSI-MS · 292 null · 6 NMRCV). Linked to
+publications via `USES_INSTRUMENT` (PDF adds 968 edges). The 7 existing identifiers are
+frozen; PDF instruments resolve to them where matched (no duplicates). Peripherals the CV
+excludes are recorded as `instruments_mentioned_raw` text on the Publication, not as nodes.
 
 **Conforms to:** PSI-MS (MS instruments), nmrCV (NMR instruments); all other 
 analytical instruments are label-only (no ontology)  
@@ -361,9 +390,30 @@ during extraction, `instrument:raw:{normalized_raw_string}`
 | `id` | string | M | derived | |
 | `canonical_name` | string | M after normalization | controlled vocab | E.g., "21T FT-ICR MS" |
 | `psi_ms_id` | string | O (nullable) | controlled vocab | On-disk field name (`properties.psi_ms_id`). Value space is generalized beyond PSI-MS: a PSI-MS accession (e.g. `MS:1003948`) **or** an nmrCV accession **or** `null` for non-MS/non-NMR instruments (TOC, ICP-MS, sequencers, microscopes, GC, …), which are label-only by design. |
-| `ontology_source` | string | O | PLANNED | Intended discriminator recording which ontology `psi_ms_id` draws from — one of `PSI-MS`, `NMRCV`, or null. **Not yet emitted**; on disk today only `psi_ms_id` is present. |
+| `ontology_source` | string | O | Active | Discriminator recording which ontology `psi_ms_id` draws from — one of `PSI-MS`, `NMRCV`, or null. **Emitted** by the PDF instrument transform on the raw-form nodes (PSI-MS for MS instruments, NMRCV for NMR, null for non-MS/non-NMR); 02c/02f nodes predate it (null). |
 | `model_raw` | string | O | fisher_py | On-disk field (`properties.model_raw`). FOXDEN `instrument.model`. |
 | `name_raw` | string | O | fisher_py | On-disk field (`properties.name_raw`). FOXDEN `instrument.name`. |
+| `magnetic_field_tesla` | number | O | controlled vocab | Magnetic field strength in Tesla for magnet-based instruments (FT-ICR: 21.0, 14.5, 9.4). Makes magnet strength queryable/sortable rather than parseable-from-name. Populated by `03` from the controlled vocabulary, **not** asserted by the extraction transform. Null for non-magnet instruments. |
+| `nmr_frequency_mhz` | number | O | controlled vocab | Proton (¹H) Larmor frequency in MHz for NMR spectrometers (900, 600, 400) — the conventional way NMR magnets are named. Populated by `03` from the controlled vocabulary. Null for non-NMR instruments. |
+
+### Magnet field strength (Added 2026-07-15)
+
+`magnetic_field_tesla` and `nmr_frequency_mhz` promote magnet strength from a
+string trapped in the instrument name to a first-class numeric fact that is
+queryable and sortable. The two are convertible by the ¹H gyromagnetic ratio
+(42.577 MHz/T): 900 MHz = 21.1 T, 600 MHz = 14.09 T. NMR spectrometers are
+conventionally named by their ¹H frequency, hence `nmr_frequency_mhz`; FT-ICR and
+other magnet instruments by field in Tesla, hence `magnetic_field_tesla`.
+
+**Undecided (do not assume either way):** whether `magnetic_field_tesla` is ALSO
+filled for NMR instruments (via the conversion above) so a single uniform query
+(e.g. "magnets ≥ 14 T") spans both FT-ICR and NMR. Pending decision.
+
+Consistent with the raw-node design: the PDF transform mints `instrument:raw:{slug}`
+with these fields null; `03` canonicalizes and fills them from the controlled
+vocabulary. **Dependency (not addressed here):** the CV's instrument rows need a
+field-strength / ¹H-frequency column for `03` to read. `controlled_vocabulary.md`
+is a separate file and is NOT edited by this change — flag only.
 
 ### Ontology mapping (Established 2026-07-11)
 
@@ -372,8 +422,8 @@ ontology. Every other analytical instrument is a real node with
 `psi_ms_id = null` — a null value is **valid and expected**, not a validation 
 failure. OBI/CHMO are not integrated. `04_validate.py` must accept null 
 `psi_ms_id` for non-MS/non-NMR instruments. The on-disk field keeps the name 
-`psi_ms_id` (matching the extractor output); the planned `ontology_source` field 
-will record which ontology a non-null value comes from.
+`psi_ms_id` (matching the extractor output); the `ontology_source` field (now Active,
+emitted by the PDF instrument transform) records which ontology a non-null value comes from.
 
 ### Notes on omitted properties
 
@@ -648,6 +698,7 @@ Every relationship carries the six provenance properties listed above.
 | `FUNDED_BY` | Publication → Funder | CrossRef, CSV | MANY-MANY | Active (direct to Funder — see note) |
 | `AWARDED_BY` | Grant → Funder | CrossRef, controlled vocab | MANY-ONE | PLANNED — no Grant nodes |
 | `CONDUCTED_AT` | Publication → Facility | CSV | MANY-MANY | Active |
+| `INVOLVES_INSTITUTION` | Publication → Institution | PDF (llm_extraction) | MANY-MANY | Active |
 | `USES_INSTRUMENT` | Publication → Instrument | CSV, annotations | MANY-MANY | Active |
 | `HAS_DATASET` | Publication → Dataset | CSV | MANY-MANY | Active |
 | `CITES` | Publication → Publication | CrossRef references | MANY-MANY | PLANNED — not extracted |
@@ -656,6 +707,17 @@ Every relationship carries the six provenance properties listed above.
 originally-planned Grant layer (Publication → Grant → Funder via `AWARDED_BY`) is
 not built — there are zero Grant nodes and zero `AWARDED_BY` edges. Grant /
 `AWARDED_BY` remain PLANNED (see Grant node).
+
+**INVOLVES_INSTITUTION links a Publication to an EXTERNAL institution its work
+involved** — analysis cores, contract labs, and collaborating institutions
+(e.g. a sequencing core, a national lab that ran a sample). Sourced from PDF
+extraction (`source_type: llm_extraction`). It is distinct from `CONDUCTED_AT`,
+which names the NHMFL/MagLab `Facility` where the work was *primarily* conducted,
+and it does NOT replace `AFFILIATED_WITH` (Researcher → Institution): a
+publication involves an institution; a researcher is affiliated with one. The
+name follows the VERB_OBJECTNOUN present-tense convention and is the sibling of
+`INVOLVES_ORGANISM`. Carries the six universal provenance properties like every
+edge. Status is Active: the PDF facility transform populates it directly.
 
 ### Tier 3 — Annotated papers only
 
