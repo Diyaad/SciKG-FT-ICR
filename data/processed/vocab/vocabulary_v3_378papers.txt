@@ -1,0 +1,3527 @@
+SciKG PDF vocabulary v3 - GROUNDED only (378 papers)
+Every string appears verbatim in a source PDF. Counts = number of occurrences.
+v3 expands the v2 134-paper corpus to 378 (326 worklist + 52 open-access).
+NOTE: raw surface forms - some OCR artifacts / fragments, needs a cleaning pass.
+Ungrounded model output is EXCLUDED (see the grounding summary at the end).
+
+=== instrument (741 distinct) ===
+  x124  FT-ICR MS
+  x25  custom-built FT-ICR mass spectrometer
+  x23  21 T FT-ICR MS
+  x19  custom-built hybrid linear ion trap FT-ICR mass spectrometer
+  x14  FTICR MS
+  x13  Shimadzu TOC-L CPH
+  x12  Orbitrap Fusion Lumos
+  x11  21 T FT-ICR mass spectrometer
+  x11  FT-ICR-MS
+  x10  9.4 T FT-ICR mass spectrometer
+  x10  Fourier Transform Ion Cyclotron Resonance Mass Spectrometer
+  x8  Horiba Aqualog
+  x7  custom-built 9.4 T Fourier transform ion cyclotron resonance mass spectrometer
+  x7  custom-built hybrid linear ion trap FT-ICR MS
+  x7  FT-ICR mass spectrometer
+  x6  9.4 T FT-ICR MS
+  x6  custom-built 9.4 T FT-ICR mass spectrometer
+  x5  Horiba Scientific Aqualog
+  x5  Shimadzu TOC-L
+  x5  Shimadzu TOC-LCPH analyzer
+  x5  Velos Pro linear ion trap
+  x4  21 Tesla Fourier transform ion cyclotron resonance mass spectrometer
+  x4  custom-built
+  x4  custom-built Fourier transform ion cyclotron resonance mass spectrometer
+  x4  Fourier transform ion cyclotron resonance mass spectrometry (FT-ICR MS)
+  x4  FT-ICR
+  x4  Illumina MiSeq
+  x4  LTQ
+  x4  Orbitrap
+  x4  Thermo-Fisher Ion Max APPI source
+  x4  Waters Acquity UPLC M-Class System
+  x3  (+) APPI 21 T FT-ICR MS
+  x3  21 tesla FT-ICR MS
+  x3  21-tesla FT-ICR MS
+  x3  Agilent 6890N GC/5975 MS
+  x3  custom-built 21 T FT-ICR mass spectrometer
+  x3  custom-built FT-ICR MS
+  x3  Fourier transform ion cyclotron resonance mass spectrometer
+  x3  Fourier Transform Ion Cyclotron Resonance Mass Spectrometry
+  x3  FT-ICR Mass Spectrometer
+  x3  FT-ICR Mass Spectrometry
+  x3  FTICR-MS
+  x3  Horiba Scientific Aqualog spectrofluorometer
+  x3  LCQ
+  x3  mass spectrometer
+  x3  Shimadzu GC17A/QP5050A
+  x3  Shimadzu TOC-VCPH analyzer
+  x3  Velos Pro
+  x2  (+) APPI 9.4 T FT-ICR MS
+  x2  21 T FT-ICR
+  x2  21 T FT-ICR Mass Spectrometer
+  x2  21 T FT-ICR MS system
+  x2  21 tesla Fourier transform ion cyclotron resonance mass spectrometer
+  x2  21 Tesla FT-ICR MS
+  x2  21-T FT-ICR MS
+  x2  21T FT-ICR
+  x2  21T FT-ICR mass spectrometer
+  x2  4 T Fourier transform ion cyclotron resonance mass spectrometer
+  x2  4 T FT-ICR MS
+  x2  4-T FT-ICR mass spectrometer
+  x2  7 T Bruker SolariX
+  x2  9.4 T FT-ICR-MS
+  x2  9.4 tesla custom-built FT-ICR MS
+  x2  9.4 tesla Fourier transform ion cyclotron resonance mass spectrometer
+  x2  Agilent 8453
+  x2  AKTA purifier liquid chromatography system
+  x2  APPI FT-ICR MS
+  x2  custom-built 21 tesla FT-ICR MS
+  x2  custom-built 9.4 T FT-ICR MS
+  x2  custom-built Fourier transform ion cyclotron resonance (FT-ICR) mass spectrometer
+  x2  custom-built hybrid linear ion trap 21 T FT-ICR MS
+  x2  custom-built hybrid linear ion trap ultra-high resolution FT-ICR mass spectrometer
+  x2  Dionex UltiMate 3000 × 2 Dual Analytical system
+  x2  ESI FT-ICRMS
+  x2  FT ICR-MS
+  x2  GC-MS system (7890A, Agilent Technologies)
+  x2  GC/APCI-MS
+  x2  High Resolution Mass Spectrometer
+  x2  Horiba Aqualog-UV-800-C
+  x2  ion cyclotron resonance (ICR) mass analyzer
+  x2  LDI TOF-MS
+  x2  Leco Pegasus 4D system
+  x2  LTQ Velos
+  x2  Microtox model 500 analyzer
+  x2  Orbitrap Fusion
+  x2  Orbitrap Mass Spectrometry
+  x2  Orbitrap MS
+  x2  Orbitrap-MS
+  x2  PC-SAFT
+  x2  PerkinElmer Spectrum 100 ATR FT-IR spectrometer
+  x2  quadrupole mass spectrometer
+  x2  Quantachrome Autosorb iQ TPX
+  x2  Series II 2400 elemental analyzer
+  x2  Shimadzu TOC-L CHP
+  x2  Shimadzu TOC-LCPH
+  x2  Shimadzu UV-1800 spectrophotometer
+  x2  Storm 820
+  x2  Thermo Delta V Isotope Ratio Mass Spectrometer
+  x2  Thermo Fisher Scientific
+  x2  Turbiscan Lab
+  x2  UV-3600 spectrophotometer
+  x1  (+) APPI FT-ICR MS
+  x1  1 T solid-state NMR spectrometer
+  x1  1-T magnet spectrometer
+  x1  12 T ApexQe hybrid Fourier transform-ion cyclotron resonance (FT-ICR) mass spectrometer
+  x1  12.0 tesla hybrid quadrupole FT-ICR, FT-MS mass spectrometer (Bruker Daltonics)
+  x1  14.5 T FT-ICR MS
+  x1  14.5T FT-ICR mass spectrometer
+  x1  21 T esla Fourier transform ion cyclotron resonance
+  x1  21 T Fourier transform ion cyclotron resonance mass spectrometer (FT-ICR MS)
+  x1  21 T FT -ICR mass spectrometer
+  x1  21 t FT -ICR MS
+  x1  21 T FT-ICR MS (Bruker)
+  x1  21 T FT-ICR system
+  x1  21 T FT-ICR-MS
+  x1  21 T FTICR
+  x1  21 T FTICR mass spectrometer
+  x1  21 T hybrid linear ion trap FT-ICR MS
+  x1  21 tesla (T) FTICR mass spectrometer
+  x1  21 tesla (T) FTICR-MS
+  x1  21 Tesla Fourier Transform - Ion Cyclotron Resonance
+  x1  21 Tesla Fourier transform ion cyclotron resonance -mass spectrometry (FT ICR-MS)
+  x1  21 Tesla FT -ICR mass spectrometer
+  x1  21 Tesla FT-ICR
+  x1  21 Tesla FT-ICR mass spectrometer
+  x1  21 Tesla FT-ICRMS
+  x1  21 Tesla FTICR MS
+  x1  21 Tesla Hybrid FT-ICR Mass Spectrometer
+  x1  21-Tesla FT-ICR MS
+  x1  21T Fourier transform ion cyclotron resonance mass spectrometer
+  x1  21T FT- ICR MS
+  x1  21T FT-ICR-MS
+  x1  21tesla FT-ICR MS
+  x1  4 T ESI-FT mass spectrometer
+  x1  4 T Fourier transform-ion cyclotron resonance mass spectrometer
+  x1  4 T FT-ICR
+  x1  4 T FTICR mass spectrometer
+  x1  4T Fourier Transform Ion Cyclotron Resonance Mass Spectrometer
+  x1  5 T Fourier transform ion cyclotron resonance mass spectrometer
+  x1  5 T FT-ICR mass spectrometer
+  x1  5.6-T FT-ICR
+  x1  5973 GC/MS
+  x1  600 MHz/14
+  x1  7 T APEX Qe FT-ICR mass spectrometer
+  x1  7 T FTICR mass spectrometer (Bruker Corp., Billerica, MA)
+  x1  9.4 and 14.5 T instruments
+  x1  9.4 FT-ICR mass spectrometer
+  x1  9.4 T custom-built FT-ICR mass spectrometer
+  x1  9.4 T Fourier Transform Ion Cyclotron Resonance Mass Spectrometer
+  x1  9.4 T Fourier transform ion cyclotron resonance mass spectrometer
+  x1  9.4 T Fourier transform ion cyclotron resonance mass spectrometer (FT-ICR MS)
+  x1  9.4 T FT-ICR
+  x1  9.4 T FT-ICR Mass Spectrometer
+  x1  9.4 T FTICR Mass Spectrometer
+  x1  9.4 T FTICR MS
+  x1  9.4 T instrument
+  x1  9.4 T superconducting magnet FT-ICR mass spectrometer
+  x1  9.4 tesla
+  x1  9.4 Tesla FT-ICR MS
+  x1  9.4-T ESI-FT-ICRMS
+  x1  9.4-T instrument
+  x1  9.4-tesla FT-ICR MS
+  x1  a 600 MHz/14.1 T solid-state NMR spectrometer
+  x1  a 9.4-T instrument
+  x1  a custom-built 9.4 T FT-ICR mass spectrometer
+  x1  accelerator mass spectrometry (AMS) facility at the National Ocean Sciences accelerator mass spectrometer (NOSAMS)
+  x1  Acros-EOP ICP/AES
+  x1  Acustom-built FT-ICR
+  x1  Advion BioSystems Nanomate
+  x1  Agilent 1100 HPLC system
+  x1  Agilent 5973 mass spectrometer
+  x1  Agilent 6560c
+  x1  Agilent 6890N gas chromatograph
+  x1  Agilent 7700 Series ICP MS
+  x1  Agilent 7890
+  x1  Agilent 7890 A Gas Chromatograph
+  x1  Agilent 8453 UV-visible spectroscopy system
+  x1  Agilent 8900
+  x1  Agilent GC6890N
+  x1  Agilent Model 8453 photodiode array spectrophotometer
+  x1  Agilent Technologies 1260 Infinity
+  x1  Agilent triple quadrupole MS system
+  x1  Alliance e2695 separation module
+  x1  Alpkem RFA-300 autoanalyzer
+  x1  Apex II Ultra FT-MS
+  x1  APPI 9.4 Tesla FT-ICR MS
+  x1  APPI Ion Max source (Thermo Fisher Scientific, Inc., San Jose, CA)
+  x1  APPI Ion Max source (Thermo-Fisher Scientific)
+  x1  APPISource
+  x1  Aqualog
+  x1  Aurora 1030 W TOC Analyzer
+  x1  Aurora 1030C
+  x1  autoanalyzer (AA3; Bran and Luebbe)
+  x1  Automated Nitrogen Carbon Analyzer, SerCon
+  x1  Autosal salinometer
+  x1  AVIV 202SF circular dichroism spectrometer
+  x1  AVIV 410 CD spectrometer
+  x1  Axio Imager M2 (Zeiss)
+  x1  Ä KTA Puri fi er high-performance liquid chromatography (HPLC) instrument
+  x1  BEC 1 reactor
+  x1  Beckman model J2-21
+  x1  Beckman Optima XL-I
+  x1  bioinert Ultimate RSLCnano 3000 LC system
+  x1  Bruker
+  x1  Bruker 12 T solariX XR FTMS
+  x1  Bruker Apex Ultra
+  x1  Bruker AVANCE
+  x1  Bruker Avance
+  x1  Bruker AVANCE 400 MHz
+  x1  Bruker Avance III 600 MHz
+  x1  Bruker BioSpin Avance III 400 MHz WB
+  x1  Bruker BioSpin Avance III 500 MHz NMR spectrometer
+  x1  Bruker Compass Dataanalysis
+  x1  Bruker Daltonics 10 Tesla Apex Qe
+  x1  Bruker GC-APCI II
+  x1  Bruker Microflex LRF
+  x1  Bruker Neo Avance 400
+  x1  Bruker SolariX FT -ICR MS
+  x1  Bruker Ultra fl eXtreme
+  x1  Bruker Ultraflextreme MALDI-TOF
+  x1  C1000 Touch Thermocycler
+  x1  Canadian Light Source spherical grating monochromator (SGM) beamline
+  x1  Cary 100 Bio UV-Visible Spectrophotometer
+  x1  Cary Eclipse spectrofluorometer
+  x1  Cary Varian 100 dual beam UV/Vis spectrometer
+  x1  CEOS
+  x1  CFP unit
+  x1  CFX Connect ™ Real-Time PCR Detection System
+  x1  Chip-TOF mass spectrometer
+  x1  Chriascan CD spectrometer
+  x1  commercial 3 T FT-ICR
+  x1  controlled growth mercury electrode
+  x1  CPA
+  x1  custom build 21 T FT-ICR-MS
+  x1  custom built 9.4 T FT-ICR mass spectrometer
+  x1  custom built 9.4 T FTICR mass spectrometer
+  x1  custom built 9.4 Tesla FT-ICR MS
+  x1  custom built 9.4-T FT-ICR MS (Oxford Corp.)
+  x1  custom hybrid dual-cell linear radiofrequency (RF) ion trap 21 T Fourier transform-ion cyclotron resonance mass spectrometer (FT-ICR MS)
+  x1  custom instrument
+  x1  custom-built 14.5 T FTICR mass spectrometer
+  x1  custom-built 21 T Fourier transform ion cyclotron resonance mass spectrometer
+  x1  custom-built 21 T FT-ICR MS
+  x1  custom-built 21 T FTICR
+  x1  custom-built 21 T hybrid ion-trap FTICR mass spectrometer
+  x1  custom-built 21-tesla Fourier-transform ion cyclotron resonance mass spectrometer
+  x1  custom-built 21-tesla FT-ICR mass spectrometer
+  x1  custom-built 21T FT-ICR MS
+  x1  custom-built 9.4 T 22 cm horizontal room temperature bore diameter FT-ICR mass spectrometer
+  x1  custom-built 9.4 T and 21T FT-ICR MS
+  x1  custom-built 9.4 T ESI FT-ICR mass spectrometer
+  x1  custom-built 9.4 T Fourier transform ion cyclotron mass spectrometer (FT-ICR MS)
+  x1  custom-built 9.4 T Fourier transform ion cyclotron resonance
+  x1  custom-built 9.4 T FT-ICR
+  x1  custom-built 9.4 tesla FT-ICR mass spectrometer
+  x1  custom-built 9.4 Tesla FT-ICR mass spectrometer
+  x1  custom-built 9.4 Tesla FT-ICR MS
+  x1  custom-built 9.4 tesla FT-ICR MS
+  x1  custom-built 9.4-T FT-ICR mass spectrometer
+  x1  custom-built 9.4 T FT-ICR mass spectrometer
+  x1  custom-built FT-ICR-MS
+  x1  custom-built FT-ICRMS
+  x1  custom-built hybrid dual ion-trap 21 T FT-ICR mass spectrometer
+  x1  custom-built hybrid linear ion trap 21-T ESI FT-ICR mass spectrometer
+  x1  custom-built hybrid linear ion trap 9.4-T FT-ICR mass spectrometer
+  x1  custom-built hybrid linear ion trap 9.4-T FT-ICR MS
+  x1  custom-built hybrid linear ion trap Fourier transform ion cyclotron resonance mass spectrometer
+  x1  custom-built hybrid linear ion trap FT ICR mass spectrometer
+  x1  custom-built hybrid linear ion trap/21 T FT-ICR mass spectrometer
+  x1  custom-built hybrid linear trap quadrupole 14.5-Tesla FT-ICR mass spectrometer
+  x1  custom-built hybrid Velos Pro 14.5 T FT-ICR
+  x1  custom-built mass spectrometer
+  x1  custom-built passively shielded 9.4 T FT-ICR mass spectrometer
+  x1  custom-built passively shielded 9.4T FT-ICR mass spectrometer
+  x1  custom-built ultrahighresolution 9.4 T FT-ICR mass spectrometer
+  x1  custom-built Velos Pro
+  x1  custom-built Velos Pro 14.5 T FT-ICR mass spectrometer
+  x1  custom-built Velso Pro (Thermo Scientific) 21 T FT-ICR mass spectrometer
+  x1  custom-built, hybrid linear ion trap / FT-ICR mass spectrometer
+  x1  custom-designed 21 T FT-ICR MS
+  x1  custom-designed 21T FT-ICR
+  x1  custom-made purge-and-trap system
+  x1  custombuilt FT-ICR mass spectrometer
+  x1  custombuilt hybrid linear ion trap/FT-ICR MS
+  x1  customized hybrid linear quadrupole ion trap/FT-ICR MS (LTQ-FT)
+  x1  CyAn Flow Cytometer
+  x1  Delta V Advantage Isotope Ratio Mass Spectrometer
+  x1  Delta V IRMS
+  x1  Deltatox II photometer
+  x1  denaturing gradient gel electrophoresis (DGGE) gel
+  x1  DIB-s4PT
+  x1  Dionex Aquion Ion Chromatography System
+  x1  Dionex Aquion ion chromatography system
+  x1  Dionex DX 500
+  x1  Dionex High-Performance Liquid Chromatography system
+  x1  Dionex ICS-1100
+  x1  Dionex ICS-5000+ capillary HPLC system
+  x1  Dionex Ion Chromatography System
+  x1  Dionex Series 3000 Ion Chromatography System
+  x1  Dionex Ultimate 3000 HPLC
+  x1  Dionex Ultimate 3000 LC system
+  x1  Dionex UltiMate 3000 Rapid Separation nanoLC
+  x1  Dionex UltiMate 3000 × 2 Dual Analytical System
+  x1  Direct Inlet Probe-High-Resolution Time-of-Flight Mass Spectrometer
+  x1  Direct Insertion Probe-Mass Spectrometer
+  x1  DLK Micro-Pstat-1
+  x1  DOC-LABOR LC-OCD size-exclusion chromatography system
+  x1  DOC-LABOR LC-OCD sizeexclusion chromatography system
+  x1  double beam spectrophotometer
+  x1  double-focusing sector field inductively coupled plasma mass spectrometer (Element XR, Thermo Fisher Scientific)
+  x1  drEEM toolbox 22 for MATLAB
+  x1  DRI Model 2015 Series 1 multiwavelength thermal-optical carbon analyzer (TOCA)
+  x1  drop tensiometer
+  x1  dual-beam Shimadzu UV-1800 spectrophotometer
+  x1  dual-inlet isotope ratio mass spectrometer
+  x1  dynamically harmonized ICR
+  x1  electron spin resonance
+  x1  electrospray ionization fourier transform ion cyclotron resonance mass spectrometry (ESI FT-ICR MS)
+  x1  Element XR
+  x1  Element XR Inductively Coupled Plasma Mass Spectrometer
+  x1  elemental analyzer (Thermo Flash EA 1112)
+  x1  eosense instruments
+  x1  eosFD
+  x1  Eppendorf Mastercycler pro S
+  x1  ESCALAB250Xi
+  x1  ESI FT-ICR mass spectrometer
+  x1  ESI FT-ICR MS
+  x1  ESI Negative Ion FT- ICR MS
+  x1  ESI( -) FT-ICR MS-based
+  x1  ESI-FT-ICR MS
+  x1  ESI-FT-ICR-MS
+  x1  ETD-FT-ICR
+  x1  F-7000 fluorescence spectrometer
+  x1  FE-SEM; Jeol JSM-6500F
+  x1  FEI Talos F200X
+  x1  FEI Titan Krios
+  x1  FEI TM Tecnai F20
+  x1  Finnigan DeltaPlus XP elemental analyzer
+  x1  Finnigan MATDeltaplusXL
+  x1  fl uorometer (AquaFlour model: 80000-010)
+  x1  Flame Atomic Absorption Spectrometry (FAAS)
+  x1  FLASH 2000
+  x1  Flash EA
+  x1  Flash EA1112 analyzer
+  x1  Flash SMART analyzer
+  x1  fluidized bed reactor
+  x1  Fluoromax-4 spectrofluorometer
+  x1  Fourier -Transform Ion Cyclotron Resonance Mass Spectrometry (FT-ICR MS)
+  x1  Fourier Ion Cyclotron Resonance Mass Spectrometer
+  x1  Fourier transform ion cyclotron resolution mass spectrometry (FT-ICR MS)
+  x1  Fourier transform ion cyclotron resonance
+  x1  Fourier Transform Ion Cyclotron Resonance mass spectrometer
+  x1  Fourier transform ion cyclotron resonance mass spectrometers
+  x1  Fourier-transform (FT) mass spectrometer
+  x1  Fourier-transform ion cyclotron resonance mass spectrometer
+  x1  Fourier-transform ion cyclotron resonance Mass Spectrometer (FT-ICR-MS)
+  x1  Fourier-transform ion cyclotron resonance Mass Spectrometer (FT-ICRMS)
+  x1  Fourier-Transform Ion-Cyclotron-Resonance Mass Spectrometry (FT-ICR MS)
+  x1  freeze dryer
+  x1  FreeZone 12 L console tray dryer
+  x1  FS5 spectrofluorometer
+  x1  FT-ICR mass analyzer
+  x1  FT-ICR MS 40
+  x1  FT-ICR MS instrument
+  x1  FT-ICR Solarix XR
+  x1  FT-ICRMS
+  x1  FTICR
+  x1  FTICRMS
+  x1  FTIR
+  x1  FTMS (Q Exactive HF, Thermo Scienti fi c)
+  x1  Fusion Lumos
+  x1  gas chromatograph
+  x1  gas chromatograph-mass spectrometer (GC-MS)
+  x1  gas chromatography/atmospheric pressure chemical ionization mass spectrometer (GC/APCI-MS)
+  x1  GC × GC EI-HRToF MS
+  x1  GC × GC-TOFMS from LECO (USA)
+  x1  GC-FID
+  x1  GC/APCI-MS/MS
+  x1  GCxGC/TOF-MS
+  x1  GE Sievers 900 Portable Total Organic Carbon Analyzer
+  x1  GE Sievers M9 TOC analyzer
+  x1  gel permeation chromatography inductively coupled plasma high-resolution mass spectrometry (GPCICP-HRMS)
+  x1  Genesys 10 s Series Spectrophotometer
+  x1  Genesys 20-Thermo scientific
+  x1  Global Explorer ROV
+  x1  GPC columns
+  x1  GPC-ICP-HRMS
+  x1  graphite electrode arc process
+  x1  Hach DR6000 UV Vis spectrophotometer
+  x1  handheld fluorometer MultiSpeQ V 2.0
+  x1  headspace gas chromatography
+  x1  high resolution Fourier transform ion cyclo- tron resonance (FT-ICR) mass spectrometer
+  x1  high resolution Fouriertransform ion cyclotron resonance mass spectrometry
+  x1  high temperature elemental analyser (Thermo Fisher Flash 2000 HT EA)
+  x1  High TOC II
+  x1  high- fi eld Fourier transform ion cyclotron resonance mass spectrometer
+  x1  High-Performance Liquid Chromatography-Inductively Coupled Plasma-Mass Spectrometry
+  x1  high-purity Germanium (HPGe) γ -spectrometer
+  x1  high-resolution FT-ICR mass spectrometer
+  x1  high-resolution ICP mass spectrometer (Thermo)
+  x1  high-resolution mass spectrometer
+  x1  High-Resolution Mass Spectrometer
+  x1  high-resolution mass spectrometry detection
+  x1  high-resolution TOF
+  x1  high-temperature combustion
+  x1  highresolution ( m / Δ m 50% ≈ 4000) time-of- fl ight mass spectrometer
+  x1  Hitachi F-7000
+  x1  Hitachi F-7000 spectrofluorometer
+  x1  Hitachi HT7800
+  x1  home-built ultrahigh resolution FT-ICR MS
+  x1  homebuilt 9.4-T FTICR
+  x1  Horiba Aqualog 3D fluorometer
+  x1  Horiba Aqualog fluorometer
+  x1  Horiba FluoroMax-4
+  x1  Horiba Jobin Yvon LabRAM HR
+  x1  Horiba Jobin-Yvon Fluoromax-4 Spectrofluorometer
+  x1  Horiba Scienti fi c Aqualog
+  x1  Horiba Scienti fi c Aqualog benchtop fl uorometer
+  x1  Horiba Scienti  c Aqualog
+  x1  Horiba Scientific Aqualog 46
+  x1  Horiba W-23XD Water Quality Monitoring System
+  x1  hot block (Environmental Express)
+  x1  HPLC3
+  x1  hybrid 21 T FT-ICR mass spectrometer
+  x1  hybrid linear ion trap -21 Tesla Fourier transform-ion cyclotron resonance mass spectrometer
+  x1  hybrid linear ion trap 21 T FT-ICR mass spectrometer
+  x1  hybrid linear ion trap FT-ICR mass spectrometer
+  x1  hybrid linear quadrupole ion trap/FT-ICR mass spectrometer (LTQ-FT)
+  x1  hybrid linear quadrupole ion trap/FTICR MS (LTQ-FT)
+  x1  hybrid quadrupole FT-ICR instrument (SolariXR, Bruker Daltonics)
+  x1  iCAP Q MS (Thermo Scientific)
+  x1  ICP HR MS
+  x1  ICP MS (Thermo Scienti fi c Element XR)
+  x1  ICP-MS
+  x1  ICP-MS on an iCAP RQ
+  x1  ICP-OES
+  x1  ICR instrument
+  x1  ICR mass analyzer
+  x1  Illumina HiSeq
+  x1  Illumina MiSeq Platform
+  x1  Illumina MiSeq Sequencer
+  x1  Illumina MiSeq sequencing system
+  x1  Illumina MiSeq System
+  x1  Illumina platform
+  x1  in-house-fabricated analytical column
+  x1  Inductively Coupled Plasma High-Resolution Mass Spectrometry
+  x1  Inductively Coupled Plasma HighResolution Mass Spectrometry
+  x1  inductively coupled plasma mass spectrometer (ICP-MS)
+  x1  Innova 44R shaker (Eppendorf)
+  x1  Ion Max APPI source (Thermo Fisher Scienti fi c)
+  x1  isotope ratio mass spectrometer
+  x1  JEMARM200cF
+  x1  Jobin Yvon SPEX Fluoromax-4 spectrometer
+  x1  Jobin-Yvon Horiba Fluoromax-3
+  x1  JSM 7100F
+  x1  Keck Carbon Cycle Accelerator Mass Spectrometer
+  x1  Keck Carbon Cycle Accelerator Mass Spectrometry
+  x1  Kinexus-Pro
+  x1  KinTek RQF-3 Rapid Quench-Flow
+  x1  Kongsberg EM2000 multibeam echosounder
+  x1  Kongsberg GeoAcoustics subbottom profiler
+  x1  LA-ICP-MS
+  x1  Lachat flow injection analyser
+  x1  Lambda 35 UV/Vis spectrophotometer
+  x1  Laser desorption Fourier transform ion cyclotron resonance mass spectrometery (LD FT-ICR MS)
+  x1  LC and HESI source settings were the same as those in MS 1 analyses
+  x1  LC FT-ICR MS
+  x1  LC FTICR MS/MS
+  x1  LC-FT-ICR MS
+  x1  LC-ICP-MS method
+  x1  LC-OCD
+  x1  LC-Orbitrap
+  x1  LC-QTOF
+  x1  LECO
+  x1  LECO GC 3 GC
+  x1  LECO Pegasus GC 3 GC-HRT
+  x1  LGR DLT-100
+  x1  linear ion-trap mass spectrometer
+  x1  linear RF ion trap
+  x1  linear trapping quadrupole; LTQ mass spectrometer
+  x1  liquid chromatography-high resolution multistage mass spectrometry
+  x1  lower-field FT-ICR MS
+  x1  LTQ linear ion trap
+  x1  LTQ Orbitrap Elite
+  x1  LTQ Orbitrap Velos
+  x1  LTQ Orbitrap Velos (Thermo Fisher Scientific)
+  x1  LTQ OrbitrapVelos
+  x1  LTQ Velos ion trap mass spectrometer
+  x1  LTQ-FT Ultra FTMS
+  x1  LTQ-Velos
+  x1  LTQOrbitrap
+  x1  MALDI
+  x1  MALDI ToF-MS
+  x1  MALDI-TOF
+  x1  MALDI-TOF MS
+  x1  MALDI-TOF-MS
+  x1  MALDIand ESI-Fourier Transform Ion Cyclotron Resonance
+  x1  MAT-253 isotope ratio mass spectrometer
+  x1  MAT253 plus
+  x1  MCR 302 rheometer
+  x1  Metrohm 881 Compact IC pro
+  x1  Metrohm Compact IC Flex
+  x1  mFT Solarix ICR ParaCell
+  x1  microchannel
+  x1  Micromass Premier double-focussing magnetic sector mass spectrometer
+  x1  mini carbon dating accelerator mass spectrometer (MICADAS) system
+  x1  Mitsubishi TN2100 V analyzer
+  x1  Model 4572 stainless-steel batch reactor
+  x1  model 6725 semi-micro bomb calorimeter
+  x1  modi fi ed LTQ Fourier transform ion cyclotron resonance (FT-ICR) mass spectrometer
+  x1  modi fi ed Velos Pro linear ion trap assembly
+  x1  modified linear ion trap (LTQ, Thermo Fisher Scientific, San Jose, CA, USA) 14.5 T FT-ICR mass spectrometer
+  x1  modular ICR data acquisition system (PREDATOR)
+  x1  MultiMode VIII (BRUKER)
+  x1  N/A
+  x1  nano-HPLC system (ACQUITY MClass)
+  x1  Nanodrop 1000
+  x1  NanoDrop 2000 UV-vis spectrophotometer
+  x1  nanoHPLC system (ACQUITY M-Class)
+  x1  Nanospray Flex ion source (Thermo Scienti fi c)
+  x1  negative-ion APPI FT-ICR MS
+  x1  negative-ion ESI-FT-ICR-MS
+  x1  NexION 250D mass spectrometer
+  x1  Nicolet 6700 FTIR from Thermo
+  x1  Nicolet iS5 (Thermo Fisher Scienti fi c)
+  x1  Nicolet IS50 FT-IR spectrophotometer
+  x1  Nicolet iS50 FTIR spectrometer
+  x1  NIST-calibrated Mitutoyo micrometer
+  x1  NMR computer
+  x1  Nova 2000
+  x1  NovaSEQ6000 platform
+  x1  O.I. Analytical Model 1030 Total Organic Carbon Analyzer
+  x1  O.I. Analytical Model 700
+  x1  Ocean Optics UV-visible light absorbance spectrophotometer
+  x1  Oceanographic instrumentation
+  x1  OI Analytical four-channel Rapid Flow Analyzer
+  x1  online SEC-UV-FT-ICR MS
+  x1  open cylindrical ion trap
+  x1  open cylindrical penning ion trap
+  x1  orbitrap
+  x1  Orbitrap Eclipse
+  x1  Orbitrap Eclipse Tribrid
+  x1  Orbitrap Eclipse Tribrid (Thermo Fisher Scientific)
+  x1  Orbitrap Eclipse Tribrid (Thermo Scienti fi c)
+  x1  Orbitrap Elite
+  x1  Orbitrap Exploris 120
+  x1  Orbitrap Fusion Lumos (Thermo Fisher Scienti fi c)
+  x1  Orbitrap high-resolution mass spectrometer platform
+  x1  Orbitrap mass analyzer
+  x1  Orbitrap mass spectrometer
+  x1  Orbitrap mass spectrometer detector
+  x1  Orbitraps
+  x1  packed columns or trayed towers
+  x1  Parr Instruments semimicro calorimeter
+  x1  Parr reactor (Model 4561)
+  x1  Pegasus GC-HRT 4D
+  x1  Pegasus GCHRT 4D
+  x1  Perkin Elmer NexION 300D
+  x1  Perkin Elmer Optima 7300 inductively coupled plasma (ICP) optical emission spectrometer
+  x1  Perkin Elmer Quantulus TM
+  x1  Perkin-Elmer Spectrum Two Infrared Spectrometer
+  x1  PerkinElmer Frontier FTIR spectrometer
+  x1  PerkinElmer Lambda 650s
+  x1  PerkinElmer Nexion 350X ICP-MS
+  x1  Photon Technology International (PTI) fluorescence spectrometer
+  x1  Picarro 2140-i Wavelength-Scanned Cavity Ring Down Spectrometer
+  x1  Picarro G2101-i Isotopic CO2 cavity ring down spectrometer (CRDS)
+  x1  Picarro Inc. L2130i liquid water cavity ring-down spectroscopy
+  x1  POROS GoPure 50 D resin functionalized with dimethylaminopropyl groups (Thermo Fisher Scientific)
+  x1  positive-ion APPI FT-ICR MS
+  x1  Q Exactive HF
+  x1  Q Exactive HF Hybrid Quadrupole-Orbitrap Mass Spectrometer
+  x1  Q-Exactive HF BioPharma
+  x1  Q-Exactive HF Orbitrap
+  x1  QE-HF mass spectrometer
+  x1  QP5050A EI quadrupole
+  x1  QuAAtro39 continuous segmented flow analyzer
+  x1  quadrupole trap
+  x1  Quantachrome Autosorb iQ adsorption/chemisorption system
+  x1  Qubit 2.0 fluorometer
+  x1  Qubit 3 fluorometer
+  x1  quenching column
+  x1  Rigaku automatic instrument (Geigerflex)
+  x1  Scanning electron microscopy (SEM)
+  x1  Seal AQ2 (Seal Analytical)
+  x1  Sebia Hydrasys Scan 2
+  x1  semi-micro calorimeter
+  x1  SFC-ICP-MS
+  x1  Shimadzu 5000A TOC analyzer
+  x1  Shimadzu FT-IR spectrometer
+  x1  Shimadzu GCMS-QP2010 SE
+  x1  Shimadzu high-temperature catalytic oxidation total OC analyzer (TOC-L CPH)
+  x1  Shimadzu high-temperature catalytic oxidation total organic carbon analyzer (TOC-L CPH)
+  x1  Shimadzu IRAffinity-1S
+  x1  Shimadzu MALDI-8020
+  x1  Shimadzu photo diode array detector
+  x1  Shimadzu QP 2010 SE
+  x1  Shimadzu TOC -LCPH analyzer
+  x1  Shimadzu TOC total organic carbon analyzer
+  x1  Shimadzu TOC Vcsn
+  x1  Shimadzu TOC-L CPH analyzer
+  x1  Shimadzu TOC-L CPH high temperature catalytic oxidation total organic analyzer
+  x1  Shimadzu TOC-L CPH high temperature catalytic oxidation total organic carbon analyzer
+  x1  Shimadzu TOC-L CPH/CPN analyzer
+  x1  Shimadzu TOC-L CSH/CSN analyzer
+  x1  Shimadzu TOC-L total organic carbon analyzer
+  x1  Shimadzu TOC-LCPH/CPN
+  x1  Shimadzu TOC-LCSH
+  x1  Shimadzu TOC-LCSN
+  x1  Shimadzu TOC-V analyzer
+  x1  Shimadzu TOC-V CPN Analyser
+  x1  Shimadzu TOC-V WS analyzer
+  x1  Shimadzu TOC-VCPH
+  x1  Shimadzu TOC-Vcph
+  x1  Shimadzu TOC-VCSH Total Organic Carbon Analyzer
+  x1  Shimadzu TOC/TN analyzer
+  x1  Shimadzu TOCL CPH analyzer
+  x1  Shimadzu TOCLC/TN analyzer
+  x1  Shimadzu TOCLCPH analyzer
+  x1  Shimadzu TOCV CSH analyzer
+  x1  Shimadzu total organic carbon (TOC) analyzer
+  x1  Shimadzu Total Organic Carbon Analyzer
+  x1  Shimadzu Total Organic Carbon analyzer
+  x1  Shimadzu UV-1601PC
+  x1  Shimadzu™ TOC-L high temperature catalytic combustion analyzer
+  x1  Sievers InnovOx TOC Analyzer
+  x1  SM-21
+  x1  Solarix 7 T TIMS-FT-ICR MS
+  x1  SolariX 9.4 T FT-ICR MS
+  x1  SolariXR
+  x1  Specim Single Core Scanner
+  x1  spectrofluorometer
+  x1  Spectrum Two FT-IR spectrophotometer
+  x1  Spectrum Two FTIR spectrophotometer
+  x1  SRI 8610C
+  x1  Stelar SpinMaster FFC-2000
+  x1  StepOnePlusTM thermocycler
+  x1  Subglacial Underwater Reconnaissance Flow-through Fluorescence Spectrometer (SURFFS)
+  x1  supercritical fluid chromatography inductively coupled plasma mass spectrometry (SFC-ICPMS)
+  x1  Superdex 200 Increase 10/300 GL
+  x1  SURFFS
+  x1  Synapt G2 HDMS
+  x1  Synrad 48-2
+  x1  T FT-ICR
+  x1  TG 209
+  x1  Thermo commercial station
+  x1  Thermo Finnigan 253 gas mass spectrometer
+  x1  Thermo Finnigan Elemental Analyzer
+  x1  Thermo Finnigan Elemental Analyzer (FLASH EA 112)
+  x1  Thermo Finnigan MAT Deltaplus
+  x1  Thermo Fisher EA-Isolink-CNSOH elemental analyzer
+  x1  Thermo Fisher Ion Max APPI source
+  x1  Thermo Fisher Scientific Orbitrap Eclipse TM Tribrid TM MS
+  x1  Thermo Fisher UltiMate 3000
+  x1  Thermo FLASH 2000
+  x1  Thermo Fusion
+  x1  Thermo Scienti fi c Element XR
+  x1  Thermo Scienti fi c Element XRsector fi eld ICP-HRMS
+  x1  Thermo Scienti fi c FLASH 2000 element analyzer
+  x1  Thermo Scienti fi c Gas Bench II
+  x1  Thermo Scienti fi c Orbitrap Fusion Lumos
+  x1  Thermo Scientific Evolution 300 spectrophotometer
+  x1  Thermo Scientific MaxQ 4000 orbital shaker
+  x1  Thermo Scientific Orbitrap IQ-X
+  x1  Thermo Scientific™ Element 2™ HR-ICP-MS
+  x1  Thermo Trace 1310 GC
+  x1  Thermo Ultimate 3000 system
+  x1  Thermo-Fisher Ion Maxx APPI source
+  x1  Thermo-Fisher Scienti fi c, Inc., San Jose, CA
+  x1  ThermoFisher Dualbeam Helios G4 SEM microscope
+  x1  ThermoFisher Ion Max
+  x1  ThermoFisher LCQ
+  x1  ThermoFisher Scienti fi c oven
+  x1  ThermoScientific LTQ-XL LIT
+  x1  ThermoScientific Orbitrap Elite
+  x1  third octopole
+  x1  time-of-flight secondary ion mass spectrometry (ToF-SIMS)
+  x1  time-offl ight (TOF) mass spectrometer
+  x1  TIMS-FT-ICR MS/MS
+  x1  TOC -L series (Shimadzu)
+  x1  TOC analyzer
+  x1  TOC analyzer (Shimadzu)
+  x1  TOC-analyzer (Shimadzu)
+  x1  TOC-V WP total organic carbon analyzer
+  x1  TOCVCPN total organic C/N analyzer
+  x1  TOF
+  x1  TOF mass analyzer
+  x1  TOF mass spectrometer
+  x1  total organic carbon analyzer
+  x1  Transmission Electron Microscope (TEM) Philips Tecnai 10
+  x1  triple quadrupole instruments
+  x1  UltiMate 3000 autosampler
+  x1  UltiMate 3000 Dionex
+  x1  UltiMate 3000 Dionex highperformance liquid chromatography system
+  x1  UltiMate 3000 microflow pump
+  x1  Ultimate 3000 nanoLC (Thermo Scientific)
+  x1  Ultra Nano HPLC system
+  x1  Ultra-high resolution FT-ICR MS
+  x1  Ultra-High-Resolution Mass Spectrometer
+  x1  Ultrahigh Resolution Mass Spectrometer
+  x1  ultrahigh resolution mass spectrometer
+  x1  Ultrahigh-Resolution FT-ICR Mass Spectrometer
+  x1  ultrahigh-resolution mass spectrometer
+  x1  Ultrahigh-Resolution Mass Spectrometer
+  x1  Ultrahigh-resolution Mass Spectrometer
+  x1  UPLC-Q-TOF MS
+  x1  UV -vis spectrophotometer
+  x1  UV-2501 PC, Shimadzu
+  x1  UV-Vis spectrophotometer
+  x1  Varian 3400 gas chromatograph
+  x1  Varian CP-3800
+  x1  Varian gas chromatograph
+  x1  Vario Micro Cube elemental analyzer
+  x1  VCPH model TOC analyzer
+  x1  Velos
+  x1  Velos LTQ-Orbitrap Mass Spectrometer
+  x1  Velos Pro dual cell rf ion trap assembly
+  x1  Velos Pro dualcell linear ion trap
+  x1  Velos Pro-14.5 or 21 tesla Fourier transformion cyclotron resonance (FT-ICR) mass spectrometer
+  x1  Velos-Pro dual cell linear RF ion trap
+  x1  Vertex 80 v (Bruker)
+  x1  Video Plankton Recorder (VPR)
+  x1  Voyager-DE PRO
+  x1  VP detectors; Shimadzu, Japan
+  x1  VP-ITC microcalorimeter
+  x1  Waters AutoSpec Premier double-sector mass spectrometer
+  x1  Waters GCT Premier
+  x1  Waters Synapt G2 HDMS
+  x1  Waters UPLC-SQD2
+  x1  Waters Xevo G2-XS QToF-MS
+  x1  Waters Xevo G2-XS quadrupole time-of-flight
+  x1  Winkler titration system
+  x1  X-ray powder diffractometer
+  x1  Xplora
+  x1  YSI 6600 multiprobe
+  x1  YSI 6600 V2 multisensor sonde
+  x1  YSI EXO2 multi-parameter water quality sonde
+  x1  YSI Pro Plus sonde
+  x1  Zeiss Axio Observer 7 confocal microscope
+  x1  Zeiss Sigma SEM
+  x1  Zorbax SB-C18 column
+
+=== ionization_method (420 distinct) ===
+  x86  ESI
+  x32  APPI
+  x31  electrospray ionization (ESI)
+  x24  FT-ICR MS
+  x18  electrospray ionization
+  x18  negative-ion electrospray ionization
+  x16  negative-ion ESI
+  x15  (+) APPI
+  x15  negative electrospray ionization
+  x14  atmospheric pressure photoionization (APPI)
+  x12  IRMPD
+  x8  MALDI
+  x7  (+) ESI
+  x7  Fourier transform ion cyclotron resonance mass spectrometry (FT-ICR MS)
+  x7  GC-MS
+  x6  atmospheric pressure photoionization
+  x6  Electrospray Ionization
+  x6  ETD
+  x6  negative ESI
+  x5  CID
+  x5  direct infusion electrospray ionization
+  x5  FTICR MS
+  x5  microelectrospray
+  x5  nanoelectrospray ionization
+  x4  (+)APPI
+  x4  APCI
+  x4  Atmospheric Pressure Photoionization
+  x4  FT-ICR
+  x4  microelectrospray source
+  x4  positive-ion APPI
+  x4  positive-ion atmospheric pressure photoionization (APPI)
+  x3  +ESI
+  x3  APPI FT-ICR MS
+  x3  APPI-MS
+  x3  atmospheric pressure ionization
+  x3  Atmospheric Pressure Photoionization (APPI)
+  x3  collision-induced dissociation (CID)
+  x3  direct infusion
+  x3  direct infusion negative electrospray ionization
+  x3  dopant-assisted photoionization
+  x3  Electrospray ionization
+  x3  infrared multiphoton dissociation (IRMPD)
+  x3  LC-ESI
+  x3  microelectrospray ionization
+  x3  negative ion mode
+  x3  negative mode electrospray ionization
+  x3  negative-ion electrospray ionization (ESI)
+  x3  Negative-ion ESI
+  x3  positive APPI
+  x3  positive electrospray ionization
+  x3  positive ions
+  x3  positive-ion (+) atmospheric pressure photoionization (APPI)
+  x3  Positive-ion ESI
+  x2  (+)ESI and (-)ESI
+  x2  -) ESI
+  x2  -ESI
+  x2  APPI/ESI
+  x2  atmospheric pressure chemical ionization
+  x2  Atmospheric Pressure Chemical Ionization
+  x2  atmospheric pressure chemical ionization (APCI)
+  x2  collision-induced dissociation
+  x2  ECD
+  x2  EI
+  x2  Electrospray Ionization (ESI)
+  x2  Electrospray ionization (ESI)
+  x2  electrospray ionization (ESI); negative mode
+  x2  ESI FT-ICR MS
+  x2  ESI-FT-ICR-MS
+  x2  Fourier transform ion cyclotron resonance mass spectrometry (FTICR MS)
+  x2  heated electrospray ionization (ESI)
+  x2  HESI
+  x2  inductively coupled plasma (ICP)
+  x2  ion chromatography
+  x2  LC-MS
+  x2  LC-MS/MS
+  x2  micro-electrospray
+  x2  microelectrospray ionization (ESI)
+  x2  MS
+  x2  MS/MS
+  x2  N/A
+  x2  nano-LC ESI MS/MS
+  x2  negative electrospray
+  x2  negative electrospray ionization (ESI)
+  x2  negative electrospray ionization mode
+  x2  negative ion electrospray ionization
+  x2  negative ionization
+  x2  negative-ion electrospray
+  x2  Negative-ion electrospray ionization
+  x2  negative-ion heated electrospray ionization (HESI)
+  x2  negative-ion mode
+  x2  positive nanoelectrospray
+  x2  positive-ion electrospray ionization
+  x2  positive-ion electrospray ionization (ESI)
+  x2  TD LC-MS/MS
+  x2  UVPD
+  x1  ( -) ESI
+  x1  (+) APPI FT-ICR MS and IRMPD
+  x1  (+) electrospray ionization (ESI)
+  x1  (+/ -ESI) and (+) APPI
+  x1  (-) ESI
+  x1  (f)ETD (c,z), HCD (b,y), or CID (b,y)
+  x1  +) APPI
+  x1  +APPI
+  x1  +APPI and -ESI
+  x1  +APPI FTICR MS via positive-ion atmospheric pressure photoionization (+APPI) coupled to Fourier transform ion cyclotron resonance mass spectrometry (FTICR MS)
+  x1  +ESI MS
+  x1  - microelectrospray ionization (ESI)
+  x1  -ESI (negative-ion electrospray ionization)
+  x1  13 C- DOC
+  x1  21 T FT-ICR MS
+  x1  absorption-mode ECD
+  x1  all ionization techniques
+  x1  annular dark-field scanning transmission electron microscopy (STEM)
+  x1  AP/LIAD-CI
+  x1  APCI and APPI modes of operation
+  x1  Apollo II ESI source in negative mode
+  x1  APPI (10 / 10.6 eV, Kr-lamp)
+  x1  APPI (Atmospheric Pressure Photoionization)
+  x1  APPI -high-resolution MS
+  x1  APPI IRMPD
+  x1  APPI MS
+  x1  APPI or ESI
+  x1  APPI(+), APPI
+  x1  APPI, ESI, APCI
+  x1  atmospheric photoionization
+  x1  atmospheric pressure ionization (e.g., ESI, APPI)
+  x1  Atmospheric Pressure Laser Ionization
+  x1  atmospheric pressure photo-ionization
+  x1  Atmospheric Pressure Photoionization and Laser Desorption Ionization Coupled to Fourier Transform Ion Cyclotron Resonance Mass Spectrometry
+  x1  Bayard-Alpert ionization gauge
+  x1  bombardment with high-energy electrons
+  x1  broadband FT-ICR MS
+  x1  chemical ionization
+  x1  chemiluminescence detector
+  x1  CID fragmentation
+  x1  CID FT-ICR MS
+  x1  CID MS/MS
+  x1  CID with helium
+  x1  cluster source
+  x1  cold-spray ionization
+  x1  collisional ion trapping
+  x1  conventional CID
+  x1  CZE-MS
+  x1  data-dependent ETD
+  x1  desorption atmospheric pressure photoionization (DAPPI)
+  x1  Direct infusion electrospray ionization
+  x1  direct infusion ESI in negative ion mode
+  x1  Direct Infusion ESI( ± )
+  x1  direct infusion FTICR MS
+  x1  direct inlet probe (DIP)
+  x1  Direct Insertion Probe-Mass Spectrometry
+  x1  direct-infusion
+  x1  Direct-infusion broadband APPI
+  x1  direct-infusion ESI
+  x1  direct-infusion IRMPD FT-ICR MS
+  x1  dopant-assisted APPI
+  x1  EI-HRToF MS
+  x1  electron capture dissociation (ECD)
+  x1  electron impact
+  x1  Electron Impact Ionization
+  x1  electron impact mass spectra
+  x1  Electron Ionization
+  x1  electron ionization
+  x1  electron ionization (EI)
+  x1  electron transfer dissociation (ETD) or collision-induced dissociation (CID)
+  x1  electron-impact ionization at 70 eV
+  x1  electrospray
+  x1  electrospray (ESI)
+  x1  electrospray ion source
+  x1  electrospray ionisation (ESI)
+  x1  electrospray ionization (negative mode)
+  x1  electrospray ionization and field desorption ioniization
+  x1  Electrospray Ionization Fourier Transform Ion Cyclotron Mass Spectrometry
+  x1  electrospray ionization fourier transform ion cyclotron resonance mass spectrometry
+  x1  electrospray ionization Fourier transform ion cyclotron resonance mass spectroscopy (FT-ICR MS)
+  x1  electrospray ionization in negative mode
+  x1  electrospray ionization in negative-ion mode (ESI-)
+  x1  electrospray ionization in the negative mode, (-) ESI
+  x1  electrospray ions
+  x1  electrospray-ionization (ESI)
+  x1  ESI and APPI
+  x1  ESI coupled to FT-ICR MS
+  x1  ESI FT-ICR Mass Spectrometry
+  x1  ESI FT-ICRMS
+  x1  ESI FTICR
+  x1  ESI FTICR MS
+  x1  ESI ion source
+  x1  ESI ionization
+  x1  ESI MS
+  x1  ESI negative mode
+  x1  ESI or MALDI
+  x1  ESI Source
+  x1  ESI(-)
+  x1  ESI, APPI
+  x1  ESI-FT-ICR
+  x1  ESI-FT-ICR MS
+  x1  ESI-FTICR MS
+  x1  ESI-MS/MS
+  x1  ESIMS
+  x1  ETD (FETD) reagent ion source
+  x1  ETD or CID
+  x1  extended homologous alkylation series of high/medium relative abundance
+  x1  external injection, ICR excitation and detection
+  x1  FD/FI, ESI, LD/MALDI
+  x1  field desorption/field ionization (FD/FI)
+  x1  field desorption/ionization mass spectrometry
+  x1  Field ionization
+  x1  flame ionization detection
+  x1  Flame Ionization Detector (GC-FID)
+  x1  flame ionization detector (GC-FID)
+  x1  flame ionization detector (GC/FID)
+  x1  flame ionized detector (FID)
+  x1  flame-ionization detection
+  x1  Flash Pyrolysis
+  x1  Fourier transform ion cyclotron resolution mass spectrometry (FT-ICR MS)
+  x1  Fourier transform ion cyclotron resonance (FT-ICR)
+  x1  Fourier transform-ion cyclotron resonance mass spectrometry (FT-ICR MS)
+  x1  front-end electron transfer dissociation (FETD)
+  x1  FT -ICR MS
+  x1  FT ICR MS
+  x1  FT-ICR-MS
+  x1  FT-ICRMS
+  x1  FTICR
+  x1  fused silica micro electrospray ionization (ESI)
+  x1  Gas chromatography-mass spectrometry (GC-MS)
+  x1  gas-phase dissociation
+  x1  GC-APCI and GC-APPI
+  x1  GC-APCI/APPI
+  x1  GC/MS
+  x1  GCP ICP HR MS
+  x1  GC×GC
+  x1  GPC-FT-ICR MS
+  x1  GPC-ICP-MS
+  x1  HCD
+  x1  heated electrospray ionization source (HESI)
+  x1  heated electrospray source
+  x1  heated ESI
+  x1  heated ESI ion source
+  x1  high capacity electron transfer dissociation (ETD)
+  x1  high-energy collisional dissociation
+  x1  high-energy collisional dissociation (HCD)
+  x1  High-Resolution Mass Spectrometry
+  x1  high-temperature combustion
+  x1  highresolution two-dimensional gas chromatography with time-offl ight mass spectrometry (GC × GC -TOFMS)
+  x1  hydrogen/deuterium-exchange
+  x1  ICP-HR-MS
+  x1  ICP-MS detection
+  x1  in-house micro-ESI source
+  x1  inductive-coupled plasma mass spectrometry (ICP-MS)
+  x1  inductively coupled high-resolution plasma mass spectrometer (ICP-HRMS)
+  x1  inductively coupled mass spectrometer
+  x1  Inductively Coupled Plasma
+  x1  inductively coupled plasma high resolution mass spectrometry (ICP HR MS)
+  x1  inductively coupled plasma high-resolution mass spectrometry
+  x1  inductively coupled plasma ion source
+  x1  inductively coupled plasma mass spectrometry
+  x1  inductively coupled plasma mass spectrometry (ICP-MS)
+  x1  Inductively Coupled Plasma Mass Spectrometry (ICP-MS)
+  x1  inductively coupled plasma mass spectrometry (ICP-MS/MS)
+  x1  inductively coupled plasma optical emission spectrometry (ICP-OES)
+  x1  infrared multiple photon dissociation (IRMPD)
+  x1  ionization mode
+  x1  iTRAQ analysis
+  x1  label-free TDP
+  x1  laser ablation inductively coupled plasma mass spectrometry
+  x1  laser desorption
+  x1  laser desorption ionization
+  x1  Laser Desorption Ionization (LDI)
+  x1  laser desorption ionization (LDI)
+  x1  laser vaporization
+  x1  laser vaporization (Nd:YAG laser, 532 nm)
+  x1  LC-ESI-MS
+  x1  LC-Orbitrap
+  x1  LCESI-MS
+  x1  LDI
+  x1  LDI FT-ICR MS
+  x1  LDI-MS
+  x1  LDI-TOF
+  x1  LDI-TOF positive-ion
+  x1  LDI/MALDI
+  x1  liquid chromatography tandem mass spectrometry (LC-MS/MS)
+  x1  Low-energy electron impact ionization
+  x1  low-energy electron ionization
+  x1  MALDI in-source decay (ISD)
+  x1  MALDI MS imaging experiments, elevated-pressure MALDI ion source
+  x1  MALDI MSI
+  x1  MALDI TOF
+  x1  MALDI-MS
+  x1  MALDI-TOF-MS
+  x1  MALDI-TOF-MS (MALDI)
+  x1  MALDI/ESI
+  x1  matrix-assisted laser desorption ionization (MALDI)
+  x1  Matrix-Assisted Laser Desorption Ionization (MALDI)
+  x1  matrix-assisted laser desorption ionization time-of- fl ight/time of fl ight (MALDI-TOF/TOF)
+  x1  matrix-assisted laser desorption/ionization (MALDI)
+  x1  micro electrospray
+  x1  micro- or nano-ESI
+  x1  microwave digestion
+  x1  molecular methods such as comparative analysis of the 16S rDNA gene and metagenomics
+  x1  MS detection
+  x1  MS proteomic profiling methods
+  x1  MS techniques sensitive to lower mass ranges
+  x1  nano ESI (nESI)
+  x1  nano-electrospray ionization (nESI)
+  x1  nano-ESI
+  x1  nanoelectrospray (nanoESI)
+  x1  nanoESI
+  x1  nanospray desorption electrospray ionization
+  x1  nanospray ion source (CaptiveSpray) with a dual ion funnel
+  x1  native ESI
+  x1  native ESI MS
+  x1  native MS analysis online with capillary electrophoresis (CE)
+  x1  negative -ion formation
+  x1  negative and positive ion electrospray ionization (ESI)
+  x1  negative electrospray ion (ESI)
+  x1  Negative ESI
+  x1  negative ion APPI
+  x1  negative ion electrospray
+  x1  negative ion ESI
+  x1  negative ion mode Electrospray Ionization (ESI)
+  x1  negative ion mode electrospray ionization (ESI)
+  x1  negative ion mode ESI
+  x1  negative ionization mode
+  x1  negative ionization mode with ESI
+  x1  negative ions
+  x1  Negative ions
+  x1  negative mode (-) electrospray ionisation (ESI)
+  x1  negative mode electrospray ionization (ESI)
+  x1  negative mode ESI
+  x1  negative mode ionization
+  x1  negative polarity electrospray ionization (ESI)
+  x1  Negative-ion
+  x1  negative-ion APPI FT-ICR
+  x1  negative-ion atmospheric pressure photoionization
+  x1  negative-ion electron spray ionization
+  x1  Negative-Ion Electrospray Ionization
+  x1  negative-ion electrospray ionization ( -ESI)
+  x1  negative-ion electrospray ionization (ESI -)
+  x1  negative-ion electrospray ionization (ESI(-))
+  x1  negative-ion Electrospray Ionization Fourier Transform Ion Cyclotron Resonance Mass Spectrometry
+  x1  Negative-Ion ESI
+  x1  Negative-Ion ESI and Positive-Ion APPI
+  x1  negative-ion ESI-FT-ICR-MS
+  x1  negative-ion formation
+  x1  negative-ion micro-electrospray
+  x1  Negative-Ion Microelectrospray
+  x1  negative-ion microelectrospray ionization
+  x1  negative-ion microelectrospray ionization (ESI)
+  x1  Negative-Ion-Mode ESI
+  x1  negative-mode electrospray ionization
+  x1  nESI
+  x1  noncontact atomic force microscopy (nc-AFM)
+  x1  nonresonant single-photon ionization
+  x1  novo sequencing
+  x1  on-line LC-ESI
+  x1  photoionization
+  x1  photoionized
+  x1  photoionized by an ultraviolet Krypton lamp ( ∼ 10 eV)
+  x1  photons from an ultraviolet krypton lamp
+  x1  positive and negative ion electrospray ionization (ESI)
+  x1  positive and negative-ion electrospray ionization
+  x1  positive electrospray ionization via direct infusion and high-performance liquid chromatography
+  x1  positive ESI
+  x1  Positive ion APPI FT-ICR MS
+  x1  positive ion electrospray ionization (ESI)
+  x1  positive ion ESI
+  x1  positive ions [29]
+  x1  Positive ions generated at atmospheric pressure
+  x1  Positive ions generated at atmospheric pressure enter the skimmer region through a heated metal capillary
+  x1  positive ions produced by a pulsed laser cluster source
+  x1  positive mode atmospheric pressure photoionization (þ APPI)
+  x1  positive mode electrospray ionization (ESI)
+  x1  positive or negative nanoelectrospray
+  x1  positive- and negative-mode ESI
+  x1  positive-and negative-ion electrospray ionization (ESI)
+  x1  positive-ion (+) APPI
+  x1  Positive-ion APPI
+  x1  Positive-Ion APPI
+  x1  positive-ion APPI (APPI+)
+  x1  Positive-ion APPI broadband
+  x1  positive-ion APPI Fourier transform ion cyclotron resonance mass spectrometry (FT-ICR MS)
+  x1  Positive-ion APPI FT-ICR MS
+  x1  positive-ion atmospheric pressure photoionization (+APPI)
+  x1  Positive-Ion Atmospheric Pressure Photoionization (APPI(+))
+  x1  Positive-Ion Atmospheric Pressure Photoionization (APPI)
+  x1  Positive-Ion Atmospheric Pressure Photoionization Coupled to Infrared Multi-Photon Dissociation (IRMPD)
+  x1  Positive-Ion Electrospray Ionization
+  x1  positive-ion electrospray ionization (ESI), atmospheric pressure photoionization (APPI)
+  x1  positive-ion ESI
+  x1  Positive-ion laser desorption/ionization time-of-flight mass spectrometry measurement (LDITOF-MS)
+  x1  protonation to form cations
+  x1  PTR
+  x1  PTR-PIP MS1
+  x1  pulsed laser cluster source
+  x1  Pyrolysis
+  x1  quadrupole mass filtering
+  x1  SALDI-MS
+  x1  Sanger dideoxy sequencing method
+  x1  selected ion monitoring (SIM)
+  x1  selected reaction monitoring mode
+  x1  Single Photon Ionization
+  x1  single-photon ionization
+  x1  soft ionization
+  x1  soft ionization methods
+  x1  solid phase extraction
+  x1  source-induced dissociation (SID)
+  x1  SPI L 2 MS
+  x1  stable nitrogen and carbon isotope analyses
+  x1  Standard ESI in negative mode
+  x1  thermal cracking
+  x1  top-down mass spectrometry
+  x1  top-down MS/MS
+  x1  two ionization modes (not specified)
+  x1  ultrahigh-resolution MS
+  x1  UPLC
+  x1  UV
+  x1  UV absorbance
+  x1  vacuum ionization
+  x1  vacuum photoionization
+  x1  vacuum resonance-enhanced multiphoton ionization (REMPI)
+
+=== sample_type (1774 distinct) ===
+  x35  asphaltenes
+  x23  Samples
+  x20  samples
+  x20  water samples
+  x15  Water samples
+  x14  DOM
+  x13  bio-oils
+  x12  Asphaltenes
+  x11  DOM extracts
+  x9  DOM samples
+  x9  oil
+  x9  proteins
+  x8  asphaltene samples
+  x8  bio-oil
+  x8  crude oil
+  x8  DNA
+  x7  asphaltene
+  x7  DOC concentrations
+  x6  dissolved organic matter
+  x6  DOC concentration
+  x6  Guayule resin
+  x6  Mass spectra
+  x6  peaks
+  x6  water
+  x5  Methanolic extracts
+  x5  seawater
+  x5  soil
+  x5  soil samples
+  x5  Surface water samples
+  x5  Water
+  x4  Asphaltene
+  x4  DOC
+  x4  DOM composition
+  x4  Filtered water samples
+  x4  In vitro material
+  x4  metabolites
+  x4  oil samples
+  x4  petroleum samples
+  x4  Soil samples
+  x3  2
+  x3  asphaltene aggregates
+  x3  asphaltene fractions
+  x3  Asphaltene samples
+  x3  biochar
+  x3  carbonic anhydrase
+  x3  compounds
+  x3  Dissolved organic carbon
+  x3  Dissolved Organic Matter
+  x3  fullerenes
+  x3  guayule resin
+  x3  HA sample
+  x3  Industrial activated sludge
+  x3  iron-bryostatin-1
+  x3  Methanol extracts
+  x3  Model compounds
+  x3  peptides
+  x3  petroleum
+  x3  petroleum compounds
+  x3  PetroPhase 2017 asphaltenes
+  x3  petroporphyrins
+  x3  phospho-rp53 modforms
+  x3  Polar
+  x3  porphyrins
+  x3  protein
+  x3  proteoforms
+  x3  pyrolysis oil
+  x3  RNA
+  x3  sediments
+  x3  Soil
+  x3  soil leachates
+  x3  SPE extracts
+  x3  upgraded oil
+  x3  whole PetroPhase 2017 asphaltenes
+  x3  zooplankton
+  x2  100
+  x2  3
+  x2  6
+  x2  algae
+  x2  All samples
+  x2  all samples
+  x2  analytes
+  x2  Anions
+  x2  ARN acids
+  x2  asphaltene compounds
+  x2  asphaltene nanoaggregates
+  x2  asphaltene sample
+  x2  asphaltene-rich phase
+  x2  bio-oil fractions
+  x2  biocrude
+  x2  biocrude oil
+  x2  biomass
+  x2  bitumen
+  x2  C + 6
+  x2  C7-asphaltenes
+  x2  catalyst
+  x2  Cells
+  x2  Crude oil
+  x2  Crude Oil
+  x2  crude oil components
+  x2  crude oils
+  x2  data
+  x2  Dissolved organic carbon (DOC)
+  x2  Dissolved organic carbon (DOC) concentrations
+  x2  Dissolved organic matter
+  x2  dissolved organic matter (DOM)
+  x2  Dissolved Organic Matter (DOM)
+  x2  DNA samples
+  x2  DOC concentration measurements
+  x2  DOM HR-1 samples
+  x2  DOM isolates
+  x2  DOM molecular composition
+  x2  DOM pool
+  x2  DOM standards and fossil fuel-derived samples
+  x2  E. coli cell lysate
+  x2  Excitation-Emission matrices (EEMs)
+  x2  Experimentally measured masses
+  x2  Extracts
+  x2  Filtered and acidified samples
+  x2  Filtered samples
+  x2  food waste
+  x2  food waste slurry
+  x2  Fulvic Acids
+  x2  Gas-phase neutrals
+  x2  Genomic DNA
+  x2  groundwater
+  x2  Halobacteriovorax
+  x2  Hb
+  x2  Histone H4
+  x2  histone H4
+  x2  Histones
+  x2  HTL products
+  x2  hydrocarbons
+  x2  Immunoglobulins
+  x2  intact protein
+  x2  intact proteins
+  x2  intact rp53
+  x2  ions
+  x2  leachate
+  x2  lipase extracts
+  x2  media samples
+  x2  microbial community
+  x2  molecules
+  x2  municipal waste sludge
+  x2  MWO and sediment extracts
+  x2  Natural Organic Matter
+  x2  OSPW extracts
+  x2  oxygen
+  x2  oxylipins
+  x2  paclitaxel
+  x2  PCR products
+  x2  peatlands
+  x2  peptide-like
+  x2  petroleum fractions
+  x2  Petroleum from Light Distillates to Asphaltenes
+  x2  Proteins
+  x2  Puri fi ed Asphaltenes
+  x2  Sample solution
+  x2  Samples for DOC concentration
+  x2  Sewage Sludge
+  x2  Soil extracts and DOM in the porewater
+  x2  Soil Organic Matter
+  x2  soils
+  x2  SPE-DOM samples
+  x2  SRFA
+  x2  standard proteins
+  x2  stormwater
+  x2  Stream water
+  x2  stream water samples
+  x2  sulfur
+  x2  Surface sediments
+  x2  Surface waters
+  x2  total lipids
+  x2  V. parahaemolyticus
+  x2  WAF samples
+  x2  Water-soluble organics
+  x2  whole asphaltene samples
+  x2  whole asphaltenes
+  x1  %
+  x1  % ∂ 13 C- DOC, ‰
+  x1  'F4 UASE' fraction
+  x1  'Rasless' MEFs expressing KRAS4A WT, KRAS4B WT, or KRAS4B G13D
+  x1  (C) Paclitaxel complexed with Cu(II) (green) and sucrose
+  x1  +APPI, samples
+  x1  0.2 liter surface seawater
+  x1  0.2 liter surface seawater samples
+  x1  1
+  x1  1 DOC over 28 days
+  x1  1,4-dioxane and protein (representing biomass)
+  x1  1,4-Dioxane concentration in the experiment at time t
+  x1  1,4-dioxane intermediates
+  x1  1,4-Dioxane-metabolizing bacteria
+  x1  1000
+  x1  12
+  x1  13 C isotopologues of the same molecule
+  x1  16 S ribosomal RNA (rRNA) gene
+  x1  16 S rRNA gene sequences
+  x1  160 mL serum gas vial samples
+  x1  16S RNA gene amplicons
+  x1  16S rRNA (gene) sequences
+  x1  16S rRNA amplicon sequencing data
+  x1  16S rRNA gene
+  x1  16S rRNA gene sequences
+  x1  16S rRNA gene sequencing
+  x1  2,2 ′ -azino-bis(3-ethylbenzothiazoline-6-sulfonic acid) diammonium salt (ABTS)
+  x1  2000
+  x1  21 T FT-ICR MS data
+  x1  21 T FT-ICR MS files and elemental compositions
+  x1  22 Model compounds with diverse oxygen-containing functional groups
+  x1  25 metabolites mixture (10 μ M) and E. coli extract sample
+  x1  25-compound metabolite mixture
+  x1  25-compound model mixture and E. coli cell lysate
+  x1  2D 13 C -1 H HSQC spectra of the 25-compound model mixture and E. coli cell lysate
+  x1  2D cross-peaks
+  x1  3-D van Krevelen diagrams for crude oils
+  x1  300 °C Biochar sample
+  x1  4
+  x1  500
+  x1  a 25-compound model mixture
+  x1  a complex mixture of proteins
+  x1  a highly abundant homologous alkylation series
+  x1  a mixture of ATP and PAPS with added sodium triflate
+  x1  AA residues that di ff er from Hb A β
+  x1  Absorbance
+  x1  Absorbance spectra
+  x1  abundant homologous alkylation series
+  x1  abundant microbial metabolites in biomass
+  x1  acetate
+  x1  acetate and sulfate concentrations
+  x1  acetone/cyclohexane fraction of Kentucky bluegrass biochar
+  x1  Achromobacter liquifaciens ATCC 17716
+  x1  Acidi fi ed samples
+  x1  acidic asphaltenes
+  x1  acidic NSO compounds in crude oils of different geochemical origins
+  x1  Active layer and permafrost samples
+  x1  Active Microbial Communities
+  x1  additive-free low-density PE film
+  x1  Adsorbed analytes
+  x1  AIMP3 peptide (with and without LmnA)
+  x1  AL amyloidosis patient sample 1 subunits
+  x1  Al. faecalis, Bacillus megaterium (G C ) , Corynebacterium Barkeri (G C ) , Staphylococcus aureus var.
+  x1  algaes
+  x1  algal feedstocks and HTL products
+  x1  algal mats
+  x1  aliphatic
+  x1  aliphatic island stability (IOS; RA)
+  x1  alkali lignin
+  x1  Alkali lignin or Kraft lignin (Sigma-Aldrich, Germany)
+  x1  alkali-extracted lignin
+  x1  Alkaline copper quaternary compounds-treated wood (ACQ-W)
+  x1  alkanes
+  x1  Alkylated amine
+  x1  All top-down ECD data
+  x1  alpha-phellandrene
+  x1  ambient water measurements, flow, and BDON
+  x1  amplicon sequence variants (ASVs)
+  x1  an alkyl-bridged, four-core compound
+  x1  An asphalt volcano sample ( Il Duomito )
+  x1  an o ff shore fl oating oil mat
+  x1  analyte
+  x1  Analytes
+  x1  analyzed matrices
+  x1  Anion and cation samples
+  x1  Anions and cations
+  x1  anions, cations, nitrogen species (nitrate nitrogen (N e NO3) and ammonium nitrogen (N e NH4)), stable water isotopes ( 2 H and 18 O), alkalinity, total DOC, LC-OCD
+  x1  annual DOM composition
+  x1  anthropogenic DOM
+  x1  Antioxidant capacity
+  x1  APIs (mixed with tetramethylammonium hydroxide)
+  x1  APPI FT-ICR mass spectrum
+  x1  aquatic mosses (bryophytes)
+  x1  aquatic sedge (Carex aquatilis)
+  x1  aqueous phases from a fast pyrolysis bio-oil and a pretreated wheat straw
+  x1  aqueous samples
+  x1  AR and asphaltene samples
+  x1  Arabian heavy asphaltenes
+  x1  Arabian heavy crude oil
+  x1  Arabian heavy gas oil distillate and Mackay Canadian bitumen distillate
+  x1  Arabian heavy n C7 asphaltenes (known as PetroPhase 2017)
+  x1  Arctagrostis latifolia
+  x1  Arctic tundra
+  x1  aromatic and less polar compounds
+  x1  Aromatic Extract
+  x1  artifacts (e.g., byproducts formed during extraction or storage)
+  x1  ash
+  x1  ash layer
+  x1  Asphalt Binder
+  x1  asphalt volcano sample
+  x1  Asphaltene 2017 (from a Middle Eastern crude oil; vanadium content: 640 ppm) and its extrography fractions
+  x1  Asphaltene Chemical Structural Modification Induced by Thermal Treatments
+  x1  asphaltene extrography fractions
+  x1  asphaltene film
+  x1  asphaltene fraction
+  x1  Asphaltene Fractionation
+  x1  asphaltene mixture
+  x1  asphaltene model compounds
+  x1  asphaltene molecular structures
+  x1  asphaltene molecules
+  x1  asphaltene monomers
+  x1  Asphaltene sample A2017
+  x1  Asphaltene Samples
+  x1  asphaltene samples and fractions
+  x1  Asphaltene samples, extrography fractions, and oil-soluble oxidation products
+  x1  Asphaltene Solubility Fractions
+  x1  asphaltene solutions
+  x1  asphaltene species
+  x1  asphaltene, polar acidic, and polar basic species in petroleum and petroleum-derived materials
+  x1  asphaltene-rich bottom stream
+  x1  Asphaltenes and extrography fractions
+  x1  Asphaltenes and fractions
+  x1  asphaltenes and maltenes
+  x1  asphaltenes and related substances
+  x1  asphaltenes and silica gel
+  x1  asphaltenes and their subfractions A1 and A2 on SiO 2 NPs
+  x1  asphaltenes isolated from vacuum gas oil distillate cuts
+  x1  asphaltenes or petroleum fractions
+  x1  Asphaltenes, fractions, and maltenes
+  x1  asphaltenes, maltenes
+  x1  assigned amino acids
+  x1  asynchronous cells
+  x1  Athabasca Bitumen
+  x1  Athabasca bitumen
+  x1  Athabasca bitumen and Maya asphaltenes, Wyoming deposit sample
+  x1  Athabasca bitumen heavy vacuum gas oil (HVGO) distillation cut
+  x1  autocatalytic motifs
+  x1  Avicennia marina (phytoremediation)
+  x1  bacteria species
+  x1  Bacterial cells
+  x1  bacterial communities in the experimental flasks
+  x1  Bacterial Strains Used for Protein Expression
+  x1  Bangladesh furnace oil and Texas City IFO
+  x1  Baseline chemistry samples
+  x1  basic and acidic nitrogen-, nitrogen oxide-, and halogen-containing species present in the four pyrolysis oils
+  x1  BaSO4, Isotope comparison materials (IAEA-S-1, IAEA-S-2, and IAEA-S-3), Isotope comparison materials (IAEASO-5 and IAEA-SO-6)
+  x1  bathymetry and co-registered backscatter data
+  x1  Bdellovibrio s
+  x1  BEAS-2B and HeLa cells
+  x1  beaver pond sediment samples
+  x1  benthic biofilms and mats from Step Creek
+  x1  benthic foraminifera
+  x1  benthic invertebrates
+  x1  benthic mats in Step Creek
+  x1  benzo[b]naphtho[2,3 d]thiophene
+  x1  beta-ocimene
+  x1  beta-phellandrene
+  x1  beta-pinene
+  x1  Bio-Crude Components Derived from Pyrolysis of Soft Wood and Its Esterified Product
+  x1  Bio-crude oils
+  x1  Bio-oil
+  x1  Bio-Oil
+  x1  Bio-oil and its hydrotreated effluents
+  x1  bio-oil compounds
+  x1  bio-oil feed (or RCFP biocrude) and hydrotreated effluents
+  x1  bio-oil fractions, acetylated fractions, and aging test samples
+  x1  bio-oil species
+  x1  bio-oils derived from pyrolysis of milorganite fertilizer and coal tar
+  x1  Bio-Ox
+  x1  Biochar leachate
+  x1  biochar leachates of southeastern US leaves, grasses, and pine needles
+  x1  Biochar particles
+  x1  biochar particles
+  x1  biochar samples
+  x1  biochar undergoing thermal degradation
+  x1  Biochar-amended compost
+  x1  biochar-derived samples
+  x1  biocrude and char products
+  x1  biocrude products
+  x1  biocrude samples
+  x1  Biocrude samples dissolved in toluene
+  x1  Biocrudes
+  x1  biocrudes
+  x1  Biofilms for microscopy
+  x1  Biofluid
+  x1  Biofluid LiMe
+  x1  biofluid LiMe
+  x1  biofluids made from melon (LiMe and LiMeG) and sunflower (LiSu and LiSuG)
+  x1  biogeochemical parameters
+  x1  Biological and Chemical Reagents
+  x1  biological data
+  x1  Biomarker lignin phenols
+  x1  biomass feed
+  x1  biomass in seawater
+  x1  biomass samples
+  x1  Bionanofluid LiMe/ MgO
+  x1  Bionanofluid LiMe/Al2 O3
+  x1  Bionanofluid LiMe/MgO
+  x1  Bionanofluid LiMe/SiO2
+  x1  bionanofluids
+  x1  Biosolids
+  x1  biosolids leachates
+  x1  Bitumen
+  x1  bitumen heavy vacuum gas oil
+  x1  bitumen samples
+  x1  blackwater-1 samples
+  x1  blank
+  x1  blue whales (Balaenoptera musculus)
+  x1  boreal forest and peatlands
+  x1  borneol
+  x1  bottom-up proteomics
+  x1  branched and cyclic alkanes, aromatics, and resins
+  x1  Breast cancer
+  x1  Brightfield and fluorescent images
+  x1  bryostatin-1
+  x1  bryostatin-1 [Na-C47H68O17]
+  x1  BS
+  x1  BSA and peptide mix
+  x1  bulk (untreated DOM sample) and unbound DOM from batch equilibrium experiments
+  x1  Bulk Elemental Composition for the Bio-Oil Feed and the Hydrotreated Effluents
+  x1  bulk sample
+  x1  bulk soil organic carbon
+  x1  bulk soils
+  x1  Bulk δ 13 C-DOM
+  x1  bulrush
+  x1  Burned oil
+  x1  business continuity
+  x1  butadiene
+  x1  C. elegans proteins
+  x1  C26 -C30 steranes, C21 -C26 tricyclic terpanes, and C27 -C35 triterpanes, together with saturated and aromatic carotenoids
+  x1  C60
+  x1  C7 asphaltenes
+  x1  Ca, K, Mg, Na, P, and S
+  x1  Camellia oleifera cake
+  x1  camphene
+  x1  Canadian bitumen
+  x1  carbon
+  x1  carbon, wt %
+  x1  carbonic anhydrase II
+  x1  carboxylic acids and other polar functional groups
+  x1  carboxylic-rich alicyclic molecules (CRAM)
+  x1  Carex sp.
+  x1  carotenoids
+  x1  carvone
+  x1  catalyst crystallinity
+  x1  catalyst materials
+  x1  catalysts
+  x1  Cations
+  x1  cattail (Typha latifolia)
+  x1  CcH2c + ZO2 acids identified in Chinese crude oil
+  x1  cDNA
+  x1  CDOM
+  x1  CDOM absorption coef fi cients
+  x1  CDOM residue
+  x1  cell populations
+  x1  Cell types isolated from human bone marrow
+  x1  cells in S and G2/M phase
+  x1  Central Nervous System
+  x1  CeO2
+  x1  CFRE-2 sediment
+  x1  CH4 gas
+  x1  Char particles
+  x1  charcoal sample
+  x1  Charred Moss
+  x1  Charred Wood
+  x1  chemical classes
+  x1  chemical compounds
+  x1  Chemical Dispersant Corexit 9500 in Seawater
+  x1  chemical oxygen demand
+  x1  chemical oxygen demand (COD) concentrations
+  x1  chemicals from lignin
+  x1  chemistry, CAZyme data
+  x1  chimeric MS2 spectra
+  x1  chimeric MS2 spectra of the tested ARUP Hb β variant samples
+  x1  chimeric MS2 spectra of β subunits from patient (homozygous) Hb A and from six of the seven heterozygous patient variant samples
+  x1  Chinese crude oil
+  x1  chl a
+  x1  chloraminated drinking water
+  x1  Chlorophyll a
+  x1  chlorophyll a (Chl a )
+  x1  chlorophyll-a
+  x1  CHO compounds
+  x1  CHO K1 cell line AS52, clone 11 -4 -8
+  x1  CHON
+  x1  chromophoric dissolved organic matter (CDOM)
+  x1  Chromophoric dissolved organic matter (CDOM)
+  x1  CHTL aqueous fractions
+  x1  Circular dichroism spectra
+  x1  cis-pinocarveol
+  x1  Cladonia rangiferina
+  x1  Class distribution for selected classes from initial OSPW (i-OSPW) prior to incubating with wetland plants generated by negative-ion ESIFT-ICR-MS data with WAX and ENV+ SPE methods
+  x1  classes of dissolved organic materials (organic acids, bases and neutral species)
+  x1  clumped whale excrement
+  x1  CO2 in the headspace of the second aliquot
+  x1  coal n C7insoluble material
+  x1  coal tar sealant
+  x1  Coals
+  x1  COD (Chemical Oxygen Demand)
+  x1  coli J5 LPS from Sigma Aldrich
+  x1  collected water
+  x1  colloidal material
+  x1  Colon cancer
+  x1  Colon Cancer
+  x1  Commercial bio-oils
+  x1  commercial NAP acids
+  x1  Complex High-Boiling Samples
+  x1  complex mixtures
+  x1  complex natural materials
+  x1  Complex Natural Mixtures
+  x1  Complex Organic Mixtures
+  x1  complex organic mixtures
+  x1  component molecules
+  x1  Composition of heavy petroleums
+  x1  compositional gradients in reservoirs
+  x1  Compost feedstock
+  x1  Compound classes
+  x1  Compound eyes from wild-type Drosophila melanogaster
+  x1  Compound-specific δ 13 C values for individual BPCAs
+  x1  Compounds
+  x1  compounds AD
+  x1  compounds comprised primarily of CHO
+  x1  compounds in crude oil that fluoresce
+  x1  compounds with less surface affinity
+  x1  Condensed aromatic
+  x1  condensed aromatic compounds
+  x1  Condensed Aromatic Systems
+  x1  consumer PE bags
+  x1  content
+  x1  continuous multivariate data
+  x1  Control oil samples
+  x1  conventional crude oil
+  x1  conventional till fallow-wheat (FW)
+  x1  Copper Content
+  x1  corn
+  x1  Corn photosynthesis
+  x1  corrosion scales
+  x1  Corrosion Test Samples
+  x1  cortactin-CR, CCM3
+  x1  CortactinCR
+  x1  cortactinCR and cortactinCRH proteins
+  x1  CortactinCR peptide (with and without LmnA)
+  x1  cracking products
+  x1  Crude Acids in Heavy Petroleum
+  x1  crude biological samples
+  x1  crude extracts
+  x1  crude oil compounds
+  x1  crude oil resins and asphaltenes
+  x1  crude oil sample
+  x1  Crude oil samples
+  x1  crude oil samples
+  x1  crude oil-degrading bacterial communities
+  x1  Crude oils
+  x1  crude oils and their derivatives
+  x1  Crude samples
+  x1  cryoconite
+  x1  crystallizable fraction
+  x1  Cu and metal-free ligands
+  x1  Cu Ligands
+  x1  Cu ligands
+  x1  CuLs
+  x1  custom-prepared standard mix
+  x1  Cyanocobalamin
+  x1  cybersecurity posture assessment and reporting
+  x1  cybersecurity support
+  x1  cyclohexane
+  x1  cytochrome c
+  x1  D- and L-enantiomers of aspartic acid
+  x1  DBPs (brominated sulfur-containing DBPs in chlorinated RF)
+  x1  deep con fi ned groundwater
+  x1  deep-sea sediments
+  x1  deeper groundwater samples
+  x1  Deepwater Horizon oil and field sample chemical compositions
+  x1  deionized water
+  x1  delta-elemene
+  x1  Demineralized coal samples
+  x1  density (g/mL)
+  x1  derivatized ketones
+  x1  DFT calculations
+  x1  diatom cell lysis
+  x1  DIC concentrations and δ 13 C-DIC values
+  x1  DIC, δ13C-DIC, Δ14C-DIC, and Keeling Incubations
+  x1  different complexes
+  x1  differentiated cell types
+  x1  Dimethylglyoxime
+  x1  Diol (2OH)
+  x1  dioxane degrading consortium
+  x1  diplosiphon B481-WT and B481-SD strains
+  x1  diplosiphon lipids
+  x1  diplosiphon strains
+  x1  diquat-dibromide monohydrate (DQ)
+  x1  direct infusion ECD, LC-ECD, and ETD-HCD MS 3 data
+  x1  disaster recovery
+  x1  dissolved CH4
+  x1  dissolved CO2
+  x1  Dissolved Cu and Ni
+  x1  dissolved gases, propane and ethane
+  x1  dissolved iron (dFe) and copper (dCu)
+  x1  dissolved low-molecular weight components within the subsurface intrusion
+  x1  Dissolved methane concentration
+  x1  dissolved organic carbon (DOC) concentration
+  x1  Dissolved Organic Carbon (DOC) Concentration
+  x1  Dissolved organic carbon (DOC) samples
+  x1  Dissolved organic carbon (DOC), absorption and fluorescence spectroscopy
+  x1  Dissolved organic carbon concentrations
+  x1  Dissolved organic carbon concentrations from T0, T1, and T60 water samples and SPE-DOC extracts
+  x1  Dissolved organic carbon concentrations of the bioincubation sample sets
+  x1  Dissolved organic carbon samples
+  x1  Dissolved Organic Matter (DOM) Extracts
+  x1  Dissolved organic matter (DOM) in river samples
+  x1  dissolved organic matter and CAOM
+  x1  Dissolved Organic Matter Composition
+  x1  dissolved organic molecular formulas in seawater, polymers in seawater
+  x1  dissolved organic species in impacted leachates, dissolved compounds
+  x1  Dissolved oxygen concentration
+  x1  Dissolved urea
+  x1  DOC (g C)
+  x1  DOC (leached in the dark and produced by sunlight)
+  x1  DOC and CDOM analyses
+  x1  DOC and DIC
+  x1  DOC and TDN Concentrations, DOC:TDN Ratio, and FT-ICR MS Metrics and Compound Classes in Stream and Soil Pore Water
+  x1  DOC and the DIC
+  x1  DOC Concentration and Isotopic Analyses
+  x1  DOC concentration, δ13C-DOC and Δ14C-DOC
+  x1  DOC concentration/composition
+  x1  DOC concentrations of samples
+  x1  DOC fractions
+  x1  DOC from both water samples and SPE-DOM
+  x1  DOC measurements
+  x1  DOC samples
+  x1  docosahexaenoic acid (DHA; c22 ω 3)
+  x1  DOM (DOM aromaticity and molecular character)
+  x1  DOM (in thawed, filtered water samples)
+  x1  DOM analyses
+  x1  DOM and WEOM samples
+  x1  DOM characterization via FT-ICR MS
+  x1  DOM chemical composition
+  x1  DOM composition for the Greenland samples
+  x1  DOM endmembers
+  x1  DOM extraction procedures
+  x1  DOM extracts (200 mg C L -1 in methanol)
+  x1  DOM extracts of each litter species
+  x1  DOM extracts of initial and final control bioincubation samples for each site
+  x1  DOM from Lake Drummond (Great Dismal Swamp National Forest, VA, USA)
+  x1  DOM HR1 samples
+  x1  DOM in the obtained supernatants
+  x1  DOM in water samples
+  x1  DOM leached from organic-soil horizons
+  x1  DOM mass spectra
+  x1  DOM molecular character
+  x1  DOM molecular composition data
+  x1  DOM molecular formula assignments
+  x1  DOM molecules
+  x1  DOM percentages (MLBR derived from the fraction with H/C < 1.5)
+  x1  DOM samples, including the Florida whole waters and isolates
+  x1  DOM solutions and the sorbed OM extracts
+  x1  DOM source materials
+  x1  DOM structural fractions
+  x1  DOM sulfur content and molecular composition for different sample types and LULC
+  x1  DOMHC
+  x1  DOMHC extracts
+  x1  DON
+  x1  DON components
+  x1  DON formulas
+  x1  DON in the 0.45 m m-fi ltered samples
+  x1  DON in the sample water after it passed through each SPE cartridge
+  x1  DON, the N-bearing organic component
+  x1  Dried and crushed sediment samples
+  x1  dried aqueous phase samples
+  x1  dried biocrude samples
+  x1  dried DOM extracts
+  x1  dried feedstock and biocrude
+  x1  dried feedstock, HTL solids (including catalyst), and biocrude
+  x1  Dried histone fraction
+  x1  dried PPL-extracted DOM
+  x1  dry food waste, HTL-char, and bio-crude oil
+  x1  E. coli
+  x1  E. coli or C. elegans protein
+  x1  E. coli-derived knob-into-hole and WTE. coli antibodies, as well as the WT-CHO antibody
+  x1  EAC and EDC
+  x1  eicosapentaenoic acid (EPA; c20 ω 3)
+  x1  eicosatetraenoic acid-derived oxylipins
+  x1  Electron transfer mediators
+  x1  element analysis
+  x1  Elemental analysis (%) calcd for C40H62ClFeN2 (661.40): C, 72.55; H, 9.44; N, 4.23.
+  x1  Elemental Analysis (wt.%)
+  x1  elemental analyzer/isotope ratio mass spectrometer
+  x1  elemental composition, CcHhNnOoSs
+  x1  elemental compositions containing CcHhNnOoSs
+  x1  Elevenpoint titrations
+  x1  EMT markers
+  x1  emulsions
+  x1  Enantiomers
+  x1  encryption
+  x1  Enriched culture
+  x1  Enriched culture AS
+  x1  Enriched culture FS
+  x1  enriched cultures
+  x1  enriched natural bacteria population from sample sites
+  x1  ENV
+  x1  environmental samples
+  x1  enzyme
+  x1  enzymes
+  x1  equimolar mixtures of pyridinic/pyrrolic petroleum model compounds
+  x1  equine heart myoglobin peptides
+  x1  Equine myoglobin
+  x1  Escherichia coli
+  x1  Escherichia coli cell lysate
+  x1  Escherichia coli strain MG1655
+  x1  established cybersecurity control implementations
+  x1  ethyl acetate
+  x1  Etio porphyrins
+  x1  evolved gas mixture from TG measurements
+  x1  Excitation emission matrices (EEMs)
+  x1  Excitation-Emission matrices (EEMs) fluorescence spectra
+  x1  experimental shallow-lake mesocosms
+  x1  experiments were performed in triplicate with a calibrated KinTek RQF-3 Rapid Quench-Flow Instrument maintained at 25 ° C by a circulating water bath.
+  x1  External metabolites
+  x1  external metabolites
+  x1  extract
+  x1  extracted DNA
+  x1  Extracted DOM samples
+  x1  Extracted histones
+  x1  extracted samples
+  x1  extracts
+  x1  extracts, oil and IM samples
+  x1  extrographic fractions of PetroPhase 2017 asphaltenes
+  x1  extrography fractions
+  x1  F. diplosiphon WT and Transformant
+  x1  F. diplosiphon WTcDNA
+  x1  F4 UASE fraction
+  x1  FA fractions
+  x1  fast pyrolysis bio-oil
+  x1  fast pyrolysis vapours
+  x1  fatty acid concentrations
+  x1  fatty acids
+  x1  FDOM
+  x1  FDOM EEMs measurements
+  x1  fecal matter
+  x1  feedstock
+  x1  Feedstock (500 g) containing 5 wt % algae solids in crude glycerol
+  x1  feedstocks and biocrudes
+  x1  Ferrioxamine E and cyanocobalamin standards
+  x1  fetal bovine serum (FBS)
+  x1  fi ltered water samples
+  x1  filtered and acidi fi ed samples
+  x1  Filtered samples for dissolved organic carbon (DOC) concentration measurements
+  x1  filtered slurry subsamples
+  x1  Filtered Tapajós River water samples
+  x1  Filtered water
+  x1  filtered water samples
+  x1  Filtered water samples for DOC and TDN
+  x1  Filtered/lyophilized day 0, 1, and 3 samples
+  x1  Filtrate (~20 mL) for DOC quantification
+  x1  Floodplain Mud
+  x1  fluid
+  x1  fluoranthene anions
+  x1  fluorescence of blanks
+  x1  Fluxes
+  x1  Food Waste
+  x1  food waste feeds
+  x1  food waste, bio-crude oil, and HTL-char
+  x1  forensic petroleum biomarker compounds
+  x1  forest litter
+  x1  formaldehyde
+  x1  formulae
+  x1  Formulas containing carbon (C), hydrogen (H), oxygen (O), nitrogen (N), and sulfur (S)
+  x1  fossil organic hydrocarbons
+  x1  fossil petroleum materials
+  x1  fossilized carbon
+  x1  fossilized hydrocarbons in the form of oils
+  x1  Four Crude Oils and Their Distillation Cuts
+  x1  Four different plastic pyrolysis oils
+  x1  fractionated yeast lysate
+  x1  Fragment ion (MS2) spectra
+  x1  fragment ions
+  x1  freeze dried extracts
+  x1  Freeze-dried retentates from 1 k Da cutoff ultrafiltration
+  x1  Fremyella diplosiphon B481-SD strain
+  x1  fresh, unweathered Macondo oil and four marsh sediment extracts
+  x1  freshwaters
+  x1  Frozen samples
+  x1  FT -ICR MS analyses
+  x1  FT -ICR MS samples
+  x1  FT-ICR MS samples
+  x1  FT-ICR MS SPE extracts
+  x1  Fuel types included heating oil, Jet A-50 fuel, unleaded gasoline, diesel fuel, kerosene, ANS crude oil, and burnt ANS crude oil
+  x1  Fullerene samples
+  x1  Fullerenes
+  x1  Fulvic and humic acid standards, including Suwannee River isolates
+  x1  functional groups in SOM
+  x1  furaldehyde
+  x1  G6PDH
+  x1  gamma-zone monoclonal immunoglobulin (M-protein) species
+  x1  gammopathy in the gamma zone, which included two truncated species
+  x1  GAMs
+  x1  gas
+  x1  gas extraction wastewaters and bromide-spiked surfactant mixture
+  x1  gas samples
+  x1  gases
+  x1  GC eluent
+  x1  GCxGC
+  x1  Gel Permeation Chromatography (GPC) analyses
+  x1  genomic DNA
+  x1  Genomic DNA of sediment
+  x1  geochemical samples
+  x1  geological sample extracts
+  x1  geological samples
+  x1  Glacial
+  x1  glacial runoff from the Brooks Range
+  x1  glacial samples and source endmember leachates
+  x1  glacier discharge
+  x1  Glacier meltwaters
+  x1  glacier outflow streamwater samples
+  x1  glucose
+  x1  Glutaraldehyde solution
+  x1  glyceraldehyde
+  x1  glycine
+  x1  glycine decomposition
+  x1  glycolate
+  x1  glycolipids in neutral lipids and the layered membrane surrounding the lipid droplets
+  x1  glyoxal
+  x1  GOM and shale oils, biocrudes
+  x1  graphene oxide solution
+  x1  Grass
+  x1  Grass leachate
+  x1  gravimetrically weighed standards and replicates of a certified reference material (SLRS-6; National Research Council of Canada)
+  x1  Grinnell Glacier lakes
+  x1  groundwater sample
+  x1  Groundwater samples
+  x1  Growth, photosynthetic pigment accumulation, total lipid content, and FAME results
+  x1  Guayule whole shrub, guayule bagasse, and guayule resin
+  x1  Gulf of Mexico Crude Oil (SRM 2779) (Macondo Well Oil, MWO)
+  x1  Gulf of Mexico seawater
+  x1  H-beta
+  x1  H/C (mol ratio)
+  x1  H/D exchange MS experiments
+  x1  H/D exchange stock
+  x1  H4 N α -ac
+  x1  H4 proteoform
+  x1  HA fraction
+  x1  HA powder
+  x1  HAB toxins
+  x1  Halobacteriovorax and phage
+  x1  Halobacteriovorax and V. vulnificus
+  x1  Halobacteriovorax plaques
+  x1  hardstem bulrush (Schoenoplectus acutus)
+  x1  haze analogues
+  x1  Hb A α and β
+  x1  Hb A β control spectra
+  x1  Hb LeporeWashington-Boston
+  x1  Hb variant
+  x1  Hb variants
+  x1  Hb β variant spectra
+  x1  HDT oil
+  x1  HDX samples
+  x1  He atoms
+  x1  Healthy rat brain
+  x1  heat-treated NCAD1 monomer stock
+  x1  heated concentrated mixture mL
+  x1  heavy and light DOMHC samples
+  x1  heavy crude oil
+  x1  heavy crude oil sample
+  x1  heavy fuel oil (1621e)
+  x1  Heavy Fuel Oil (benthic origin)
+  x1  heavy metal or halogenated contaminants
+  x1  Heavy Petroleum Composition
+  x1  heavy petroleum systems
+  x1  Heavy Petroleums
+  x1  HeLa cells
+  x1  HeLa cells on poly-L-lysine -treated coverslips in 12-well dishes
+  x1  HeLa S3 cells
+  x1  hemicellulose
+  x1  Heteroatom compound distributions in the bio-crude oils
+  x1  heteroatomic species
+  x1  highm / z interfacially active asphaltenes extracted from the acetone fraction from Athabasca bitumen asphaltenes
+  x1  highresolution mass data of natural organic matter
+  x1  Hippocampal cells
+  x1  His-Strep-TrxA-LmnA
+  x1  His-Tev-AIMP3
+  x1  histone H2B proteoforms
+  x1  Histone H4 and H2A
+  x1  histone H4 fraction
+  x1  histone H4 PTM
+  x1  Histone H4 sequence
+  x1  histone variants
+  x1  HMW-NOM
+  x1  hopanes
+  x1  hot spring discharge
+  x1  HPLC-2 fraction
+  x1  HPLC-MS experiments
+  x1  HPTLC plates
+  x1  HRTEM micrographs
+  x1  HS molecular analysis
+  x1  HS samples
+  x1  HTL (H2)
+  x1  HTL biocrude
+  x1  HTL biocrude samples
+  x1  human blood or urine
+  x1  human hemoglobin alpha
+  x1  human histone H4
+  x1  human peripheral blood
+  x1  human proteins (UniProt, November/2016; 20,161 entries) and 31 FDA-approved therapeutic mAb light chains
+  x1  human serum autoantibodies
+  x1  humic acids
+  x1  humic acids (HA)
+  x1  humic like
+  x1  humic substances
+  x1  humpback whales (Megaptera novaeangliae)
+  x1  hydrocarbon (HC) class
+  x1  Hydrocarbon-degrading bacteria and the bacterial community response in Gulf of Mexico beach sands impacted by the Deepwater Horizon oil spill
+  x1  Hydrocarbons
+  x1  hydrocarbons and oxygenates
+  x1  Hydrocarbons into Membrane Phospholipids from Thodococcus Hydrocarbon Degrading Bacteria
+  x1  hydrogen
+  x1  Hydrogen peroxide
+  x1  Hydrogen saturation (H/C) in organic matter
+  x1  hydrogen, wt %
+  x1  hydrolysate
+  x1  hydrophyla UMOS-11
+  x1  hydrotreated intermediates of nickel 149 and vanadyl 60 porphyrins with model compounds octaethylporphyrin (OEP)
+  x1  Hydroxylated surface, polystyrene-divinyl benzene core
+  x1  IAA sample
+  x1  ice cores
+  x1  ICR frequencies
+  x1  IHSS Natural Organic Matter
+  x1  IHSS Standard 2S101F
+  x1  IM
+  x1  IM extracted from the acetone fraction from Athabasca bitumen asphaltenes
+  x1  IM from whole Athabasca bitumen
+  x1  IM isolated from the wet silica method
+  x1  IM-MS experiments
+  x1  Immunoglobulin Reduction
+  x1  immunoglobulins
+  x1  Immunoprecipitation immunofixation (IP-IFE)
+  x1  Immunopuri fi ed KRAS proteoforms
+  x1  Immunopuri fi ed RAS proteins
+  x1  IMs isolated by the wet silica method from four different crude oils
+  x1  in vitro phosphorylated recombinant human p53 (rp53)
+  x1  in-gel digested samples
+  x1  in-gel proteins
+  x1  In-gel trypsin digests
+  x1  incident response planning services
+  x1  Incubation samples
+  x1  Indicator metabolites
+  x1  individual molecular formula
+  x1  Individual samples
+  x1  industrial samples
+  x1  Influent and effluent samples
+  x1  initial sample extracted in methanol
+  x1  inorganic element
+  x1  inorganic salt clusters
+  x1  inorganic species
+  x1  intact and phosphorylated rp53 modforms generated by Chk1 kinase in vitro
+  x1  Intact E. coli J5 LPS
+  x1  intact J5 LPS and J5 dLPS samples
+  x1  intact mAbs
+  x1  intact mass
+  x1  intact protein standards, MCF7 cell lysates
+  x1  Intact rp53
+  x1  intact rp53 protein sequence
+  x1  intact unmodified, phosphorylated, and kinase-free rp53
+  x1  interfaces that presented rheological properties of a two-dimensional (2D) gel near its glass transition
+  x1  interfacial material (IM)
+  x1  interfacial material (IM) from bitumen oil
+  x1  Interfacially Active Asphaltenes
+  x1  Interfacially active materials
+  x1  intracellular metabolites
+  x1  intrinsic tryptophan fl uorescence emission for each of the NCAD1 stocks
+  x1  Ions generated at atmospheric pressure
+  x1  IP fl ow-through fractions, elution fractions preserved in acetone, and IP beads in sample buffer
+  x1  iron-bryostatin-1 complex
+  x1  island model compounds
+  x1  its distillates
+  x1  J5 dLPS/group B meningococcal outer membrane protein (OMP) complex vaccine
+  x1  KBr pellets prepared with 0.2% biochar, 0.4% freeze-dried washing solutions or 0.4% freeze-dried control compost
+  x1  Kentucky bluegrass biochar
+  x1  Kentucky bluegrass biochar sample
+  x1  Kentucky bluegrass impregnated with 10 mM AsymPolPOK
+  x1  ketones
+  x1  Kraft lignin
+  x1  lab technology landscape
+  x1  labile compounds
+  x1  labile metabolites
+  x1  labile particulate Fe ([pFe] labile ) and Cu ([pCu]labile )
+  x1  laboratory experiments
+  x1  lake water
+  x1  lavandulol
+  x1  lavandulyl acetate
+  x1  Leachate
+  x1  leachate organic matter fractionation method
+  x1  Leachate samples
+  x1  leachate solution
+  x1  Leu-MCA
+  x1  Leucine aminopeptidase (LAP)
+  x1  light crude oil
+  x1  light gases emerging during pyrolysis
+  x1  Lignin phenol concentrations and yields
+  x1  Lignin phenols
+  x1  lignin-compounds
+  x1  Lignin-like, protein-like, and polyphenolic compounds
+  x1  lignocellulose pyrolysis oils
+  x1  limonene
+  x1  lipase molecules
+  x1  Lipases
+  x1  lipid
+  x1  Lipid
+  x1  lipid biomarkers in modern and fossilized marine microbial mats, environmental samples
+  x1  Lipid identification and quantitation
+  x1  lipid indicators of nutrient scarcity
+  x1  lipid species
+  x1  lipids
+  x1  lipids content of various microalgae with different biochemical compositions
+  x1  Lipids in F. diplosiphon strains
+  x1  Liquid Chromatography
+  x1  Liquid chromatography SAX fractions
+  x1  loblolly pine
+  x1  lodgepole pine wood
+  x1  Loss on ignition (LOI) measurements
+  x1  low (300 °C) and high (900 °C) temperature biochar
+  x1  low molecular weight molecules
+  x1  Low molecular weight organic acids
+  x1  low-DBE compounds
+  x1  lubricant oil standard
+  x1  lymphoid lineage cells [T cells, B cells, and natural killer (NK) cells]
+  x1  Lys-C and Lys-N digests
+  x1  Lys-N digest
+  x1  MA1 - MA9 derived from the samples
+  x1  mAb
+  x1  mAb samples
+  x1  Macondo crude oil SRM 2779
+  x1  Macondo oil
+  x1  Macondo Oil
+  x1  Macondo Well oil
+  x1  macromolecule decomposition products
+  x1  Macrophages from each bird
+  x1  Macroscopic samples of the pure metallic nitride clusterfullerene Sc3N@C80
+  x1  Maillard reactions of glucose and glycine
+  x1  Maillard reactions of glucose and NH4OH
+  x1  Major anion concentration samples
+  x1  major ions (F - , Cl - , NO 2 - , Br - , NO 3 - , PO 4 3- , SO 4 2- , NH 4 + , Na + , Mg 2+ , and Ca 2+ )
+  x1  maltene fractions
+  x1  maltenic petroleum compounds
+  x1  marine DOM, glacial OM, and/or non-oxygenated OM chemical species from primary producers and energy rich materials
+  x1  marine metabolites
+  x1  Marine microbial communities
+  x1  marine oil spill response
+  x1  marine organic matter
+  x1  marine polysaccharide degrading communities
+  x1  Marine sediment
+  x1  marine waters
+  x1  mass (Da)
+  x1  mass of iron lost from coupons
+  x1  Mass peaks
+  x1  Mass segments
+  x1  mass spectra
+  x1  mass spectra from both instruments
+  x1  Mass spectral peaks
+  x1  Mass spectrometric data
+  x1  material that was dissolved or suspended
+  x1  Matter Missouri River Headwaters: up and downstream of the golf course
+  x1  Maya crude oil
+  x1  media
+  x1  Mega Plume oil seep sample
+  x1  melittin and apomyoglobin
+  x1  Melittin from honeybee venom
+  x1  membrane lipids
+  x1  Mesophilic bacteria E. coli
+  x1  Mesoproterozoic shale extract
+  x1  metabolome
+  x1  metabolomics samples
+  x1  metagenomic data
+  x1  metal -organic complexes
+  x1  metallofullerenes
+  x1  metalloporphyrins
+  x1  metatranscriptome sequencing
+  x1  Meteoritic, abiological, and biological materials
+  x1  methane
+  x1  Methanol eluates
+  x1  methanol extracts
+  x1  methanol spiked with 2% (by volume) ammonium hydroxide
+  x1  Methanolic eluents
+  x1  methods using assigned formulas (e.g., VK diagrams, NOSC vs C)
+  x1  methylthioadenosine
+  x1  MgO nanoparticles
+  x1  microalgae Dunaliella tertiolecta
+  x1  microalgae Dunaliella tertiolecta cake
+  x1  microalgae Nannochloropsis sp.
+  x1  Microbial genomics of the global ocean system
+  x1  Microbial samples
+  x1  microbially derived DOM from the eutrophic coastal pond, Pony Lake, Antarctica (IHSS Pony Lake Fulvic Acid; PL)
+  x1  microbially derived DOM from the oligotrophic supraglacial Cotton Glacier stream, Antarctica (CG)
+  x1  microorganisms of interest
+  x1  microplastic aliquots
+  x1  microplastic samples
+  x1  microplastics
+  x1  microsomal fraction
+  x1  Middle Eastern crude oil distillate fractions
+  x1  Middle Eastern heavy crude
+  x1  Middle Eastern heavy crude oil
+  x1  Middle-down proteomics samples
+  x1  mIgs light chain kappa/ lambda classes
+  x1  Milli-Q water
+  x1  Mineral soil
+  x1  Minnesota forested streams
+  x1  MIPs
+  x1  Mississippi River International Humic Substances Society (IHSS) standard
+  x1  MissNOM
+  x1  mitochondrial proteins from mouse myoblasts and differentiated myotubes
+  x1  mixed polyolefins (MPO) pyrolysis oil
+  x1  mixed therapeutic monoclonal antibodies in human serum
+  x1  Mixed Upstream
+  x1  Mixes 1 -7 MS
+  x1  Mixes A and C (in solution)
+  x1  mixture
+  x1  mixtures of 63 model compounds containing phenol, carboxylic acid, and amide functionalities
+  x1  model compounds
+  x1  modified aromaticity index (AI mod), double bond equivalents (DBE), and nominal oxidation state of carbon (NOSC)
+  x1  Modified polystyrene divinyl benzene
+  x1  moist tundra with numerous thermokarst lakes
+  x1  Molecular classes of isolated parent molecules and fragments
+  x1  molecular composition
+  x1  molecular composition of naphthenic acid mass envelope in historical samples
+  x1  molecular formula
+  x1  Molecular formula assignments
+  x1  molecular formula lists
+  x1  Molecular formulae
+  x1  Molecular level DOM composition
+  x1  molecular structure
+  x1  molecular-level characterization of DOM and WEOM
+  x1  molecules in these models
+  x1  mono-uranium endohedrals
+  x1  Monoclonal Antibodies in Human Serum as a Model for Clinical Monoclonal Gammopathy
+  x1  monoclonal immunoglobulin light chains
+  x1  monoclonal immunoglobulin light chains in human serum
+  x1  monocytes, macrophages, and dendritic cells
+  x1  monoisotopic formula
+  x1  monomeric and dimeric species
+  x1  montane lakes in Glacier and Yellowstone National Parks
+  x1  montane litter leachates
+  x1  montane litter leachates (sources: riparian grass, leaf, and pine needle)
+  x1  montane plant litter leachates
+  x1  Monthly surface water samples
+  x1  mouse mitochondrial proteoforms in myoblasts and differentiated myotubes
+  x1  MSI experiments
+  x1  Multisolvent GPC grade ACS
+  x1  Municipal solid waste
+  x1  MWO and extracts
+  x1  MWW sample
+  x1  myeloma proteins
+  x1  myoglobin and protein A/G
+  x1  myrcene
+  x1  n -Hexane, toluene, dichloromethane stabilized with 50 ppm amylene, and THF
+  x1  N e NO3 and N e NH4
+  x1  N-terminal tails of histone H4
+  x1  Na carbon, C60-coated carbon, or fullerene -PAH target rods
+  x1  Na, K
+  x1  Nannochloropsis sp.
+  x1  nanoaggregates
+  x1  nanoaggregates of asphaltenes in solution
+  x1  Nanocarbon mechanism experiments
+  x1  nanoparticles
+  x1  Nanopure water
+  x1  nanostructures
+  x1  NaOCl reagent
+  x1  NAP concentration in petroleum
+  x1  naphthenic acid, interfacially active, and basic nitrogen compounds
+  x1  native asphaltenes, native/oxidized maltenes, PPA samples, extrography fractions
+  x1  native or weathered oils rich in oxygen
+  x1  natural gas
+  x1  Natural organic matter (NOM)
+  x1  natural organic matter (NOM)
+  x1  Natural Organic Matter (NOM)
+  x1  Natural Organic Matter Molecules
+  x1  natural samples
+  x1  Natural waters
+  x1  natural-isotopeabundance E. coli and C.
+  x1  NCAD1
+  x1  Near-surface water samples
+  x1  Negative -ions produced by electrospray ionization
+  x1  Negative ion mode ESI FT-ICR mass spectra
+  x1  negatively stained R22TP, ScR2TP, and the ice-embedded ScR2TP samples
+  x1  New Vanadium Compounds in Venezuela Heavy Crude Oil
+  x1  NH3 e N
+  x1  NH3/HCHO simulants
+  x1  NH4-N and NO x -N
+  x1  Ni
+  x1  Ni stock solution
+  x1  Ni, VO, Cu, Zn and Mn geoporphyrins
+  x1  Nile Red
+  x1  NIST Standard Reference Material 2777 Weathered Gulf of Mexico Oil
+  x1  Nitrate
+  x1  nitrate standard solution
+  x1  Nitric oxide
+  x1  nitrogen
+  x1  nitrogen, wt %
+  x1  nitrogen-containing model compounds
+  x1  nitrogen-inorganic forms
+  x1  NMR and MS data
+  x1  no-till continuous cropping annual-wheat rotation (AW)
+  x1  nocodazole treatment in MDA-MB-231 cell line
+  x1  NOM samples
+  x1  NOM-corona composition
+  x1  NOM-like functional groups
+  x1  NOM-unrelated standard SRFA
+  x1  non-enzymatic-produced AMC
+  x1  non-halogenated WEOM
+  x1  non-Isolated-PentagonRule Actinide Endohedral Metallofullerenes
+  x1  Non-volatile dissolved organic carbon (NVDOC)
+  x1  nonaggregated asphaltene ions (monomers)
+  x1  nonfunctionalized PAHs in biochar
+  x1  Nonpolar
+  x1  nonporphyrinenriched fraction of Venezuela heavy oil
+  x1  nonvolatile, unresolved complex mixture (UCM)
+  x1  Nop58p
+  x1  normal alkanes
+  x1  North American crude oil and its associated production deposit
+  x1  NOx e N
+  x1  Number of molecular formulas
+  x1  nutrients
+  x1  nZVIs
+  x1  o-cymene
+  x1  oil and gas flowing from the damaged well
+  x1  oil droplet sizes
+  x1  oil residue
+  x1  Oil residues
+  x1  Oil samples
+  x1  oil samples from a reservoir, seafloor vent, and surface oil slick
+  x1  oil spill contaminant
+  x1  oil weathering products
+  x1  Oil, IM, and DOMHC samples
+  x1  oil-soluble fractions
+  x1  oil-soluble ketone/aldehyde photo-oxidation products
+  x1  Oil-Soluble Photoproducts
+  x1  oiled sand
+  x1  oils
+  x1  Oligoacenes
+  x1  OM
+  x1  OMP extracted from phenol-killed bacteria
+  x1  One sample, V-PW1
+  x1  organic compounds
+  x1  Organic extract samples
+  x1  organic fractions isolated from raw landfill leachates
+  x1  Organic ligand samples from solid phase extraction
+  x1  organic matter
+  x1  Organic matter
+  x1  organic matter samples
+  x1  organic molecules up to ∼ 1 kDa in mass
+  x1  organic-rich surface soils
+  x1  organo-mineral particles of the fine fraction
+  x1  Original Samples and Recovered Fractions
+  x1  OSPW (OS) incubated with cattail plants (C1)
+  x1  OSPW (OS) incubated with sedge plants (S1)
+  x1  oxide catalysts
+  x1  oxide phases present in the solid oxide catalysts
+  x1  Oxygenated pentacyclic triterpenes
+  x1  OxygenContaining Compounds
+  x1  oxylipin compounds
+  x1  p53 populations
+  x1  PAH compounds
+  x1  Pahokee Peat
+  x1  PAHs expected in petroleum
+  x1  PARAFAC evenness
+  x1  parahaemolyticus and Halobacteriovorax
+  x1  parent crude oil
+  x1  Parent surrogate oil
+  x1  Park Memorial Institute (RPMI) 1640 medium
+  x1  Partially oxidized GO
+  x1  particulate matter
+  x1  Particulate matter (PM)
+  x1  particulate nutrient analyses
+  x1  patient plasma sample
+  x1  patient tissue samples
+  x1  patient variant sample
+  x1  Patient whole blood samples
+  x1  patients' serum
+  x1  pavement sealants
+  x1  PBDE congeners (Br3-Br10)
+  x1  Peak area data
+  x1  peaks detected on the mass spectra
+  x1  penicillin
+  x1  Pentacene, Hexacene, and Heptacene
+  x1  peptide fragments
+  x1  peptide mixture
+  x1  peptide standards and protein digests
+  x1  Peptide-like
+  x1  percent of biodegradable dissolved organic carbon (BDOC)
+  x1  peripheral blood mononuclear cells
+  x1  permafrost
+  x1  permafrost filtrates
+  x1  Petroleum
+  x1  petroleum asphalt sealant
+  x1  petroleum asphaltenes
+  x1  petroleum biomarker compounds
+  x1  petroleum biomarkers
+  x1  petroleum crude oil
+  x1  Petroleum Group-Type Analysis
+  x1  petroleum mass difference database, Middle Eastern HVGO sample
+  x1  petroleum mixtures
+  x1  petroleum model compounds
+  x1  petroleum porphyrins
+  x1  petroleum-derived DOM extracts
+  x1  petroleum-related samples
+  x1  PetroPhase 2017 Asphaltenes
+  x1  phages
+  x1  phellandral
+  x1  Phosphate (PO4 3 -)
+  x1  phosphorus species in bio-oils
+  x1  photooxidation products
+  x1  Photosynthetic pigment (chl a and carotenoids) and phycobiliproteins (phycocyanin, phycoerythrin, and allophycocyanin)
+  x1  phycobiliproteins
+  x1  physical properties data
+  x1  phytoplankton cytoplasm
+  x1  Pieces of pristine and co-composted biochar
+  x1  Pierce Intact Protein Standard Mix
+  x1  pine oil
+  x1  pine oil and its solubility cuts
+  x1  Pinewood pyrolysis bio-oil samples
+  x1  pinewood-based oil
+  x1  Pinus radiata
+  x1  Plant litter
+  x1  plant litter
+  x1  plant material
+  x1  Plant roots
+  x1  plants
+  x1  plaques
+  x1  plasma cell disorders
+  x1  plastic
+  x1  plastic pyrolysis oil
+  x1  plastic pyrolysis oils
+  x1  plastics
+  x1  Pleistocene-aged yedoma material
+  x1  Plexa
+  x1  plots (Figure S10); zoom-in for HABS at m / z 313 for 21 T direct infusion APPI FT-ICR MS
+  x1  POC concentration
+  x1  Polar and nonpolar
+  x1  Polar, hydroxyl groups
+  x1  polar, nonpolar, and mineral-bound extracts
+  x1  Polyacene and Cyclacene
+  x1  polycyclic aromatic hydrocarbons
+  x1  polycyclic aromatic hydrocarbons (PAHs) and other condensed aromatics
+  x1  polyethylene (PE) pyrolysis oil
+  x1  polymeric resins
+  x1  polyolefinic plastic pyrolysis oils
+  x1  polypropylene (PP) pyrolysis oil
+  x1  polysaccharides
+  x1  Polystyrene-divinyl benzene
+  x1  Polyunsaturated fatty acids (PUFAs)
+  x1  Pooled DNA products
+  x1  pooled samples
+  x1  pore water sample
+  x1  pore water samples
+  x1  Porewater
+  x1  porewater
+  x1  Porewater DOM
+  x1  porewater or extract
+  x1  porewater samples
+  x1  porphyrin standard
+  x1  post-consumer plastic pyrolysis oil
+  x1  postconsumer plastic pyrolysis oils (PE)
+  x1  postconsumer plastic pyrolysis oils (PP)
+  x1  postconsumer plastic waste fractions
+  x1  postconsumer plastic waste pyrolysis oils
+  x1  Postnatal day one (P1) Long-Evans, genetically homogeneous, BluGill rat
+  x1  powder
+  x1  powdered coal sample
+  x1  POXCNL samples
+  x1  PPL
+  x1  PPL eluate
+  x1  PPL extracts in methanol
+  x1  PPL, LLE, and HLB sample extracts
+  x1  PPL-extracted DOM
+  x1  precipitation data
+  x1  Precursor (MS1) and product (MS2) ion spectra
+  x1  precursor ions
+  x1  precursor ions and the fragment ions
+  x1  precursor ions with m / z 454 -457 for the acetone fraction from South American medium n C7 asphaltenes
+  x1  Prepared soil and litter samples
+  x1  pretreated (PT)
+  x1  pretreated soils, powdered HMW DOM
+  x1  products in biotransformed crude oil
+  x1  products of hydroprocessing up to 385 ° C, GPC chromatograms
+  x1  Prostate cancer
+  x1  Protein
+  x1  protein complexes
+  x1  protein concentrations
+  x1  Protein sequences
+  x1  Protein solutions
+  x1  protein structure and characterization of proteoforms
+  x1  protein, carbohydrates, and lipid degradation products from food waste
+  x1  proteins and carbohydrates also present in the feedstocks
+  x1  proteins or peptides
+  x1  proteins, carbohydrates, lipids, and heavy petroleum fractions
+  x1  ProteoExtract all-in-one trypsin digestion kit
+  x1  proteoforms of histone H4
+  x1  Ps. fluorescens, E. coli, Sal. typhosa, Aerobacter aerogenes, Prot. morganii, Sal. paratyphi, Ps. aureofaciens, Ps. aeruginosa, Serratia marcescens
+  x1  PSA
+  x1  Pt/C
+  x1  PTAs
+  x1  PUFAs
+  x1  pure bryostatin-1
+  x1  puri fi ed amplicons
+  x1  puri fi ed vanadyl porphyrins
+  x1  Purified (low protein and nucleic acid content) and lyophilized LPS from E. coli J5 strain
+  x1  purified HA sample
+  x1  purified histone H4 1-23aa peptide sample
+  x1  Purified Pih1p-Tah1p
+  x1  Pyrolysis oil
+  x1  Pyrolysis oil samples
+  x1  pyrolysis oils
+  x1  pyrolysis products of municipal solid waste
+  x1  pyrolysis-oil
+  x1  pyrolyzed carbon
+  x1  pyrolyzed virgin LDPE sample
+  x1  qRT-PCRRNA
+  x1  quality control sample
+  x1  Quaternary alluvial sediment (gravels and clays) overlying Permian volcanics and coal measures
+  x1  quenched water samples
+  x1  quenched, acidi fi ed sample
+  x1  Raman spectra
+  x1  Raney Ni
+  x1  raw and hydrotreated biocrude liquid
+  x1  raw coal powder
+  x1  raw coal powders
+  x1  raw data
+  x1  raw diesel feedstock
+  x1  raw feed (RF)
+  x1  Raw histones
+  x1  raw landfill leachates
+  x1  raw mass lists
+  x1  raw soot extracted using o-DCB
+  x1  Raw spectra files and associated elemental compositions
+  x1  reaction mixture
+  x1  Reaction mixtures
+  x1  reads from genes potentially involved in polysaccharide processing (CAZymes)
+  x1  recombinant full-length human p53 (rp53)
+  x1  recombinant p53
+  x1  recombinant protein A/G
+  x1  Reconstituted protein fractions
+  x1  Reconstituted protein from GELFrEE fraction 1
+  x1  Red oak
+  x1  reference crude oil
+  x1  residual oil
+  x1  residue fractions of a crude oil
+  x1  Rhamnolipids
+  x1  Rhodamine dye
+  x1  rice husk whole bio-oil
+  x1  Rice Paddy water or rhizosphere, Korea
+  x1  river sediment
+  x1  river water samples
+  x1  rock
+  x1  rock scraping
+  x1  room temperature water
+  x1  root extract
+  x1  Roots samples
+  x1  Rose Bengal
+  x1  rp53 digestion products
+  x1  rp53 modforms
+  x1  rp53 phosphorylation sites
+  x1  Rvb1/2p and Pih1p-Tah1p (or Pih1p truncation mutant) complexes
+  x1  S1 class compounds in Arabian heavy oil and NIST 2717a
+  x1  sabinene
+  x1  Salinity
+  x1  Salinity and fluorescent DOM (FDOM) concentrations
+  x1  Sample extracts
+  x1  Sample filtrates
+  x1  sample fluorescence
+  x1  Sample preparation backgrounds
+  x1  Sample solutions
+  x1  sample water
+  x1  Samples (diluted 1:1 in methanol)
+  x1  samples and fractions
+  x1  Samples for d 13 CDOC
+  x1  Samples for DOC concentration and absorbance measurements
+  x1  Samples from Kyrgyzstan
+  x1  Samples of 0.6 ml
+  x1  Samples were prepared for FT-ICR MS with 200 mg Bond Elut PPL Solid Phase Extraction (SPE) cartridges
+  x1  Samples with low CDOM absorbance ( ≤ 0.02 at 350 nm)
+  x1  Samples, standards and blanks
+  x1  sand
+  x1  Sand patties, sediments, and seawater
+  x1  sand patty
+  x1  SARA fractions
+  x1  saturated hydrocarbon sample
+  x1  Saturates, Aromatics, Resins, and Asphaltene
+  x1  ScR2TP complex
+  x1  Seawater
+  x1  Secchi disk depth
+  x1  second-order assembly data
+  x1  security awareness training
+  x1  Sediment
+  x1  sediment cores
+  x1  sediment microbial community
+  x1  Sediment samples
+  x1  Sedum Plumbizincicola
+  x1  Seeds and sprouts
+  x1  Selected samples
+  x1  Selenium species, acetate and sulfate
+  x1  SEM micrographs and X-ray spectra, biochar particles
+  x1  semi-arid soils in Bozeman, Montana
+  x1  serjanic acid C31H48O5
+  x1  Serum bottles
+  x1  Seven commercially available SPE sorbents
+  x1  Seven proteins, human hemoglobin alpha, bovine carbonic anhydrase 2, horse skeletal muscle myoglobin, hen egg white lysozyme, bovine pancreatic ribonuclease A, bovine rhodanese and bovine serum albumin (BSA), as well as endopeptidase Lys-C (Lys-C)
+  x1  sewage and activated sludge
+  x1  shallow groundwater
+  x1  shallow groundwater samples
+  x1  Shewanella oneidensis lysate
+  x1  Signals greater than 6 σ root mean squared baseline noise and mass to charge ratio from 170 to 1200
+  x1  silica (SiO2), alumina (Al2 O3), and magnesium (MgO)
+  x1  Silica based
+  x1  Silicate
+  x1  Similar to unbonded silica
+  x1  Single-cell images
+  x1  single-cell pixels
+  x1  singly charged OM species
+  x1  Slurry geochemistry
+  x1  Small cell lung cancer
+  x1  small organic acids like acetate
+  x1  Soil and permafrost data
+  x1  soil and plant derived OM
+  x1  Soil bacterial and archaeal communities
+  x1  Soil CO2 respiration measurements
+  x1  Soil cores
+  x1  soil extracts
+  x1  Soil extracts
+  x1  Soil fungal communities
+  x1  soil horizons
+  x1  Soil Humic Acids
+  x1  soil leachate
+  x1  soil OM chemical species
+  x1  soil organic matter (SOM)
+  x1  Soil Pore Water and Stream Sampling
+  x1  Soil POXC
+  x1  soil sample
+  x1  Soil WEOM
+  x1  soil-water extracts
+  x1  soil/sediment TOC (%) analysis samples
+  x1  Solid DOM isolates
+  x1  solid phase extracts
+  x1  Solid phase samples
+  x1  solid residue
+  x1  solid samples from the inoculum, the conventional reactor, and the BEC2 and BEC3 reactors
+  x1  Solid waste
+  x1  Solid-phase extraction extracts
+  x1  Solid-state 13 C NMR of lignin
+  x1  solubility fractions
+  x1  solution conditions
+  x1  Solutions
+  x1  solutions
+  x1  solvent mixtures
+  x1  solvents
+  x1  SOM
+  x1  SOM extracts
+  x1  some C atoms, those involved in the cage closure
+  x1  Sourdough Creek in Bozeman, Montana
+  x1  Sourdough Creek stream water
+  x1  southeastern USA plant biochar leachates
+  x1  SPE extracts and procedural controls
+  x1  SPE extracts of dissolved organic matter (DOM) extracts
+  x1  SPE-DOM
+  x1  Sphagnum sp.
+  x1  spiked compounds
+  x1  spin systems
+  x1  SRFA solution
+  x1  SRHA sample
+  x1  Sso MCM variants
+  x1  Sso MCM WT or Y519A
+  x1  stable isotopic measurements
+  x1  standard gases
+  x1  Standards
+  x1  steranes
+  x1  sterile negative controls
+  x1  Stock solutions
+  x1  Stock solutions of the starting and irradiated pavement sealants
+  x1  Stock solutions of unirradiated C7 maltenes and C7 asphaltenes, the asphaltene extrography fractions, and the oilsoluble photoproducts from the irradiated blends (oxidized maltenes and PPA)
+  x1  stock toluene solutions of the derivatized DCM fractions from the NAP postchallenge sample
+  x1  storm fl ow samples
+  x1  stormwater inlet with carbon addition
+  x1  Strata CN
+  x1  stream and leachate DOM
+  x1  stream water
+  x1  Streamwater
+  x1  streamwater
+  x1  streptomycin
+  x1  structurally homologous compounds
+  x1  subsample of the initial slurry
+  x1  sugar-like compounds
+  x1  sulfate
+  x1  Sulfate depletion
+  x1  sulfur assignments
+  x1  sulfur compounds
+  x1  Sulfur, vanadium, and nickel compounds from four crude oils, residues, and SARA fractions
+  x1  sulfur-containing molecules
+  x1  supernatant
+  x1  supernatant samples from the adsorption experiments
+  x1  supernatant solutions
+  x1  Superoxide
+  x1  Supraglacial
+  x1  supraglacial meltwater
+  x1  surface and deep water
+  x1  Surface and deposited oil residues
+  x1  Surface ice particulate matter
+  x1  surface oil
+  x1  surface seawater sample
+  x1  surface soil
+  x1  surface soil samples
+  x1  Surface water
+  x1  surface water
+  x1  surface water samples
+  x1  Surface-water samples
+  x1  suspended particulate organic matter (SPOM)
+  x1  Suwanee River fulvic acid (SRFA)
+  x1  Suwanee river fulvic acid standard, Gulf of Mexico crude oil from Macondo well, an asphalt volcano, and Canadian bitumen
+  x1  Suwannee River fulvic acid
+  x1  Suwannee River Fulvic Acid
+  x1  Suwannee River fulvic acid (SRFA)
+  x1  Suwannee River Fulvic Acid (SRFA)
+  x1  Suwannee River Fulvic Acid II
+  x1  Suwannee River Fulvic Acids
+  x1  syringae*****
+  x1  t28 bioincubation samples
+  x1  TAN (mg KOH/g oil)
+  x1  Tellurium species
+  x1  TeO3 2 -
+  x1  Terpene composition
+  x1  terpinolene
+  x1  terrestrially derived DOM from the Suwannee River, U.S.A. (IHSS Natural Organic Matter; SR)
+  x1  text-free areas of the bags
+  x1  The copper(II) cation, sucrose, and hydroxychloroquine
+  x1  the corresponding desulphated oil (DAO 1)
+  x1  The ionized eluate
+  x1  the methanol-soluble fraction of the initial sample before aging
+  x1  the molecule
+  x1  the Samples
+  x1  The samples
+  x1  The saturate, aromatic, resin, and asphaltene (SARA) contents
+  x1  The supernatant was analyzed as the rock powder extract.
+  x1  The system uses a Q-switched frequency-tripled Nd:YLF laser emitting 349 nm light (Explorer One, Spectra Physics, Mountain View, CA)
+  x1  The WT and the simpli fi ed knob-intohole protein, which is an in vitro -assembled knob-into-hole IgG4 construct with two identical Fab chains
+  x1  their subunits
+  x1  thermally altered biological samples
+  x1  Thermophilic freshwater bacteria Thermus sp.
+  x1  THF-doped Suwannee and Kissimmee River PPL extracts
+  x1  thin-sectioned, stained tissue
+  x1  Three dimensional excitation-emission matrix (EEM) fluorescence measurements
+  x1  thuj-3-en-10-al
+  x1  thuja-2,4(10)-diene
+  x1  Time-domain data sets
+  x1  TMP
+  x1  TN and 15 N abundance
+  x1  Toluene
+  x1  Total C and N fractions, and particle size analysis
+  x1  total cDNA derived from RNA samples
+  x1  total dissolved carbon (TDC) and dissolved organic carbon (DOC) concentrations
+  x1  total dissolved N (TDN)
+  x1  Total Lipid content and Fatty Acid Methyl Esters in F. diplosiphon Nanotreated Cells
+  x1  Total lipid content in F. diplosiphon
+  x1  Total lipids
+  x1  total N (TN)
+  x1  total organic matter
+  x1  total RNA
+  x1  Total suspended solids (TSS)
+  x1  trans-pinocamphone
+  x1  transesterified material
+  x1  transesterified material obtained from in situ transesterification
+  x1  transformant
+  x1  Trap columns
+  x1  treated rock powder
+  x1  Tree DOM samples
+  x1  tree leachate samples
+  x1  Tree leachates
+  x1  triaromatic steroids
+  x1  tributaries of the Gallatin and Missouri Rivers
+  x1  tributary streams to the Gallatin and Missouri Rivers in Big Sky, Montana
+  x1  triplicate incubations
+  x1  triterpenes
+  x1  Trypsin-digested peptides from copurified ScR2TP
+  x1  tryptic peptides
+  x1  Turfgrass, St. Augustine
+  x1  Twenty-five micrograms histone H4 sample
+  x1  Two vacuum gas oils
+  x1  Typical commercial surfactant (500 - 1000 mg/L)
+  x1  typical samples from Louisiana coastal marshes
+  x1  U@C 60
+  x1  ultracomplex mixtures
+  x1  ultrahigh resolution mass analysis
+  x1  Ultramark, bradykinin, angiotensin I, ubiquitin, and cytochrome c
+  x1  Ultrathin sections
+  x1  underwater asphalt volcano sample
+  x1  unfractionated anthropogenic DOM
+  x1  unfractionated/whole asphaltenes
+  x1  unmodified or Chk1-phosphorylated rp53 peptides
+  x1  unmodified, phosphorylated, and kinase-free control rp53
+  x1  unsubstituted N1 species, pyrrolic nitrogen, nonpolar hydrocarbon, O1 species, weakly acidic/neutral nitrogen N 1 , N2, and N3 classes
+  x1  UO2(NO3)2 · (H2O)6 in H2O and acetone
+  x1  Uranium-endohedral fullerenes
+  x1  Uranyl Formate
+  x1  ursonic acid C30H46O3
+  x1  UV-vis absorbance spectra
+  x1  UV-visible absorbance spectra
+  x1  UV/Vis absorbance spectra
+  x1  V. vulnificus
+  x1  Vaal Reef sample
+  x1  vacuum distillation residue
+  x1  Vacuum residue (VR)
+  x1  Vanadium Compounds
+  x1  vanadyl and nickel porphyrins
+  x1  vanadyl porphyrin fractions
+  x1  vanadyl porphyrins (N4O1 51 V1 class)
+  x1  vanadyl porphyrins found in asphaltenes and their extrography fractions
+  x1  vanadyl porphyrins in unfractionated heavy petroleum and virgin asphaltenes
+  x1  Variants in KRAS, NRAS, and HRAS
+  x1  various compounds
+  x1  Vegetation and soil samples
+  x1  vegetation and soil variables
+  x1  verbenone
+  x1  Vibrio sp. (2) Luminous sp. MAV, Aeromonas sp.
+  x1  virgin low-density polyethylene (LDPE) pyrolysis oil
+  x1  viscosity of the injection fluid
+  x1  volcanic asphalt sample
+  x1  vulgaris
+  x1  vulnerability management
+  x1  Walnut Shells
+  x1  washing solutions and original 0.05 M NaOH solution
+  x1  Waste office paper
+  x1  Water depth
+  x1  Water filtered through pre-rinsed glass fiber syringe filters
+  x1  Water isotope samples
+  x1  water isotopes (δ 18 O and δ 2 H) in lake samples
+  x1  water isotopes (δ 18 O)
+  x1  water quality analysis
+  x1  Water sample
+  x1  water sample
+  x1  water soluble pigments
+  x1  water source
+  x1  Water temperature, specific conductivity, and pH
+  x1  water-extractable organic carbon
+  x1  water-extractable SOM (WEOM)
+  x1  Water-soluble compounds derived from fossil fuel-based materials
+  x1  Water-soluble extracts (in methanol)
+  x1  water-soluble fractions of Deepwater Horizon oil
+  x1  Water-soluble OM
+  x1  Water-soluble organic species
+  x1  Water-soluble oxidation products
+  x1  water-soluble photoproducts
+  x1  Water-solubles
+  x1  weathered northern crude oils
+  x1  WEOC samples
+  x1  WEOM Leachate from Sinking POM
+  x1  wetland plants
+  x1  Whole and fractionated bio-oil samples
+  x1  whole asphaltenes and their extrography fractions
+  x1  whole extracts
+  x1  whole feedstock samples
+  x1  Whole Il Duomo extract and chromatographic fractions
+  x1  Whole MC252 and surrogate crude oil and derived acidic and basic water-soluble organics (WSO)
+  x1  whole n C7 asphaltenes and their extrography fractions
+  x1  Whole PetroPhase 2017 asphaltenes (W), whole desorbed asphaltenes (WD), and TLC fractions
+  x1  Whole PetroPhase 2017 Asphaltenes and Their Acetone, Hep/Tol, and Tol/THF/MeOH Extrography Fractions
+  x1  whole samples
+  x1  whole water samples
+  x1  whole Wyoming deposit and Athabasca bitumen n C7 asphaltenes
+  x1  whole-water and HPOA fractions
+  x1  whole-water samples, HPOA fractions
+  x1  whole/unfractionated asphaltene samples
+  x1  Width-integrated samples
+  x1  Wild material
+  x1  Willow plant stems and leaves
+  x1  winter wheat (Triticum aestivum L.)
+  x1  WSO concentrations
+  x1  WSO extracts
+  x1  WSO species from microcosm samples
+  x1  WTE. coli, and the knob-into-holeE. coli IgG4 molecules
+  x1  Wyoming Deposit and Athabasca Bitumen C7 asphaltenes and their extrography fractions
+  x1  Wyoming Deposit and Athabasca Bitumen samples
+  x1  Wyoming deposit n C7 asphaltenes
+  x1  XAD ethyl acetate extract
+  x1  yeast mutant versus wild-type strains
+  x1  Yellowstone Lake in Yellowstone National Park, Wyoming
+  x1  Yellowstone River headwater in Yellowstone National Park, Wyoming
+  x1  Yellowstone River headwaters
+  x1  zinc selenide crystal
+  x1  ZrO2
+  x1  δ 13 C DIC
+  x1  δ 15 N-TDN
+  x1  δ-MnO2
+  x1  δ18O samples
+
+=== facility (165 distinct) ===
+  x32  National High Magnetic Field Laboratory
+  x19  National High Magnetic Field Laboratory (NHMFL)
+  x8  National High Magnetic Field Laboratory in Tallahassee, Florida
+  x8  NHMFL
+  x6  Florida State University
+  x5  National High Magnetic Field Laboratory (Tallahassee, FL)
+  x4  the laboratory
+  x3  National High Magnetic Field Laboratory (NHMFL) at Florida State University
+  x3  National High Magnetic Field Laboratory in Tallahassee, FL
+  x2  Australian Nuclear Science and Technology Organisation (ANSTO)
+  x2  Chair of Soil Science (TU München, Germany)
+  x2  ILMARI laboratory of the University of Eastern Finland
+  x2  Mark Wainwright Analytical Centre (UNSW Sydney)
+  x2  Microsynth AG (Switzerland)
+  x2  national FT-ICR MS user facility at the National High Magnetic Field Laboratory
+  x2  National High Magnetic Field Laboratory (Florida State University, Tallahassee, FL)
+  x2  National High Magnetic Field Laboratory at Florida State University
+  x2  National High Magnetic Field Laboratory in Tallahassee, Florida, USA
+  x2  National High Magnetic Field Laboratory, Florida State University
+  x2  National High Magnetic Field Laboratory, Tallahassee, Florida
+  x1  ADG CRNR
+  x1  ALS Environmental (Tucson, AZ)
+  x1  Amsterdam, Netherlands
+  x1  ANSTO
+  x1  Argonne National Laboratory
+  x1  Australian National University (ANU)
+  x1  Bemidji site
+  x1  bioenvironmental research laboratory at UCF
+  x1  Bioenvironmental Research Laboratory at UCF
+  x1  Boiteau Lab
+  x1  Bridgestone Americas Biorubber Processing Research Center (Mesa, AZ)
+  x1  Bridgestone Biorubber Process Research Center (Mesa, AZ)
+  x1  CAGE (Centre for Gas Hydrate, Environment and Climate)
+  x1  Cambridge Polymer Group
+  x1  Changchun Institute of Applied Chemistry, China
+  x1  Chemical Dynamics Beamline 9.0.2 at the Advanced Light Source
+  x1  Chemical Instrumentation Facility
+  x1  Clinical Haematology Department
+  x1  cloning and sequencing facility at Florida State University (Florida, USA)
+  x1  coastal Georgia, USA
+  x1  Coli Genetic Stock Center, Yale University
+  x1  College of Sciences Major Instrumentation Cluster (COSMIC)
+  x1  CU Boulder Laboratory for Environmental and Geological Studies (LEGS)
+  x1  Department of Chemical and Biological Engineering, Montana State University, USA
+  x1  Dlila Facility, Israel
+  x1  Duke Univ.
+  x1  Environmental Analytical Laboratory in the Department of Land Resources and Environmental Sciences at Montana State University (MSU)
+  x1  Environmental Isotope Laboratory at the university of Waterloo
+  x1  ETH Zurich
+  x1  ExxonMobil's Clinton campus
+  x1  Florida State University 's National High Magnetic Field Laboratory
+  x1  Florida State University, Department of Biological Science, Core Facilities
+  x1  Florida State University, Wiley Online Library
+  x1  GATC Biotech AG
+  x1  Genentech Inc.
+  x1  Genomics Shared Resource, Colorado Cancer Center, Denver, CO, USA
+  x1  GFZ Potsdam, Germany
+  x1  Ghent University (Belgium)
+  x1  greenhouse facility
+  x1  in-house
+  x1  Institute of Biomedical Chemistry of RAMS (Russia)
+  x1  Institute of Environmental Genomics, University of Oklahoma
+  x1  International Laboratory Comparison
+  x1  Intertek
+  x1  in vitro cultivated fraction of C. angustifolia roots
+  x1  Isotope Hydrology Laboratory of the International Atomic Energy Agency (IAEA, Vienna, Austria)
+  x1  Karlsruhe, Germany
+  x1  laboratory
+  x1  LIP at ETH Zurich
+  x1  long-term monitoring station
+  x1  Louisiana State University, LA
+  x1  MagLab of Florida State University
+  x1  MAGU
+  x1  Mainstream Engineering
+  x1  Mark Wainwright Analytical Centre at UNSW
+  x1  Mass Spectrometry Facility (Johns Hopkins University, Baltimore, MD)
+  x1  Mass Spectrometry Facility at Johns Hopkins University (Baltimore, MD)
+  x1  mass spectrometry facility at the Johns Hopkins University (Baltimore, MD)
+  x1  Mass Spectrometry Interactive Virtual Environment (MassIVE)
+  x1  Massachusetts, USA
+  x1  Materials Research Institute at The Pennsylvania State University
+  x1  Microbial Community Sequencing Lab (University of Colorado Boulder)
+  x1  Midwest Micro Lab, Indianapolis, IN, USA
+  x1  Midwest Microlabs
+  x1  N/A
+  x1  National Center for Biotechnology Information
+  x1  National High  Magnetic  Field Laboratory
+  x1  National High Magnetic Field Lab
+  x1  National High Magnetic Field Lab in Tallahassee, FL
+  x1  National High Magnetic Field laboratory (NHMFL)
+  x1  National High Magnetic Field Laboratory (NHMFL), Florida State University
+  x1  National High Magnetic Field Laboratory (NHMFL), Florida State University, Tallahassee
+  x1  National High Magnetic Field Laboratory (NHMFL), Florida, USA
+  x1  National High Magnetic Field Laboratory (NHMFL, Florida State University, Tallahassee, FL, U.S.A.)
+  x1  National High Magnetic Field Laboratory (NHMFL, Florida State University, Tallahassee, FL, United States)
+  x1  National High Magnetic Field Laboratory (Tallahassee, FL, U.S.A.)
+  x1  National High Magnetic Field Laboratory (Tallahassee, Florida)
+  x1  National High Magnetic Field Laboratory (Tallahassee, Florida, USA)
+  x1  National High Magnetic Field Laboratory [NHMFL]
+  x1  National High Magnetic Field Laboratory at Tallahassee, Florida
+  x1  National High Magnetic Field Laboratory at the Florida State University (FSU)
+  x1  National High Magnetic Field Laboratory in Florida, USA
+  x1  National High Magnetic Field Laboratory in Tallahassee (Florida, USA)
+  x1  National High Magnetic Field Laboratory in Tallahassee, Florida (USA)
+  x1  National High Magnetic Field Laboratory, Florida, USA
+  x1  National High Magnetic Field Laboratory, Ion Cyclotron Resonance Facility
+  x1  National High Magnetic Field Laboratory, Tallahassee, FL
+  x1  National High Magnetic Field Laboratory, Tallahassee, FL, United States
+  x1  National High Magnetic Field Laboratory, Tallahassee, Florida, USA
+  x1  National ICR Users ' Facility at the National High Magnetic Field Laboratory (NHMFL, Florida State University, Tallahassee, FL, USA)
+  x1  National ICR Users' Facility at the National High Magnetic Field Laboratory (Florida State University, Tallahassee, FL)
+  x1  National Magnetic Field Lab
+  x1  National Magnetic Field Laboratory at Florida State University, USA
+  x1  National Magnetic Field Laboratory, Tallahassee, USA
+  x1  National Ocean Sciences Accelerator Mass Spectrometry (NOSAMS) facility
+  x1  National Ocean Sciences Accelerator Mass Spectrometry (NOSAMS) facility in Woods Hole, MA
+  x1  National Ocean Sciences Accelerator Mass Spectrometry facility
+  x1  National Ocean Sciences Accelerator Mass Spectrometry Facility at Woods Hole Oceanographic Institution, USA
+  x1  National Resource for Translational and Developmental Proteomics (Northwestern University, Evanston, IL)
+  x1  National Resource for Translational and Developmental Proteomics (NRTDP)
+  x1  NHMFL (Tallahassee, FL)
+  x1  NHMFL and FSU experts
+  x1  NHMFL in Tallahassee, Florida, USA
+  x1  NHMFL Lab
+  x1  NHMFL's user facilities
+  x1  NHMFL, high-resolution mass spectrometry facility at Honeywell UOP
+  x1  NIST (National Institute of Standards and Technology), Gaithersburg, MD
+  x1  North Florida Research
+  x1  NRTDP (Evanston, IL)
+  x1  Onstott Lab at Princeton University
+  x1  our lab
+  x1  PerkinElmer, Waltham, MA
+  x1  Research and Testing Laboratories, LLC (Lubbock, TX)
+  x1  SEWRF
+  x1  Southeast Water Reclamation Facility (SEWRF)
+  x1  Stable Isotope Laboratory of the University of Lausanne, Switzerland
+  x1  Stanford Synchrotron Radiation Lightsource
+  x1  Stordalen
+  x1  the laboratory of Dr. Irina Perminova (Lomonosov MSU, Moscow, Russia)
+  x1  the mine
+  x1  Thermo Scienti fi c, San Jose, CA
+  x1  Thermo Scienti fi c, UK
+  x1  this lab
+  x1  TotalEnergies Research and Technology (Gonfreville, France)
+  x1  U.B.C.
+  x1  UC Davis Stable Isotope Facility
+  x1  University of Alaska Stable Isotope Facility, Fairbanks, AK, USA
+  x1  University of Bremen
+  x1  University of California, Irvine
+  x1  University of California, Los Angeles
+  x1  University of Central Florida (UCF) campus laboratory
+  x1  University of Illinois at Chicago Core for Research Informatics (UICCRI)
+  x1  University of Maryland Center for Environmental Science (UMCES)
+  x1  University of Miami, Rosenstiel School of Marine and Atmospheric Sciences
+  x1  University of New South Wales (UNSW), Sydney
+  x1  University of Washington IsoLab laboratory
+  x1  University of Washington Proteomics Resource NSI source
+  x1  University of Wisconsin-Madison Biotechnology Center
+  x1  Utah State University
+  x1  UTMSI
+  x1  Vanishing Glacier Project
+  x1  Water Quality Analysis Laboratory at the University of New Hampshire
+  x1  WCRC
+  x1  Woods Hole Oceanographic Institution
+  x1  Woodwell Climate Research Center (WCRC; formerly Woods Hole Research Center)
+
+=== software_tools (309 distinct) ===
+  x55  PetroOrg
+  x14  Predator
+  x9  EnviroOrg
+  x7  R
+  x7  Xcalibur
+  x5  PetroOrg Software
+  x3  MATLAB
+  x3  Microsoft Excel
+  x3  PetroOrg software
+  x3  ProSight Lite
+  x2  Athena
+  x2  ChromCALC
+  x2  Cutadapt v2.6
+  x2  DADA2 version 1.10.0
+  x2  EMPOWER3
+  x2  factoextra package
+  x2  ggplot2
+  x2  Magicplot
+  x2  modular ICR data station (Predator)
+  x2  PREDATOR
+  x2  Predator analysis software
+  x2  Predator Analysis, PetroOrg
+  x2  Predator and PetroOrg
+  x2  Predator data station
+  x2  Predator Software
+  x2  Proteoform Suite
+  x2  Python
+  x2  QIIME2 version 2019.10.0
+  x2  Xcalibur 2.1
+  x2  Xtract algorithm
+  x1  'factoextra' package
+  x1  'ggfortify' v. 0.4.14 (Horikoshi & Tang, 2016)
+  x1  'Hmisc' v.4.6.0 (Harrell, 2021)
+  x1  'MixSIAR' package in R 4.2.0 software
+  x1  'rstatix' v.0.7.0 (Kassambara, 2021)
+  x1  'tidyverse' (Wickham et al., 2019) v.1.3.1
+  x1  'Transhumus' software
+  x1  24 IsoPro 3.1
+  x1  8,76 Predator data station
+  x1  a browser-based software (Leefmann et al., 2019)
+  x1  ADF
+  x1  ADF 2017
+  x1  AI and elemental ratios of molecular formulas (H/C and O/C)
+  x1  ANOVA tests, t-tests
+  x1  ArcGIS 10.2
+  x1  ArcMap 10
+  x1  Atomic Force Microscopy Molecular Imaging
+  x1  Basic Local Alignment Search Tool server
+  x1  BiodieselAnalyzer Version 2.2
+  x1  BioTools, cRAWler algorithm inside ProSightPC 3.0
+  x1  Bruker Daltonics Data Analysis software
+  x1  Bruker Data Analysis 4.0 or Predator Analysis 4.1.8
+  x1  Bruker Data Analysis 5.1, SmartFormula
+  x1  CaGe program
+  x1  CDS 3.02A software made by AVIV Biomedical, Inc.
+  x1  Centrifuge
+  x1  checkM v1.1.2
+  x1  ChromaTOF HRT software (v5.10)
+  x1  ChromaTOF software (version 4.50)
+  x1  CO2Calc program
+  x1  COLMAR database
+  x1  Composer
+  x1  Composer64 or PetroOrg
+  x1  Comprehensive Localization of Internal Protein Sequences (ClipsMS)
+  x1  CoreMS
+  x1  coverM genome v0.6.0
+  x1  custom code written in Igor 6.3.7 (Wavemetrics)
+  x1  custom in-house software
+  x1  Custom software
+  x1  Custom software (PetroOrg © )
+  x1  Custom software (PetroOrg)
+  x1  custom software (PetroOrg)
+  x1  custom-built MIDAS software
+  x1  DADA2 pipeline
+  x1  DataAnalysis (ver. 4.4)
+  x1  DataAnalysis software (Bruker)
+  x1  DrEEM toolbox
+  x1  drEEM toolbox
+  x1  drEEM toolbox for MATLAB
+  x1  drEEM toolbox in MATLAB
+  x1  drEEM toolbox v. 5.0
+  x1  dRep v3.0.0
+  x1  Ecodist R package
+  x1  Empower 3 Chromatography Data Software
+  x1  EnviroOrg (NHMFL software by Yuri Corilo)
+  x1  EnviroOrg software
+  x1  EnviroOrg Software E 2.0
+  x1  EnviroOrg TM software
+  x1  eosLink-FD
+  x1  Excel
+  x1  factoextra package in R
+  x1  FactoMine R package
+  x1  FactoMineR
+  x1  FasTtree2
+  x1  Felix 3.2
+  x1  Fiji ImageJ using the Plot Pro fi les function
+  x1  Fityk
+  x1  FL Toolbox 1.91 in MATLAB
+  x1  Fourier transform Python package (Hemingway, 2017)
+  x1  fouriertransform
+  x1  fouriertransform Python package
+  x1  Fragariyo
+  x1  Fragariyo, ClipsMS, Xcalibur Qual Browser-embedded 'Xtract' algorithm (Thermo Fisher Scientific)
+  x1  Freestyle (Thermo Scienti fi c)
+  x1  FT-ICR MS
+  x1  Gas chromatography/mass spectrometry
+  x1  GDC Data Transfer Tool Client v1.6.1
+  x1  Geographic Resources Analysis Support System (GRASS v7.2)
+  x1  Gephi
+  x1  ggplot2, a component of the tidyverse package
+  x1  GPC analysis with polystyrene standards for calibration
+  x1  GraphPad Prism 10.4
+  x1  GraphPad Prism version 10.3.1
+  x1  GTDBTk v1.3.0
+  x1  high-throughput 16S rRNA gene sequencing
+  x1  homemade Python scripts Jupyter Notebooks
+  x1  IGOR Pro
+  x1  in-house software
+  x1  in-house software (EnviroOrg)
+  x1  indicspecies
+  x1  Inkscape v0.91
+  x1  Integrative Genomics Viewer (version 2.9.4)
+  x1  Isopro 3.1
+  x1  JED-2300 Series Standard software
+  x1  JMP Pro 12 (SAS Institute)
+  x1  JMP software (v. 7.0.1)
+  x1  JMP software, version 13.1.0
+  x1  k-Means clustering analysis
+  x1  Kendrick mass defect analysis
+  x1  known databases 35, 36
+  x1  MAFFT
+  x1  Mascot
+  x1  Mascot search engine (Matrix Science; version 2.8.0)
+  x1  MASS
+  x1  MassLynx 4.1
+  x1  MatLab
+  x1  MATLAB (R2014A)
+  x1  MatLab (R2023a)
+  x1  MATLAB 2020b
+  x1  MatLab code
+  x1  MATLAB R2015b
+  x1  MATLAB R2016a
+  x1  MATLAB R2016b
+  x1  MATLAB R2019a using DOMFluor toolbox
+  x1  MATLAB R2020b
+  x1  Matlab with the drEEM toolbox
+  x1  MATLAB ™ v6.9
+  x1  Matlab, drEEM toolbox (Murphy et al., 2013)
+  x1  MaximumEntropyDeconvolution from DataAnalysis (Bruker Daltonics, version 3.4)
+  x1  MaxQuant software at standard settings
+  x1  MaxQuant v1.6
+  x1  MetaMorpheus
+  x1  MetaMorpheus 26
+  x1  Methods of Soil Analysis. Part 3 - Chemical Methods
+  x1  microMS
+  x1  Microsoft Excel 2013
+  x1  Microsoft Excel 2016
+  x1  MIDAS
+  x1  MIDAS Predator Analysis
+  x1  MIDAS Predator Analysis and Molecular Formula Calculator
+  x1  MIDAS Predator Analysis, PetroOrg
+  x1  Mnova NMR software
+  x1  Modgraph implemented in MestReNova 10.0.1 (Mestrelab Research)
+  x1  modular ICR data station
+  x1  modular ion cyclotron resonance data acquisition system, PetroOrg
+  x1  Molecular Evolutionary Genetics Analysis version 11 (MEGA11)
+  x1  MSAlign +
+  x1  Multiple Analytical Tools
+  x1  MØD platform
+  x1  N/A
+  x1  NanoDrop 2000c spectrophotometer
+  x1  Nanoscope ver. 8.15
+  x1  National High Magnetic Field Laboratory software
+  x1  nf-core/ampliseq v1.1.2, Nextflow v20.10
+  x1  NHMFL software
+  x1  NMR and high-resolution MS analyses
+  x1  NMRPipe
+  x1  NovaWin
+  x1  one-way analysis of variance and Tukey 's Honest Significant Difference post-hoc test
+  x1  OriginPro (ver. 2016)
+  x1  parameters were set in Xtract
+  x1  PC-Ord software (version 4, MjM Software Design)
+  x1  Peak lists (uncalibrated, global calibration, mass difference calibrated, and walking calibrated)
+  x1  Peak-by-Peak (Base Edition, Version 2023.5.0.b5)
+  x1  Peak-by-Peak software (Spectroswiss, Lausanne, Switzerland)
+  x1  PetroOrg N-15.0
+  x1  PetroOrg N-16.0 Software
+  x1  PetroOrg N-18.3
+  x1  PetroOrg N-18.3 Software
+  x1  PetroOrg N13.3
+  x1  PetroOrg N8.6
+  x1  PetroOrg software (version 18.0.5)
+  x1  PetroOrg software 67
+  x1  PetroOrg TM
+  x1  PetroOrg with a nonlinear iterative partial least-squares (NIPALS) algorithm
+  x1  PetroOrg ©
+  x1  PetroOrg(c)
+  x1  PetroOrg, in-house developed MATLAB scripts (R2018 v9.4.0.813654)
+  x1  PetroOrg, Kendrick mass defect analysis with PetroOrg
+  x1  PetroOrg©,™ (Corilo, 2015)
+  x1  Petrorg data processing software
+  x1  PICRUSt2 version 2.2.0-b, MinPath
+  x1  Predator Acquisition data station
+  x1  Predator Analysis
+  x1  Predator Analysis (version 4.1.9)
+  x1  Predator analysis 37 and PetroOrg 38
+  x1  Predator Analysis software
+  x1  Predator analysis, PetroOrg
+  x1  Predator data station, Xian et al.
+  x1  Predator Software Corev1.2.3
+  x1  Predator software package
+  x1  PREDATOR, PetroOrg N-18.3 Software
+  x1  Predator, PetroOrg Software
+  x1  Predator, PetroOrg, and PyC2MC
+  x1  Predator, PetroOrg, PyC2MC
+  x1  Primer 6 (version 6.1.13)
+  x1  Primer v.6.2
+  x1  Prism 6 by GraphPad
+  x1  Pro-Q Diamond phosphoprotein gel stain
+  x1  PROC GLM of SAS 9.4
+  x1  ProSight Lite (v1.4, build 1.4.6)
+  x1  ProSight Lite 1.4
+  x1  ProSight Lite 30
+  x1  ProSight Lite 39
+  x1  ProSight Lite, Xtract
+  x1  ProSight PC workflow
+  x1  ProSight PD 4.0
+  x1  ProSight PTM 2.0
+  x1  ProSightPC
+  x1  ProteinProspector
+  x1  Proteoform Suite version 0.3.6
+  x1  ProteoWizard MSConvert
+  x1  q-score-joined
+  x1  q2-deblur
+  x1  q2-feature-classify-sklearn plugin
+  x1  QIIME v1.8
+  x1  QIIME2
+  x1  QIIME2 (v.2019.1)
+  x1  QIIME2 diversity alpha-rarefaction plugin
+  x1  QIIME2 pipeline (QIIME2-2019.10), scikitlearn, vegan package
+  x1  Qubit protein assay kit
+  x1  R (Version 1.1.463)
+  x1  R 3.3
+  x1  R 4.2.0
+  x1  R Core Team using the factoextra package (Kassambara & Mundt, 2017)
+  x1  R i386 2.15.2
+  x1  R package 'vegan'
+  x1  R software v.3.6.2
+  x1  R statistical software (v. 4.0.4)
+  x1  R Statistical Software v.4.1.3
+  x1  R version 3.5
+  x1  R version 4.0.3
+  x1  R version 4.1.2
+  x1  R, ggplot2, factoextra
+  x1  R, phyloseq library
+  x1  R-studio 0.97.551 (R i386 2.15.2)
+  x1  R.3.5.0
+  x1  Recoil
+  x1  ReSpect™ algorithm
+  x1  ReSpect™ algorithm in BioPharma Finder
+  x1  Ribosomal Database Project (RDP), Silva database
+  x1  rstatix
+  x1  RStudio
+  x1  RStudio utilizing R software (V4.1.2)
+  x1  RStudio version 2023.12.1 + 402
+  x1  SCANPY
+  x1  Schlegel diagrams
+  x1  SciDAVis
+  x1  Scikit's KNeighborsClassifier
+  x1  SciPy package
+  x1  SDS-PAGE
+  x1  self-written MatLab algorithms and routines combined in a graphical user interface named CERES Processing
+  x1  SPSS
+  x1  SPSS 19.0
+  x1  StavroX
+  x1  StepOne from Applied Biosystems and PowerUp SYBR Green Master Mix
+  x1  stored waveform inverse Fourier transform (SWIFT)
+  x1  SYPRO Ruby fluorescent protein stain
+  x1  TDPortal
+  x1  TDPortal 22
+  x1  TDValidator
+  x1  TDValidator 1.0
+  x1  Thermo Compound Discoverer
+  x1  Thermo Protein Deconvolution 4.0
+  x1  Thermo Xcalibur software (version 3.0.63) and a custom-built script using ZeroBrane Studio
+  x1  THRASH algorithm
+  x1  Toolbox for Environmental Research (TEnvR) in MATLAB 2022a
+  x1  Transhumus software based on the open-source R environment
+  x1  Tri-carb 2800TR scintillation counter
+  x1  UltraScan III software version 3.3
+  x1  vegan
+  x1  Vegan
+  x1  Vegan package in R
+  x1  Vegan R package
+  x1  vsearch 2.21.1
+  x1  Xcaliber
+  x1  Xcalibur 3.0
+  x1  Xcalibur 3.0, Xtract
+  x1  Xcalibur and MIDAS
+  x1  Xcalibur Qual Browser
+  x1  Xcalibur QualBrowser
+  x1  Xcalibur software (Thermo Fisher Scientific)
+  x1  Xcalibur TM
+  x1  XLStat
+  x1  xTract
+  x1  Xtract algorithm from Thermo Fisher Scientific
+  x1  Xtract parameters
+  x1  Xtract, THRASH, ReSpect (found in both a commercial package from Thermo Scienti fi c and in an open resource as implemented, for example in the MASH Suite), SNAP and MaxEnt (Bruker Daltonics), 66 Intact Mass (Protein Metrics), and UniDec (Oxford University, UK)
+  x1  Young Algorithm, Internal Release June 2014
+
+=== dataset_accession (81 distinct) ===
+  x2  23782242, 2025, 5
+  x2  https://osf.io/758ux/
+  x2  MSV000085978
+  x2  OSF
+  x2  PRJNA792827
+  x1  10.17605/OSF.IO/D7G3N
+  x1  10.17605/OSF.IO/JRVQG
+  x1  10.17605/OSF.IO/NGE7K
+  x1  10.17605/OSF.IO/VP3U8
+  x1  10.17605/OSF.IO/XYBHZ
+  x1  120
+  x1  23782242
+  x1  BCO-DMO 472758
+  x1  CCDC: 1561087
+  x1  CCDC: 1561089
+  x1  CCDC: 1561091
+  x1  CCDC: 1561093
+  x1  DOI 10.17605/OSF.IO/3YSGD
+  x1  DOI 10.17605/OSF.IO/4AZM8
+  x1  DOI 10.17605/OSF.IO/E723N
+  x1  DOI 10.17605/OSF.IO/RY4GE
+  x1  DOI 10.17605/OSF.IO/UPBWE
+  x1  doi.org/ 10.17605/OSF.IO/AM8TV
+  x1  EMDB code 8839
+  x1  Figshare Digital Repository (https://figshare.com/projects/Bending_DOM_concept/80270)
+  x1  https://doi.org/10.17605/OSF.IO/3R86F
+  x1  https://doi.org/10.17605/OSF.IO/4PJFC
+  x1  https://doi.org/10.17605/OSF.IO/94WFQ
+  x1  https://doi.org/10.17605/OSF.IO/CS96B
+  x1  https://doi.org/10.17605/OSF.IO/D57K9
+  x1  https://doi.org/10.17605/OSF.IO/MD2YZ
+  x1  https://doi.org/10.17605/OSF.IO/PRKN9
+  x1  https://doi.org/10.17605/OSF.IO/PWZUN
+  x1  https://doi.org/10.17605/OSF.IO/Q46TS
+  x1  https://doi.org/10.17605/OSF.IO/USH6Y
+  x1  https://doi.org/10.17605/OSF.IO/V86AZ
+  x1  https://doi.org/10.17605/OSF.IO/XTF4A
+  x1  https://doi.org/10.17632/g228pkdcym.1
+  x1  https://doi.org/10.26022/IEDA/111996
+  x1  https://doi.org/10.26022/IEDA/112233
+  x1  https://doi.org/10.26022/IEDA/112343
+  x1  https://doi.org/10.4211/hs.5af38c0096014e3c96adecb92bc6e26d
+  x1  https://doi.org/10.5281/zenodo.5806541
+  x1  https://doi.org/10.5281/zenodo.7102401
+  x1  https://doi.org/10.6073/pasta/cc4d53a91ed873765224fcb6d09f5eb7
+  x1  https://eartharxiv.org/xmv7e/
+  x1  https://osf.io/4azm8/
+  x1  https://osf.io/awy27/
+  x1  https://osf.io/az8gk/
+  x1  https://osf.io/b8fdu/
+  x1  https://osf.io/dcu3z/
+  x1  https://osf.io/ka5d7/
+  x1  https://osf.io/n8mza/ (DOI 10.17605/OSF.IO/N8MZA)
+  x1  https://osf.io/pt4un/
+  x1  https://osf.io/pt8gh/
+  x1  https://osf.io/pwzun/
+  x1  https://osf.io/qhe3s/
+  x1  https://osf.io/qjhs9/
+  x1  https://osf.io/ry4ge/
+  x1  https://osf.io/t4eqx/
+  x1  https://osf.io/v86az/
+  x1  https://www.sciencebase.gov/catalog/item/5cd08fb1e4b09b8c0b79a466
+  x1  https://zenodo.
+  x1  IEDA/111768
+  x1  k75w3
+  x1  MSV000094385
+  x1  MSV000094542
+  x1  MSV000095816
+  x1  N/A
+  x1  OQ983537
+  x1  OSF.IO/BVM65
+  x1  OSF.IO/CEV5S
+  x1  OSF.IO/PB8QU
+  x1  OSF.IO/TZKWN
+  x1  PRJNA1066388
+  x1  PRJNA598915
+  x1  PXD026123
+  x1  PXD026178
+  x1  SRP093781
+  x1  SRP093781, https://doi.org/10.5066/P933APLH
+  x1  SRP097447
+
+
+=== grounding summary (why values were dropped) ===
+field                   grounded  ungrounded   total   kept%
+instrument                  1170        1932    3102     38%
+ionization_method            862        2377    3239     27%
+sample_type                 2246        2001    4247     53%
+facility                     255        1256    1511     17%
+software_tools               428        2173    2601     16%
+dataset_accession             86        1913    1999      4%
+TOTAL                       5047       11652   16699     30%
+
+=== off-target extraction classes (NOT in TARGET_FIELDS) ===
+The model invented these field names. Excluded from the vocabulary.
+  10.1029/2018JG004712
+    field='statistical_analysis_method'
+    value="nonparametric Spearman's rho"  grounded=True
+  10.3389/feart.2020.552731
+    field='particulate carbon C, nitrogen (N), and phosphorus (P)'
+    value=''  grounded=False

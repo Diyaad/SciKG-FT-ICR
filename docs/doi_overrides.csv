@@ -1,0 +1,9 @@
+stem,doi,reason,verified_by
+10_1039_D2SC00256,10.1039/D2SC00256F,"PDF on disk is misnamed: trailing 'F' dropped. Source Id 16503 carries the correct DOI 10.1039/D2SC00256F.",source_csv_id_16503
+10_1007_s13361-019-02290-8.,10.1007/s13361-019-02290-8,"PDF on disk is misnamed: trailing period (DOI copied with sentence-ending dot, then .pdf appended). Source Id 14127 carries the correct DOI.",source_csv_id_14127
+10_1021_ac0108461,10.1021/ac0108461,"Source Id 903 has a blank DOI cell; its Url ends 'ac0108461.pdf', which encodes the DOI suffix. Bossio & Marshall, Anal Chem 2002, 74(7), 1674-1679.",source_csv_id_903_url
+10_1038_ncomms1853,10.1038/ncomms1853,"Source Id 6218 DOI cell holds a nature.com URL, not a DOI. URL encodes the suffix. 'Closed Network Growth of Fullerenes'.",source_csv_id_6218_url
+10_1038_ncomms6844,10.1038/ncomms6844,"Source Id 8680 DOI cell holds a nature.com URL, not a DOI. URL encodes the suffix. 'Bottom-up formation of endohedral mono-metallofullerenes'.",source_csv_id_8680_url
+10_1039_c4sc02268h,10.1039/c4sc02268h,"Source Id 8722 DOI cell holds an rsc.org URL, not a DOI. URL encodes the suffix. 'Small Endohedral Metallofullerenes'.",source_csv_id_8722_url
+10_1073_pnas_1315928110,10.1073/pnas.1315928110,"Source Ids 7011/8262 (duplicate rows) hold a pnas.org URL or blank. DOI web-verified: Dunk et al., PNAS 2013, 110(45), 18081-18086, title/authors/vol/issue/pages all match Id 7011.",web_verified_crossref
+10_1002_rcm_4655,10.1002/rcm.4655,"PDF does not print its DOI; source Id 5178 has blank DOI and blank Url. Identity confirmed 3 ways: title + all 4 authors (Wang, Tipton, Emmett, Marshall) match the PDF text exactly, and RCM 2010 24(16) 2386-2392 matches source Id 5178 (yr 2010, vol 24, pp 2386-2392). NHMFL ICR Program paper. PMID 20635341.",web_verified_title_authors_pages

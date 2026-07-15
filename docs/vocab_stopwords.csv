@@ -1,0 +1,34 @@
+term,reason
+N/A,placeholder - no value
+n/a,placeholder - no value
+NA,placeholder - no value
+none,placeholder - no value
+None,placeholder - no value
+not specified,placeholder - no value
+unspecified,placeholder - no value
+unknown,placeholder - no value
+samples,generic - carries no sample identity
+Samples,generic - carries no sample identity
+sample,generic - carries no sample identity
+Sample,generic - carries no sample identity
+all samples,generic - carries no sample identity
+All samples,generic - carries no sample identity
+The samples,generic - carries no sample identity
+the Samples,generic - carries no sample identity
+Sample solution,generic - carries no sample identity
+Sample solutions,generic - carries no sample identity
+data,generic - not a sample
+Data,generic - not a sample
+raw data,generic - not a sample
+peaks,measurement artifact - not a sample
+Mass peaks,measurement artifact - not a sample
+Mass spectra,measurement artifact - not a sample
+mass spectra,measurement artifact - not a sample
+mass spectrometer,generic - no instrument identity; use a specific model
+custom-built,fragment - modifier with no instrument attached
+custom instrument,generic - no instrument identity
+the laboratory,generic - no facility identity
+laboratory,generic - no facility identity
+our lab,generic - no facility identity
+this lab,generic - no facility identity
+in-house,generic - no facility identity

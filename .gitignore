@@ -84,3 +84,8 @@ Thumbs.db
 logs/
 slurm-*.out
 data/processed/entities/pdf_extracted.jsonl
+
+# Vocabulary outputs (regenerable via scripts/build_vocabulary.py)
+!data/processed/vocab/
+!data/processed/vocab/*.txt
+!data/processed/vocab/*.csv
