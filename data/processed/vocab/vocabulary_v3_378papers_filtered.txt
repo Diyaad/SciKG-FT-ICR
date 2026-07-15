@@ -5,7 +5,7 @@ at its recorded char_span. The raw file remains the evidence record.
 Stopword list: vocab_stopwords.csv (extend it as needed).
 Junk = stopword match, <2 chars, or numeric/punctuation only.
 
-=== instrument (737 distinct) ===
+=== instrument (741 distinct) ===
   x124  FT-ICR MS
   x25  custom-built FT-ICR mass spectrometer
   x23  21 T FT-ICR MS
@@ -452,6 +452,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Inductively Coupled Plasma HighResolution Mass Spectrometry
   x1  inductively coupled plasma mass spectrometer (ICP-MS)
   x1  Innova 44R shaker (Eppendorf)
+  x1  instrument settings: 120,000 resolving power at m/z 400; 300 -4000 m/z scan range
   x1  Ion Max APPI source (Thermo Fisher Scienti fi c)
   x1  isotope ratio mass spectrometer
   x1  JEMARM200cF
@@ -515,6 +516,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  modi fi ed LTQ Fourier transform ion cyclotron resonance (FT-ICR) mass spectrometer
   x1  modi fi ed Velos Pro linear ion trap assembly
   x1  modified linear ion trap (LTQ, Thermo Fisher Scientific, San Jose, CA, USA) 14.5 T FT-ICR mass spectrometer
+  x1  modified Orbitrap Elite
   x1  modular ICR data acquisition system (PREDATOR)
   x1  MultiMode VIII (BRUKER)
   x1  nano-HPLC system (ACQUITY MClass)
@@ -553,6 +555,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Orbitrap mass analyzer
   x1  Orbitrap mass spectrometer
   x1  Orbitrap mass spectrometer detector
+  x1  Orbitrap Velos Pro
   x1  Orbitraps
   x1  packed columns or trayed towers
   x1  Parr Instruments semimicro calorimeter
@@ -646,6 +649,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Synapt G2 HDMS
   x1  Synrad 48-2
   x1  T FT-ICR
+  x1  Tektronix MDO3014
   x1  TG 209
   x1  Thermo commercial station
   x1  Thermo Finnigan 253 gas mass spectrometer
@@ -744,7 +748,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Zeiss Sigma SEM
   x1  Zorbax SB-C18 column
 
-=== ionization_method (419 distinct) ===
+=== ionization_method (422 distinct) ===
   x86  ESI
   x32  APPI
   x31  electrospray ionization (ESI)
@@ -761,13 +765,13 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x7  Fourier transform ion cyclotron resonance mass spectrometry (FT-ICR MS)
   x7  GC-MS
   x6  atmospheric pressure photoionization
+  x6  CID
   x6  Electrospray Ionization
   x6  ETD
+  x6  microelectrospray
   x6  negative ESI
-  x5  CID
   x5  direct infusion electrospray ionization
   x5  FTICR MS
-  x5  microelectrospray
   x5  nanoelectrospray ionization
   x4  (+)APPI
   x4  APCI
@@ -991,6 +995,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  hydrogen/deuterium-exchange
   x1  ICP-HR-MS
   x1  ICP-MS detection
+  x1  IIPT/PIP MS
   x1  in-house micro-ESI source
   x1  inductive-coupled plasma mass spectrometry (ICP-MS)
   x1  inductively coupled high-resolution plasma mass spectrometer (ICP-HRMS)
@@ -1047,6 +1052,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  MS proteomic profiling methods
   x1  MS techniques sensitive to lower mass ranges
   x1  nano ESI (nESI)
+  x1  nano-electrospray ionization
   x1  nano-electrospray ionization (nESI)
   x1  nano-ESI
   x1  nanoelectrospray (nanoESI)
@@ -1140,6 +1146,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  pulsed laser cluster source
   x1  Pyrolysis
   x1  quadrupole mass filtering
+  x1  reagent ionization source
   x1  SALDI-MS
   x1  Sanger dideoxy sequencing method
   x1  selected ion monitoring (SIM)
@@ -1165,7 +1172,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  vacuum photoionization
   x1  vacuum resonance-enhanced multiphoton ionization (REMPI)
 
-=== sample_type (1749 distinct) ===
+=== sample_type (1752 distinct) ===
   x35  asphaltenes
   x20  water samples
   x15  Water samples
@@ -1811,6 +1818,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  dry food waste, HTL-char, and bio-crude oil
   x1  E. coli
   x1  E. coli or C. elegans protein
+  x1  E. coli ribosomal protein mixture
   x1  E. coli-derived knob-into-hole and WTE. coli antibodies, as well as the WT-CHO antibody
   x1  EAC and EDC
   x1  eicosapentaenoic acid (EPA; c20 ω 3)
@@ -2060,6 +2068,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  ICR frequencies
   x1  IHSS Natural Organic Matter
   x1  IHSS Standard 2S101F
+  x1  IIPT/PIP MS/MS spectra
   x1  IM
   x1  IM extracted from the acetone fraction from Athabasca bitumen asphaltenes
   x1  IM from whole Athabasca bitumen
@@ -2451,6 +2460,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Pinewood pyrolysis bio-oil samples
   x1  pinewood-based oil
   x1  Pinus radiata
+  x1  PIP AC voltage waveforms
   x1  Plant litter
   x1  plant litter
   x1  plant material
@@ -3077,7 +3087,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Woods Hole Oceanographic Institution
   x1  Woodwell Climate Research Center (WCRC; formerly Woods Hole Research Center)
 
-=== software_tools (307 distinct) ===
+=== software_tools (310 distinct) ===
   x55  PetroOrg
   x14  Predator
   x9  EnviroOrg
@@ -3303,6 +3313,7 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  ProSight Lite, Xtract
   x1  ProSight PC workflow
   x1  ProSight PD 4.0
+  x1  ProSight PD ™ (Thermo Fisher Scientific PD version 2.1, ProSightPC version 4.0)
   x1  ProSight PTM 2.0
   x1  ProSightPC
   x1  ProteinProspector
@@ -3379,8 +3390,10 @@ Junk = stopword match, <2 chars, or numeric/punctuation only.
   x1  Xcalibur QualBrowser
   x1  Xcalibur software (Thermo Fisher Scientific)
   x1  Xcalibur TM
+  x1  Xcalibur ™ Qual Browser software (Thermo Fisher Scientific version 4.0)
   x1  XLStat
   x1  xTract
+  x1  XTract algorithm (Thermo Fisher Scientific)
   x1  Xtract algorithm from Thermo Fisher Scientific
   x1  Xtract parameters
   x1  Xtract, THRASH, ReSpect (found in both a commercial package from Thermo Scienti fi c and in an open resource as implemented, for example in the MASH Suite), SNAP and MaxEnt (Bruker Daltonics), 66 Intact Mass (Protein Metrics), and UniDec (Oxford University, UK)
