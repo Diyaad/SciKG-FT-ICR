@@ -600,8 +600,9 @@ Sources 4 and 5.
 
 **Conforms to:** schema.org/SoftwareApplication, PSI-MS (where assigned), 
 Bioschemas ComputationalTool  
-**Identifier:** `ms:{psi_ms_id}` when assigned; otherwise 
-`software:{canonical_name}:{version}`  
+**Identifier:** `software:{canonical_name}` — always; never contingent on a
+registry lookup. `psi_ms_id`, `rrid`, `biotools_id` are properties, not identity
+(a later-assigned PSI-MS/registry ID must not move the identifier and re-point edges).  
 **Coverage:** 8 annotated papers + 46 RAW files
 
 ### Properties
@@ -609,14 +610,22 @@ Bioschemas ComputationalTool
 | Property | Type | M/R/O | Source | Notes |
 |---|---|---|---|---|
 | `id` | string | M | derived | |
-| `canonical_name` | string | M | controlled vocab, annotation | E.g., "Xcalibur" |
-| `software_version` | string | R | annotation, fisher_py | E.g., "2.7.0 SP2" |
-| `psi_ms_id` | string | R | controlled vocab | When assigned |
-| `vendor` | string | O | controlled vocab | Thermo, Bruker, etc. |
-| `category` | string | O | controlled vocab | `acquisition`, `processing`, `search`, `visualization` |
+| `canonical_name` | string | M | registry, annotation | E.g., "Xcalibur" |
+| `psi_ms_id` | string | O | PSI-MS (where assigned) | Property, NOT identity |
+| `rrid` | string | O | SciCrunch (hand-verified map) | E.g., "SCR_014593"; null if none |
+| `rrid_status` | enum | R | lookup | `has_id` \| `searched_none` \| `not_attempted` |
+| `biotools_id` | string | O | bio.tools API (by name) | E.g., "biotools:prosight_lite"; null if none |
+| `biotools_status` | enum | R | lookup | `has_id` \| `searched_none` \| `not_attempted` |
+| `aliases` | list[string] | O | registry + observed raw strings | Never LLM-generated |
+| `vendor` | string | O | registry, annotation | Thermo, Bruker, etc. |
+| `category` | string | O | registry, annotation | `acquisition`, `processing`, `search`, `visualization` |
 
-**Note:** Not all software has a PSI-MS ID. When no ID exists, software 
-still becomes a node identified by `canonical_name:version`.
+**Note:** Version is NOT part of identity — it is a per-usage fact carried on the
+edge (`ACQUIRED_WITH.version`, `USES_SOFTWARE.version`). One node per tool
+(`software:{canonical_name}`); a PSI-MS ID, when it exists, is recorded in
+`psi_ms_id` but never in the identifier. Registry status is three-way
+(`has_id`/`searched_none`/`not_attempted`) so an absent ID is distinguishable
+from an unsearched one.
 
 ---
 
@@ -741,7 +750,7 @@ extraction (source 4) is dormant; zero of these edges exist on disk.
 | `COLLECTED_ON` | RawDataFile → Instrument | fisher_py | MANY-ONE | Active (998) |
 | `OPERATED_BY` | RawDataFile → Researcher | manual annotation | MANY-ONE | Active (46, Thermo only) |
 | `CONTAINS_SAMPLE` | RawDataFile → Sample | manual annotation | MANY-ONE | Active (46, Thermo only) |
-| `ACQUIRED_WITH` | RawDataFile → Software | fisher_py | MANY-ONE | Active (998) |
+| `ACQUIRED_WITH` | RawDataFile → Software | fisher_py | MANY-ONE | Active (934); property `version` (string, O) — per-acquisition version |
 | `DERIVED_FROM` | RawDataFile → Dataset | fisher_py | MANY-ONE | Active (952, PXD) |
 | `ANALYZED_IN` | RawDataFile → Publication | — | MANY-ONE | **PENDING** |
 
