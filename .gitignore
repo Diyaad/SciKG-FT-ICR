@@ -11,7 +11,7 @@ data/processed/*
 !data/raw/doi_list.csv
 !data/raw/manifest.json
 !data/raw/maglab_icr_publications.csv
-!data/raw/rawfile_metadata.csv
+!data/raw/rawfiles_metadata.csv
 !data/raw/publications/
 !data/raw/publications/*.json
 !data/raw/rawfiles_metadata/
@@ -22,6 +22,10 @@ data/processed/*
 !data/processed/relationships/*.jsonl
 !data/processed/rawfiles_enriched/
 !data/processed/rawfiles_enriched/*.json
+# Local-only: MagLab workstation metadata sweep (952 files, PXD folders).
+# Contains internal hostnames, IPs, and Windows user paths. Not published data.
+# RawDataFile nodes carry sha256 for verification against these originals.
+data/raw/rawfiles_pxd/
 
 # Generated artifacts
 outputs/*

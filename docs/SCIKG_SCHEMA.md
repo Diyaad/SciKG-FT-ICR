@@ -53,22 +53,25 @@ This schema maps to Neo4j as follows:
 ### Cypher constraints (run at database setup via `scripts/db.py`)
 
 ```cypher
-CREATE CONSTRAINT publication_doi    FOR (p:Publication)  REQUIRE p.doi IS UNIQUE;
-CREATE CONSTRAINT researcher_id      FOR (r:Researcher)   REQUIRE r.id IS UNIQUE;
-CREATE CONSTRAINT institution_id     FOR (i:Institution)  REQUIRE i.id IS UNIQUE;
-CREATE CONSTRAINT journal_issn       FOR (j:Journal)      REQUIRE j.issn IS UNIQUE;
-CREATE CONSTRAINT grant_id           FOR (g:Grant)        REQUIRE g.id IS UNIQUE;
-CREATE CONSTRAINT funder_id          FOR (f:Funder)       REQUIRE f.id IS UNIQUE;
-CREATE CONSTRAINT facility_id        FOR (f:Facility)     REQUIRE f.id IS UNIQUE;
-CREATE CONSTRAINT instrument_id      FOR (i:Instrument)   REQUIRE i.id IS UNIQUE;
-CREATE CONSTRAINT dataset_id         FOR (d:Dataset)      REQUIRE d.id IS UNIQUE;
-CREATE CONSTRAINT method_id          FOR (m:Method)       REQUIRE m.id IS UNIQUE;
-CREATE CONSTRAINT sample_id          FOR (s:Sample)       REQUIRE s.id IS UNIQUE;
-CREATE CONSTRAINT protein_id         FOR (p:Protein)      REQUIRE p.id IS UNIQUE;
-CREATE CONSTRAINT organism_id        FOR (o:Organism)     REQUIRE o.id IS UNIQUE;
-CREATE CONSTRAINT modification_id    FOR (m:Modification) REQUIRE m.id IS UNIQUE;
-CREATE CONSTRAINT software_id        FOR (s:Software)     REQUIRE s.id IS UNIQUE;
-CREATE CONSTRAINT rawfile_filename   FOR (r:RawDataFile)  REQUIRE r.filename IS UNIQUE;
+// Every node keys on a single top-level `identifier` (namespace:value).
+CREATE CONSTRAINT publication_identifier  FOR (p:Publication)  REQUIRE p.identifier IS UNIQUE;
+CREATE CONSTRAINT researcher_identifier   FOR (r:Researcher)   REQUIRE r.identifier IS UNIQUE;
+CREATE CONSTRAINT institution_identifier  FOR (i:Institution)  REQUIRE i.identifier IS UNIQUE;
+CREATE CONSTRAINT journal_identifier      FOR (j:Journal)      REQUIRE j.identifier IS UNIQUE;
+CREATE CONSTRAINT grant_identifier        FOR (g:Grant)        REQUIRE g.identifier IS UNIQUE;
+CREATE CONSTRAINT funder_identifier       FOR (f:Funder)       REQUIRE f.identifier IS UNIQUE;
+CREATE CONSTRAINT facility_identifier     FOR (f:Facility)     REQUIRE f.identifier IS UNIQUE;
+CREATE CONSTRAINT instrument_identifier   FOR (i:Instrument)   REQUIRE i.identifier IS UNIQUE;
+CREATE CONSTRAINT dataset_identifier      FOR (d:Dataset)      REQUIRE d.identifier IS UNIQUE;
+CREATE CONSTRAINT method_identifier       FOR (m:Method)       REQUIRE m.identifier IS UNIQUE;
+CREATE CONSTRAINT sample_identifier       FOR (s:Sample)       REQUIRE s.identifier IS UNIQUE;
+CREATE CONSTRAINT protein_identifier      FOR (p:Protein)      REQUIRE p.identifier IS UNIQUE;
+CREATE CONSTRAINT organism_identifier     FOR (o:Organism)     REQUIRE o.identifier IS UNIQUE;
+CREATE CONSTRAINT modification_identifier FOR (m:Modification) REQUIRE m.identifier IS UNIQUE;
+CREATE CONSTRAINT software_identifier     FOR (s:Software)     REQUIRE s.identifier IS UNIQUE;
+// RawDataFile: identifier (rawfile:{filename}) is NOT globally unique across the
+// two RAW sources; global uniqueness is enforced on the checksum instead.
+CREATE CONSTRAINT rawfile_sha256          FOR (r:RawDataFile)  REQUIRE r.sha256_hash IS UNIQUE;
 ```
 
 ---
@@ -93,6 +96,34 @@ CREATE CONSTRAINT rawfile_filename   FOR (r:RawDataFile)  REQUIRE r.filename IS 
 
 ---
 
+## Universal Identity
+
+Every node carries a single top-level `identifier` (lowercase `namespace:value`)
+— this is THE required, unique identity field for **every** node type, and it is
+100% populated on disk across all 10 populated types. The on-disk key name is
+`identifier`, **not** `id`: where a per-node property table below shows an `id`
+row, it refers to this top-level `identifier`.
+
+Domain keys — `doi`, `issn`, `accession`, `filename`, `ror_id` — live **inside
+`properties`**, not as the identity field. The per-node "Identifier:" lines
+describe how the `identifier` *value* is minted (e.g. `doi:{doi}` or
+`pub:maglab:{id}`); they are not separate fields. External-PID-preferred rules
+are aspirational only: in the current data Researcher never uses `orcid:`,
+Journal never `issn:`, Software/Instrument never `ms:` — all use minted internal
+PIDs.
+
+**Uniqueness:** `identifier` is unique for every type **except `RawDataFile`**,
+whose `rawfile:{filename}` value is not globally unique across the two RAW
+sources (64 PXD cross-deposits share filenames). RawDataFile global uniqueness is
+enforced on `sha256_hash` instead (see that node).
+
+**One type spans multiple files:** `Dataset` records live in **two** files —
+`datasets.jsonl` (CSV) and embedded in `rawfiles_pxd.jsonl` (32 PXD datasets).
+Identity, uniqueness, and dangling-reference checks must scan **all** entity
+files, not assume one file per type.
+
+---
+
 ## Universal Provenance Properties
 
 Every node and every relationship carries these six properties. This is 
@@ -100,7 +131,7 @@ what makes the graph FAIR (R1.2) and PROV-O-aligned.
 
 | Property | Type | Allowed values | PROV-O mapping |
 |---|---|---|---|
-| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `llm_extraction` | `prov:wasGeneratedBy` |
+| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `llm_extraction` | `prov:wasGeneratedBy` |
 | `confidence` | string | `high`, `medium`, `low` | — |
 | `extracted_at` | ISO 8601 | `2026-06-29T14:00:00Z` | `prov:generatedAtTime` |
 | `evidence_note` | string | Free text, human-readable basis | — |
@@ -110,6 +141,13 @@ what makes the graph FAIR (R1.2) and PROV-O-aligned.
 **Convention:** in Neo4j, these properties are stored directly on the 
 node or relationship. They are not abstracted into a separate provenance 
 object.
+
+**Note on `source_type`:** this is provenance, not a query gate — do not use it
+to hard-filter records. Values on disk: `csv`, `fisher_py`, `manual_annotation`,
+and `merged_csv_foxden` (the 46 Thermo RawDataFiles). The PXD (6th) source reuses
+`fisher_py` and is distinguished by file/prefix, not by `source_type`. `api` and
+`llm_extraction` are defined but currently unused (source 1 and stage 02d are
+dormant).
 
 **Note on `confidence`:** the value reflects source trust (API and curated 
 records are high; LLM extractions are medium), not factual accuracy of the 
@@ -201,6 +239,9 @@ itself, not to any other PDF location.
 
 Sources 1 and 2.
 
+**Status: PLANNED — not yet populated.** Zero Institution nodes on disk;
+CrossRef (source 1) is not extracted. Definition retained for when it is.
+
 **Conforms to:** schema.org/Organization, DataCite affiliation, ROR  
 **Identifier:** `ror:{ror_id}` when present; otherwise `inst:{normalized_name}`
 
@@ -244,6 +285,11 @@ Sources 1 and 2.
 
 Source 1 only.
 
+**Status: PLANNED — not yet built.** Zero Grant nodes and zero `AWARDED_BY`
+edges on disk. The Grant layer was collapsed: `FUNDED_BY` currently goes
+Publication → Funder directly (see Relationships). Grant / `AWARDED_BY` remain
+planned for when CrossRef (source 1) is extracted.
+
 **Conforms to:** DataCite fundingReference  
 **Identifier:** `grant:{funder_normalized}:{award_id}`
 
@@ -254,7 +300,7 @@ Source 1 only.
 | `id` | string | M | derived | |
 | `award_id` | string | M | CrossRef | |
 
-Funder details live on the Funder node, connected via `AWARDED_BY`.
+When built, Funder details live on the Funder node, connected via `AWARDED_BY`.
 
 ---
 
@@ -303,7 +349,8 @@ Source 2.
 
 Sources 2, 4, and 5.
 
-**Conforms to:** PSI-MS  
+**Conforms to:** PSI-MS (MS instruments), nmrCV (NMR instruments); all other 
+analytical instruments are label-only (no ontology)  
 **Identifier:** `instrument:{normalized_canonical_name}` after normalization; 
 during extraction, `instrument:raw:{normalized_raw_string}`
 
@@ -313,8 +360,20 @@ during extraction, `instrument:raw:{normalized_raw_string}`
 |---|---|---|---|---|
 | `id` | string | M | derived | |
 | `canonical_name` | string | M after normalization | controlled vocab | E.g., "21T FT-ICR MS" |
-| `psi_ms_id` | string | M after normalization | controlled vocab | E.g., "MS:1000079" |
-| `instrument_model_raw` | string | O | fisher_py | FOXDEN `instrument.model` |
+| `psi_ms_id` | string | O (nullable) | controlled vocab | On-disk field name (`properties.psi_ms_id`). Value space is generalized beyond PSI-MS: a PSI-MS accession (e.g. `MS:1003948`) **or** an nmrCV accession **or** `null` for non-MS/non-NMR instruments (TOC, ICP-MS, sequencers, microscopes, GC, …), which are label-only by design. |
+| `ontology_source` | string | O | PLANNED | Intended discriminator recording which ontology `psi_ms_id` draws from — one of `PSI-MS`, `NMRCV`, or null. **Not yet emitted**; on disk today only `psi_ms_id` is present. |
+| `model_raw` | string | O | fisher_py | On-disk field (`properties.model_raw`). FOXDEN `instrument.model`. |
+| `name_raw` | string | O | fisher_py | On-disk field (`properties.name_raw`). FOXDEN `instrument.name`. |
+
+### Ontology mapping (Established 2026-07-11)
+
+Only mass-spectrometry (PSI-MS) and NMR (nmrCV) instruments are mapped to an 
+ontology. Every other analytical instrument is a real node with 
+`psi_ms_id = null` — a null value is **valid and expected**, not a validation 
+failure. OBI/CHMO are not integrated. `04_validate.py` must accept null 
+`psi_ms_id` for non-MS/non-NMR instruments. The on-disk field keeps the name 
+`psi_ms_id` (matching the extractor output); the planned `ontology_source` field 
+will record which ontology a non-null value comes from.
 
 ### Notes on omitted properties
 
@@ -361,6 +420,11 @@ Source 2.
 
 Sources 4 and 5.
 
+**Status: PLANNED — not yet populated.** Zero Method nodes on disk. The
+annotation path (source 4) is dormant, and RAW-file activation is currently held
+as the `activation_types_raw` property on RawDataFile (all 998 files), not yet
+promoted to Method nodes (see Activation modeling below).
+
 **Conforms to:** PSI-MS  
 **Identifier:** `ms:{psi_ms_id}:{canonical_name_normalized}`  
 **Coverage:** Tier 3 — 8 annotated papers + 46 RAW files (acquisition methods)
@@ -372,6 +436,7 @@ Sources 4 and 5.
 | `id` | string | M | derived | |
 | `canonical_name` | string | M | controlled vocab | |
 | `psi_ms_id` | string | M | controlled vocab | |
+| `activation_types` | list[string] | O — PLANNED | controlled vocab | Intended: dissociation methods for the RAW file, e.g. `[CID, HCD]`. PSI-MS CV terms: CID `MS:1000133`, HCD `MS:1000422`, ETD `MS:1000598`, etc. **Not yet on Method** — currently lives as `activation_types_raw` on RawDataFile. |
 | `tier` | integer | M | controlled vocab | 1 = primary MS (node), 2 = supporting (property only) |
 
 ### Rule
@@ -379,6 +444,15 @@ Sources 4 and 5.
 Only Tier 1 methods become Method nodes. Tier 2 methods (Western blot, 
 RNA-Seq, etc.) are recorded as `supporting_methods` list property on 
 Publication.
+
+### Activation modeling (decided 2026-07-11 — PLANNED, not yet built)
+
+The intended model: one Method node per RAW file, carrying that file's
+activation/fragmentation techniques as the `activation_types` list, with
+dissociation-method CV terms applied; fragmentation is **not** modeled as
+per-scan-event nodes. This is **not yet built** — today the data lives as the
+`activation_types_raw` property on every RawDataFile (998 files) and there are
+zero Method nodes.
 
 ---
 
@@ -410,6 +484,9 @@ Sources 4 and 5.
 
 Source 4. Phase 2 will add from PDF extraction.
 
+**Status: PLANNED — not yet populated.** Zero Protein nodes on disk; manual
+annotation (source 4, Tier 3) is not extracted.
+
 **Conforms to:** UniProt  
 **Identifier:** `uniprot:{accession}` when present; otherwise 
 `protein:{canonical_name_normalized}`  
@@ -429,6 +506,9 @@ Source 4. Phase 2 will add from PDF extraction.
 
 Sources 4 and 5.
 
+**Status: PLANNED — not yet populated.** Zero Organism nodes on disk; the
+annotation (source 4) and organism-from-RAW paths are not extracted.
+
 **Conforms to:** NCBI Taxonomy, Bioschemas Taxon  
 **Identifier:** `ncbitaxon:{taxonomy_id}`  
 **Coverage:** Tier 3 — 8 annotated papers + 46 RAW files (E. coli MG1655)
@@ -446,6 +526,9 @@ Sources 4 and 5.
 ## Node: Modification
 
 Source 4. Phase 2 will add from PDF extraction.
+
+**Status: PLANNED — not yet populated.** Zero Modification nodes on disk;
+manual annotation (source 4, Tier 3) is not extracted.
 
 **Conforms to:** UNIMOD  
 **Identifier:** `unimod:{id}`  
@@ -489,12 +572,15 @@ still becomes a node identified by `canonical_name:version`.
 
 ## Node: RawDataFile
 
-Source 5 only. One node per Thermo `.raw` file.
+Sources 5 and 6. One node per RAW file — 46 Thermo `.raw` files (source 5) plus
+952 Blood Proteoform Atlas PXD files (source 6, local-only, gitignored).
 
 **Conforms to:** SDRF-Proteomics, schema.org/DigitalDocument, SPDX 
 (for checksum), PROV-O  
-**Identifier:** `rawfile:{filename}`  
-**Coverage:** 46 `.raw` files
+**Identifier:** `rawfile:{filename}` — human-readable, but **not** globally
+unique (filenames repeat across the two RAW sources; 64 PXD cross-deposits
+share filenames). Global uniqueness is enforced on `sha256_hash` instead.  
+**Coverage:** 998 files (46 Thermo + 952 PXD; PXD dedups to 888 distinct nodes)
 
 ### Properties from manual filename metadata (data/raw/rawfile_metadata.csv)
 
@@ -527,7 +613,8 @@ Source 5 only. One node per Thermo `.raw` file.
 | `ms_run_time_minutes` | float | O | FOXDEN `MS Run Time (min)` |
 | `acquisition_method_creator` | string | O | FOXDEN `instrumentMethod.Creator` |
 | `acquisition_method_file` | string | O | E.g., `DSB_20200531_FT_Top2_CID_msnfills4_125min.meth` |
-| `sha256_hash` | string | R | FOXDEN `spdx:checksum` |
+| `sha256_hash` | string | M | FOXDEN `spdx:checksum`. Global uniqueness key for RawDataFile (filenames are not unique across sources). |
+| `activation_types_raw` | list[string] | O | Dissociation/activation techniques parsed from the RAW file, e.g. `[CID, HCD]`. Present on all 998 RawDataFiles today. Promotion to Method nodes is planned (see Method → Activation modeling). |
 | `original_filepath` | string | O | FOXDEN `filepath` |
 | `date_created` | datetime | R | FOXDEN `dateCreated` |
 | `date_modified` | datetime | O | FOXDEN `dateModified` |
@@ -553,38 +640,56 @@ Every relationship carries the six provenance properties listed above.
 
 ### Tier 1 — Full corpus
 
-| Relationship | Subject → Object | Source | Cardinality |
-|---|---|---|---|
-| `AUTHORED_BY` | Publication → Researcher | CrossRef, CSV | MANY-MANY |
-| `AFFILIATED_WITH` | Researcher → Institution | CrossRef, CSV | MANY-MANY |
-| `PUBLISHED_IN` | Publication → Journal | CrossRef, CSV | MANY-ONE |
-| `FUNDED_BY` | Publication → Grant | CrossRef | MANY-MANY |
-| `AWARDED_BY` | Grant → Funder | CrossRef, controlled vocab | MANY-ONE |
-| `CONDUCTED_AT` | Publication → Facility | CSV | MANY-MANY |
-| `USES_INSTRUMENT` | Publication → Instrument | CSV, annotations | MANY-MANY |
-| `HAS_DATASET` | Publication → Dataset | CSV | MANY-MANY |
-| `CITES` | Publication → Publication | CrossRef references | MANY-MANY |
+| Relationship | Subject → Object | Source | Cardinality | Status |
+|---|---|---|---|---|
+| `AUTHORED_BY` | Publication → Researcher | CrossRef, CSV | MANY-MANY | Active |
+| `AFFILIATED_WITH` | Researcher → Institution | CrossRef, CSV | MANY-MANY | PLANNED — no Institution nodes |
+| `PUBLISHED_IN` | Publication → Journal | CrossRef, CSV | MANY-ONE | Active |
+| `FUNDED_BY` | Publication → Funder | CrossRef, CSV | MANY-MANY | Active (direct to Funder — see note) |
+| `AWARDED_BY` | Grant → Funder | CrossRef, controlled vocab | MANY-ONE | PLANNED — no Grant nodes |
+| `CONDUCTED_AT` | Publication → Facility | CSV | MANY-MANY | Active |
+| `USES_INSTRUMENT` | Publication → Instrument | CSV, annotations | MANY-MANY | Active |
+| `HAS_DATASET` | Publication → Dataset | CSV | MANY-MANY | Active |
+| `CITES` | Publication → Publication | CrossRef references | MANY-MANY | PLANNED — not extracted |
+
+**FUNDED_BY goes Publication → Funder directly (383 edges).** The
+originally-planned Grant layer (Publication → Grant → Funder via `AWARDED_BY`) is
+not built — there are zero Grant nodes and zero `AWARDED_BY` edges. Grant /
+`AWARDED_BY` remain PLANNED (see Grant node).
 
 ### Tier 3 — Annotated papers only
 
-| Relationship | Subject → Object | Source | Cardinality |
-|---|---|---|---|
-| `USES_METHOD` | Publication → Method | annotation | MANY-MANY |
-| `ANALYZES_SAMPLE` | Publication → Sample | annotation | MANY-MANY |
-| `ANALYZES_PROTEIN` | Publication → Protein | annotation | MANY-MANY |
-| `INVOLVES_ORGANISM` | Publication → Organism | annotation, RAW | MANY-MANY |
-| `STUDIES_PTM` | Publication → Modification | annotation | MANY-MANY |
-| `USES_SOFTWARE` | Publication → Software | annotation | MANY-MANY |
+**All Tier 3 edges are PLANNED — not yet populated.** The manual-annotation
+extraction (source 4) is dormant; zero of these edges exist on disk.
+(RawDataFile → Software links exist instead via `ACQUIRED_WITH`, below.)
+
+| Relationship | Subject → Object | Source | Cardinality | Status |
+|---|---|---|---|---|
+| `USES_METHOD` | Publication → Method | annotation | MANY-MANY | PLANNED |
+| `ANALYZES_SAMPLE` | Publication → Sample | annotation | MANY-MANY | PLANNED |
+| `ANALYZES_PROTEIN` | Publication → Protein | annotation | MANY-MANY | PLANNED |
+| `INVOLVES_ORGANISM` | Publication → Organism | annotation, RAW | MANY-MANY | PLANNED |
+| `STUDIES_PTM` | Publication → Modification | annotation | MANY-MANY | PLANNED |
+| `USES_SOFTWARE` | Publication → Software | annotation | MANY-MANY | PLANNED |
 
 ### RAW file relationships
 
 | Relationship | Subject → Object | Source | Cardinality | Status |
 |---|---|---|---|---|
-| `COLLECTED_ON` | RawDataFile → Instrument | fisher_py | MANY-ONE | Active |
-| `OPERATED_BY` | RawDataFile → Researcher | manual annotation | MANY-ONE | Active |
-| `CONTAINS_SAMPLE` | RawDataFile → Sample | manual annotation | MANY-ONE | Active |
-| `ACQUIRED_WITH` | RawDataFile → Software | fisher_py | MANY-ONE | Active |
+| `COLLECTED_ON` | RawDataFile → Instrument | fisher_py | MANY-ONE | Active (998) |
+| `OPERATED_BY` | RawDataFile → Researcher | manual annotation | MANY-ONE | Active (46, Thermo only) |
+| `CONTAINS_SAMPLE` | RawDataFile → Sample | manual annotation | MANY-ONE | Active (46, Thermo only) |
+| `ACQUIRED_WITH` | RawDataFile → Software | fisher_py | MANY-ONE | Active (998) |
+| `DERIVED_FROM` | RawDataFile → Dataset | fisher_py | MANY-ONE | Active (952, PXD) |
 | `ANALYZED_IN` | RawDataFile → Publication | — | MANY-ONE | **PENDING** |
+
+### DERIVED_FROM
+
+`RawDataFile → Dataset`, 952 edges. Links each Blood Proteoform Atlas PXD RAW
+file to the ProteomeXchange Dataset it was deposited under. The Dataset objects
+are the 32 PXD Dataset nodes embedded in `rawfiles_pxd.jsonl` (not in
+`datasets.jsonl`). Carries the six provenance properties (`source_type:
+fisher_py`).
 
 ### ANALYZED_IN status
 
@@ -619,8 +724,14 @@ Internal PIDs are lowercase, underscored, and human-readable. Example:
 `researcher:lastname_f_2019`.
 
 JSON-LD export format uses namespace prefix (`doi:10.1021/...`, 
-`orcid:0000-...`, `ms:1000079`). Internal Neo4j storage may use bare 
+`orcid:0000-...`, `ms:1003948`). Internal Neo4j storage may use bare 
 values for query efficiency.
+
+The ordering above is the *minting* preference for the `identifier` **value**.
+On disk the identity is always the single top-level `identifier` field (see
+Universal Identity); the external-PID-first tiers are aspirational and, in the
+current data, mostly unrealized (Researcher/Journal/Software use minted internal
+PIDs).
 
 ---
 
@@ -689,7 +800,14 @@ Before any change to this schema:
 4. Does the controlled vocabulary support the new node or property?
 5. Does the new entity have a persistent identifier strategy?
 
-If any answer is "no," the change does not enter v1.0. Bump to v1.1 instead.
+If any answer is "no," raise it for review before extending the schema.
+
+**Versioning:** v1.0 is the live version and all records on disk carry
+`schema_version: "v1.0"` — including the PXD, DERIVED_FROM, and other additions
+reconciled here. Current in-flight work stays under v1.0 (schema and data are
+kept in sync in place); do **not** bump to v1.1 or re-tag data for these changes.
+`04_validate.py` requires `schema_version == "v1.0"`. A version bump is reserved
+for a future breaking change that requires migrating already-loaded records.
 
 ---
 

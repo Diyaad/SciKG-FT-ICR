@@ -274,12 +274,24 @@ class Extractor:
                               "Researcher", SOURCE_SAMPLE)
 
         # --- Instrument (dedupe across files + against instruments.jsonl) ---
+        # Identity is built from the reliable .model field, NOT .name: the same
+        # physical instrument can carry a stale .name across sources (e.g. the PXD
+        # sweep reports name="Orbitrap Velos Pro" for the same box .model calls
+        # "LTQ FT Ultra"). Keying the identifier on .model lets 02c and 02f dedupe
+        # to ONE identifier. Fall back to .name only when .model is absent, and log
+        # the fallback so an empty identifier is never produced silently.
         instrument_name = clean(instrument.get("name"))
-        if instrument_name:
-            instrument_id = f"instrument:raw:{slugify(instrument_name)}"
+        instrument_model = clean(instrument.get("model"))
+        id_source = instrument_model
+        if not id_source and instrument_name:
+            id_source = instrument_name
+            print(f"FALLBACK {rawfile_id}: instrument .model empty; identifier "
+                  f"derived from .name {instrument_name!r}")
+        if id_source:
+            instrument_id = f"instrument:raw:{slugify(id_source)}"
             self.add_entity("Instrument", instrument_id, {
                 "name_raw": instrument_name,
-                "model_raw": clean(instrument.get("model")),
+                "model_raw": instrument_model,
                 "canonical_name": None,  # filled in 03_normalize.py
                 "psi_ms_id": None,       # filled in 03_normalize.py
             }, SOURCE_INSTRUMENT, "instruments_written")

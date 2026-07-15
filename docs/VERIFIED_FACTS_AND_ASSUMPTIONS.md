@@ -170,3 +170,83 @@ When an assumption is removed or a claim rewritten, record it here and in
   (name + version), so Software is a logged entity, as
   CLAUDE.md already states. Software nodes are written by
   02c_extract_rawfiles.py.
+
+## Controlled-vocabulary PSI-MS audit — 2026-07-10
+
+Every ontology accession already in `docs/controlled_vocabulary.md` was
+resolved live against the authoritative PSI-MS ontology via the EBI OLS4 API
+(`https://www.ebi.ac.uk/ols4/api/ontologies/ms/...`). None was confirmed from
+memory.
+
+**Bug class found (the "MS:1000079 class"):** generic *analyzer* or *parent*
+accessions had been minted as if they were *specific instruments*. ~9 authored
+rows carried the wrong accession — the ID was real but denoted a different
+concept. One term (MS:1000013) was also **obsolete**.
+
+**Instrument-ID fixes applied (Instruments table — these are the ones that
+actively corrupt the graph, because `03_normalize.py` writes `psi_ms_id` onto
+Instrument nodes):**
+- 21T / 14.5T / 9.4T FT-ICR MS: `MS:1000079` (analyzer "fourier transform ion
+  cyclotron resonance") -> `MS:1003948` ("fourier transform ion cyclotron
+  resonance instrument").
+- Orbitrap Eclipse Tribrid: `MS:1000484` (analyzer "orbitrap") -> `MS:1003029`.
+- Q-Exactive HF: `MS:1000484` -> `MS:1002523`.
+- Velos Pro: `MS:1000484` -> `MS:1003495`.
+- TOF MS: `MS:1000084` (analyzer "time-of-flight") -> `MS:1003951`
+  ("time-of-flight instrument").
+- Finnigan TSQ: `MS:1000031` (generic parent "instrument model") -> `MS:1000750`
+  ("TSQ").
+
+Only the **Instruments-table** uses of `MS:1000079` (three rows) were wrong. The
+Methods-table row (FT-ICR MS) keeps `MS:1000079` — that is the correct analyzer/
+method sense and was **left untouched**.
+
+**Tier B latent fixes (Methods table, not yet consumed by any script):** Top-down
+proteomics `MS:1002586` -> `MS:1003351`; Bottom-up proteomics `MS:1002314` ->
+`MS:1003355`; Internal calibration `MS:1000787` -> `MS:1000759`.
+
+**PENDING — decisions in flight, sent to supervisor (left flagged in the vocab,
+IDs unchanged):**
+- Finnigan LCQ (`MS:1000031`): **RESOLVED 2026-07-11** — recorded as a
+  null-ontology label; no submodel will be chased (old instrument, out of use).
+  Vocab pending flag to be removed. See "Decisions — 2026-07-11" below.
+- MS/MS (`MS:1000013`): **obsolete** and resolves to "resolution type"; no clean
+  PSI-MS replacement found.
+- LC-MS/MS (`MS:1000073`): resolves to "electrospray ionization"; no single
+  PSI-MS term for LC-MS/MS.
+- De novo sequencing (`MS:1001954`): resolves to "acquisition parameter"; no
+  clean PSI-MS term.
+
+**Forward action:** `03_normalize.py` must be re-run so the corrected instrument
+accessions are minted onto Instrument nodes; until then, previously loaded nodes
+carry the old (wrong) `psi_ms_id`.
+
+## Decisions — 2026-07-11 (David)
+
+1. **Instrument ontology scope: PSI-MS and nmrCV only.** Instruments are mapped
+   into an ontology only for mass spectrometry (PSI-MS) and NMR (nmrCV). All
+   other analytical instruments (TOC analyzers, ICP-MS, sequencers, microscopes,
+   GC, etc.) are real nodes with relationships and canonical names but a null
+   ontology mapping — label-only by design, NOT mapped. OBI/CHMO are explicitly
+   not integrated. A null ontology value on a non-MS/non-NMR Instrument is valid
+   and expected; `04_validate.py` must not quarantine it. (On disk the ontology
+   field is named `psi_ms_id`; its value space is generalized to PSI-MS/nmrCV/
+   null, and the planned `ontology_source` field records which — see decision 4.)
+2. **Finnigan LCQ: null-ontology label.** Recorded as data with a null ontology
+   value; no specific PSI-MS submodel will be chased (old instrument, no longer
+   in use). Resolves the LCQ pending flag from the 2026-07-10 audit.
+3. **Activation/fragmentation modeling: list on Method.** Intended model: one
+   Method node per RAW file, carrying that file's activation types as a list
+   (e.g. `[CID, HCD]`). Dissociation-method CV terms apply (CID `MS:1000133`, HCD
+   `MS:1000422`, etc.). Not modeled as per-scan-event nodes. **Not yet built** —
+   the data currently lives as `activation_types_raw` on RawDataFile (all 998
+   files); there are zero Method nodes (survey 2026-07-13).
+
+4. **NMR / nmrCV in scope.** NMR magnets (e.g. 900 MHz, 600 MHz DNP) are in
+   scope as Instrument nodes, mapped to the nmrCV ontology with
+   `ontology_source = NMRCV`. This sits alongside PSI-MS for MS instruments;
+   both are the only two ontologies instruments map into (decision 1). Note:
+   the on-disk ontology field is named `psi_ms_id` (extractor output); its value
+   space is generalized to hold nmrCV accessions and null, and the planned
+   `ontology_source` field will record which ontology a value comes from. `nmrCV`
+   rows are not yet in `controlled_vocabulary.md` (owned by another team member).
