@@ -64,7 +64,8 @@
       "raw_file": "data/raw/publications/10_1101_455527.json",
       "stages_complete": [
         "fetch",
-        "extract"
+        "extract",
+        "pdf_extract"
       ]
     },
     "10.1021/acs.analchem.5c02420": {
@@ -85,8 +86,7 @@
       "raw_file": "data/raw/publications/10_1002_rcm_4655.json",
       "stages_complete": [
         "fetch",
-        "extract",
-        "pdf_extract"
+        "extract"
       ]
     },
     "10.1021/ac0108461": {
@@ -96,8 +96,7 @@
       "raw_file": "data/raw/publications/10_1021_ac0108461.json",
       "stages_complete": [
         "fetch",
-        "extract",
-        "pdf_extract"
+        "extract"
       ]
     },
     "10.1016/j.watres.2025.124698": {
@@ -107,7 +106,8 @@
       "raw_file": "data/raw/publications/10_1016_j_watres_2025_124698.json",
       "stages_complete": [
         "fetch",
-        "extract"
+        "extract",
+        "pdf_extract"
       ]
     },
     "10.1021/acs.analchem.5c05562": {
@@ -117,7 +117,8 @@
       "raw_file": "data/raw/publications/10_1021_acs_analchem_5c05562.json",
       "stages_complete": [
         "fetch",
-        "extract"
+        "extract",
+        "pdf_extract"
       ]
     },
     "10.1021/acs.molpharmaceut.5c00679": {
@@ -127,7 +128,8 @@
       "raw_file": "data/raw/publications/10_1021_acs_molpharmaceut_5c00679.json",
       "stages_complete": [
         "fetch",
-        "extract"
+        "extract",
+        "pdf_extract"
       ]
     },
     "10.1002/pmic.201300438": {
@@ -137,7 +139,8 @@
       "raw_file": "data/raw/publications/10_1002_pmic_201300438.json",
       "stages_complete": [
         "fetch",
-        "extract"
+        "extract",
+        "pdf_extract"
       ]
     },
     "10.1002/rcm.7137": {
@@ -167,7 +170,8 @@
       "raw_file": "data/raw/publications/10_1002_pca_70001.json",
       "stages_complete": [
         "fetch",
-        "extract"
+        "extract",
+        "pdf_extract"
       ]
     },
     "10.1029/2025jg008899": {
