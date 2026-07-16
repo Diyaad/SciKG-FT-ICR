@@ -184,6 +184,7 @@ with CrossRef metadata
 | `software_mentioned` | list[string] | O | annotation | Raw strings |
 | `facilities_mentioned_raw` | array[string] | O | PDF (llm_extraction) | Verbatim facility/location strings from PDF extraction that are too generic to identify a specific organization (e.g. "the laboratory", "greenhouse facility", "Clinical Haematology Department"). Text-only provenance carried on the Publication; never resolved to a node, never an identifier or edge endpoint. Distinct from `CONDUCTED_AT` (→Facility) and `INVOLVES_INSTITUTION` (→Institution): those assert a real place; this preserves an unmintable mention without fabricating one. Two papers sharing such a string do NOT imply the same location. Rationale mirrors the controlled-vocabulary peripherals rule (record as text, not as a node). |
 | `instruments_mentioned_raw` | array[string] | O | PDF (llm_extraction) | Verbatim instrument-adjacent strings from PDF extraction that the controlled vocabulary (controlled_vocabulary.md lines 50–54) excludes from Instrument nodes: LC/UPLC/nanoLC systems, ion sources, ICR cells, NanoMate, APPI Ion Max, MIDAS, GELFrEE. Text-only provenance carried on the Publication; never a node, never an identifier or edge endpoint. Implements the CV's explicit peripherals rule; mirrors `facilities_mentioned_raw`. Distinct from `USES_INSTRUMENT` (→Instrument), which asserts a real instrument node. |
+| `software_mentioned_raw` | array[string] | O | PDF (llm_extraction) | Verbatim software strings from PDF extraction that are real but too generic to mint as a Software node (`in-house software`, `custom in-house software`, `Custom software`, `homemade Python scripts Jupyter Notebooks`, `Multiple Analytical Tools`). Text-only provenance carried on the Publication; never a node, never an identifier or edge endpoint. Distinct from `USES_SOFTWARE` (→Software), which asserts a real tool. Two papers sharing such a string do NOT imply the same tool. Mirrors `facilities_mentioned_raw` / `instruments_mentioned_raw`. **Active — on 5 publications (2026-07-16)**; ruled in `docs/pdf_transform_logic.md` §9.7. |
 | `is_ground_truth` | boolean | M | derived | True for the 8 annotated papers |
 
 ### Source merge rule
@@ -552,6 +553,40 @@ annotation (source 4, Tier 3) is not extracted.
 
 ---
 
+## Node: (reference database) — NAME UNDECIDED
+
+Source 6 (PDF extraction).
+
+**Status: RULED, NOT IMPLEMENTED — 2026-07-16 (Diya).** Reference databases get **their own
+node type. NOT Software.** Zero nodes on disk. **Nothing below is decided** — this section
+records the ruling and the open question set so it is not re-derived. **No node type,
+relationship, or property has been added; nothing is minted.**
+
+**The ruling:** *you search against SILVA, you don't run it.* A `USES_SOFTWARE → SILVA` edge
+would **assert something false**. This is a **modelling call, not an availability one** — both
+bio.tools and SciCrunch register databases, so a real identifier is available either way.
+
+**Corpus scope:** `SILVA`, `RDP` (Ribosomal Database Project), `COLMAR` — three strings, from
+`software_tools` (source 6). They **stay in REVIEW** in
+`data/processed/review/software_review.md` until this node type is built; there is nowhere to
+route them. **BLAST** and **GTDB-Tk** are **tools** and mint as `Software`
+(`docs/pdf_transform_logic.md` §9.7). **GTDB** (the database) does not appear as a bare string.
+
+**Undecided — every item. No proposals:**
+
+| Question | Bearing |
+|---|---|
+| **Node type name** | `Database`? `ReferenceDatabase`? Something narrower? |
+| **Identifier** | §Universal Identity requires one. Registry-derived (bio.tools / RRID) or a local slug? Registry-derived would make identity **contingent on a lookup** — the failure mode rejected for Software (§9.1 / the Xcalibur collapse). |
+| **Relationship + verb** | `USES_SOFTWARE` is excluded by the ruling. Verb, direction, and subject all open: Publication → ? Method → ? |
+| **Universal provenance** | §Universal Provenance Properties is **mandatory for every node** — `source_type`, `confidence`, `extracted_at`, `evidence_note`, `source_id`, `schema_version`. Values for a database node are undecided (`llm_extraction` is the likely `source_type` for these three, but that is **not ruled**). |
+| **03 normalize** | Is there a CV to canonicalize against, or is 03 a pass-through? (§9.2: *registry exists → the transform enriches; CV exists → 03 canonicalizes.*) |
+| **04 validate** | Undecided; 04 is not built. |
+| **05 load** | Undecided; 05 is not built. A Cypher constraint in `scripts/db.py` would be required. |
+| **Versioning** | SILVA releases are versioned (138.1). Identity, property, or edge fact? Software's answer (edge fact, §9.1) does **not** automatically transfer. |
+
+---
+
 ## Node: Organism
 
 Sources 4 and 5.
@@ -596,7 +631,25 @@ manual annotation (source 4, Tier 3) is not extracted.
 
 ## Node: Software
 
-Sources 4 and 5.
+Sources 4 and 5, and source 6 (PDF extraction).
+
+**Status: Active — 51 distinct nodes (2026-07-16).** Split across two files by
+SOURCE, following the Institution/Instrument convention: **1** node in
+`entities/software.jsonl` (`software:xcalibur`, `fisher_py`, from the 02c/02f
+Xcalibur migration) and **50** in `entities/pdf_entities.jsonl`
+(`llm_extraction`, from the PDF software transform). Cross-file identifier
+overlap is **0** and must stay 0: `03_normalize.py` dedups by identifier
+**within a file only** (pass 2), so a cross-file collision would pass straight
+through to 05's uniqueness constraint. `software:xcalibur` is therefore minted
+by exactly one stage and skipped by the other.
+
+**`category`** is `null` on all 50 PDF nodes: 02c derives it from RAW-file
+context, and a PDF mention carries no source for it. Inventing values would be
+fabricating metadata.
+
+**`biotools_status: proposed`** on 16 nodes means an exact-name bio.tools hit
+exists but **no human has confirmed it** — `biotools_id` stays `null` until
+`docs/software_registry_review.md` returns. See §9.3.
 
 **Conforms to:** schema.org/SoftwareApplication, PSI-MS (where assigned), 
 Bioschemas ComputationalTool  
@@ -747,7 +800,7 @@ extraction (source 4) is dormant; zero of these edges exist on disk.
 | `ANALYZES_PROTEIN` | Publication → Protein | annotation | MANY-MANY | PLANNED |
 | `INVOLVES_ORGANISM` | Publication → Organism | annotation, RAW | MANY-MANY | PLANNED |
 | `STUDIES_PTM` | Publication → Modification | annotation | MANY-MANY | PLANNED |
-| `USES_SOFTWARE` | Publication → Software | annotation | MANY-MANY | PLANNED |
+| `USES_SOFTWARE` | Publication → Software | PDF (llm_extraction) | MANY-MANY | **Active — 280 edges** (2026-07-16) |
 
 ### RAW file relationships
 

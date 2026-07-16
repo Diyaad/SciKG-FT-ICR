@@ -50,6 +50,11 @@ def extraction_failed(r):
 - Every field's dry-run report is **THREE-WAY**: *N with a value / M genuine negatives /
   K failed extractions* — never the two-way "N with / rest without" that hides missing
   data inside the negatives.
+  - **Counts affected by KI-5** (`docs/KNOWN_ISSUES.md`): 02d drops multi-tool values on span
+    coverage, so **the genuine-negatives bucket is inflated — by up to 51 papers for
+    `software_tools` (144 negatives)**. Missing data is hiding inside the negatives one level
+    *upstream* of this guard. **Do not adjust the number** to compensate: a patched count reads
+    as a measured one. The fix is per-tool spans in 02d.
 - Signatures seen (378 batch): `pdf_source:'none'` + "No PDF could be acquired" (hard
   failure, e.g. a double-dot filename 02d couldn't open); `local` + zero
   `all_field_extractions` = `ran_but_empty` (PDF opened, produced nothing — likely
@@ -283,6 +288,69 @@ committed 44fb88f) is the one piece already on disk; everything else here is pen
 - **bio.tools** — automated by name via the open API, **exact-name match only**. Fuzzy top-hits
   are rejected: the API's `q=` returned PreyTouch for Predator, RelEx for Xcalibur, compareMS2
   for Mascot, predatoR for Predator — all discarded. A registry name-match is not identity proof.
+
+#### 9.2a Match rule and the two guards — RULED 2026-07-16 (Diya), BUILT
+**Match rule:** whitespace **removed**, **case-insensitive**. Whitespace removal is what reaches
+`QIIME2 == "QIIME 2"` (collapsing leaves the space and still misses). Case-insensitivity is
+load-bearing: `dada2`, `msConvert`, `msalign` are bio.tools' stored casings of real tools we use.
+
+Two guards, both checked **before** the name test, in `scripts/query_biotools.py`:
+
+1. **NHMFL-authored (primary, pre-query).** PetroOrg, Predator, EnviroOrg, MIDAS are
+   NHMFL-authored and **cannot** have a bio.tools record → `searched_none`, no query issued.
+   This rests on **provenance we hold** — who wrote the tool — not on name shape or description
+   shape, so a future registry entry that collides on name cannot defeat it.
+2. **`REJECT_HITS` blacklist (secondary).** `predatoR`, `PreyTouch`, `RelEx`, `compareMS2`,
+   keyed by the hit's verbatim stored name. **This is a LIVE RUNTIME GUARD, not a record of past
+   decisions — deleting an entry re-admits the false positive on the next run.** It exists
+   because guard 1 only knows tools *we* author; collisions on third-party tools are invisible
+   to it.
+
+**ATHENA — why guard 2 is not redundant (measured 2026-07-16).** `Athena` in two corpus papers
+is the **XAS/XANES tool** (Ravel & Newville 2005, Demeter/IFEFFIT): `10.1016/j.gca.2025.08.041`
+(instrument: *Canadian Light Source SGM beamline*) and `10.1021/acs.est.3c01347` (facility:
+*Stanford Synchrotron Radiation Lightsource*; a sulfur speciation study — S K-edge XANES).
+bio.tools stores `ATHENA` (`biotoolsID: athena`, AI4SCR/ATHENA): *"an open-source computational
+framework written in Python that facilitates the visualization, processing and analysis of
+(spatial) heterogeneity from spatial omics data"* — topics Cytometry/Proteomics/Transcriptomics/
+Imaging/Oncology. A different tool. It is **not NHMFL-authored**, so guard 1 cannot see it; only
+guard 2 can. Reported, **not yet added** to `REJECT_HITS` — pending Diya. Until it is, a query
+for Athena returns a **wrong** `biotools_id`.
+
+#### 9.2b Registry matching is NOT automatable — RULED 2026-07-16 (Diya)
+**The blacklist is not a rule. It is the negative cache of human registry confirms; the
+canonical map's `has_id`s are the positive cache. Neither is a rule.** Every entry in either was
+made by a human reading a description. Q4 established that no rule can replace that read: the
+mismatch lives in the paper's *usage*, not in the registry record, so a check reading only the
+record cannot see it. Registry matching therefore follows the same **FUZZY PROPOSES, HUMAN
+DISPOSES** pattern as §9.8's confirm bucket — each hit needs a human read.
+
+**Live entries: `ATHENA` only.** The other four are dead — measured 2026-07-16 by emptying
+`REJECT_HITS` and re-querying: no result changed.
+
+| entry | vs query | live? | why |
+|---|---|---|---|
+| **`ATHENA`** | Athena | **LIVE** | The only entry doing work. Guard 1 cannot see it — we do not author Athena — so guard 2 is the only thing standing between the graph and a spatial-omics ID on an XAS tool. |
+| `predatoR` | Predator | DEAD | **Guard 1 made it redundant**: Predator is NHMFL-authored, so it is never queried and guard 2 is never reached. |
+| `PreyTouch` | Predator | DEAD | Never matches the name test (and Predator is never queried anyway). |
+| `RelEx` | Xcalibur | DEAD | Never matches the name test under exact matching. |
+| `compareMS2` | Mascot | DEAD | Never matches the name test under exact matching. |
+
+Dead entries are **retained**: they are the record of past human confirms, and deleting one
+re-admits its false positive if guard 1's list ever changes. But they protect nothing today —
+ATHENA is what guard 2 is actually for, and it is the shape to expect again: a real record for a
+real tool, colliding on a name we do not own.
+
+**Rejected alternatives — do not re-litigate:**
+- **(a) Strict case-as-stored.** Rejects predatoR on its own, but drops `dada2`, `msConvert`,
+  `msalign` — stored-casing variants of real tools — turning 3 correct IDs into false
+  `searched_none`. Measured: 16 → 14 has_id.
+- **(b) A description or topic check. Cannot be stated.** *"Must indicate mass spectrometry"*
+  kills DADA2, ggplot2, QIIME2, vegan, Fiji, IGV — the corpus spans FT-ICR, proteomics, 16S, and
+  ecology, so no domain filter separates real from false. *Blocking predatoR's topics* blocks
+  DADA2 via the shared `Genetic variation` topic. The root cause: **nothing in predatoR's own
+  record is anomalous** — it is a correct record for a real tool. The mismatch lives in the
+  paper's *usage*, not in the registry record, so no rule reading only the record can see it.
 - **RRID / SciCrunch** — name search is API-key-gated, so **NOT automated**. A **hand-verified
   RRID constant map** in the transform's corpus-rules block; values looked up by hand on
   scicrunch.org, **never guessed** (guessing `SCR_` ids and keeping the ones that resolve is
@@ -291,13 +359,98 @@ committed 44fb88f) is the one piece already on disk; everything else here is pen
 - The constant map is, in effect, a **small registry-sourced Software CV** — stated plainly
   rather than claimed as full automation.
 
-### 9.3 Three-way registry status
+### 9.3 Registry status — FOUR states for `biotools_status` (RULED 2026-07-16, Diya)
 `null` alone cannot distinguish *searched-and-absent* from *never-searched* — the same shape as
-§2's extraction-failure guard. Two status properties, each `has_id | searched_none |
-not_attempted`: `rrid_status`, `biotools_status`. Consequence for the headline finding: the
-three most-used tools (PetroOrg, Predator, EnviroOrg) are NHMFL-authored and honestly carry
+§2's extraction-failure guard. `rrid_status` keeps three states (`has_id | searched_none |
+not_attempted`). **`biotools_status` takes four:**
+
+| state | meaning |
+|---|---|
+| `has_id` | An exact-name hit came back **and a human read the description and confirmed it.** |
+| **`proposed`** | An exact-name hit came back; **no human has read it.** A proposal, not a confirm. |
+| `searched_none` | Searched, no exact-name hit — or a human read the hit and **rejected** it (Athena). |
+| `not_attempted` | Never searched (e.g. the query failed). |
+
+**Why the fourth state:** writing `has_id` for an unread hit is an **auto-accept** — the same
+failure as auto-accepting a fuzzy match, and exactly what put a spatial-omics `biotools_id` on
+our XAS Athena in a *tracked* artifact. §9.2b: `has_id` is the positive cache of human confirms,
+so an unread hit cannot be one.
+
+**`--apply` MUST NOT write a `biotools_id` for a `proposed` status.** The node carries
+`biotools_id: null` + `biotools_status: proposed`. The proposed id lives in
+`software_registry.jsonl` (`proposed_biotools_id`, with description/topics/homepage) for review,
+and reaches the graph only on confirm. As of 2026-07-16: **0 `has_id`, 19 `proposed`,
+34 `searched_none`, 0 `not_attempted`** across 53 tools — nothing has been confirmed yet. Consequence for the headline finding: the
+most-used tools (PetroOrg, Predator, EnviroOrg) are NHMFL-authored and honestly carry
 `biotools_status: searched_none` + `rrid_status: not_attempted` — "absent from bio.tools
 (searched); RRID not yet searched," NOT "unregistered" unqualified.
+
+**NHMFL-authored list — 4, not 3 (updated 2026-07-16).** This list is the input to §9.2a's
+primary guard, so an incomplete list is an unguarded rule.
+
+**Basis is stated per tool so this list does not read as memory.** Corpus strings alone are weak
+evidence: an authorship marker in a bundle often attaches to a *sibling* tool, not to the tool
+named (`Thermo Xcalibur software … and a custom-built script using ZeroBrane Studio` — "custom-
+built" is the ZeroBrane script, not Xcalibur; `Predator data station; PetroOrg, in-house
+developed MATLAB scripts` — "in-house" is the MATLAB scripts). A naive co-occurrence scan
+therefore mis-tags Xcalibur (a Thermo product) as NHMFL-authored. Every row below states which
+kind of evidence it rests on.
+
+| Tool | papers | basis |
+|---|---:|---|
+| PetroOrg | 93 | **direct disk** (marker attaches to the tool): `Custom software (PetroOrg)`; `PetroOrg©,™ (Corilo, 2015)` |
+| Predator | 44 | **published evidence** (Diya 2026-07-16): Blakney / Hendrickson / Marshall — sole data station for NHMFL's 9.4 T FT-ICR MS since July 2004. **No direct corpus string**; the bundles that mention Predator attach their authorship markers to siblings. |
+| EnviroOrg | 14 | **direct disk**: `EnviroOrg (NHMFL software by Yuri Corilo)`; `in-house software (EnviroOrg)` |
+| **MIDAS** | **6** | **published evidence** (Diya 2026-07-16): NHMFL's **M**odular **I**CR **D**ata **A**cquisition **S**ystem, Predator's PREDECESSOR — not its parent, so `MIDAS Predator` is TWO tools. **Also direct disk**: `custom-built MIDAS software` (10.1038/s42004-018-0031-1). |
+
+**Canonical-map audit — RULED 2026-07-16 (Diya).** 9 map entries had **no §9 ruling behind
+them** (added on the assistant's own judgment); 6 were minting nodes. Same class as the two
+wrong bio.tools IDs: *a map entry nobody decided on*. Resolved:
+
+- **MINT, ruled now** — real named tools, same basis as the 11 ruled 2026-07-16:
+  **drEEM, ADF, Magicplot, Python, OriginPro, BioTools**, and **ProteinProspector**.
+- **REMOVED — dead: no referent AND no ruling.** Do not re-add without evidence.
+  `mash suite` (its only appearance is descriptive prose *inside* the ReSpect parenthetical —
+  "…as implemented, for example in the MASH Suite" — naming where an algorithm lives, never a
+  tool the paper ran); `coremos` (a typo; `corems` is the real key and has a referent);
+  `imagej` (§9.6a routes `Fiji ImageJ …` to Fiji, so it has no independent referent).
+- **Mnova — reported, not ruled.** See §9.5 step 4.5's unreachable-key note.
+
+**`biotools_status: proposed` and MINT are independent — 16 tools are in both states.**
+Minting a node does not confirm its registry ID. ClipsMS, Cutadapt, DADA2, Fiji, IGV,
+MSConvert, MaxQuant, MetaMorpheus, ProSight Lite, **ProteinProspector**, Proteoform Suite,
+PyC2MC, QIIME2, SPSS, ggplot2, vegan all mint today and carry `biotools_status: proposed`
+until `docs/software_registry_review.md` returns. `--apply` writes `biotools_id: null` for
+every one of them.
+
+**Not added — authorship not establishable from the repo:**
+- **CoreMS** (1 paper, `10.1016/j.orggeochem.2024.104880`) — **stays out. An inherited
+  assertion, not evidence.** Recorded here because the claim is quotable and someone will hit it
+  again.
+  - **A prior session's report asserted it**, verbatim, in its Part 3 bio.tools coverage table:
+    > `ProSightPC, ProSight PD, TDValidator, Fragariyo, CoreMS` | paper count `—` |
+    > bio.tools `null (0 results)` | note: **"CoreMS notable — real NHMFL tool, no bio.tools
+    > entry"**
+
+    and in its headline paragraph: *"(CoreMS and the ProSight family members ProSightPC/ProSight
+    PD/TDPortal/TDValidator are also unregistered — only ProSight Lite is in bio.tools.)"*
+  - **No supporting evidence was given for "real NHMFL tool," and a later disk check
+    (2026-07-16) found none anywhere in the corpus** — the string is a bare `CoreMS`, one paper,
+    no authorship marker. The live query returns `searched_none`, which happens to match the
+    value the guard would assign, so nothing is wrong today; CoreMS is simply **unguarded**, not
+    established.
+  - **The point:** an assertion inherited across sessions reads exactly like a finding once it
+    is written down. §9.3's list is the input to §9.2a's primary guard, so it must rest on
+    evidence (direct disk, or published and cited), never on an inherited claim. Promoting
+    CoreMS on the strength of that note is precisely the failure this guard exists to prevent.
+- **Composer** (2 papers) — Diya 2026-07-16: Sierra Analytics FT-ICR software, *developed with*
+  the NHMFL FT-ICR facility at FSU but **vendor-authored**, so it is NOT NHMFL-authored and does
+  NOT belong in this list. → MINT, `vendor: Sierra Analytics`; `Composer64` is the same tool.
+  Live query returns `searched_none`, agreeing.
+- **`National High Magnetic Field Laboratory software` / `NHMFL software`** (disk:
+  `10.1016/j.orggeochem.2018.03.005`, `10.1016/j.orggeochem.2023.104667`) — generic-but-real
+  mentions of *unnamed* NHMFL software. Not a tool name, so not a node and not a guard entry;
+  they belong in §9.7's `software_mentioned_raw` bucket, which does not currently list them.
 
 ### 9.4 Coverage table — constant-map seed
 **Provenance of this table:** `biotools` statuses (and the §9.2 fuzzy-reject examples PreyTouch/
@@ -317,10 +470,28 @@ there is nothing to copy, so copy risk is zero — the build gets every ID from 
 (below), not from here. (Xcalibur's `rrid` cell is the sole literal ID kept: SCR_014593 is a
 **verified** value already on disk from the migration, not a seed.)
 
-**Durable fix (S2, belongs to the transform build, not this task):** script the bio.tools
-exact-name query and write its output to disk as a re-runnable artifact (e.g. a
-`software_registry.jsonl` the transform reads), so registry data lives in a regenerable file,
-not in this prose table. Recorded here so it is not rediscovered.
+**Durable fix (S2) — BUILT 2026-07-16 (Diya authorized D3).** `scripts/query_biotools.py` runs
+the exact-name query and writes `data/processed/software_registry.jsonl`; the transform reads
+**that artifact**, never the table below. Re-run the script to refresh. 42 tools queried:
+**16 `has_id` / 26 `searched_none` / 0 failed.** A failed query records `not_attempted`, never
+`searched_none` — asserting an absence never established is the §2.-1 guard's failure mode.
+
+**Seed corrections from the live query** (the seed was wrong; recorded, not silently fixed):
+
+| Tool | seed said | live query | note |
+|---|---|---|---|
+| Mascot | has_id | **searched_none** | no exact-name record; `q=` returns compareMS2 / PeptideShaker / PIA |
+| ImageJ | has_id | **searched_none** | no exact-name record; `q=` returns FijiFISH / SReD / deepImageJ |
+| QIIME2 | has_id | **searched_none** | a record exists but is named `QIIME 2` (space) — exact-name match cannot reach it. Whether a name variant may be queried is a ruling, not a fix. |
+
+**`predatoR` — the false positive exact-matching cannot catch.** bio.tools has a record named
+`predatoR` (biotoolsID `predator`, "an R package for network-based mutation impact
+prediction"). Case-insensitive normalization makes `predatoR` == `Predator`, so it scores as an
+*exact* hit for NHMFL's Predator and would have written a wrong `biotools_id`. §9.2 already
+names predatoR as rejected; the query script enforces that by blocking the hit **verbatim and
+case-sensitively, before** the exact-match test. Predator is `searched_none`, agreeing with the
+seed. Proof that a registry name-match is not identity proof (§9.2) — the guard is the ruling,
+not the match.
 
 | Tool | papers | biotools | rrid |
 |---|---:|---|---|
@@ -342,6 +513,19 @@ not in this prose table. Recorded here so it is not rediscovered.
 | CoreMS / ProSightPC / ProSight PD / TDPortal / TDValidator / Fragariyo | — | searched_none | not_attempted |
 
 ### 9.5 Normalization order (Part 5)
+
+> **Two steps below were specified in review, lost in the migration into this doc, and took a
+> session each to rediscover from the symptoms:** step 0 (©/™/(c) strip) and step 4.5
+> (descriptor-strip). Both were part of the original step-5 spec. **Both are now BUILT and
+> recorded here so the doc matches the code.** A rule that lives only in a review thread is a
+> rule the next person pays for twice.
+
+0. **Symbol-strip — ©, ®, ™, `(c)`, and a standalone trailing `TM`. BUILT 2026-07-16.**
+   Runs first, before vendor/descriptor/version. Was previously done *only* inside the
+   parenthetical handler, which is why `Custom software (PetroOrg © )` resolved while a bare
+   `PetroOrg ©` did not — the same rule applied in one place and not the other. Now in **one**
+   place. Covers `PetroOrg ©`, `PetroOrg©`, `PetroOrg TM`, `PetroOrg(c)`, `Xcalibur TM`,
+   `MATLAB ™ v6.9`, `EnviroOrg TM software`, `ReSpect™ algorithm`.
 1. **Ref-strip — STEP 1, before anything else.** Strip runs of comma-separated bare integers at
    a string/delimiter boundary when followed by a letter-initial token. `8,76 Predator data
    station` → `Predator data station`; `…, 66 Intact Mass (…)` → `…, Intact Mass (…)`. No
@@ -353,7 +537,55 @@ not in this prose table. Recorded here so it is not rediscovered.
 2. Mask parens (protect `,`/`;` inside `()`).
 3. Split on `;`, then top-level `,` / ` and ` / ` or ` at paren-depth 0.
 4. Vendor-strip → `vendor` property.
+   - **The vendor list is for VENDORS — parties that sell or ship the tool.** RULED
+     2026-07-16 (Diya). Protein Metrics *sells* Intact Mass, so `Intact Mass (Protein Metrics)`
+     strips cleanly. **Author institutions are attributions, not vendors, and there is no
+     attribution-strip.**
+   - **Known case — `UniDec (Oxford University, UK)` (`10.1021/jasms.0c00036`): stays REVIEW.**
+     Oxford is UniDec's *home institution*; putting it on `VENDORS` would assert Oxford vends
+     UniDec, which is false. One token is not worth a wrong rule. **Do not re-litigate.**
+   - Known bug, not fixed: the vendor regex swallows an opening paren, so
+     `ProSight PD ™ (Thermo Fisher Scientific PD version 2.1, ProSightPC version 4.0)` cleans to
+     the unbalanced `ProSight PD ™ PD , ProSightPC version 4.0)`. It still routes REVIEW, as
+     ruled, so nothing wrong reaches the graph.
+4.5. **Descriptor-strip — RESTORED 2026-07-16 (Diya).** Was in the original spec and lost in
+   the migration into this doc; a restoration, not a new ruling. Strip trailing descriptors
+   from an explicit short list only: **`software` / `analysis` / `package` / `data station` /
+   `algorithm`**. Applied iteratively (`Predator software package` → `Predator`).
+   - **Protected — never stripped**, because the descriptor is part of the tool's real name:
+     `Compound Discoverer`, `Proteoform Suite`, `ProSight Lite`, `Data Analysis`. The live case
+     is `Data Analysis`: it must keep its `Analysis` while `Predator Analysis` loses its own.
+     §9.7's `software_mentioned_raw` strings are protected too — stripping `software` off
+     `in-house software` would silently drop them from the pub-property bucket.
+   - §9.8's accepted `Petrorg data processing software → PetroOrg` is this strip done by hand.
+     It stays as a recorded decision; the pipeline now handles the class.
+   - **Unreachable map keys — a map key written in PRE-normalization form can never match**,
+     because step 4/4.5 rewrites the token before the lookup sees it. **Mnova is the live case**
+     (reported 2026-07-16, not ruled): the corpus has exactly one string, `Mnova NMR software`
+     (`10.1002/2017JG004343`). Descriptor-strip does the right thing — it removes `software` (a
+     descriptor) and correctly leaves `NMR` (not one) — yielding `Mnova NMR`. The map holds
+     `mnova` and `mnova nmr software`; **neither is what arrives**, so Mnova mints zero from two
+     keys. **This is a missing map key, not a descriptor-strip gap.** The open question is a
+     naming one: is `Mnova NMR` the Mestrelab product (its own node) or `Mnova` with an `NMR`
+     qualifier? Same class: `enviroorg software`, `bruker data analysis`,
+     `bruker daltonics data analysis` — all unreachable because vendor/descriptor strip fires
+     first.
+   - **SECOND PASS — BUILT 2026-07-16 (Diya). Step 4.5 runs AGAIN after step 5.**
+     Step 4.5 sits before version-extract, so a descriptor that is not *trailing* because a
+     version follows it survives the first pass: `JMP software (v. 7.0.1)` → step 5 lifts the
+     version → `JMP software` → the descriptor is trailing only *now*. Deferred once as 4
+     cosmetic tokens; **F5 showed it costs a node** (JMP minted or its version survived, never
+     both), so it is a real gap, not cosmetic. **12 tokens move**, including
+     `Thermo Xcalibur software (version 3.0.63)` → Xcalibur `3.0.63`,
+     `PetroOrg N-18.3 Software` → PetroOrg `N-18.3`, `Predator Analysis (version 4.1.9)` →
+     Predator `4.1.9`, `R software v.3.6.2` → R `3.6.2`.
+     **Protected names are re-checked on the second pass** (the strip returns early on them),
+     so `Data Analysis` keeps its `Analysis` — verified: DataAnalysis ×5, Compound Discoverer
+     ×1, Proteoform Suite ×3, ProSight Lite ×5, unchanged.
 5. Version-extract → edge `version`.
+- **Counts affected by KI-5** (`docs/KNOWN_ISSUES.md`): 02d drops multi-tool values on span
+  coverage, so the **144 genuine negatives is inflated by up to 51 papers**. The numbers below
+  are reported as measured and are **not adjusted** — a patched count reads as a measured one.
 - Token totals (this splitter): 486 mentions / 333 distinct tokens from 233 bundles / 191
   distinct bundle strings. Counts are unit-dependent — final tallies firm up at build.
 
@@ -365,9 +597,65 @@ not in this prose table. Recorded here so it is not rediscovered.
   `Bruker Daltonics Data Analysis` collapse to one `software:dataanalysis` (vendor Bruker);
   `SmartFormula` is its own node; `Compound Discoverer` its own node (vendor Thermo).
 
+#### 9.6a Suite/component tokens — MINT THE COMPONENT (RULED 2026-07-16, Diya)
+*Recorded here rather than in §9.5 or §9.7 because §9.6 is the section that already governs
+**what is and is not a separator** and **what collapses to one node** — and this ruling is both.*
+
+**A token naming a suite and its component, or a host and its toolbox, is ONE tool reference,
+not two. Mint the COMPONENT — that is what the paper actually ran.** The suite is **not** minted
+as a peer node: the paper did not use them as peers. The verbatim raw string is kept as an
+**alias** on the node.
+
+| verbatim token | → node | why |
+|---|---|---|
+| `ProteoWizard MSConvert` | **MSConvert** | msConvert ships inside ProteoWizard |
+| `Fiji ImageJ using the Plot Pro fi les function` | **Fiji** | Fiji is the ImageJ distribution actually run; trailing function phrase stripped |
+| `drEEM toolbox for MATLAB` | **drEEM** | host/toolbox |
+| `drEEM toolbox in MATLAB` | **drEEM** | host/toolbox |
+| `Matlab with the drEEM toolbox` | **drEEM** | host/toolbox |
+
+- **`  ` is NOT a separator either — do NOT add a space-split rule.** It would shatter these into
+  peer nodes and assert a paper used both, which is **false**. This is a **token-level canonical
+  mapping**, not a splitter change. (Same spirit as `/` above.)
+- **CONTRAST — `MIDAS Predator Analysis` is NOT this shape.** MIDAS and Predator are
+  **coordinate** tools (predecessor and successor, §9.3), so they are two references and split
+  into two rows via the adjacent-pair rule. **Suite/component = one node; coordinate tools =
+  two.** That distinction is the whole ruling.
+- **NOT covered:** `ProSight PD ™ (Thermo Fisher Scientific PD version 2.1, ProSightPC version
+  4.0)` — stays REVIEW under the n=1 ruling. No rule built.
+- **Upstream note:** these are not splitter failures. 02d returned each as a **single grounded
+  extraction**, verbatim from the paper (`ProteoWizard MSConvert`, `grounded=True`,
+  `char_span=[22117, 22139]` — 22 chars, exactly the string's length, `MATCH_EXACT`). The paper
+  writes them contiguously; the extraction is faithful.
+
+#### 9.6b MSAlign ≠ MS-Align+ (RULED 2026-07-16, Diya)
+`MSAlign` and `MS-Align+` are **different tools** and split into two rows.
+- **`MSAlign`** — bio.tools `msalign`, *"Aligns LC-MS and LC-MS/MS datasets…"*
+  (`ms-utils.org/msalign`). **No corpus string refers to it.** Its proposed ID has no referent.
+- **`MS-Align+`** — the top-down search engine. `10.1002/pmic.201800361`, bundle
+  `Proteoform Suite; MetaMorpheus; MSAlign +` — three top-down tools; raw extraction
+  `[20] value='MSAlign +'`, `grounded=True`, `char_span=[59560, 59569]`, `MATCH_EXACT`. Spacing
+  matches the Docling artifact (`Plot Pro fi les`, `Thermo Scienti fi c`).
+  **`biotools_id: null`, `biotools_status: not_attempted`** — never queried under this name, so
+  `proposed` would be wrong.
+- **UNRESOLVED from the repo:** `data/processed/pdf_text/` does not exist, so the source span
+  cannot be read. Veronika has the PDFs. **If confirmed, this is a third predatoR/ATHENA-class
+  collision** — see §9.2b.
+
 ### 9.7 Routing (Part 6)
 - **MINT** as Software: tools with a clear proper name.
 - **ROUTE OUT** to `docs/method_field_handoff.md`: the 11 algorithms and the method misroutes.
+- **PRECEDENCE — RULED 2026-07-16 (Diya): a NAMED route-out beats a GENERIC reject.**
+  The REJECT clause below ends with *"method-description phrases"* — a generic catch-all. When a
+  string is **named, with a DOI, in `method_field_handoff.md`**, that specific row wins and the
+  string **routes out**; the generic clause does not reject it. **Enforced structurally**, not
+  by convention: the ROUTE_OUT check runs **before** the REJECT clauses in `classify()`.
+  - **First application (the case that forced the rule):** `Atomic Force Microscopy Molecular
+    Imaging` and `GPC analysis with polystyrene standards for calibration` — both named in the
+    handoff with DOIs, both matched by the generic clause. **Both route out; both are methods.**
+    Keys carry the handoff's spelling *and* the verbatim corpus spelling, which is longer; the
+    raw string is kept verbatim on the record. This will collide again — the clause is generic
+    by design and the handoff keeps growing.
 - **REJECT (reasons):** `N/A`; bare `fouriertransform`; `Peak lists (uncalibrated…)`; `known
   databases 35, 36`; `AI and elemental ratios…`; method-description phrases; the book `Methods
   of Soil Analysis. Part 3`.
@@ -377,21 +665,41 @@ not in this prose table. Recorded here so it is not rediscovered.
   `Multiple Analytical Tools`.
 - **Over-drop guard:** OCR/spelling variants of real tools are NOT rejected — they go to the
   confirm bucket (§9.8), never auto-applied. FUZZY PROPOSES, HUMAN DISPOSES.
-- **Databases → HOLD for David** (SILVA, RDP, COLMAR): are reference databases Software
-  nodes, their own node type, or out of scope? Scope, not availability — both registries
-  register databases. Diya is sending this question to David directly; his ruling will land
-  under `## Decisions — (David)` in `docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md`. BLAST and GTDB-Tk
-  are tools and mint normally; GTDB (the database) does not appear as a bare string.
+- **Databases → RULED 2026-07-16 (Diya): their own node type. NOT Software.**
+  **RULED, NOT IMPLEMENTED.** *(History: this was previously recorded here as HOLD for David.
+  Diya ruled it herself; it no longer awaits him and will not appear under `## Decisions —
+  (David)`.)*
+  - **Why not Software:** *you search against SILVA, you don't run it.* A
+    `USES_SOFTWARE → SILVA` edge would **assert something false**. Modelling call, not an
+    availability one — **both bio.tools and SciCrunch register databases**, so a real
+    identifier is available either way; the identifier was never the question.
+  - **Corpus scope: SILVA, RDP** (Ribosomal Database Project)**, COLMAR.** These three
+    **stay in REVIEW until the node type is built** — there is nowhere to send them yet.
+  - **BLAST and GTDB-Tk are tools and mint as Software** (already ruled, above). **GTDB**
+    (the database) **does not appear as a bare string** in the corpus.
+  - **What building it needs — all UNDECIDED.** Listed so the next person does not re-derive
+    the question set. **Nothing here is a proposal.**
+
+    | Question | Status |
+    |---|---|
+    | **Node type name** | undecided — `Database`? `ReferenceDatabase`? Something narrower? |
+    | **Identifier scheme** | undecided. §Universal Identity requires one. Registry-derived (bio.tools / RRID) or a local slug? If registry-derived, identity becomes contingent on a lookup — the failure mode §9.1 rejected for Software. |
+    | **Relationship + verb** | undecided. `USES_SOFTWARE` is wrong (that is the whole ruling). Direction and subject also undecided: Publication → Database? Method → Database? |
+    | **Six universal provenance properties** | not applied. §Universal Provenance (`source_type`, `confidence`, `extracted_at`, `evidence_note`, `source_id`, `schema_version`) is mandatory for every node; the values for a database node are undecided — `source_type` would presumably be `llm_extraction` for these three, but that is not ruled. |
+    | **03 normalize** | undecided — is there a CV to canonicalize against (§9.2's *registry exists → transform enriches; CV exists → 03 canonicalizes*), or is 03 a pass-through? |
+    | **04 validate** | undecided. 04 is not built. |
+    | **05 load** | undecided. 05 is not built; a Neo4j constraint would be needed in `scripts/db.py`. |
+    | **Versioning** | undecided — SILVA releases are versioned (e.g. 138.1). Is that identity, a property, or an edge fact? §9.1's Software answer (edge fact) is **not** automatically the database answer. |
 
 ### 9.8 CONFIRM BUCKET — Diya's calls (proposals, not applied)
 FUZZY PROPOSES, HUMAN DISPOSES. These are transform inputs awaiting sign-off, not facts.
 
 | Verbatim string | papers | proposed | evidence | recommendation | decision |
 |---|---:|---|---|---|---|
-| `Xcaliber` | 1 (10.1021/ef100149n) | → Xcalibur | one-char OCR/spelling variant of Xcalibur | accept | _____ |
-| `Petrorg data processing software` | 1 (10.1029/2025JG008931) | → PetroOrg | case/descriptor variant of PetroOrg | accept | _____ |
-| `8,76 Predator data station` | 1 (10.1021/acs.energyfuels.0c03349) | → Predator | ref-digits `8,76` + "Predator data station" | accept (ref-strip §9.5) | _____ |
-| `CERES Processing` | 1 (10.1021/jasms.4c00120) | → REVIEW | named self-written MatLab GUI; not clearly a mintable tool | review, don't auto-mint | _____ |
+| `Xcaliber` | 1 (10.1021/ef100149n) | → Xcalibur | one-char OCR/spelling variant of Xcalibur | accept | ACCEPT |
+| `Petrorg data processing software` | 1 (10.1029/2025JG008931) | → PetroOrg | case/descriptor variant of PetroOrg | accept | ACCEPT |
+| `8,76 Predator data station` | 1 (10.1021/acs.energyfuels.0c03349) | → Predator | ref-digits `8,76` + "Predator data station" | accept (ref-strip §9.5) | ACCEPT |
+| `CERES Processing` | 1 (10.1021/jasms.4c00120) | → REVIEW | named self-written MatLab GUI; not clearly a mintable tool | review, don't auto-mint | PENDING — David |
 
 ### 9.9 RRID hand-verify shortlist — Diya
 Hand-verify on scicrunch.org and add to the constant map: **R** (17 papers), **MATLAB** (11),
