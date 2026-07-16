@@ -603,7 +603,13 @@ Bioschemas ComputationalTool
 **Identifier:** `software:{canonical_name}` — always; never contingent on a
 registry lookup. `psi_ms_id`, `rrid`, `biotools_id` are properties, not identity
 (a later-assigned PSI-MS/registry ID must not move the identifier and re-point edges).  
-**Coverage:** 8 annotated papers + 46 RAW files
+**Status: Active — 1 node on disk** (`software:xcalibur`, collapsed from 7 versioned
+fisher_py nodes on 2026-07-15). The PDF software transform that would populate the
+rest is **RULED, NOT IMPLEMENTED** — see `docs/pdf_transform_logic.md` §9.  
+**Coverage (measured 2026-07-15):** 934 distinct RAW files carry an `ACQUIRED_WITH`
+edge to Software — 46 Thermo (02c) + 888 PXD (02f). Manual annotation (the 8
+ground-truth papers) has contributed **0** Software entities to date; only the RAW
+sources (5 and 6) have.
 
 ### Properties
 

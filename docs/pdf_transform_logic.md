@@ -1,4 +1,9 @@
-# PDF-transform — FACILITY field logic (build reference)
+# PDF-transform — field logic (build reference)
+
+Covers the shared machinery (§2: extraction-failure guard, hybrid resolver, four-way classify —
+every field inherits these) plus per-field logic. Facility is §1–8; Software is §9. The title
+was "FACILITY field logic" through 2026-07-14; renamed 2026-07-15 when Software became the
+second field to reuse §2, so the shared machinery is not mistaken for facility-specific.
 
 Build note to lift into the consolidated PDF-transform script once all six fields
 (instrument, ionization, software, dataset, sample, facility) are built to the same
@@ -252,3 +257,145 @@ batch 2 does not force a re-architecture.
 - Sub-units without their own ROR record (cores, named labs, university centers) match
   their PARENT org in ROR — decide per node whether to take the parent's `ror_id` or
   leave `ror_id: null`; do not silently assign a parent ROR id to a sub-unit.
+
+## 9. SOFTWARE field logic — RULED, NOT IMPLEMENTED
+
+The second field built to this doc's shared pattern; it inherits §2's failure guard, hybrid
+resolver, and four-way classify. Reads the consolidated `software_tools` field. **RULED, NOT
+IMPLEMENTED** — the software transform is not built; this section records the rulings so the
+build is a transcription, not a re-derivation. The Xcalibur node migration (2026-07-15,
+committed 44fb88f) is the one piece already on disk; everything else here is pending the build.
+
+### 9.1 Identity
+- `software:{canonical_name}` — **unconditional**, never contingent on a registry lookup.
+- **Version is NOT identity** — it is a per-usage fact on the edge (`ACQUIRED_WITH.version`,
+  `USES_SOFTWARE.version`). One node per tool: `software:xcalibur`, `software:petroorg`.
+- `psi_ms_id`, `rrid`, `biotools_id` are **properties, not identity**. Rationale: a registry ID
+  assigned later would otherwise move the identifier and re-point every edge (the Xcalibur
+  collapse re-pointed 934) — the same failure mode as version-in-identity. Same pattern as
+  Institution: `ror_id` is a property, `inst:{slug}` is identity.
+
+### 9.2 Registry pattern — enrich, don't canonicalize
+- **Rule:** *registry exists → the transform enriches from it; CV exists → 03 canonicalizes.*
+  Software follows the **Institution** pattern (enrich from an external registry), NOT the
+  Instrument pattern (mint raw → 03 maps to a CV). There is no Software CV table, and 03 has
+  nothing to canonicalize Software against.
+- **bio.tools** — automated by name via the open API, **exact-name match only**. Fuzzy top-hits
+  are rejected: the API's `q=` returned PreyTouch for Predator, RelEx for Xcalibur, compareMS2
+  for Mascot, predatoR for Predator — all discarded. A registry name-match is not identity proof.
+- **RRID / SciCrunch** — name search is API-key-gated, so **NOT automated**. A **hand-verified
+  RRID constant map** in the transform's corpus-rules block; values looked up by hand on
+  scicrunch.org, **never guessed** (guessing `SCR_` ids and keeping the ones that resolve is
+  brute-forcing an identifier space, not a lookup). Only **Thermo Xcalibur = RRID:SCR_014593**
+  is verified so far.
+- The constant map is, in effect, a **small registry-sourced Software CV** — stated plainly
+  rather than claimed as full automation.
+
+### 9.3 Three-way registry status
+`null` alone cannot distinguish *searched-and-absent* from *never-searched* — the same shape as
+§2's extraction-failure guard. Two status properties, each `has_id | searched_none |
+not_attempted`: `rrid_status`, `biotools_status`. Consequence for the headline finding: the
+three most-used tools (PetroOrg, Predator, EnviroOrg) are NHMFL-authored and honestly carry
+`biotools_status: searched_none` + `rrid_status: not_attempted` — "absent from bio.tools
+(searched); RRID not yet searched," NOT "unregistered" unqualified.
+
+### 9.4 Coverage table — constant-map seed
+**Provenance of this table:** `biotools` statuses (and the §9.2 fuzzy-reject examples PreyTouch/
+RelEx/compareMS2/predatoR) come from a **bio.tools exact-name API query run 2026-07-15** — a
+live registry lookup, reproducible by re-querying, not from the extraction data. Paper counts
+are the software-survey's distinct-paper counts over the disk input `data/raw/pdf_extraction/*.jsonl`
+(splitter-dependent; see §9.5). Only Xcalibur's RRID is verified (SCR_014593); every other RRID
+is `not_attempted` pending the §9.9 shortlist.
+
+> **This table is a SEED, not a source of truth.** Nothing in it was verified against a
+> re-runnable artifact. The transform MUST re-query bio.tools at build time and write the
+> results to disk. Do not copy these rows into the constant map.
+
+**Statuses only — no literal IDs.** Every `biotools` cell records a *status*
+(`has_id` / `searched_none`), never the actual `biotools_id` string. With no IDs in the table
+there is nothing to copy, so copy risk is zero — the build gets every ID from the re-query
+(below), not from here. (Xcalibur's `rrid` cell is the sole literal ID kept: SCR_014593 is a
+**verified** value already on disk from the migration, not a seed.)
+
+**Durable fix (S2, belongs to the transform build, not this task):** script the bio.tools
+exact-name query and write its output to disk as a re-runnable artifact (e.g. a
+`software_registry.jsonl` the transform reads), so registry data lives in a regenerable file,
+not in this prose table. Recorded here so it is not rediscovered.
+
+| Tool | papers | biotools | rrid |
+|---|---:|---|---|
+| PetroOrg | 88 | searched_none | not_attempted |
+| Predator | 37 | searched_none (predatoR = different tool, rejected) | not_attempted |
+| EnviroOrg | 12 | searched_none | not_attempted |
+| R | 17 | searched_none | not_attempted (shortlist) |
+| Xcalibur | 16 | searched_none | **has_id SCR_014593** |
+| MATLAB | 11 | searched_none | not_attempted (shortlist) |
+| ProSight Lite | 7 | has_id | not_attempted |
+| ggplot2 | 4 | has_id | not_attempted |
+| QIIME2 | 4 | has_id | not_attempted |
+| DADA2 | 3 | has_id | not_attempted |
+| vegan | 3 | has_id | not_attempted |
+| GraphPad Prism | 2 | searched_none | not_attempted (shortlist) |
+| MetaMorpheus / Proteoform Suite | 2 | has_id | not_attempted |
+| Mascot | 1 | has_id | not_attempted |
+| MaxQuant / ProteoWizard / MSConvert / UniDec / ClipsMS / PyC2MC / MSAlign / ImageJ / Fiji / IGV | — | has_id | not_attempted |
+| CoreMS / ProSightPC / ProSight PD / TDPortal / TDValidator / Fragariyo | — | searched_none | not_attempted |
+
+### 9.5 Normalization order (Part 5)
+1. **Ref-strip — STEP 1, before anything else.** Strip runs of comma-separated bare integers at
+   a string/delimiter boundary when followed by a letter-initial token. `8,76 Predator data
+   station` → `Predator data station`; `…, 66 Intact Mass (…)` → `…, Intact Mass (…)`. No
+   regression on `2.3-177901/2.3.1.1782`, `R i386 2.15.2`, or model numbers (`8900 QQQ`
+   untouched — mid-string, not at a boundary).
+   - **Trailing-ref gap — UNBUILT.** Leading refs only. Trailing refs (`ProSight Lite 39`,
+     `PetroOrg software 67`, `Predator analysis 37 and PetroOrg 38`) need a separate
+     trailing-bare-integer strip. Not built.
+2. Mask parens (protect `,`/`;` inside `()`).
+3. Split on `;`, then top-level `,` / ` and ` / ` or ` at paren-depth 0.
+4. Vendor-strip → `vendor` property.
+5. Version-extract → edge `version`.
+- Token totals (this splitter): 486 mentions / 333 distinct tokens from 233 bundles / 191
+  distinct bundle strings. Counts are unit-dependent — final tallies firm up at build.
+
+### 9.6 Separators and vendor canonicalization (Part 4)
+- **`/` is NOT a separator.** Its only 4 corpus occurrences are `2.3-177901/2.3.1.1782`
+  (dual-version), `H/C and O/C` (chemistry ratio), `Gas chromatography/mass spectrometry`
+  (method name), `nf-core/ampliseq` (pipeline name) — never two distinct tools.
+- **Bruker canonicalization** (8 distinct strings): `Bruker Data Analysis` / `DataAnalysis` /
+  `Bruker Daltonics Data Analysis` collapse to one `software:dataanalysis` (vendor Bruker);
+  `SmartFormula` is its own node; `Compound Discoverer` its own node (vendor Thermo).
+
+### 9.7 Routing (Part 6)
+- **MINT** as Software: tools with a clear proper name.
+- **ROUTE OUT** to `docs/method_field_handoff.md`: the 11 algorithms and the method misroutes.
+- **REJECT (reasons):** `N/A`; bare `fouriertransform`; `Peak lists (uncalibrated…)`; `known
+  databases 35, 36`; `AI and elemental ratios…`; method-description phrases; the book `Methods
+  of Soil Analysis. Part 3`.
+- **`software_mentioned_raw` (Publication property — transform-dependent, lands with the
+  build):** generic-but-real mentions too vague to mint — `in-house software`, `custom
+  in-house software`, `Custom software`, `homemade Python scripts Jupyter Notebooks`,
+  `Multiple Analytical Tools`.
+- **Over-drop guard:** OCR/spelling variants of real tools are NOT rejected — they go to the
+  confirm bucket (§9.8), never auto-applied. FUZZY PROPOSES, HUMAN DISPOSES.
+- **Databases → HOLD for David** (SILVA, RDP, COLMAR): are reference databases Software
+  nodes, their own node type, or out of scope? Scope, not availability — both registries
+  register databases. Diya is sending this question to David directly; his ruling will land
+  under `## Decisions — (David)` in `docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md`. BLAST and GTDB-Tk
+  are tools and mint normally; GTDB (the database) does not appear as a bare string.
+
+### 9.8 CONFIRM BUCKET — Diya's calls (proposals, not applied)
+FUZZY PROPOSES, HUMAN DISPOSES. These are transform inputs awaiting sign-off, not facts.
+
+| Verbatim string | papers | proposed | evidence | recommendation | decision |
+|---|---:|---|---|---|---|
+| `Xcaliber` | 1 (10.1021/ef100149n) | → Xcalibur | one-char OCR/spelling variant of Xcalibur | accept | _____ |
+| `Petrorg data processing software` | 1 (10.1029/2025JG008931) | → PetroOrg | case/descriptor variant of PetroOrg | accept | _____ |
+| `8,76 Predator data station` | 1 (10.1021/acs.energyfuels.0c03349) | → Predator | ref-digits `8,76` + "Predator data station" | accept (ref-strip §9.5) | _____ |
+| `CERES Processing` | 1 (10.1021/jasms.4c00120) | → REVIEW | named self-written MatLab GUI; not clearly a mintable tool | review, don't auto-mint | _____ |
+
+### 9.9 RRID hand-verify shortlist — Diya
+Hand-verify on scicrunch.org and add to the constant map: **R** (17 papers), **MATLAB** (11),
+**GraphPad Prism** (2). Why these three: each has **no bio.tools ID** and is high-mention, so
+the RRID is its only external identifier. Why not the other ~16: they either already carry a
+bio.tools ID or have too few mentions to justify manual effort — `not_attempted`/null is
+sufficient and honest (§9.3). Xcalibur is already verified (SCR_014593).
