@@ -172,7 +172,7 @@ with CrossRef metadata
 | `maglab_id` | integer | M | CSV | Always present, even when DOI is null |
 | `title` | string | M | CrossRef, CSV | |
 | `publication_year` | integer | M | CrossRef, CSV | |
-| `publisher` | string | M | CrossRef | |
+| `publisher` | string | M when CrossRef-enriched | CrossRef | Amended 2026-07-17, corrected same day (KI-9): absent on all 805 records on disk, but the cause splits — **not** a uniform coverage gap. CrossRef **has** it (17/17 raw JSONs) and `02_extract.py` extracts it, but the corpus is 02b's CSV output (all `source_type: csv`), so the CrossRef path was never merged: for the ~14 CrossRef-DOI papers it is **fetched-but-dropped (recoverable data loss)**; only for the ~791 CSV-only papers is it a **genuine coverage gap**. `04` counts absence as `missing_coverage` (non-fatal) and cannot distinguish the two — the split is provenance, not a property. See KI-9. |
 | `resource_type` | string | M | derived | Default `"JournalArticle"` |
 | `volume` | string | O | CrossRef, CSV | Kept as string (Excel corruption possible) |
 | `issue` | string | O | CrossRef, CSV | Kept as string |
@@ -426,6 +426,19 @@ failure. OBI/CHMO are not integrated. `04_validate.py` must accept null
 `psi_ms_id` (matching the extractor output); the `ontology_source` field (now Active,
 emitted by the PDF instrument transform) records which ontology a non-null value comes from.
 
+### `canonical_name` — "M after normalization" amended (2026-07-17, Diya)
+
+`canonical_name` is **M only where the controlled vocabulary covers the term.**
+Absence of CV coverage is a **coverage gap (see KI-7)**, not a record defect: 03
+canonicalizes what the CV maps and logs every unmapped term to `review_queue.jsonl`,
+so nothing is hidden. A null `canonical_name` on an Instrument (462 of 469 today)
+therefore **does NOT fail validation**. `04_validate.py` reports such records as a
+distinct counted category — **`uncanonicalized`** — in `validation_report.json`,
+separate from `passed` and from `quarantined`: visible, counted, not fatal. This
+amendment applies to the "M after normalization" wording wherever it appears
+(Instrument `canonical_name`); the same coverage-gap-vs-defect distinction is the
+model for any other CV-dependent `canonical_name`.
+
 ### Notes on omitted properties
 
 - **`magnet_system_raw` is NOT stored on Instrument.** The CSV's "Magnet 
@@ -455,7 +468,7 @@ Source 2.
 | `id` | string | M | derived | |
 | `repository` | string | M | derived | `OSF`, `MassIVE`, `ProteomeXchange`, `Zenodo`, `Other` |
 | `accession` | string | M | CSV | Repository-specific |
-| `url` | string | M | CSV | Original URL |
+| `source_url` | string | M | CSV | Original URL. On-disk field name is `source_url` (written by `02b_extract_csv.py`); renamed here from `url` 2026-07-17 to match the sole writer — no script ever wrote `url`. |
 | `access_status` | string | O | derived | `open`, `restricted`, `unknown` |
 
 ### Normalization
@@ -520,7 +533,7 @@ Sources 4 and 5.
 | Property | Type | M/R/O | Source | Notes |
 |---|---|---|---|---|
 | `id` | string | M | derived | |
-| `canonical_name` | string | M | controlled vocab | |
+| `canonical_name` | string | M where CV covers | controlled vocab | Amended 2026-07-17 (R2 template): Samples on disk are RAW-filename-derived and there is no CV to canonicalize them against, so `canonical_name` is absent on all 3. Absence is a **coverage gap**, not a defect — `04` counts it (`missing_coverage`), does not quarantine. |
 | `sample_class` | string | O | controlled vocab | E.g., "Intact proteins" |
 | `organism_strain` | string | O | RAW filename | E.g., "MG1655" |
 | `sample_state` | string | O | RAW filename | E.g., "WCL" (= Whole Cell Lysate) |
@@ -705,9 +718,9 @@ share filenames). Global uniqueness is enforced on `sha256_hash` instead.
 | Property | Type | M/R/O | Notes |
 |---|---|---|---|
 | `filename` | string | M | Full name including `.raw` |
-| `operator_initials` | string | M | E.g., "DSB" |
+| `operator_initials` | string | M for Thermo | E.g., "DSB". Amended 2026-07-17 (R2 template): sourced from the manual Thermo filename metadata (present 46/46 Thermo); FOXDEN carries no such field, so it is absent on all 888 PXD RawDataFiles. That is a **source difference, not a defect** — `04` counts it (`missing_coverage`), does not quarantine. |
 | `operator_name` | string | R | Full name of the operator (expands operator_initials) |
-| `date_acquired` | date | M | ISO 8601 |
+| `date_acquired` | date | M where source provides | ISO 8601. Amended 2026-07-17 (R2 template): present on 46/46 Thermo and 833/888 PXD; 55 PXD FOXDEN files carry null. Absence is a **coverage gap**, not a defect — `04` counts it (`missing_coverage`), does not quarantine. |
 | `sample_organism_strain` | string | R | E.g., "EcoliMG1655" |
 | `sample_state` | string | O | E.g., "WCL" (= Whole Cell Lysate). Confirmed 2026-06-29. |
 | `sample_growth_medium` | string | O | E.g., "M9" |

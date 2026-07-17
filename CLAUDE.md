@@ -52,8 +52,8 @@ merge_rawfile_metadata.py
 04_validate.py  (planned — not yet built)
                 reads  data/processed/normalized/
                 writes data/processed/validated/
-                writes data/processed/validation_report.json
-                writes data/processed/quarantine.jsonl
+                writes data/processed/validated/validation_report.json
+                writes data/processed/validated/quarantine.jsonl
 05_load.py      (planned — not yet built)
                 reads  data/processed/validated/
                 writes to Neo4j via scripts/db.py

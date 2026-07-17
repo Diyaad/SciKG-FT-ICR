@@ -7,6 +7,72 @@ Add new issues at the top.
 
 ---
 
+## KI-9 — Publication.publisher is fetched to disk but never merged into the corpus
+**Status:** open — **do not fix** (filed 2026-07-17)
+**Surfaced by:** the 04_validate publisher measurement (Change 2), 2026-07-17.
+**Not a clean coverage gap:** for the CrossRef papers it is recoverable data loss, not absence.
+
+Measured:
+- **17 raw CrossRef JSONs** in `data/raw/publications/` — **all 17 carry `publisher`** (Wiley,
+  Elsevier BV, …).
+- **`02_extract.py:108` extracts it** (`"publisher": message.get("publisher", None)`) and writes
+  `data/processed/entities/publications.jsonl`.
+- **But the corpus on disk is not 02_extract's output.** `entities/publications.jsonl` is **805
+  records, all `source_type: csv`, zero `api`** — 02b's CSV output (02b appends, has no publisher
+  column). The CrossRef path (02_extract) was **never merged in**.
+- Of the 17 CrossRef DOIs, **14 appear** in the corpus (as CSV-sourced records with no
+  publisher); **3 are absent entirely**.
+
+**Two populations, not one:**
+- **~14 papers** with a CrossRef DOI and a raw JSON carrying `publisher` → **fetched,
+  extractable, dropped** — recoverable by running/merging the CrossRef path. **Data loss.**
+- **~791 CSV-only papers** with no CrossRef record → **no source has it. Genuine coverage gap.**
+
+`04` cannot tell the two apart (both are `missing_coverage:publisher`, 805 total) — the
+distinction is provenance, not a per-record property. The schema ④a note is corrected to say so.
+
+**Also recorded, not chased:** **only 17 CrossRef JSONs against 806 papers.** That ratio
+suggests `01_fetch` / `02_extract` (the CrossRef path) **barely ran** — 17 of 806 ≈ 2%. Not
+investigated here; noted so the next person asks why the API path is nearly empty.
+
+## KI-8 — 21 sha256_hash collisions in rawfiles_pxd.jsonl (the INVERSE of KI-1)
+**Status:** open — **needs a ruling, do not fix** (filed 2026-07-17)
+**Surfaced by:** the 04_validate spec work (measurement M1), 2026-07-17.
+**A 05 blocker.** `db.py`'s `CREATE CONSTRAINT rawfile_sha256 … REQUIRE r.sha256_hash IS UNIQUE`
+rejects these at load.
+
+**21 `sha256_hash` values each appear on 2 RawDataFile records = 42 records**, all in
+`data/processed/normalized/rawfiles_pxd.jsonl`, all `source_type: fisher_py`, all named
+`20170309_ksn5514_FACS_BC_RP4H_10547771_*`. Each pair has **different filenames but
+byte-identical content** (identical `sha256_hash`) — one physical file deposited under two
+descriptive names:
+
+| sha256 (first 16) | the two identifiers |
+|---|---|
+| `1097d6d6a7ee2a89` | `…_B_FACS_biorep_01_techrep_01.raw` / `…_D1_B_SEP_tech_rep_02.raw` |
+| `418bf6d38458e252` | `…_B_FACS_biorep_01_techrep_02.raw` / `…_D1_B_FACS_tech_rep_02.raw` |
+| … (21 groups; 42 distinct identifiers; 0 null hashes) | |
+
+**The INVERSE of KI-1, and not the same batch.** KI-1 is **one filename written twice** —
+double-emission from two source JSONs producing a byte-identical node under the *same*
+identifier (the `20180615_rmi049_*` batch, filenames shared). **KI-8 is one file under two
+names** — *distinct* identifiers, identical content hash (the `20170309_ksn5514_*` set).
+Different mechanism, different batch.
+
+**Why 03 cannot catch it.** `03_normalize.py` dedups on `identifier` (pass 2). These 42
+records carry 42 distinct identifiers, so the identifier key never collides and a hash
+collision is **structurally invisible** to it. RawDataFile identity keys on `sha256_hash`
+precisely because filenames are non-unique, so `sha256_hash IS UNIQUE` in `db.py` is what
+would reject one of each pair at 05.
+
+**04 behaviour:** `04_validate.py` reports these under `blockers.sha256_hash_collisions`,
+**separately from `quarantined`** (different meaning, different fix), and **exits non-zero**
+when the blocker list is non-empty — a validator holding a known 05 blocker must not exit 0.
+It does **not** auto-quarantine them (removing a record is a fix, and the fix is unruled).
+
+**Open ruling — do not make, do not fix:** merge the pair to one node; keep both with a
+shared-content property; or drop the uniqueness constraint. Report only; mint/delete nothing.
+
 ## KI-7 — the Instruments CV covers 34 aliases against 462 PDF-extracted instruments
 **Status:** open — **needs a ruling, do not fix** (filed 2026-07-16)
 **Surfaced by:** the first 03 run against `pdf_entities.jsonl` (2026-07-16).
