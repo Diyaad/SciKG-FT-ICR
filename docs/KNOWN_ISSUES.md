@@ -7,6 +7,46 @@ Add new issues at the top.
 
 ---
 
+## KI-7 — the Instruments CV covers 34 aliases against 462 PDF-extracted instruments
+**Status:** open — **needs a ruling, do not fix** (filed 2026-07-16)
+**Surfaced by:** the first 03 run against `pdf_entities.jsonl` (2026-07-16).
+**Not a bug.** 03 and the CV each do exactly what they were built to do. The gap is coverage.
+
+The controlled vocabulary (`docs/controlled_vocabulary.md`) loads **34 aliases**. The PDF
+instrument transform produced **462 Instrument nodes**. After the type fix, 03 maps **7** and
+logs **462 `instrument_unmapped`** to `review_queue.jsonl` — the correct, visible outcome, not
+a failure. **Do not "fix" this by loosening matching**; the number is real and belongs in the
+review queue.
+
+**The 54 list-valued nodes, all 206 variants tried:** **50 match nothing at all.** The 4 that
+match are unanimous, and thin:
+
+| node | variants hit | term |
+|---|---|---|
+| `instrument:raw:9_4_ft_icr_mass_spectrometer` | 1 of **38** | 9.4T FT-ICR MS |
+| `instrument:raw:velos_pro_linear_ion_trap` | 1 of 4 | Velos Pro |
+| `instrument:raw:ltq_velos_ion_trap_mass_spectrometer` | 1 of 6 | LTQ Orbitrap Velos |
+| `instrument:raw:orbitrap_eclipse_tribrid` | 1 of 3 | Orbitrap Eclipse Tribrid |
+
+**The no-hit set is heavily NON-MS**, and the CV was never built to cover it: Shimadzu TOC
+analyzers (5 distinct nodes), spectrofluorometers (Hitachi F-7000, Horiba Aqualog), ion
+chromatography (Dionex Aquion, UltiMate 3000), **Illumina MiSeq**, **Keck Carbon Cycle
+accelerator MS**, elemental analyzers, UV-Vis spectrophotometers, NMR (Bruker Avance). The
+corpus is broader than the vocabulary. **The ruling needed:** does the CV expand to non-MS
+instrumentation, or do non-MS instruments stop being Instrument nodes?
+
+### KI-7a — one instrument, two identifiers, unmergeable
+`instrument:raw:9_4t_ft_icr` (**0 of 9** variants hit) and
+`instrument:raw:9_4_ft_icr_mass_spectrometer` (**1 of 38** hit → `9.4T FT-ICR MS`) are **the
+same 9.4 T instrument under two identifiers**. One maps, one does not.
+
+**03 cannot merge them.** Its dedup is by **exact identifier** (pass 2), and these differ; the
+CV pass assigns `canonical_name` as a *property* and never re-points identity. So the graph
+carries two nodes for one box, one canonicalized and one not. Same shape as KI-6's duplication
+but worse: KI-6's duplicates share an identifier and collapse; these do not and cannot.
+Report only — fixing it means either an identifier ruling or a CV-driven identity merge, and
+neither exists.
+
 ## KI-6 — `instruments.jsonl` is 159 lines but only 7 instruments
 **Status:** open — **do not fix** (filed 2026-07-16)
 **Surfaced by:** the software-field `--apply` (2026-07-16), auditing the entity-file layout.
