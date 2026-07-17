@@ -474,7 +474,8 @@ def main():
                                "subject_id": subj, "object_id": obj,
                                "missing_endpoints": missing,
                                "note": "Endpoint has no surviving entity; edge withheld from "
-                                       "normalized output for 04_validate to quarantine.",
+                                       "normalized output and logged here to review_queue; "
+                                       "04_validate reads normalized/ only and never sees it.",
                                "at": now_iso()})
                 continue
             key = (rel.get("relationship_type"), subj, obj)
