@@ -258,14 +258,16 @@ def build_dataset_entity(pxd, source_filename, run_ts):
     # dataset:proteomexchange:{accession_lower}; we mirror it exactly. The
     # repository *property* is also "ProteomeXchange" to match 02b and avoid a
     # merge-time property conflict; the PRIDE archive (the host) is recorded in
-    # the url property instead.
+    # the source_url property instead.
+    # Field name is source_url (NOT url) to match 02b's Dataset writer and the
+    # schema (R9, 2026-07-17); url was the pre-R9 name that made these 32 fail 04.
     return {
         "identifier": f"dataset:proteomexchange:{pxd.lower()}",
         "entity_type": "Dataset",
         "properties": {
             "accession": pxd,
             "repository": "ProteomeXchange",
-            "url": f"https://www.ebi.ac.uk/pride/archive/projects/{pxd}",
+            "source_url": f"https://www.ebi.ac.uk/pride/archive/projects/{pxd}",
         },
         "source_type": SOURCE_TYPE,
         "confidence": "high",

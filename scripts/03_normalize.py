@@ -258,26 +258,36 @@ def parse_instrument_vocab(md_path, log):
     return vocab
 
 
-def raw_instrument_string(entity):
-    """The raw string to match an Instrument entity against the vocabulary.
+def raw_instrument_strings(entity):
+    """The raw string(s) to match an Instrument entity against the vocabulary.
+
+    ALWAYS RETURNS A LIST. The PDF instrument transform writes `name_raw` as a
+    list of observed variants on 54 of its 462 Instrument nodes; the previous
+    single-string contract crashed on first contact (AttributeError: 'list'
+    object has no attribute 'lower'). The list was never the bug — assuming a
+    string was.
 
     MODEL IS AUTHORITATIVE: prefer model_raw over any name field. For this corpus
     an instrument's .name can be stale (the PXD sweep reports "Orbitrap Velos Pro"
     for the same box .model calls "LTQ FT Ultra"), so 02c/02f build node IDENTITY
     from .model. Vocab matching follows the same rule — otherwise a node keyed
-    instrument:raw:ltq_ft_ultra would map to the stale name's term. Falls back to
-    the name fields, then the segment after 'instrument:raw:'."""
+    instrument:raw:ltq_ft_ultra would map to the stale name's term. NOTE: on all
+    54 list-valued nodes `model_raw` is present but None, so the preference has
+    nothing to prefer and correctly falls through to `name_raw`.
+
+    Falls back to the name fields, then the segment after 'instrument:raw:'."""
     props = entity.get("properties") or {}
     for key in ("instrument_model_raw", "model_raw",
                 "instrument_name_raw", "raw_name", "name_raw", "name"):
-        if props.get(key):
-            return props[key]
+        val = props.get(key)
+        if val:
+            return [v for v in (val if isinstance(val, list) else [val]) if v]
     ident = entity.get("identifier", "")
     m = re.match(r"^instrument:raw:(.+)$", ident)
     if m:
-        return m.group(1)
+        return [m.group(1)]
     # Fall back to whatever follows the last colon.
-    return ident.split(":")[-1] if ":" in ident else ident
+    return [ident.split(":")[-1] if ":" in ident else ident]
 
 
 # -------------------------------- main ------------------------------
@@ -395,21 +405,45 @@ def main():
             if rec.get("entity_type") != "Instrument":
                 continue
             props = rec.setdefault("properties", {})
-            raw = raw_instrument_string(rec)
-            hit = vocab.get(norm_match_key(raw))
-            if hit:
+            variants = raw_instrument_strings(rec)
+            # Match EVERY variant. Measured 2026-07-16: 0 nodes have variants
+            # hitting two different CV terms, so matching-all is safe today.
+            hits = {}
+            for v in variants:
+                h = vocab.get(norm_match_key(v))
+                if h:
+                    hits[h["canonical"]] = h
+            if len(hits) > 1:
+                # UNANIMITY ASSERT. 0 nodes trip this today; it exists so a
+                # future CV addition cannot silently create a node whose
+                # variants disagree. Do NOT pick a winner -- leave it unmapped.
+                unmapped += 1
+                review.append({"action": "instrument_cv_conflict",
+                               "identifier": rec["identifier"],
+                               "raw": variants,
+                               "conflicting_terms": sorted(hits),
+                               "note": "Variants of ONE node matched DIFFERENT controlled-"
+                                       "vocabulary terms. No automatic rule is correct: the "
+                                       "node is left unmapped for a human. Adding a CV alias "
+                                       "can cause this.", "at": now_iso()})
+            elif hits:
+                hit = next(iter(hits.values()))
                 props["canonical_name"] = hit["canonical"]
                 props["psi_ms_id"] = hit["psi_ms_id"]
                 mapped += 1
                 log.append({"action": "instrument_mapped", "identifier": rec["identifier"],
-                            "raw": raw, "canonical": hit["canonical"],
+                            "raw": variants, "matched_variants": len(hits),
+                            "variants_tried": len(variants),
+                            "canonical": hit["canonical"],
                             "psi_ms_id": hit["psi_ms_id"], "at": now_iso()})
             else:
                 unmapped += 1
                 review.append({"action": "instrument_unmapped", "identifier": rec["identifier"],
-                               "raw": raw, "match_key": norm_match_key(raw),
-                               "note": "No alias match in Instruments vocab. Add an alias or "
-                                       "check ALIAS_SEPARATORS.", "at": now_iso()})
+                               "raw": variants,
+                               "match_keys": [norm_match_key(v) for v in variants],
+                               "note": "No alias match in Instruments vocab for ANY variant. "
+                                       "Add an alias or check ALIAS_SEPARATORS.",
+                               "at": now_iso()})
 
     # Build the surviving-node set for relationship integrity checks.
     surviving_ids = set()
@@ -440,7 +474,8 @@ def main():
                                "subject_id": subj, "object_id": obj,
                                "missing_endpoints": missing,
                                "note": "Endpoint has no surviving entity; edge withheld from "
-                                       "normalized output for 04_validate to quarantine.",
+                                       "normalized output and logged here to review_queue; "
+                                       "04_validate reads normalized/ only and never sees it.",
                                "at": now_iso()})
                 continue
             key = (rel.get("relationship_type"), subj, obj)

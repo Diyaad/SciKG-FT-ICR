@@ -22,6 +22,15 @@ data/processed/*
 !data/processed/relationships/*.jsonl
 !data/processed/rawfiles_enriched/
 !data/processed/rawfiles_enriched/*.json
+# Sec 9.4 durable fix: the bio.tools registry artifact. Regenerable via
+# scripts/query_biotools.py, but tracked so reviewers see the registry data
+# the transform actually read without re-querying a live API. queried_at is
+# run-level (one _meta line), so a re-run diffs one line, not every row.
+!data/processed/software_registry.jsonl
+# Review artifacts. Tracked because they carry the rulings: instrument_review.md
+# was gitignored and its rulings became unrecoverable -- same trap, closed.
+!data/processed/review/
+!data/processed/review/*.md
 # Local-only: MagLab workstation metadata sweep (952 files, PXD folders).
 # Contains internal hostnames, IPs, and Windows user paths. Not published data.
 # RawDataFile nodes carry sha256 for verification against these originals.
