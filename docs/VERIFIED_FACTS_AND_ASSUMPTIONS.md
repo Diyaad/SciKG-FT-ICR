@@ -31,6 +31,7 @@ by the current state of this repository. Each carries its basis.
 | 10 | Persistent-identifier strategy confirmed: reuse external PIDs and mint internal PIDs. | Decided 2026-06-23. (Moved from Proposed Ideas.) |
 | 11 | Provenance model confirmed: PROV-O, realized via the 6 universal properties on every node and edge. | Adopted in `docs/SCIKG_SCHEMA.md`. (Moved from Proposed Ideas.) |
 | 12 | Standard vocabularies adopted: DataCite, Bioschemas, PSI-MS, UNIMOD, NCBI Taxonomy, UniProt, ORCID, ROR, PROV-O. | Adopted across `controlled_vocabulary.md` and `docs/SCIKG_SCHEMA.md`. (Moved from Proposed Ideas.) |
+| 13 | Neo4j AuraDB Free capacity — **the two Neo4j sources conflict; the LOWER bound is recorded: 50,000 nodes / 175,000 relationships.** The v1.0 graph is **4,888 nodes / 11,626 relationships** (measured 2026-07-17; was 11,700 before Pass 6.5 merged 74 CSV+PDF `USES_INSTRUMENT` same-fact pairs), ~10× under the lower bound, so the cap **does not bind**. Previously an unverified assumption (L4), now cited. | Lower: Neo4j Aura Free announcement, https://development.neo4j.dev/blog/news/announcing-early-access-neo4j-aura-free-tier/ (50k/175k). Higher: Neo4j AuraDB FAQ, https://neo4j.com/cloud/platform/aura-graph-database/faq/ (200k/400k). **They conflict; the lower figure is used deliberately.** |
 
 > Note: item 6 verifies only that these standards *exist*. Items 8–12 record
 > which of those candidates SciKG has since adopted.
@@ -231,7 +232,8 @@ carry the old (wrong) `psi_ms_id`.
    not integrated. A null ontology value on a non-MS/non-NMR Instrument is valid
    and expected; `04_validate.py` must not quarantine it. (On disk the ontology
    field is named `psi_ms_id`; its value space is generalized to PSI-MS/nmrCV/
-   null, and the planned `ontology_source` field records which — see decision 4.)
+   null, and the `ontology_source` field (now **Active — emitted** by the PDF
+   instrument transform) records which — see decision 4.)
 2. **Finnigan LCQ: null-ontology label.** Recorded as data with a null ontology
    value; no specific PSI-MS submodel will be chased (old instrument, no longer
    in use). Resolves the LCQ pending flag from the 2026-07-10 audit.
@@ -247,6 +249,8 @@ carry the old (wrong) `psi_ms_id`.
    `ontology_source = NMRCV`. This sits alongside PSI-MS for MS instruments;
    both are the only two ontologies instruments map into (decision 1). Note:
    the on-disk ontology field is named `psi_ms_id` (extractor output); its value
-   space is generalized to hold nmrCV accessions and null, and the planned
-   `ontology_source` field will record which ontology a value comes from. `nmrCV`
-   rows are not yet in `controlled_vocabulary.md` (owned by another team member).
+   space is generalized to hold nmrCV accessions and null, and the `ontology_source`
+   field (now **Active — emitted**) records which ontology a value comes from.
+   **`nmrCV` rows landed in `controlled_vocabulary.md` 2026-07-17** — 6 rows,
+   Grouping B (split by ¹H frequency; class-level accessions NMR:1400198 /
+   NMR:1400059); the 6 extracted NMR instruments now canonicalize.

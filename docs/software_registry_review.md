@@ -1,6 +1,6 @@
 # bio.tools registry review — proposed IDs awaiting a human read
 
-**STATUS: OPEN. Nothing mints until this comes back.**
+**STATUS: RETURNED — Veronika, 2026-07-17.** 14 CONFIRM → `has_id` (ClipsMS, Cutadapt, DADA2, Fiji, ggplot2, IGV, MSConvert, ProSight Lite, ProteinProspector, PyC2MC, QIIME2, SPSS, vegan, MaxQuant). MetaMorpheus and Proteoform Suite NOT confirmed (stay `proposed`); their review-article edges on `10.1002/pmic.201800361` removed. MaxQuant node confirmed but its edge on `10.1021/jasms.4c00232` removed (fuzzy hallucination — **KI-10**). MS-Align+ string authentic; identity open. Verdicts filled per-row below.
 
 Companion to `docs/pdf_transform_logic.md` §9.2 / §9.2b / §9.3. bio.tools facts from a live re-query; corpus evidence from `data/raw/pdf_extraction/pdf_extraction_378papers.jsonl` (gitignored, local-only). Every quoted string is verbatim.
 
@@ -87,7 +87,7 @@ The reason IGV stays flagged is different and narrower: **the corpus never write
 
 **Aliases recorded on the node (verbatim):** `ClipsMS`, `Comprehensive Localization of Internal Protein Sequences (ClipsMS)`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -114,7 +114,7 @@ The reason IGV stays flagged is different and narrower: **the corpus never write
 
 **Aliases recorded on the node (verbatim):** `Cutadapt v2.6`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -141,7 +141,7 @@ The reason IGV stays flagged is different and narrower: **the corpus never write
 
 **Aliases recorded on the node (verbatim):** `DADA2 version 1.10.0`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -184,7 +184,7 @@ Fiji bundles together many popular and useful ImageJ plugins for image analysis 
 
 **Aliases recorded on the node (verbatim):** `Fiji ImageJ using the Plot Pro fi les function`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -211,7 +211,7 @@ Fiji bundles together many popular and useful ImageJ plugins for image analysis 
 | `10.1029/2024GB008212` | `PetroOrg; R; ggplot2; Vegan R package` |
 | `10.1029/2025JG008899` | `PetroOrg; RStudio; Microsoft Excel; ggplot2` |
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -237,7 +237,7 @@ Fiji bundles together many popular and useful ImageJ plugins for image analysis 
 
 **Aliases recorded on the node (verbatim):** `Integrative Genomics Viewer (version 2.9.4)`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -263,7 +263,7 @@ Fiji bundles together many popular and useful ImageJ plugins for image analysis 
 
 **Aliases recorded on the node (verbatim):** `MaxQuant v1.6`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM (node/ID) — Veronika 2026-07-17.** `biotools_id: maxquant`, `biotools_status: has_id`. **But the `USES_SOFTWARE` edge to `10.1021/jasms.4c00232` is REMOVED:** Veronika read the PDF — the paper never mentions MaxQuant. The extraction was a fuzzy hallucination (`value='MaxQuant v1.6'`, span `[4899,4907]`, `MATCH_FUZZY`, `grounded=True` — `MATCH_FUZZY` is in `ACCEPTED_ALIGNMENTS`, so `_is_grounded` accepts it with **no coverage check at all**) — see **KI-10**. Node now has **0 `USES_SOFTWARE` edges (orphan)** — needs a ruling.
 
 ---
 
@@ -287,7 +287,7 @@ Fiji bundles together many popular and useful ImageJ plugins for image analysis 
 |---|---|
 | `10.1002/pmic.201800361` | `Proteoform Suite; MetaMorpheus; MSAlign +` |
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **NOT confirmed — stays `proposed` (Veronika 2026-07-17).** No registry confirm. **`USES_SOFTWARE` edge to `10.1002/pmic.201800361` REMOVED:** that paper is a **review** — it names MetaMorpheus but never ran it, so the edge asserted something false. Node stays; now has **0 `USES_SOFTWARE` edges (orphan)** — needs a ruling.
 
 ---
 
@@ -318,7 +318,11 @@ Fiji bundles together many popular and useful ImageJ plugins for image analysis 
 **Decision — one question, not a CONFIRM/REJECT.** This cannot be answered from the repo, and
 CONFIRM/REJECT would invite a judgement the evidence here does not support:
 
-> ### DOES THE PAPER WRITE "MS-Align+"?   YES / NO → `______`
+> ### DOES THE PAPER WRITE "MS-Align+"?   **NO — Veronika 2026-07-17.**
+> The paper writes **`MSAlign +`** (no hyphen), followed by `, [88]`. The string is
+> **authentic** — the earlier Docling-artifact reading (that the spacing was an OCR
+> artifact) is **refuted**. `biotools_id` stays **null**. **OPEN, not ruled:** whether
+> `MSAlign +` is *MS-Align+* written without a hyphen, or a different tool, is unresolved.
 
 If **YES** — bio.tools `msalign` (an LC-MS *alignment* tool) is a different tool from the
 top-down search engine this paper ran: a **third predatoR/ATHENA-class collision**.
@@ -348,7 +352,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 
 **Aliases recorded on the node (verbatim):** `ProteoWizard MSConvert`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -378,7 +382,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 
 **Aliases recorded on the node (verbatim):** `ProSight Lite`, `ProSight Lite 1.4`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -402,7 +406,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 |---|---|
 | `10.1002/pmic.201300438` | `BioTools, cRAWler algorithm inside ProSightPC 3.0; ProteinProspector; MaximumEntropyDeconvolution from DataAnalysis (Bruker Daltonics, version 3.4); ProSight PC workflow; Xtract algorithm from Thermo Fisher Scientific; custom in-house software` |
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -429,7 +433,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 
 **Aliases recorded on the node (verbatim):** `Proteoform Suite`, `Proteoform Suite version 0.3.6`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **NOT confirmed — stays `proposed` (Veronika 2026-07-17).** **`USES_SOFTWARE` edge to `10.1002/pmic.201800361` REMOVED** (same review article — named, never run). Node stays; retains its edge from `10.1021/acs.jproteome.0c00403` (**1 edge**).
 
 ---
 
@@ -454,7 +458,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 | `10.1021/acs.analchem.5c05562` | `Predator, PetroOrg, and PyC2MC; Xcalibur TM` |
 | `10.1021/acs.energyfuels.4c05674` | `Predator Acquisition data station; Predator, PetroOrg, PyC2MC; Xcalibur` |
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -482,7 +486,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 
 **Aliases recorded on the node (verbatim):** `QIIME2`, `QIIME2 (v.2019.1)`, `QIIME2 version 2019.10.0`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -509,7 +513,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 
 **Aliases recorded on the node (verbatim):** `SPSS`, `SPSS 19.0`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 
@@ -537,7 +541,7 @@ If **NO** — tell us what it does say, and the token goes back for re-canonical
 
 **Aliases recorded on the node (verbatim):** `Vegan`, `vegan`, `vegan package`
 
-**Decision:** CONFIRM / REJECT / UNSURE → `______`
+**Decision:** **CONFIRM — Veronika 2026-07-17.** `biotools_id` written to the node; `biotools_status: has_id`.
 
 ---
 

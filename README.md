@@ -7,7 +7,7 @@ AI-assisted exploration.
 
 > **Status:** Active build — 8-week project, June 1 – July 31.
 > 2-person team. CI Compass Fellowship. Extraction covers the ICR
-> publication corpus (CrossRef + MagLab CSV), David's 46 Thermo RAW
+> publication corpus (CrossRef + MagLab CSV), the 46 Thermo RAW
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
 > extraction (stage 02d) exists and is under evaluation. Normalization,
 > validation, and Neo4j load (stages 03-05) are the current work.
@@ -83,7 +83,7 @@ scikg/
 │       ├── relationships/           # Extracted relationships (JSONL)
 │       ├── normalized/              # Normalized entities + relationships (03 output)
 │       ├── logs/                    # Extraction/normalization logs (JSONL)
-│       └── validated/               # (not yet populated)
+│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,888 entities, 11,626 edges)
 ├── scripts/                         # Pipeline scripts — run in order
 │   ├── 01_fetch.py
 │   ├── 01b_fetch_pdfs.py
@@ -94,8 +94,8 @@ scikg/
 │   ├── 02f_extract_pxd_rawfiles.py  # Blood Proteoform Atlas PXD (local-only)
 │   ├── 02d_extract_pdf.py           # PDF gap-field extraction (under evaluation)
 │   ├── 03_normalize.py
-│   ├── 04_validate.py              # (planned — not yet built)
-│   ├── 05_load.py                  # (planned — not yet built)
+│   ├── 04_validate.py              # (built)
+│   ├── 05_load.py                  # (drafted — not yet run)
 │   └── db.py
 ├── tests/                           # One test file per pipeline script
 │   ├── test_fetch.py
@@ -146,7 +146,7 @@ scikg/
 ## Current Focus
 
 Extraction now covers the ICR publication corpus (CrossRef API and
-MagLab CSV), David's 46 Thermo RAW files, and the 952 Blood Proteoform
+MagLab CSV), the 46 Thermo RAW files, and the 952 Blood Proteoform
 Atlas PXD files. From the PXD set, 888 distinct RawDataFile nodes remain
 after 64 files cross-deposited under overlapping accessions were
 correctly merged; a maglab_acquired_confirmed flag marks the 199
@@ -196,8 +196,8 @@ python scripts/02c_extract_rawfiles.py
 python scripts/02f_extract_pxd_rawfiles.py  # Blood Proteoform Atlas PXD files (local-only source; see CLAUDE.md)
 python scripts/02d_extract_pdf.py     # PDF gap-field extraction (under evaluation)
 python scripts/03_normalize.py
-python scripts/04_validate.py           # (planned — not yet built)
-python scripts/05_load.py               # (planned — not yet built)
+python scripts/04_validate.py           # (built)
+python scripts/05_load.py               # (drafted — not yet run)
 ```
 
 Read the foundation docs first: README.md → docs/ROADMAP.md →

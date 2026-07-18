@@ -10,6 +10,22 @@
 #   ID format: MS:XXXXXXX
 #   Version used: 4.1.237 (February 2026)
 #
+# nmrCV (Nuclear Magnetic Resonance CV)  (added 2026-07-17, R7)
+#   Maintained by: MSI / COSMOS EU / PhenoMeNal EU (nmrML)
+#   Browser: https://www.ebi.ac.uk/ols4/ontologies/nmrcv
+#   Version IRI: http://nmrml.org/cv/v1.1.0/nmrCV.owl
+#   ID format: NMR:XXXXXXX
+#   Version used: 1.1.0 (792 terms; checked via OLS4 2026-07-17)
+#   Finding (so nobody repeats the lookup): nmrCV names Bruker instruments by
+#   CONSOLE GENERATION (Avance I / II / III HD / IVDr, DRX); our corpus names them
+#   by 1H FREQUENCY (600/500/400 MHz). No model-level term exists at our
+#   granularity, so the CLASS-level link (NMR:1400198 Bruker NMR instrument;
+#   NMR:1400059 NMR instrument) is the CORRECT mapping — the same reason FT-ICR
+#   takes MS:1003948 (FT-ICR instrument class) rather than a per-magnet term. Not a
+#   fallback. nmrCV has NO 1H-frequency term (0 hits for proton/Larmor/spectrometer
+#   frequency); it has a field-strength PARAMETER term (NMR:1400027) that is not an
+#   instrument identity — see the note below the Instruments table.
+#
 # UNIMOD (Protein Post-Translational Modifications)
 #   Maintained by: UNIMOD community (unimod.org)
 #   Website: https://www.unimod.org
@@ -53,19 +69,63 @@
 # Peripherals: ACQUITY M-Class, NanoMate, NanoLC,
 # APPI Ion Max, MIDAS 160, GELFrEE 8100
 
-| Canonical | PSI-MS ID | Aliases | Vendor |
-|---|---|---|---|
-| 21T FT-ICR MS | MS:1003948 | 21 T FT-ICR MS, 21 T FT-ICR mass spectrometer, Custom-built 21 T FT-ICR MS, 21T ICR, 21 T FT-ICR, 21 Tesla FT-ICR MS, 21 T FT-ICR MS | — |
-| 14.5T FT-ICR MS | MS:1003948 | 14.5 T FT-ICR, 14.5T FT-ICR, 14.5 T superconducting magnet, Modified 14.5 T FT-ICR, LTQ-FT MS | — |
-| 9.4T FT-ICR MS | MS:1003948 | 9.4 T FT-ICR MS, 9.4T FT-ICR, Home-built 9.4 T FTICR instrument, 9.4 T FTICR | — |
-| Orbitrap Eclipse Tribrid | MS:1003029 | Orbitrap Eclipse Tribrid Mass Spectrometer | — |
-| Q-Exactive HF | MS:1002523 | Q Exactive HF Hybrid Quadrupole-Orbitrap, Q-Exactive HF BioPharma, Q Exactive HF | — |
-| Velos Pro | MS:1003495 | Velos Pro dual-cell linear ion trap, Velos Pro linear ion trap | — |
-| TOF MS | MS:1003951 | TOF, time-of-flight | — |
-| Finnigan TSQ | MS:1000750 | Finnigan TSQ | — |
-| Finnigan LCQ | MS:1000031 | Finnigan LCQ, Finnigan LSQ | — [PENDING: MS:1000031 is a generic parent ("instrument model"); no generic PSI-MS LCQ term exists — needs specific submodel, supervisor decision] |
-| LTQ Orbitrap Velos | MS:1001742 | LTQ Orbitrap Velos | Thermo Scientific |
-| LTQ FT Ultra | MS:1000557 | LTQ FT Ultra | Thermo Scientific |
+| Canonical | Ontology ID | Ontology Source | Aliases | Vendor | Magnetic Field (T) | 1H Frequency (MHz) |
+|---|---|---|---|---|---|---|
+| 21T FT-ICR MS | MS:1003948 | PSI-MS | 21 T FT-ICR MS, 21 T FT-ICR mass spectrometer, Custom-built 21 T FT-ICR MS, 21T ICR, 21 T FT-ICR, 21 Tesla FT-ICR MS, 21 T FT-ICR MS | — | 21.0 |  |
+| 14.5T FT-ICR MS | MS:1003948 | PSI-MS | 14.5 T FT-ICR, 14.5T FT-ICR, 14.5 T superconducting magnet, Modified 14.5 T FT-ICR, LTQ-FT MS | — | 14.5 |  |
+| 9.4T FT-ICR MS | MS:1003948 | PSI-MS | 9.4 T FT-ICR MS, 9.4T FT-ICR, Home-built 9.4 T FTICR instrument, 9.4 T FTICR | — | 9.4 |  |
+| Orbitrap Eclipse Tribrid | MS:1003029 | PSI-MS | Orbitrap Eclipse Tribrid Mass Spectrometer | — |  |  |
+| Q-Exactive HF | MS:1002523 | PSI-MS | Q Exactive HF Hybrid Quadrupole-Orbitrap, Q-Exactive HF BioPharma, Q Exactive HF | — |  |  |
+| Velos Pro | MS:1003495 | PSI-MS | Velos Pro dual-cell linear ion trap, Velos Pro linear ion trap | — |  |  |
+| TOF MS | MS:1003951 | PSI-MS | TOF, time-of-flight | — |  |  |
+| Finnigan TSQ | MS:1000750 | PSI-MS | Finnigan TSQ | — |  |  |
+| Finnigan LCQ | MS:1000031 | PSI-MS | Finnigan LCQ, Finnigan LSQ | — [PENDING: MS:1000031 is a generic parent ("instrument model"); no generic PSI-MS LCQ term exists — needs specific submodel, supervisor decision] |  |  |
+| LTQ Orbitrap Velos | MS:1001742 | PSI-MS | LTQ Orbitrap Velos | Thermo Scientific |  |  |
+| LTQ FT Ultra | MS:1000557 | PSI-MS | LTQ FT Ultra | Thermo Scientific |  |  |
+| Bruker Avance | NMR:1400198 | NMRCV | Bruker AVANCE, Bruker Avance | Bruker |  |  |
+| Bruker Avance III 600 MHz | NMR:1400198 | NMRCV | Bruker Avance III 600 MHz | Bruker |  | 600 |
+| Bruker Avance III 500 MHz | NMR:1400198 | NMRCV | Bruker BioSpin Avance III 500 MHz NMR spectrometer | Bruker |  | 500 |
+| Bruker Avance III 400 MHz | NMR:1400198 | NMRCV | Bruker AVANCE 400 MHz, Bruker BioSpin Avance III 400 MHz WB | Bruker |  | 400 |
+| Bruker Avance NEO 400 MHz | NMR:1400198 | NMRCV | Bruker Neo Avance 400 | Bruker |  | 400 |
+| 600 MHz solid-state NMR spectrometer | NMR:1400059 | NMRCV | 1 T solid-state NMR spectrometer, a 600 MHz/14.1 T solid-state NMR spectrometer, 600 MHz/14 |  | 14.1 | 600 |
+
+**NMR rows added 2026-07-17 (R1–R8). Grouping B — split by 1H frequency, so distinct magnets stay
+distinct exactly as 21T/14.5T/9.4T FT-ICR do (three rows, one accession).** Aliases are verbatim
+from `data/processed/review/instrument_review.md`'s "AUTO-MINTED — NMR (NMRCV)" block. **8-vs-6
+note (R8):** that block lists 8 rows, but three solid-state fragments ("1 T solid-state NMR
+spectrometer", "600 MHz/14", "a 600 MHz/14.1 T solid-state NMR spectrometer") were already folded
+into one node (`instrument:raw:600mhz_14_1t_solid_state_nmr`) — so 6 nodes, not a loss.
+
+> **[NOTE: NMR:1400198's rdfs:comment is "defneed" — an unauthored placeholder. The term is
+> live, not deprecated, not obsolete; its meaning rests on its label, its parent
+> (NMR:1400059 NMR instrument), and foaf:homepage https://www.bruker.com/de/products/mr/nmr.html.
+> Cited as the most specific TRUE term per this CV's rule. The missing definition is a
+> documentation gap in nmrCV v1.1.0, not a defect in the mapping.]**
+>
+> **Different from Finnigan LCQ (do not conflate, R2):** LCQ is `PENDING` because MS:1000031 is
+> the "instrument model" ROOT and a specific LCQ term *ought to exist*. NMR:1400198 is **not**
+> pending — it **is** the right term (a Bruker Avance III 600 MHz genuinely *is* a Bruker NMR
+> instrument at nmrCV's granularity); only its definition is missing. Different problem, same
+> inline-flag convention.
+>
+> **AVANCE III HD (NMR:1000371) — considered and REJECTED (R3):** it is *specific* but *false* —
+> "AVANCE III HD" is a different console from "AVANCE III", so it is not true of our nodes. The
+> test is **truth, not specificity** (same error class as predatoR / ATHENA). NMR:1400198 is coarse
+> and TRUE; NMR:1000371 is specific and FALSE. Do not re-propose it.
+>
+> **`nmr_frequency_mhz` has no ontology behind it, deliberately (R4):** nmrCV has **no** 1H/proton/
+> Larmor/spectrometer-frequency term (0 hits); "MHz" appears only inside NMR:1400185's prose. So
+> `nmr_frequency_mhz` is a plain numeric property, no accession.
+>
+> **`magnetic_field_tesla` is read from the canonical name where STATED, never converted (R5,
+> RULED — resolves SCIKG_SCHEMA.md:462):** 21.0/14.5/9.4 on the FT-ICR rows; 14.1 on the
+> solid-state row (its string reads "14.1 T"); null everywhere else. **Do NOT convert MHz→Tesla.**
+> 600 MHz ≈ 14.1 T is exact physics, and that is the trap: once written, a derived 14.1 and the
+> node-1 *stated* 14.1 are indistinguishable on disk — one is a reading, the other arithmetic.
+> nmrCV *has* a defined field-strength term (NMR:1400027, "The intensity of an electric, magnetic,
+> or other field", subClassOf NMR:1001954 NMR acquisition parameter) — but it is a **parameter
+> slot, not an instrument identity**, so it does NOT go in the Ontology ID column. Available and
+> deliberately not used.
 
 ## Methods — Tier 1 Primary MS Methods
 
