@@ -50,7 +50,15 @@ This schema maps to Neo4j as follows:
 - **All provenance properties** are duplicated on every node and every 
   relationship — Neo4j does not enforce inheritance
 
-### Cypher constraints (run at database setup via `scripts/db.py`)
+### Cypher constraints (created by `05_load.py`, before loading)
+
+**Corrected 2026-07-17 (L3):** these constraints are **not** run by `scripts/db.py` and never have
+been — `db.py` is a connection wrapper only (`connect`/`run_query`/`close`), which is correct
+design, not a defect. **No database has ever had these constraints applied.** `05_load.py` issues
+them as `CREATE CONSTRAINT ... IF NOT EXISTS` **before** loading any data, so a violation (e.g.
+KI-8's 21 `sha256_hash` collisions) fails fast at setup rather than 900 nodes into the load. The 5
+PLANNED-type constraints (Grant, Method, Protein, Organism, Modification) are created too —
+harmless at 0 records and self-documenting.
 
 ```cypher
 // Every node keys on a single top-level `identifier` (namespace:value).
@@ -73,6 +81,25 @@ CREATE CONSTRAINT software_identifier     FOR (s:Software)     REQUIRE s.identif
 // two RAW sources; global uniqueness is enforced on the checksum instead.
 CREATE CONSTRAINT rawfile_sha256          FOR (r:RawDataFile)  REQUIRE r.sha256_hash IS UNIQUE;
 ```
+
+### MERGE key vs uniqueness constraint — deliberately different (L2, ruled 2026-07-17)
+
+**`05_load.py` MERGEs every node — including `RawDataFile` — on `identifier`, NOT on
+`sha256_hash`.** The MERGE key and the uniqueness constraint are **different things** and are
+deliberately not the same key for `RawDataFile`:
+
+- **MERGE key = `identifier`**, uniformly for all node types. It is 03's dedup key, present on
+  every node, and post-03 it has **0 collisions** (measured 2026-07-17). Uniform, safe, idempotent.
+- **`RawDataFile` uniqueness constraint = `sha256_hash`**, exactly as stated above. Unchanged.
+
+**Why this is load-bearing (KI-8).** If 05 MERGEd on `sha256_hash`, KI-8's 21 collisions (42
+records, distinct identifiers, identical hash) would **silently collapse to 21 nodes** — MERGE
+would match the existing node and overwrite one filename per pair, **no error, load "succeeds,"
+one filename destroyed quietly.** MERGE on `identifier` instead attempts all 42 distinct nodes, and
+the `sha256_hash IS UNIQUE` constraint **rejects them loudly**. Same data, opposite outcome — one
+path destroys a filename in silence, the other surfaces KI-8 as the load error it is. (In practice
+05 never reaches this: the L5 gate stops the load at 04 while KI-8 is unresolved. The constraint is
+the backstop if the gate is ever bypassed.)
 
 ---
 
@@ -131,16 +158,42 @@ what makes the graph FAIR (R1.2) and PROV-O-aligned.
 
 | Property | Type | Allowed values | PROV-O mapping |
 |---|---|---|---|
-| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `llm_extraction` | `prov:wasGeneratedBy` |
+| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `llm_extraction` | `prov:wasGeneratedBy` |
 | `confidence` | string | `high`, `medium`, `low` | — |
 | `extracted_at` | ISO 8601 | `2026-06-29T14:00:00Z` | `prov:generatedAtTime` |
 | `evidence_note` | string | Free text, human-readable basis | — |
-| `source_id` | string | DOI, MagLab Id, filename, annotation file path | `prov:hadPrimarySource` |
+| `source_id` | string \| list[string] | DOI, MagLab Id, filename, annotation file path | `prov:hadPrimarySource` |
 | `schema_version` | string | `v1.0` | — |
 
 **Convention:** in Neo4j, these properties are stored directly on the 
 node or relationship. They are not abstracted into a separate provenance 
 object.
+
+**`merged_csv_llm` (added 2026-07-17, E1) — the precedent governs `source_type` ONLY.**
+When two independent sources attest the **same fact**, the precedent is **one record with a
+composite `source_type`**, not two parallel records (`merged_csv_foxden` did this for the 46
+Thermo RawDataFiles). `merged_csv_llm` applies that composite-label pattern to the **74
+`USES_INSTRUMENT` edges** where the MagLab CSV (`source_type: csv`, `source_id: maglab:{id}`) and
+the PDF extraction (`source_type: llm_extraction`, `source_id: doi:{...}`) independently attest a
+paper used `instrument:raw:21t_icr`. Merged in **03** (cross-file reconciliation), the edge carries
+`source_type: merged_csv_llm`, `confidence: high` (two independent sources agreeing is stronger
+than either), and an `evidence_note` quoting both. One paper using the 21 T is **one fact confirmed
+twice**, not two — a second edge would double-count it and force `DISTINCT` into every query. See
+KI-12.
+
+**`source_id` as a list is a NEW choice, NOT the precedent (measured 2026-07-17, G1).**
+`merged_csv_foxden`'s `source_id` is a **scalar** pointing at `rawfiles_enriched/*.json` — a fused
+artifact that **contains** both origins, so discarding the originals from the field is safe (the
+provenance is one hop away). **The 74 have no such artifact** (02b and the PDF transform write to
+separate files; nothing fuses them), and **their two origins ARE the corroboration** — the whole
+value of the merge. So the precedent's shape does not transfer: the merged edge keeps **both**
+origins as a **list**, `source_id: [maglab:{id}, doi:{...}]`. This **widens `source_id`'s type to
+`string | list[string]`** — scalar on the ~11,626 single-source edges, list on the 74. **A consumer
+reading `source_id` must tolerate both shapes.** Rejected alternatives: a **delimited string** keeps
+the type uniform but invents a parse convention nothing can validate; **scalar + doi-in-evidence_note**
+demotes one origin into free text. Both discard structure the list keeps. Same problem shape as
+`merged_csv_foxden`, different constraint (no fused artifact) — the precedent governs `source_type`,
+not `source_id`.
 
 **Note on `source_type`:** this is provenance, not a query gate — do not use it
 to hard-filter records. Values on disk: `csv`, `fisher_py`, `manual_annotation`,
@@ -373,11 +426,16 @@ Sources 2, 4, 5, and PDF extraction (llm_extraction).
 
 **Status: Active — populated.** 469 Instrument nodes on disk: 7 raw-form nodes from
 02c/02f (RAW files, source_type csv/fisher_py) + 462 from the 378-paper PDF extraction
-(source_type llm_extraction, raw-form `instrument:raw:{slug}`, `canonical_name`/`psi_ms_id`
-null pending 03, `ontology_source` set: 164 PSI-MS · 292 null · 6 NMRCV). Linked to
-publications via `USES_INSTRUMENT` (PDF adds 968 edges). The 7 existing identifiers are
-frozen; PDF instruments resolve to them where matched (no duplicates). Peripherals the CV
-excludes are recorded as `instruments_mentioned_raw` text on the Publication, not as nodes.
+(source_type llm_extraction, raw-form `instrument:raw:{slug}`). **After 03 (measured
+2026-07-17): 13 mapped to the controlled vocabulary, 456 `instrument_unmapped`** (was 7 / 462
+before the NMR CV rows landed 2026-07-17; see KI-7). Linked to publications via
+`USES_INSTRUMENT` — **total 1,048 edges** (the PDF added 968; Pass 6.5 then merged 74 CSV+PDF
+same-fact pairs into one edge each, 1,122 → 1,048). The 7 existing identifiers are frozen; PDF
+instruments resolve to them where matched (no duplicates). `ontology_source` on the 462 PDF nodes:
+164 PSI-MS · 292 null · 6 NMRCV — and the **6 NMRCV nodes now carry accessions** (5× NMR:1400198,
+1× NMR:1400059) after the 2026-07-17 NMR CV rows, so the earlier "`psi_ms_id` null pending 03" no
+longer holds for them. Peripherals the CV excludes are recorded as `instruments_mentioned_raw`
+text on the Publication, not as nodes.
 
 **Conforms to:** PSI-MS (MS instruments), nmrCV (NMR instruments); all other 
 analytical instruments are label-only (no ontology)  
@@ -406,9 +464,15 @@ queryable and sortable. The two are convertible by the ¹H gyromagnetic ratio
 conventionally named by their ¹H frequency, hence `nmr_frequency_mhz`; FT-ICR and
 other magnet instruments by field in Tesla, hence `magnetic_field_tesla`.
 
-**Undecided (do not assume either way):** whether `magnetic_field_tesla` is ALSO
-filled for NMR instruments (via the conversion above) so a single uniform query
-(e.g. "magnets ≥ 14 T") spans both FT-ICR and NMR. Pending decision.
+**RULED 2026-07-17 (R5): NO MHz→Tesla conversion.** `magnetic_field_tesla` is filled **only from
+a field strength STATED in the source string** (the FT-ICR canonical names — 21.0/14.5/9.4 — and
+the one NMR node whose string reads "14.1 T"); it is **null on every NMR row named by ¹H
+frequency**. Reason: 600 MHz ≈ 14.1 T is exact physics, and that is the trap — once written, a
+*derived* 14.1 and a *stated* 14.1 are indistinguishable on disk (one is a reading, the other
+arithmetic). So a uniform "magnets ≥ 14 T" query spanning FT-ICR and NMR is **not** supported by a
+converted column. (nmrCV has a defined field-strength parameter term, NMR:1400027, but it is an
+acquisition-parameter slot, not an instrument identity — available and deliberately unused; see
+`controlled_vocabulary.md`.)
 
 Consistent with the raw-node design: the PDF transform mints `instrument:raw:{slug}`
 with these fields null; `03` canonicalizes and fills them from the controlled
@@ -711,7 +775,11 @@ Sources 5 and 6. One node per RAW file — 46 Thermo `.raw` files (source 5) plu
 **Identifier:** `rawfile:{filename}` — human-readable, but **not** globally
 unique (filenames repeat across the two RAW sources; 64 PXD cross-deposits
 share filenames). Global uniqueness is enforced on `sha256_hash` instead.  
-**Coverage:** 998 files (46 Thermo + 952 PXD; PXD dedups to 888 distinct nodes)
+**Coverage:** 998 source RAW files (46 Thermo + 952 PXD; the 952 PXD dedup to 888 distinct nodes).
+**Total RawDataFile nodes on disk = 934** (46 Thermo + 888 PXD). **Distinct `sha256_hash` = 913**,
+because **21 hashes collide across 42 nodes** (byte-identical files under different names) — see
+**KI-8**. The gap between 934 nodes and 913 distinct hashes IS the 05 blocker: db.py's
+`sha256_hash IS UNIQUE` constraint rejects the second of each colliding pair.
 
 ### Properties from manual filename metadata (data/raw/rawfile_metadata.csv)
 
@@ -813,7 +881,7 @@ extraction (source 4) is dormant; zero of these edges exist on disk.
 | `ANALYZES_PROTEIN` | Publication → Protein | annotation | MANY-MANY | PLANNED |
 | `INVOLVES_ORGANISM` | Publication → Organism | annotation, RAW | MANY-MANY | PLANNED |
 | `STUDIES_PTM` | Publication → Modification | annotation | MANY-MANY | PLANNED |
-| `USES_SOFTWARE` | Publication → Software | PDF (llm_extraction) | MANY-MANY | **Active — 280 edges** (2026-07-16) |
+| `USES_SOFTWARE` | Publication → Software | PDF (llm_extraction) | MANY-MANY | **Active — 267 edges** (measured 2026-07-17; was 280, −13 from the registry review's false-edge removals) |
 
 ### RAW file relationships
 

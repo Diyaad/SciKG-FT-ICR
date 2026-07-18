@@ -210,7 +210,9 @@ def parse_instrument_vocab(md_path, log):
     header_idx = None
     for i, line in enumerate(lines):
         low = line.lower()
-        if "|" in line and "canonical" in low and "psi-ms" in low:
+        # "Ontology ID" is the current header (renamed from "PSI-MS ID", R6); accept
+        # either so an older CV still parses.
+        if "|" in line and "canonical" in low and ("ontology id" in low or "psi-ms" in low):
             header_idx = i
             break
     if header_idx is None:
@@ -221,28 +223,57 @@ def parse_instrument_vocab(md_path, log):
         parts = [c.strip() for c in row.strip().strip("|").split("|")]
         return parts
 
+    def find_col(header, *subs, required=True):
+        for i, c in enumerate(header):
+            if any(s in c for s in subs):
+                return i
+        if required:
+            raise ValueError(subs)
+        return None
+
     header = [c.lower() for c in cells(lines[header_idx])]
     try:
         col_canon = header.index("canonical")
-        col_psi = next(i for i, c in enumerate(header) if "psi-ms" in c)
-        col_alias = next(i for i, c in enumerate(header) if "alias" in c)
+        col_ont = find_col(header, "ontology id", "psi-ms")   # accession col (R6 rename)
+        col_alias = find_col(header, "alias")
     except (ValueError, StopIteration):
         log.append({"action": "vocab_header_unparsed", "header": header, "at": now_iso()})
         return vocab
+    # New optional columns (R4/R5/R6); None if a legacy CV lacks them.
+    col_src = find_col(header, "ontology source", required=False)
+    col_tesla = find_col(header, "magnetic field", "tesla", required=False)
+    col_mhz = find_col(header, "frequency", "mhz", required=False)
 
+    def num(cell):
+        cell = (cell or "").strip()
+        if not cell:
+            return None
+        try:
+            return float(cell)
+        except ValueError:
+            return None
+
+    need = max(c for c in (col_canon, col_ont, col_alias, col_src, col_tesla, col_mhz)
+               if c is not None)
     for line in lines[header_idx + 1:]:
         if "|" not in line:
             break  # table ended
         if re.match(r"^\s*\|?[\s:-]+\|", line):
             continue  # separator row ---|---
         row = cells(line)
-        if len(row) <= max(col_canon, col_psi, col_alias):
+        if len(row) <= need:
             continue
         canonical = row[col_canon]
-        psi = row[col_psi] or None
+        psi = row[col_ont] or None
         if not canonical:
             continue
-        entry = {"canonical": canonical, "psi_ms_id": psi}
+        entry = {
+            "canonical": canonical,
+            "psi_ms_id": psi,
+            "ontology_source": (row[col_src].strip() or None) if col_src is not None else None,
+            "magnetic_field_tesla": num(row[col_tesla]) if col_tesla is not None else None,
+            "nmr_frequency_mhz": num(row[col_mhz]) if col_mhz is not None else None,
+        }
         keys = {norm_match_key(canonical)}
         alias_cell = row[col_alias]
         if alias_cell:
@@ -430,6 +461,14 @@ def main():
                 hit = next(iter(hits.values()))
                 props["canonical_name"] = hit["canonical"]
                 props["psi_ms_id"] = hit["psi_ms_id"]
+                # R4/R5/R6: fill ontology_source + field-strength from the CV, only
+                # when the CV states a value (null stays absent, not written null).
+                if hit.get("ontology_source"):
+                    props["ontology_source"] = hit["ontology_source"]
+                if hit.get("magnetic_field_tesla") is not None:
+                    props["magnetic_field_tesla"] = hit["magnetic_field_tesla"]
+                if hit.get("nmr_frequency_mhz") is not None:
+                    props["nmr_frequency_mhz"] = hit["nmr_frequency_mhz"]
                 mapped += 1
                 log.append({"action": "instrument_mapped", "identifier": rec["identifier"],
                             "raw": variants, "matched_variants": len(hits),
@@ -491,6 +530,77 @@ def main():
             kept.append(rel)
         rels_out[fname] = kept
 
+    # --- Pass 6.5: cross-file edge reconciliation (E1 / KI-12) --------
+    # EDGES ONLY. Two extractors (02b CSV, the PDF transform) can write the SAME
+    # (type, subject, object) edge to DIFFERENT relationship files. Pass 6 dedups
+    # WITHIN a file and structurally cannot see the cross-file pair, so 05's
+    # MERGE (a)-[:TYPE]->(b) would collapse it and destroy one source's provenance
+    # silently (KI-12). Here we reconcile a multi-source triple into ONE edge that
+    # KEEPS BOTH origins (source_id becomes a list; confidence high — two independent
+    # sources agreeing is stronger than either).
+    #
+    # DO NOT EXTEND THIS TO NODES. Cross-file node overlap is 0 BY DESIGN, and the
+    # two-file convention (Instrument / Dataset / Software split across entity files)
+    # depends on 03 NOT merging entities across files: merging would collide their
+    # frozen identifiers and break that invariant. Edges have no such invariant; nodes
+    # do. The asymmetry is intentional — measured cross-file: entities 0, edges 74.
+    #
+    # SCOPE: only the ruled shape merges — exactly two records whose source_types are
+    # {csv, llm_extraction} (E1). Any other multi-source triple is a FINDING, left
+    # unmerged and sent to review_queue (Q2 proved the 74 are the only cross-file
+    # triples, so this must fire exactly 74 times and touch nothing else).
+    SAFE_MERGE_SOURCES = {"csv", "llm_extraction"}
+    triple_groups = {}
+    for fname, rels in rels_out.items():
+        for rel in rels:
+            k = (rel.get("relationship_type"), rel.get("subject_id"), rel.get("object_id"))
+            triple_groups.setdefault(k, []).append((fname, rel))
+    cross_file_merges = 0
+    cross_file_findings = 0
+    drop_ids = set()          # id() of constituent rel dicts to remove
+    add_to_file = {}          # fname -> [merged rel, ...]
+    for k, members in triple_groups.items():
+        if len(members) < 2:
+            continue
+        srcs = {rel.get("source_type") for _, rel in members}
+        if len(members) == 2 and srcs == SAFE_MERGE_SOURCES:
+            bysrc = {rel.get("source_type"): (fname, rel) for fname, rel in members}
+            csv_fname, csv_rel = bysrc["csv"]
+            _, llm_rel = bysrc["llm_extraction"]
+            merged = dict(csv_rel)                       # same triple either way
+            merged["source_type"] = "merged_csv_llm"
+            merged["confidence"] = "high"
+            merged["source_id"] = [csv_rel.get("source_id"), llm_rel.get("source_id")]  # list (E1)
+            merged["evidence_note"] = (
+                "Two independent sources attest this edge (cross-source corroboration "
+                "-> confidence high). CSV: " + str(csv_rel.get("evidence_note"))
+                + " | PDF: " + str(llm_rel.get("evidence_note")))
+            props = dict(csv_rel.get("properties") or {})
+            for pk, pv in (llm_rel.get("properties") or {}).items():
+                props.setdefault(pk, pv)
+            merged["properties"] = props
+            merged["extracted_at"] = now_iso()
+            drop_ids.add(id(csv_rel))
+            drop_ids.add(id(llm_rel))
+            add_to_file.setdefault(csv_fname, []).append(merged)   # merged edge -> CSV file
+            cross_file_merges += 1
+            log.append({"action": "cross_file_edge_merge", "key": list(k),
+                        "source_ids": merged["source_id"], "at": now_iso()})
+        else:
+            cross_file_findings += 1
+            review.append({"action": "unexpected_multi_source_edge",
+                           "relationship_type": k[0], "subject_id": k[1], "object_id": k[2],
+                           "source_types": sorted(s for s in srcs if s is not None),
+                           "member_count": len(members),
+                           "note": "Cross-file duplicate triple whose source set is NOT "
+                                   "{csv, llm_extraction}; left UNMERGED for review (E1 scope).",
+                           "at": now_iso()})
+    if drop_ids or add_to_file:
+        for fname in list(rels_out.keys()):
+            kept = [rel for rel in rels_out[fname] if id(rel) not in drop_ids]
+            kept.extend(add_to_file.get(fname, []))
+            rels_out[fname] = kept
+
     # --- Pass 7: write outputs ---------------------------------------
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     total_out = 0
@@ -517,6 +627,8 @@ def main():
     print(f"  relationships in:        {rel_in}")
     print(f"  relationships out:       {rel_out}")
     print(f"  relationships deduped:   {rel_dups}")
+    print(f"  cross-file edges merged: {cross_file_merges}  (E1/KI-12, source_type merged_csv_llm)")
+    print(f"  cross-file findings:     {cross_file_findings}  (unexpected multi-source; NOT merged)")
     print(f"  dangling edges withheld: {dangling}  (see review_queue.jsonl)")
     print(f"  review queue entries:    {len(review)}")
     print(f"  output written to:       {OUTPUT_DIR}")

@@ -72,6 +72,11 @@ NORM_DIR = REPO / "data" / "processed" / "normalized"
 OUT_DIR = REPO / "data" / "processed" / "validated"
 QUARANTINE_PATH = OUT_DIR / "quarantine.jsonl"
 REPORT_PATH = OUT_DIR / "validation_report.json"
+# L1: passing records are materialized here, one file per input file, split into
+# entities/ and relationships/ subdirs. This is what 05_load.py reads — it loads
+# what is on disk, with no knowledge of quarantine and no subtraction.
+VALIDATED_ENT_DIR = OUT_DIR / "entities"
+VALIDATED_REL_DIR = OUT_DIR / "relationships"
 
 # --------------------------------------------------------------------------- #
 # Inputs (R8)
@@ -105,6 +110,7 @@ SCHEMA_VERSION = "v1.0"
 # Value spaces — R6: out-of-enum is COUNTED, never fatal.
 SOURCE_TYPE_ENUM = {
     "api", "csv", "manual_annotation", "fisher_py", "merged_csv_foxden", "llm_extraction",
+    "merged_csv_llm",  # E1: same-fact CSV+PDF agreement (the 74 USES_INSTRUMENT), merged edge
 }
 CONFIDENCE_ENUM = {"high", "medium", "low"}
 
@@ -338,6 +344,11 @@ def main() -> int:
     surviving_ids: set = set()
     identifier_owner = defaultdict(list)     # identifier -> [(type, file)]  (non-RawDataFile)
     sha_owner = defaultdict(list)            # sha256_hash -> [identifier]   (RawDataFile)
+    # L1: passing records are MATERIALIZED to validated/, one file per input file,
+    # so 05 loads what it reads instead of recomputing "what passed". Keyed by
+    # source basename to preserve the input layout the way 03 does.
+    passing_entities = defaultdict(list)     # source basename -> [record, ...]
+    passing_edges = defaultdict(list)        # source basename -> [record, ...]
 
     for path in entity_files:
         for _, rec in iter_jsonl(path):
@@ -374,6 +385,7 @@ def main() -> int:
             else:
                 passed += 1
                 by_type[etype]["passed"] += 1
+                passing_entities[path.name].append(rec)
                 if ident is not None:
                     surviving_ids.add(ident)   # only passed nodes can anchor an edge (R10)
 
@@ -392,9 +404,18 @@ def main() -> int:
     edges_total = 0
     edges_dangling = 0            # endpoint exists nowhere — upstream data bug
     edges_orphaned = 0           # endpoint exists but was quarantined this run
+    # E2 (2026-07-17): per-triple duplicate detector. 03 dedups edges WITHIN a
+    # file; a (type, subject, object) triple repeated ACROSS files is invisible to
+    # it and to every other 04 check, yet 05's MERGE (a)-[:TYPE]->(b) collapses it
+    # (last SET wins) and destroys one edge's provenance silently. Not malformed —
+    # a duplicate triple is a fact 05 must DECIDE about (merge / keep) — so this is
+    # a COUNTED category, never a quarantine.
+    edge_triple_counts = Counter()
     for path in rel_files:
         for _, rec in iter_jsonl(path):
             edges_total += 1
+            edge_triple_counts[(rec.get("relationship_type"),
+                                rec.get("subject_id"), rec.get("object_id"))] += 1
             fatal = validate_edge(rec, surviving_ids, all_node_ids)
             if fatal:
                 rec_out = dict(rec)
@@ -409,10 +430,19 @@ def main() -> int:
                     edges_orphaned += 1
             else:
                 passed += 1
+                passing_edges[path.name].append(rec)
+
+    # E2: duplicate (relationship_type, subject_id, object_id) triples — counted.
+    dup_triples = {k: v for k, v in edge_triple_counts.items() if v > 1}
+    dup_triple_by_type = Counter(k[0] for k in dup_triples)
 
     # ---- Report ---------------------------------------------------------- #
     report = {
         "generated_at": now_iso(),
+        # L5 gate: 05_load.py refuses to load unless this is True. It is the
+        # materialized equivalent of "04 exited 0" — clean iff nothing quarantined
+        # AND no KI-8 blocker.
+        "load_cleared": (len(quarantine) == 0 and len(sha_collisions) == 0),
         "inputs": {
             "entity_files": [p.name for p in entity_files],
             "relationship_files": [p.name for p in rel_files],
@@ -435,6 +465,10 @@ def main() -> int:
             "total": edges_total,
             "dangling_endpoint": edges_dangling,
             "orphaned_by_quarantine": edges_orphaned,
+            # E2: counted, NOT fatal. Number of (type, subject, object) triples that
+            # appear more than once (cross-file agreement 05 must decide about).
+            "duplicate_edge_triple": len(dup_triples),
+            "duplicate_edge_triple_by_type": dict(dup_triple_by_type),
         },
         "blockers": {
             "note": ("KI-8: RawDataFile sha256_hash collisions across distinct identifiers "
@@ -453,19 +487,35 @@ def main() -> int:
     if prov_out_of_enum_detail:
         print(f"[04_validate] provenance_out_of_enum={dict(prov_out_of_enum_detail)}")
     print(f"[04_validate] edges: total={edges_total} dangling_endpoint={edges_dangling} "
-          f"orphaned_by_quarantine={edges_orphaned}")
+          f"orphaned_by_quarantine={edges_orphaned} "
+          f"duplicate_edge_triple={len(dup_triples)} {dict(dup_triple_by_type)}")
     if quarantine_reasons:
         print(f"[04_validate] quarantine by reason: {dict(quarantine_reasons)}")
 
     if not args.dry_run:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
-        with QUARANTINE_PATH.open("w") as fh:
+        with QUARANTINE_PATH.open("w", encoding="utf-8") as fh:
             for rec in quarantine:
-                fh.write(json.dumps(rec) + "\n")
-        with REPORT_PATH.open("w") as fh:
-            json.dump(report, fh, indent=2)
-        print(f"[04_validate] wrote {QUARANTINE_PATH.relative_to(REPO)} "
-              f"and {REPORT_PATH.relative_to(REPO)}")
+                fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        with REPORT_PATH.open("w", encoding="utf-8") as fh:
+            json.dump(report, fh, indent=2, ensure_ascii=False)
+        # L1: materialize the passing records, one file per input file, in the
+        # entities/ and relationships/ layout 05 reads. Clear stale files first so
+        # a re-run never leaves a removed input's records behind.
+        for subdir, buckets in ((VALIDATED_ENT_DIR, passing_entities),
+                                (VALIDATED_REL_DIR, passing_edges)):
+            subdir.mkdir(parents=True, exist_ok=True)
+            for stale in subdir.glob("*.jsonl"):
+                stale.unlink()
+            for name, recs in buckets.items():
+                with (subdir / name).open("w", encoding="utf-8") as fh:
+                    for rec in recs:
+                        fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        n_ent = sum(len(v) for v in passing_entities.values())
+        n_rel = sum(len(v) for v in passing_edges.values())
+        print(f"[04_validate] wrote {QUARANTINE_PATH.relative_to(REPO)}, "
+              f"{REPORT_PATH.relative_to(REPO)}, and "
+              f"validated/entities ({n_ent} recs) + validated/relationships ({n_rel} recs)")
     else:
         print("[04_validate] --dry-run: no files written")
 

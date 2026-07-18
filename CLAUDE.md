@@ -47,14 +47,35 @@ merge_rawfile_metadata.py
                 reads  data/raw/pdfs/{doi_safe}.pdf
                 writes data/processed/pdf_text/{doi_safe}.md
                 writes data/processed/entities/pdf_extracted.jsonl
+PDF transform (02d extraction -> entity/relationship nodes)
+                reads  data/raw/pdf_extraction/pdf_extraction_378papers.jsonl
+                writes data/processed/entities/pdf_entities.jsonl
+                writes data/processed/relationships/pdf_relationships.jsonl
+                Populates THREE of the graph's node types (62 Institution,
+                469 Instrument, 51 Software) + INVOLVES_INSTITUTION,
+                USES_INSTRUMENT, USES_SOFTWARE edges. Split across scripts:
+                - transform_pdf_software.py  (BUILT, in scripts/): Software nodes
+                  + USES_SOFTWARE edges; reads + preserves the Institution/
+                  Instrument nodes already in pdf_entities.jsonl.
+                - facility->Institution transform: NOT in scripts/ (scratch,
+                  uncommitted — see docs/pdf_transform_logic.md §6,
+                  finalize_pdf_facility.py). Produced the 62 Institution nodes +
+                  89 INVOLVES_INSTITUTION edges.
+                - instrument transform: NOT in scripts/ (scratch, uncommitted).
+                  Produced the 462 PDF Instrument nodes + USES_INSTRUMENT edges.
+                (Output is on disk; the two uncommitted transforms cannot be
+                re-run from a clean clone. A stage named here without its code is
+                still better than an unmentioned stage.)
 03_normalize.py reads  data/processed/entities/
                 writes data/processed/normalized/
-04_validate.py  (planned — not yet built)
+04_validate.py  (built)
                 reads  data/processed/normalized/
-                writes data/processed/validated/
+                writes data/processed/validated/entities/
+                writes data/processed/validated/relationships/
                 writes data/processed/validated/validation_report.json
                 writes data/processed/validated/quarantine.jsonl
-05_load.py      (planned — not yet built)
+                exits non-zero on any quarantine or blocker
+05_load.py      (drafted — not yet run)
                 reads  data/processed/validated/
                 writes to Neo4j via scripts/db.py
 

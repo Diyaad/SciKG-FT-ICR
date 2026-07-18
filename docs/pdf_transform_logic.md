@@ -9,6 +9,13 @@ Build note to lift into the consolidated PDF-transform script once all six field
 (instrument, ionization, software, dataset, sample, facility) are built to the same
 pattern. Not authoritative schema — see `docs/SCIKG_SCHEMA.md`. Working impl lives in
 scratch: `finalize_pdf_facility.py` (to be promoted to `scripts/`).
+**⚠ NOT IN THE REPO — see KI-13 (`docs/KNOWN_ISSUES.md`).** This `finalize_pdf_facility.py` is the
+early Jul-14 (21-node) version; the **confirmed** producer of the committed **62** Institution + 89
+INVOLVES_INSTITUTION is **`finalize.py`**, and of the **462** Instrument + 968 USES_INSTRUMENT is
+**`finalize_inst.py`** — both from session `18b6037e`. Neither is in `scripts/`; both **lived in
+session scratch, now recovered to `~/scikg-scratch-all`** (the code is NOT lost — the original claim
+that it "cannot be regenerated" was wrong; producers confirmed from their runs' pickles, KI-13
+Method). Promotion needs the per-module `BASE`/`REPO` path handling fixed, not just a copy (KI-13).
 
 ## 1. Purpose
 One section of the PDF-extraction → entity transform. Reads the **consolidated
@@ -169,11 +176,16 @@ UNSW; `10.1038/s41561-019-0384-9` → ETH + FSU).
   5. `Hansell Organic Biogeochemistry Laboratory`
   6. `NRTDP (Evanston, IL)`
 - **Not run**: 03 normalization not run against this output yet.
-- **TODO**: promote scratch `finalize_pdf_facility.py` into `scripts/` as a
-  consolidated PDF-transform stage once instrument / ionization / software / dataset /
-  sample fields are built to this same four-way pattern. Stale line to fix then:
-  Institution node section still says "Sources 1 and 2." above the status block —
-  nodes now come from PDF extraction.
+- **TODO**: promote the scratch PDF transforms into `scripts/` as a consolidated
+  PDF-transform stage once instrument / ionization / software / dataset / sample fields are
+  built to this same four-way pattern. **Scope correction (see KI-13):** the producers are not
+  just `finalize_pdf_facility.py` — the **confirmed** committed producers are **`finalize.py`**
+  (62 Institution + 89 INVOLVES_INSTITUTION) and **`finalize_inst.py`** (462 Instrument + 968
+  USES_INSTRUMENT), both from session `18b6037e`, recovered to `~/scikg-scratch-all`. The
+  **instrument transform had no TODO anywhere until now** — this is its record. Promotion must
+  fix the per-module `BASE`/`REPO` path handling and `inst_v2`'s import-time repo I/O, not just
+  copy the files (KI-13 Open). Stale line to fix then: Institution node section still says
+  "Sources 1 and 2." above the status block — nodes now come from PDF extraction.
 
 ## 7. GROWTH REQUIREMENTS — must hold as more extraction batches arrive
 Veronika is extracting more papers; new `pdf_extraction_*.jsonl` files will land.
@@ -380,7 +392,24 @@ so an unread hit cannot be one.
 `biotools_id: null` + `biotools_status: proposed`. The proposed id lives in
 `software_registry.jsonl` (`proposed_biotools_id`, with description/topics/homepage) for review,
 and reaches the graph only on confirm. As of 2026-07-16: **0 `has_id`, 19 `proposed`,
-34 `searched_none`, 0 `not_attempted`** across 53 tools — nothing has been confirmed yet. Consequence for the headline finding: the
+34 `searched_none`, 0 `not_attempted`** across 53 tools — nothing has been confirmed yet.
+
+> **CONFIRMED 2026-07-17 (Veronika) — the positive cache now has entries.** §9.2b: `has_id`
+> is the positive cache of human registry confirms, built one description-read at a time. Its
+> first 14 entries, each read and confirmed by Veronika, `biotools_id` written to the node,
+> `biotools_status: has_id`: **ClipsMS, Cutadapt, DADA2, Fiji, ggplot2, IGV, MSConvert, ProSight
+> Lite, ProteinProspector, PyC2MC, QIIME2, SPSS, vegan, MaxQuant.** **MetaMorpheus** and
+> **Proteoform Suite** were read but **not confirmed** — they stay `proposed`. Per-tool verdicts
+> and reasoning: `docs/software_registry_review.md`. NOTE: MaxQuant's node is confirmed but its
+> only `USES_SOFTWARE` edge was removed as a fuzzy hallucination — see **KI-10**.
+>
+> **`software_registry.jsonl` deliberately still records these as `proposed` (W5, 2026-07-17).**
+> That artifact is the bio.tools **query result** (the staging cache), **not** the decision record.
+> The decision lives on the node (`biotools_status: has_id`) and in `software_registry_review.md`.
+> A `proposed` there is therefore **not a contradiction** of a `has_id` node — do not "reconcile"
+> the artifact back onto the nodes.
+
+Consequence for the headline finding: the
 most-used tools (PetroOrg, Predator, EnviroOrg) are NHMFL-authored and honestly carry
 `biotools_status: searched_none` + `rrid_status: not_attempted` — "absent from bio.tools
 (searched); RRID not yet searched," NOT "unregistered" unqualified.
@@ -634,13 +663,14 @@ as a peer node: the paper did not use them as peers. The verbatim raw string is 
   (`ms-utils.org/msalign`). **No corpus string refers to it.** Its proposed ID has no referent.
 - **`MS-Align+`** — the top-down search engine. `10.1002/pmic.201800361`, bundle
   `Proteoform Suite; MetaMorpheus; MSAlign +` — three top-down tools; raw extraction
-  `[20] value='MSAlign +'`, `grounded=True`, `char_span=[59560, 59569]`, `MATCH_EXACT`. Spacing
-  matches the Docling artifact (`Plot Pro fi les`, `Thermo Scienti fi c`).
+  `[20] value='MSAlign +'`, `grounded=True`, `char_span=[59560, 59569]`, `MATCH_EXACT`.
   **`biotools_id: null`, `biotools_status: not_attempted`** — never queried under this name, so
   `proposed` would be wrong.
-- **UNRESOLVED from the repo:** `data/processed/pdf_text/` does not exist, so the source span
-  cannot be read. Veronika has the PDFs. **If confirmed, this is a third predatoR/ATHENA-class
-  collision** — see §9.2b.
+- **RESOLVED 2026-07-17 (Veronika) — the string is authentic.** The paper writes `MSAlign + , [88]`
+  — **no hyphen**. The earlier hypothesis that the spacing was a **Docling artifact** (`Plot Pro fi
+  les`, `Thermo Scienti fi c`) is **refuted**: `MSAlign +` is what the paper actually says.
+  `biotools_id` stays **null**. **OPEN, not ruled:** whether `MSAlign +` is *MS-Align+* written
+  without a hyphen, or a different tool, is unresolved — recorded here, not decided.
 
 ### 9.7 Routing (Part 6)
 - **MINT** as Software: tools with a clear proper name.
@@ -700,6 +730,12 @@ FUZZY PROPOSES, HUMAN DISPOSES. These are transform inputs awaiting sign-off, no
 | `Petrorg data processing software` | 1 (10.1029/2025JG008931) | → PetroOrg | case/descriptor variant of PetroOrg | accept | ACCEPT |
 | `8,76 Predator data station` | 1 (10.1021/acs.energyfuels.0c03349) | → Predator | ref-digits `8,76` + "Predator data station" | accept (ref-strip §9.5) | ACCEPT |
 | `CERES Processing` | 1 (10.1021/jasms.4c00120) | → REVIEW | named self-written MatLab GUI; not clearly a mintable tool | review, don't auto-mint | PENDING — David |
+| `MaxQuant software at standard settings` | 1 (10.1016/j.str.2017.08.002) | → MaxQuant | real use; descriptor-strip removes `software` but leaves the trailing prepositional phrase `at standard settings`, so it never resolves. A rule stripping `at standard settings` would be far riskier than one confirm. (KI-10 W3) | confirm the string, invent no rule | **PENDING — Diya** |
+| `MetaMorpheus 26` | 1 (10.1021/acs.jproteome.0c00403) | → MetaMorpheus | real use; `26` is a trailing reference and the trailing-ref strip is UNBUILT (D2, §9.5 step 1). Does **not** re-rule D2 — §9.8 is how the bucket compensates for gaps the pipeline leaves open. (KI-10 W3) | confirm the string, invent no rule | **PENDING — Diya** |
+
+> **The two rows added 2026-07-17 (X3)** are the KI-10 W3 blocked tokens — real uses whose edges
+> never minted. Recorded here as **one-confirm-per-string proposals, NOT applied**: they mint their
+> edges on the **next transform run**, which is **after 05**, not now. FUZZY PROPOSES, HUMAN DISPOSES.
 
 ### 9.9 RRID hand-verify shortlist — Diya
 Hand-verify on scicrunch.org and add to the constant map: **R** (17 papers), **MATLAB** (11),
