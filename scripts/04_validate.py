@@ -207,7 +207,7 @@ def _absent(value) -> bool:
 # Loading
 # --------------------------------------------------------------------------- #
 def iter_jsonl(path: Path):
-    with path.open() as fh:
+    with path.open(encoding="utf-8") as fh:
         for lineno, line in enumerate(fh, 1):
             line = line.strip()
             if not line:
