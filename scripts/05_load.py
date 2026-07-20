@@ -16,18 +16,22 @@ RULINGS THIS FILE ENCODES (Diya, pre-build report R4 + L1–L6, 2026-07-17)
 
   L1  Input is validated/, materialized by 04. Load what is on disk; no knowledge
       of quarantine, no computation of "what passed."
-  L2  MERGE key is `identifier` for EVERY node type, INCLUDING RawDataFile — never
-      sha256_hash. MERGE-on-sha256 would silently collapse KI-8's 21 collisions and
-      destroy a filename per pair; MERGE-on-identifier attempts all 42 and the
-      sha256 uniqueness CONSTRAINT rejects them loudly. See SCIKG_SCHEMA.md
-      "MERGE key vs uniqueness constraint".
+  L2  MERGE key is `identifier` for EVERY node type, INCLUDING RawDataFile. KI-8
+      remediated 2026-07-20: RawDataFile identity is now the composite
+      rawfile:{filename}:{sha16}, and the uniqueness CONSTRAINT is on `identifier`
+      too (no longer sha256_hash). MERGE key and uniqueness key are the same key for
+      every type. Byte-identical files (KI-8's 21) carry DIFFERENT composites, so
+      they MERGE to distinct nodes and the constraint accepts them; a re-ingested
+      identical file (KI-1) shares its composite and MERGEs to one node. See
+      SCIKG_SCHEMA.md "MERGE key vs uniqueness constraint".
   L3  05 CREATEs the constraints (CREATE CONSTRAINT ... IF NOT EXISTS) BEFORE
       loading, so a violation fails fast at setup, not 900 nodes in. db.py stays a
       connection wrapper. All 16 constraints incl. the 5 PLANNED types (harmless at
       0 records, self-documenting).
   L5  05 REFUSES to load unless 04's report says `load_cleared: true`. That is the
-      materialized equivalent of "04 exited 0" — KI-8's 21 blockers make it False
-      today, so the load stops HERE, at the gate, not at Neo4j.
+      materialized equivalent of "04 exited 0". KI-8 remediated 2026-07-20: byte-
+      identical sets are counted, not a blocker, so load_cleared reflects the
+      quarantine set alone.
   L6  Batched UNWIND, BATCH_SIZE below. Batching is for TRANSACTION BOUNDARIES, not
       memory (4,888 nodes fit in memory trivially). Re-run safety: MERGE is
       idempotent, and for edges the MERGE pattern (a)-[:REL]->(b) matches 03's edge
@@ -72,6 +76,7 @@ BATCH_SIZE = 1000
 NODE_LABELS = {
     "Publication", "Researcher", "Institution", "Journal", "Funder", "Facility",
     "Instrument", "Dataset", "Sample", "Software", "RawDataFile",
+    "Advisory",   # KI-8: graph-derived byte-identical-content sets (03 Pass 5.5)
     # PLANNED (0 records today) — accepted so a future population loads cleanly:
     "Grant", "Method", "Protein", "Organism", "Modification",
 }
@@ -83,6 +88,7 @@ REL_TYPES = {
     "AUTHORED_BY", "PUBLISHED_IN", "FUNDED_BY", "CONDUCTED_AT", "INVOLVES_INSTITUTION",
     "USES_INSTRUMENT", "HAS_DATASET", "USES_SOFTWARE", "COLLECTED_ON", "OPERATED_BY",
     "CONTAINS_SAMPLE", "ACQUIRED_WITH", "DERIVED_FROM",
+    "FLAGS",   # KI-8: Advisory -> RawDataFile (byte-identical set membership)
 }
 
 PROVENANCE_PROPS = (
@@ -108,9 +114,12 @@ IDENTIFIER_CONSTRAINTS = [
     ("organism_identifier", "Organism", "identifier"),
     ("modification_identifier", "Modification", "identifier"),
     ("software_identifier", "Software", "identifier"),
+    ("advisory_identifier", "Advisory", "identifier"),   # KI-8 Advisory nodes
 ]
-# RawDataFile: uniqueness on sha256_hash, NOT identifier (schema; L2).
-RAWFILE_CONSTRAINT = ("rawfile_sha256", "RawDataFile", "sha256_hash")
+# RawDataFile: KI-8 remediated 2026-07-20. Identity is now the composite
+# rawfile:{filename}:{sha16}, so uniqueness is on `identifier` like every other
+# type; sha256_hash is a non-unique property. (Was: sha256_hash IS UNIQUE.)
+RAWFILE_CONSTRAINT = ("rawfile_identifier", "RawDataFile", "identifier")
 
 
 def constraint_statements():
