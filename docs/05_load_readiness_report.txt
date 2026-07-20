@@ -1,0 +1,220 @@
+SciKG — 05_load Readiness Report (R1–R4)
+Read-only investigation. Nothing loaded, no git run, no connection attempted.
+Generated: 2026-07-17
+
+================================================================================
+DISPOSITION TABLE
+================================================================================
+R1a  Answered              — full read of db.py (119 lines)
+R1b  Answered w/ caveat    — db.py encodes NO node types/constraints; write-date
+                             not gettable (no git)
+R1c  Answered              — grep: no importer exists
+R1d  Answered              — no connection evidence; .env exists but isn't a connection
+R1e  Answered              — env-only, no hardcoded creds/URI
+R2f  Answered — NOT in db.py — constraints live in the schema doc only
+R2g  Answered              — schema Cypher block
+R2h  CANNOT MEASURE from disk — no Aura cap documented anywhere on disk
+R3i  Answered — STOP flag  — validated/ absent; 04 writes only quarantine+report,
+                             so 05 input is normalized/, contradicting CLAUDE.md
+R3j  Answered (measured)   — zero PLANNED edges in data; ANALYZED_IN absent
+R3k  PARTIAL               — measured raw entities/relationships; deduped
+                             normalized/ (what 05 loads) is off-disk
+R4l  Reported, not ruled
+
+================================================================================
+R1 — db.py
+================================================================================
+a. WHAT'S IN IT
+   A pure connection layer, nothing else. Four functions:
+     - connect()         builds a GraphDatabase.driver from three env vars;
+                         raises a clear error if any are missing
+     - close(driver)
+     - run_query(driver, cypher, params)  auto-commit session, parameterised
+                         (never string-interpolates params)
+     - test_connection() RETURN 1, then CALL dbms.components() for a version string
+   __main__ runs test_connection().
+   NO constraints, NO node types, NO identity logic, NO MERGE/load logic —
+   its docstring says that all lives in 05_load.py.
+
+b. WRITE-DATE / DIVERGENCE FROM SCHEMA
+   db.py cannot diverge from the schema on node types because it encodes none.
+   It does not know Software, Dataset, Sample, Funder, Facility; it does not know
+   software:{canonical_name} identity; it does not know Instrument/Dataset/Software
+   each span two files — it contains zero schema knowledge and is source-agnostic
+   plumbing.
+   The real divergence is a CONTRACT GAP: SCIKG_SCHEMA.md line 53 says the Cypher
+   constraints are "run at database setup via scripts/db.py," and db.py's docstring
+   implies it — but db.py creates NO constraints.
+   Write-date: not obtainable without git, but audit_repo.py (lines 447, 728-729)
+   still calls db.py "absent / Not present," so db.py was written AFTER that audit,
+   and audit_repo.py is now stale on this point.
+
+c. ORPHANED?
+   Yes. Nothing imports it. grep across scripts/*.py and tests/ finds no
+   `import db` / `from db` / `scripts.db`. All references are prose (CLAUDE.md,
+   schema, 04's comments, audit_repo.py). Its intended consumer, 05_load.py,
+   does not exist.
+
+d. EVER RUN / CONNECTION EVIDENCE
+   No evidence of a connection. No load logs, no Neo4j markers under data/, no
+   loaded data. A .env (293 bytes, dated Jul 10) EXISTS — credentials were placed —
+   but that is not evidence of a successful connection. .env not read (gitignored
+   secrets, unneeded).
+
+e. HARDCODED CREDS/URI
+   None. Reads NEO4J_URI / NEO4J_USER / NEO4J_PASSWORD from the environment via
+   load_dotenv(). The only literal URI is an EXAMPLE in a docstring
+   (neo4j+s://bf9ce500.databases.neo4j.io). Clean.
+
+================================================================================
+R2 — THE CONSTRAINTS
+================================================================================
+f. EVERY CONSTRAINT, VERBATIM — from docs/SCIKG_SCHEMA.md lines 57-74 (NOT in db.py):
+
+   CREATE CONSTRAINT publication_identifier  FOR (p:Publication)  REQUIRE p.identifier IS UNIQUE;
+   CREATE CONSTRAINT researcher_identifier   FOR (r:Researcher)   REQUIRE r.identifier IS UNIQUE;
+   CREATE CONSTRAINT institution_identifier  FOR (i:Institution)  REQUIRE i.identifier IS UNIQUE;
+   CREATE CONSTRAINT journal_identifier      FOR (j:Journal)      REQUIRE j.identifier IS UNIQUE;
+   CREATE CONSTRAINT grant_identifier        FOR (g:Grant)        REQUIRE g.identifier IS UNIQUE;
+   CREATE CONSTRAINT funder_identifier       FOR (f:Funder)       REQUIRE f.identifier IS UNIQUE;
+   CREATE CONSTRAINT facility_identifier     FOR (f:Facility)     REQUIRE f.identifier IS UNIQUE;
+   CREATE CONSTRAINT instrument_identifier   FOR (i:Instrument)   REQUIRE i.identifier IS UNIQUE;
+   CREATE CONSTRAINT dataset_identifier      FOR (d:Dataset)      REQUIRE d.identifier IS UNIQUE;
+   CREATE CONSTRAINT method_identifier       FOR (m:Method)       REQUIRE m.identifier IS UNIQUE;
+   CREATE CONSTRAINT sample_identifier       FOR (s:Sample)       REQUIRE s.identifier IS UNIQUE;
+   CREATE CONSTRAINT protein_identifier      FOR (p:Protein)      REQUIRE p.identifier IS UNIQUE;
+   CREATE CONSTRAINT organism_identifier     FOR (o:Organism)     REQUIRE o.identifier IS UNIQUE;
+   CREATE CONSTRAINT modification_identifier FOR (m:Modification) REQUIRE m.identifier IS UNIQUE;
+   CREATE CONSTRAINT software_identifier     FOR (s:Software)     REQUIRE s.identifier IS UNIQUE;
+   CREATE CONSTRAINT rawfile_sha256          FOR (r:RawDataFile)  REQUIRE r.sha256_hash IS UNIQUE;
+
+   Five of these key node types have ZERO nodes on disk (Grant, Method, Protein,
+   Organism, Modification) — harmless to create, but they gate nothing today.
+
+g. sha256 CONSTRAINT, VERBATIM:
+
+   CREATE CONSTRAINT rawfile_sha256          FOR (r:RawDataFile)  REQUIRE r.sha256_hash IS UNIQUE;
+
+   It is the ONLY uniqueness constraint on RawDataFile. There is deliberately no
+   `identifier IS UNIQUE` for RawDataFile (schema comment lines 72-73; Universal
+   Identity lines 115-118: rawfile:{filename} isn't globally unique across the two
+   RAW sources). This is exactly KI-8's blocker: 21 sha256 values x 2 records = 42
+   records, distinct identifiers, byte-identical content. 04 flags these under
+   blockers.sha256_hash_collisions and EXITS NON-ZERO — so a strict reading is that
+   04 does not currently exit 0 (the "0 quarantined" figure is the quarantine count;
+   the blocker count is separately non-zero until KI-8 is ruled).
+
+h. AURADB FREE LIMITS — CANNOT MEASURE FROM DISK
+   No AuraDB Free node cap, relationship cap, or connection cap is documented
+   anywhere on disk. Only the CHOICE of tier appears: SCHEMA line 10 ("Aura Free
+   tier; Community Edition as fallback"), VERIFIED_FACTS_AND_ASSUMPTIONS.md:45,
+   ROADMAP.md:46. Per instruction (documentation, not recollection), I cannot assert
+   whether 4,888 nodes / 11,703 edges fits — there is no on-disk figure to compare
+   against. Needs a doc citing the tier's real caps, or a ruling. (Also: 4,888/11,703
+   could not be confirmed from disk — see R3.)
+
+================================================================================
+R3 — WHAT 05 HAS TO LOAD
+================================================================================
+i. STOP FLAG — INPUT DIRECTORY
+   data/processed/validated/ DOES NOT EXIST on this checkout, and neither does
+   data/processed/normalized/. Both are gitignored (.gitignore line 9
+   `data/processed/*`; only entities/, relationships/, rawfiles_enriched/, review/,
+   vocab/, and software_registry.jsonl are exempted). So 03 and 04 have NOT run in
+   this working tree; the "16,591 records / 0 quarantined / 0 dangling" figure is
+   from Diya's environment and is not measurable here.
+
+   From 04's code (unambiguous): 04_validate.py writes ONLY quarantine.jsonl (failed
+   records) and validation_report.json (counts + blockers). It NEVER writes the
+   passing records.
+
+   => 05's node/edge input cannot be validated/ — it must be normalized/. This
+   contradicts CLAUDE.md's pipeline table (05_load.py reads data/processed/validated/).
+   THIS IS AN UNMADE RULING — STOP: 05 must read node/edge data from normalized/ while
+   treating validated/validation_report.json (empty quarantine + zero blockers) as the
+   permission-to-load gate. Nobody has written that down, and the one doc addressing
+   05's input names the wrong directory. tests/test_load.py is a docstring-only stub
+   ("node counts match validation_report.json," "safe to re-run") — intent, not a ruling.
+
+j. PLANNED EDGES — MEASURED, CLEAN
+   Relationship types present on disk are exactly 13, all schema-Active:
+   AUTHORED_BY, PUBLISHED_IN, CONDUCTED_AT, USES_INSTRUMENT, HAS_DATASET, FUNDED_BY,
+   INVOLVES_INSTITUTION, USES_SOFTWARE, CONTAINS_SAMPLE, OPERATED_BY, COLLECTED_ON,
+   ACQUIRED_WITH, DERIVED_FROM.
+   Every PLANNED edge is ABSENT from the data (0 records each): ANALYZED_IN (the
+   CLAUDE.md "do not load"), plus AFFILIATED_WITH, AWARDED_BY, CITES, USES_METHOD,
+   ANALYZES_SAMPLE, ANALYZES_PROTEIN, INVOLVES_ORGANISM, STUDIES_PTM. Nothing for 05
+   to exclude at load — the rule is satisfied by the data itself, but worth encoding
+   as an explicit allowlist rather than relying on absence.
+
+k. INVENTORY — PARTIAL (raw only; deduped is off-disk)
+   Counts below are RAW pre-normalization records in entities/ / relationships/
+   (03's INPUT). The deduped normalized/ figures 05 actually loads (4,888/11,703) are
+   NOT on disk to measure — and raw != loaded (e.g. instruments.jsonl = 159 lines but
+   7 distinct nodes per KI-6; rawfiles carry KI-1/KI-8 duplicates; researchers
+   collapse heavily).
+
+   NODES — 11 populated types (schema text says "10"; measured 11, Institution's 62
+   nodes likely postdating that "10"):
+     Publication    805                         publications.jsonl
+     Researcher   5,031                          researchers.jsonl
+     Journal        806                          journals.jsonl
+     Facility       819                          facilities.jsonl
+     Funder         383                          funders.jsonl
+     Institution     62                          pdf_entities.jsonl
+     Instrument   159 + 462 = 621                instruments.jsonl + pdf_entities.jsonl (two-file)
+     Dataset      279 +  32 = 311                datasets.jsonl + rawfiles_pxd.jsonl (two-file)
+     Software       1 +  50 =  51                software.jsonl + pdf_entities.jsonl (two-file)
+     Sample           3                          samples.jsonl
+     RawDataFile   46 + 952 = 998                rawfiles.jsonl + rawfiles_pxd.jsonl (two-file)
+
+   Zero-node PLANNED types 05 does NOT load: Grant, Method, Protein, Organism,
+   Modification, and the undecided reference-database type.
+   Note: pdf_extracted_fixed.jsonl (378 rows, entity_type: None) is a 02d intermediate,
+   not a node table — it must not reach normalized/ as an entity file or 04 would count
+   every row unknown_entity_type.
+
+   EDGES — raw lines:
+     AUTHORED_BY                                        5,036
+     PUBLISHED_IN                                         806
+     CONDUCTED_AT                                         819
+     USES_INSTRUMENT              154 + 968 =           1,122
+     HAS_DATASET                                          279
+     FUNDED_BY                                            383
+     INVOLVES_INSTITUTION                                  89
+     USES_SOFTWARE                                        280
+     CONTAINS_SAMPLE / OPERATED_BY / COLLECTED_ON /
+       ACQUIRED_WITH (Thermo)                              46 each
+     COLLECTED_ON (PXD)                                   952
+     ACQUIRED_WITH (PXD)                                  888
+     DERIVED_FROM (PXD)                                   952
+
+   Raw edge total ~= 11,790; raw typed-node total ~= 9,890. These collapse under 03's
+   dedup toward the cited 4,888/11,703 — plausible but unverifiable here.
+
+================================================================================
+R4 — THE GAPS (reported, not ruled)
+================================================================================
+1. INPUT DIRECTORY (the big one). normalized/ for data vs validated/ for the gate —
+   CLAUDE.md says validated/, but 04 writes no passers there. Unresolved contradiction
+   (R3i).
+2. MERGE vs CREATE. Nowhere stated. Idempotency implied only by test_load.py's stub
+   docstring. MERGE key per type unspecified (identifier for most; sha256_hash for
+   RawDataFile, whose identifier is intentionally non-unique).
+3. CONSTRAINT-CREATION OWNERSHIP. Schema says db.py creates the 16 constraints; db.py
+   doesn't. Who runs them, and when relative to loading, is unruled.
+4. BATCHING. No batch size or transaction strategy. run_query() is auto-commit; its
+   docstring defers explicit transactions to 05.
+5. PARTIAL-LOAD / CRASH RECOVERY. Resume vs truncate-and-reload vs manual cleanup —
+   unspecified.
+6. RE-RUN SAFETY. Contingent on #2, which is unruled.
+7. KI-8 BLOCKER GATE. 04 exits non-zero while the sha256 collisions stand; 05
+   presumably must not run until 04 exits 0, but the remediation is unruled — so a
+   clean 05 run is BLOCKED today regardless of 05's own design.
+8. PROVENANCE ON LOAD. Schema mandates all six provenance props on every node/edge;
+   whether 05 re-asserts or trusts them, and whether it stamps a load timestamp, is
+   unspecified.
+
+================================================================================
+END — read-only. No 05 drafted, no connection made, no git run, .env not read.
+================================================================================
