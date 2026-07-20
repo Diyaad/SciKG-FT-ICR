@@ -118,6 +118,7 @@ scikg/
 │   ├── METADATA_INVENTORY.md
 │   ├── VERIFIED_FACTS_AND_ASSUMPTIONS.md
 │   ├── REVIEW_LOG.md
+│   ├── KNOWN_ISSUES.md
 │   ├── controlled_vocabulary.md
 │   ├── DISCOVERY_QUESTIONS.md
 │   ├── PDF_EXTRACTION_EVAL.md
@@ -140,6 +141,7 @@ scikg/
 | [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md) | The 14 real researcher-submitted questions the graph is evaluated against |
 | [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md) | Verified facts vs. proposed ideas vs. unknowns |
 | [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md) | Log of review-worthy changes and assumptions |
+| [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md) | Known issues register — data-quality limitations, caught errors, and their rulings (KI-1..KI-13) |
 | [docs/controlled_vocabulary.md](docs/controlled_vocabulary.md) | Controlled vocabulary — instrument/method terms mapped to PSI-MS accessions |
 | [docs/PDF_EXTRACTION_EVAL.md](docs/PDF_EXTRACTION_EVAL.md) | PDF gap-field extraction (stage 02d) evaluation results |
 | [docs/annotations/](docs/annotations/) | Manual paper-review notes (paper_reviews.md) |

@@ -15,3 +15,9 @@ langextract>=1.0.0    # text -> target fields with source grounding
 # silently falls back to CPU. Install torch from the CUDA 12.8 wheel index
 # instead (separate index, not pinnable in this file):
 #   uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+#
+# --- optional, guarded fallbacks (lazy-imported; off the core pipeline path) ---
+# Not pinned — neither is on the default path, so a core install can skip them.
+# Install these only if you run the paths below, otherwise they ImportError there.
+pdfplumber            # alternate PDF-text backend in 02d (PDF_TEXT_BACKEND="pdfplumber"); default is docling
+pypdf                 # used by scripts/verify_pdf_corpus.py (PDF corpus verification)
