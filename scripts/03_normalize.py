@@ -25,6 +25,7 @@ edge is written to normalization_log.jsonl or review_queue.jsonl with a reason.
 Standard library only. Python 3.11+. Run from the repository root:
     python scripts/03_normalize.py
 """
+import argparse
 import json
 import re
 import sys
@@ -70,6 +71,13 @@ ENABLE_ORCID_CANONICALIZATION = True
 # Re-minting to a canonical instrument ID (and rewriting USES_INSTRUMENT edges
 # through the crosswalk) is a deliberate future option, not assumed here.
 REMINT_INSTRUMENT_IDS = False
+
+# KI-8 remediation (R1). RawDataFile identity becomes the composite
+# rawfile:{filename}:{sha16}, sha16 = first N hex chars of sha256_hash. N=16 is
+# collision-safe well past corpus scale (measured floor for the 913 distinct
+# hashes is 6; 16 = 64 bits of margin). This is the ONLY number in the pass, and
+# it is a hash-prefix length, not a count of files or of collisions.
+SHA16_LEN = 16
 # ====================================================================
 
 
@@ -322,7 +330,7 @@ def raw_instrument_strings(entity):
 
 
 # -------------------------------- main ------------------------------
-def main():
+def main(dry_run=False):
     if not ENTITIES_DIR.is_dir():
         print(f"ERROR entities dir missing: {ENTITIES_DIR}")
         return 1
@@ -357,6 +365,42 @@ def main():
                 rec["identifier"] = new
                 crosswalk.retire(old, new)
                 log.append({"action": "canonicalize_id", "from": old, "to": new, "at": now_iso()})
+
+    # --- Pass 1.5: RawDataFile composite identity (KI-8 remediation, R1) -----
+    # Retire rawfile:{filename} -> rawfile:{filename}:{sha16}. COUNT-FREE: the
+    # composite is built for EVERY RawDataFile from its OWN filename + hash — no
+    # reference to 21, to pairs, or to any fixed count. Recorded in the crosswalk
+    # so Pass 6 rewrites every RawDataFile edge endpoint onto the composite.
+    #   KI-1  same filename + same hash      -> same composite  -> Pass 2 collapses to 1 node.
+    #   KI-8  same hash, different filename   -> different composite -> stay distinct nodes.
+    #   (c)   same filename, different hash   -> different composite -> stay distinct (0 today).
+    # sha256_hash stays a property; identity moves into `identifier`. Ordered
+    # BEFORE Pass 2 so the dedup key Pass 2 groups on is already the composite.
+    composite_events = 0
+    for records in entities_by_file.values():
+        for rec in records:
+            if rec.get("entity_type") != "RawDataFile":
+                continue
+            props = rec.get("properties") or {}
+            sha = props.get("sha256_hash")
+            fname = props.get("filename")
+            if not sha or not fname:
+                # Cannot form composite identity — a silent identity change would be
+                # worse than stopping. HARD STOP (R1).
+                missing = "sha256_hash" if not sha else "filename"
+                print(f"HARD STOP (R1): RawDataFile {rec.get('identifier')!r} is missing "
+                      f"{missing}; cannot form composite identity. No output written.")
+                return 1
+            old = rec["identifier"]
+            new = f"rawfile:{fname}:{sha[:SHA16_LEN]}"
+            if new != old:
+                rec["identifier"] = new
+                crosswalk.retire(old, new)
+                composite_events += 1
+                log.append({"action": "rawfile_composite_id", "from": old, "to": new,
+                            "sha16": sha[:SHA16_LEN], "at": now_iso()})
+    log.append({"action": "rawfile_composite_summary", "retired": composite_events,
+                "sha16_len": SHA16_LEN, "at": now_iso()})
 
     # --- Pass 2: exact-identifier dedup within each entity type --------
     # Two records with the same identifier are the same node; keep the higher
@@ -490,10 +534,100 @@ def main():
         for rec in records:
             surviving_ids.add(rec["identifier"])
 
+    # --- Pass 5.5: Advisory generation (byte-identical sets, R2) -------------
+    # Group the surviving RawDataFile nodes by sha256_hash. COUNT-FREE, held to the
+    # T3 standard: emit ONE Advisory per hash whose member count > 1 (any N, never
+    # assumes 2), and one FLAGS edge per member (N edges for an N-member set).
+    # Provenance is graph_derived — this node is computed by the pipeline from its
+    # own data, not extracted from a source document.
+    #
+    # deposit: a member's PXD accession comes from its DERIVED_FROM edge
+    # (dataset:proteomexchange:{pxd}). If the whole set is intra-deposit (one
+    # accession) it is recorded; a cross-deposit set records null.
+    rawfile_deposit = defaultdict(set)      # composite rawfile id -> {pxd accession}
+    for rels in rels_by_file.values():
+        for rel in rels:
+            if rel.get("relationship_type") != "DERIVED_FROM":
+                continue
+            subj = crosswalk.resolve(canonicalize_identifier(rel.get("subject_id")))
+            m = re.match(r"^dataset:proteomexchange:(.+)$", rel.get("object_id") or "")
+            if m:
+                rawfile_deposit[subj].add(m.group(1))
+
+    rdf_by_hash = defaultdict(list)
+    for records in entities_by_file.values():
+        for rec in records:
+            if rec.get("entity_type") != "RawDataFile":
+                continue
+            sha = (rec.get("properties") or {}).get("sha256_hash")
+            rdf_by_hash[sha].append(rec)
+
+    advisory_nodes = []
+    flags_edges = []
+    adv_ts = now_iso()
+    for sha, members in rdf_by_hash.items():
+        if len(members) <= 1:            # <-- the rule: any hash with >1 member; never 2
+            continue
+        sha16 = sha[:SHA16_LEN]
+        member_ids = [m["identifier"] for m in members]
+        member_fns = [(m.get("properties") or {}).get("filename") for m in members]
+        deposits = set()
+        for mid in member_ids:
+            deposits |= rawfile_deposit.get(mid, set())
+        deposit = next(iter(deposits)) if len(deposits) == 1 else None
+        adv_id = f"advisory:byte_identical:{sha16}"
+        advisory_nodes.append({
+            "identifier": adv_id,
+            "entity_type": "Advisory",
+            "properties": {
+                "advisory_type": "byte_identical_content",
+                "sha256_hash": sha,
+                "member_identifiers": member_ids,
+                "member_filenames": member_fns,
+                "deposit": deposit,
+            },
+            "source_type": "graph_derived",
+            "confidence": "high",
+            "extracted_at": adv_ts,
+            "evidence_note": ("byte-identical content set detected during normalization; "
+                              f"members share sha256 {sha}"),
+            "source_id": member_ids,
+            "schema_version": SCHEMA_VERSION,
+        })
+        for mid in member_ids:
+            flags_edges.append({
+                "relationship_type": "FLAGS",
+                "subject_id": adv_id,
+                "subject_type": "Advisory",
+                "object_id": mid,
+                "object_type": "RawDataFile",
+                "properties": {},
+                "source_type": "graph_derived",
+                "confidence": "high",
+                "extracted_at": adv_ts,
+                "evidence_note": ("Advisory flags a member of a byte-identical content set "
+                                  f"(sha256 {sha})."),
+                "source_id": [adv_id, mid],
+                "schema_version": SCHEMA_VERSION,
+            })
+    if advisory_nodes:
+        entities_by_file["advisories.jsonl"] = advisory_nodes
+        for adv in advisory_nodes:
+            surviving_ids.add(adv["identifier"])
+    log.append({"action": "advisory_summary", "sets": len(advisory_nodes),
+                "flags_edges": len(flags_edges), "at": now_iso()})
+
     # --- Pass 6: relationship rewrite + dedup + integrity -------------
     rels_out = {}
     dangling = 0
     rel_dups = 0
+    # R1 hard-stop accounting: every edge endpoint typed RawDataFile must resolve
+    # (through the crosswalk) onto a surviving composite node. A RawDataFile
+    # endpoint that dangles after the composite rewrite is a HARD STOP, not a soft
+    # withhold — the composite retirement would have orphaned a real edge.
+    rawfile_endpoints_total = 0
+    rawfile_endpoints_ok = 0
+    rawfile_dangling = []
     for fname, rels in rels_by_file.items():
         seen = {}
         kept = []
@@ -504,6 +638,16 @@ def main():
                 rel["subject_id"] = subj
             if obj != rel.get("object_id"):
                 rel["object_id"] = obj
+            for ep_val, ep_type in ((subj, rel.get("subject_type")),
+                                    (obj, rel.get("object_type"))):
+                if ep_type == "RawDataFile":
+                    rawfile_endpoints_total += 1
+                    if ep_val in surviving_ids:
+                        rawfile_endpoints_ok += 1
+                    else:
+                        rawfile_dangling.append(
+                            {"relationship_type": rel.get("relationship_type"),
+                             "endpoint": ep_val, "in_file": fname})
             # Integrity: both endpoints must resolve to a surviving node.
             missing = [e for e in (subj, obj) if e not in surviving_ids]
             if missing:
@@ -601,17 +745,43 @@ def main():
             kept.extend(add_to_file.get(fname, []))
             rels_out[fname] = kept
 
+    # --- Pass 6.6: HARD STOP if any RawDataFile edge endpoint dangled (R1) ----
+    # The composite retirement must leave every RawDataFile edge endpoint pointing
+    # at a surviving node. If not, the rewrite orphaned a real edge — stop before
+    # writing anything, so a half-rewritten graph never reaches disk.
+    if rawfile_dangling:
+        print(f"HARD STOP (R1): {len(rawfile_dangling)} RawDataFile edge endpoint(s) did "
+              f"not resolve to a surviving composite node after Pass 6 rewrite. "
+              f"No output written. First few: {rawfile_dangling[:5]}")
+        return 1
+
+    # FLAGS edges (Advisory -> RawDataFile) join the output as their own file. They
+    # are built from final composite ids + minted advisory ids (both in surviving_ids),
+    # so they need no rewrite; assert that invariant before writing.
+    if flags_edges:
+        bad_flags = [e for e in flags_edges
+                     if e["subject_id"] not in surviving_ids or e["object_id"] not in surviving_ids]
+        if bad_flags:
+            print(f"HARD STOP (R2): {len(bad_flags)} FLAGS edge(s) reference a non-surviving "
+                  f"node. No output written. First few: {bad_flags[:5]}")
+            return 1
+        rels_out["advisory_relationships.jsonl"] = flags_edges
+
     # --- Pass 7: write outputs ---------------------------------------
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    total_out = 0
-    for fname, records in entities_by_file.items():
-        write_jsonl(OUTPUT_DIR / fname, records)
-        total_out += len(records)
-    for fname, rels in rels_out.items():
-        write_jsonl(OUTPUT_DIR / fname, rels)
-    write_jsonl(OUTPUT_DIR / "normalization_log.jsonl", log)
-    write_jsonl(OUTPUT_DIR / "review_queue.jsonl", review)
-    write_jsonl(OUTPUT_DIR / "crosswalk.jsonl", crosswalk.as_records())
+    total_out = sum(len(records) for records in entities_by_file.values())
+    rawfile_out = sum(1 for records in entities_by_file.values()
+                      for r in records if r.get("entity_type") == "RawDataFile")
+    derived_out = sum(1 for rels in rels_out.values()
+                      for r in rels if r.get("relationship_type") == "DERIVED_FROM")
+    if not dry_run:
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        for fname, records in entities_by_file.items():
+            write_jsonl(OUTPUT_DIR / fname, records)
+        for fname, rels in rels_out.items():
+            write_jsonl(OUTPUT_DIR / fname, rels)
+        write_jsonl(OUTPUT_DIR / "normalization_log.jsonl", log)
+        write_jsonl(OUTPUT_DIR / "review_queue.jsonl", review)
+        write_jsonl(OUTPUT_DIR / "crosswalk.jsonl", crosswalk.as_records())
 
     # --- Summary ------------------------------------------------------
     print("03_normalize summary")
@@ -631,9 +801,24 @@ def main():
     print(f"  cross-file findings:     {cross_file_findings}  (unexpected multi-source; NOT merged)")
     print(f"  dangling edges withheld: {dangling}  (see review_queue.jsonl)")
     print(f"  review queue entries:    {len(review)}")
-    print(f"  output written to:       {OUTPUT_DIR}")
+    print("  --- KI-8 remediation (R1/R2) ---")
+    print(f"  RawDataFile composite ids minted: {composite_events}")
+    print(f"  RawDataFile nodes out:            {rawfile_out}")
+    print(f"  Advisory nodes:                   {len(advisory_nodes)}")
+    print(f"  FLAGS edges:                      {len(flags_edges)}")
+    print(f"  RawDataFile edge endpoints:       {rawfile_endpoints_ok}/{rawfile_endpoints_total} "
+          f"rewritten onto composite (dangling {len(rawfile_dangling)})")
+    print(f"  DERIVED_FROM edges out:           {derived_out}")
+    if dry_run:
+        print("  output written to:       [--dry-run: NOTHING written]")
+    else:
+        print(f"  output written to:       {OUTPUT_DIR}")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    ap = argparse.ArgumentParser(description="Normalize extracted SciKG data (stage 03).")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="Run all passes and print the summary but write no files.")
+    cli = ap.parse_args()
+    sys.exit(main(dry_run=cli.dry_run))

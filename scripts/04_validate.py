@@ -37,20 +37,22 @@ change, not a rewrite.
   R6  provenance: PRESENCE is fatal (a missing prov prop quarantines); VALUE is not
       enum-checked — an out-of-enum source_type/confidence is counted
       'provenance_out_of_enum', NOT fatal.
-  R7  uniqueness pre-validated. Duplicate identifiers (non-RawDataFile) -> counted
-      'duplicate_identifier'. RawDataFile identity keys on sha256_hash, so its
-      identifier is NOT uniqueness-checked; its sha256_hash IS (see M1 / blockers).
+  R7  uniqueness pre-validated. Duplicate identifiers -> counted 'duplicate_identifier'.
+      KI-8 remediated (2026-07-20): RawDataFile identity is the composite
+      rawfile:{filename}:{sha16}, so its `identifier` IS uniqueness-checked like every
+      other type. sha256_hash is a non-unique property; hashes shared across nodes are
+      reported as the counted 'byte_identical_sets' category, not a blocker.
   R8  entity glob = every normalized/*.jsonl whose records carry entity_type, MINUS
       normalization_log.jsonl (a log that carries entity_type on 5002 rows) and
       review_queue.jsonl. See ENTITY_FILES / EXCLUDED_FILES.
 
-  M1 / KI-8 — RawDataFile sha256_hash collisions across DISTINCT identifiers
-      (21 groups / 42 records on 2026-07-17) violate db.py's `sha256_hash IS UNIQUE`
-      and so block 05. That they BLOCK is settled (KI-8); only the remediation
-      (merge / keep-both-with-shared-content-property / drop constraint) is open —
-      04 does NOT fix or auto-quarantine them (removing a record is that fix). They
-      are reported under blockers, SEPARATELY from quarantined, and gate the exit
-      code exactly like quarantine (R1).
+  M1 / KI-8 — REMEDIATED (2026-07-20). RawDataFile identity moved to the composite
+      rawfile:{filename}:{sha16} (03 Pass 1.5); uniqueness is on `identifier`, and
+      sha256_hash is a non-unique property. Byte-identical files across distinct
+      identifiers are now expected, not a violation: reported as the COUNTED,
+      non-fatal category `byte_identical_sets` (one entry per hash shared by >1 node),
+      and materialized as Advisory nodes + FLAGS edges by 03. No longer gates the exit
+      code (SHA256_COLLISION_IS_BLOCKER = False).
 ------------------------------------------------------------------------------
 """
 
@@ -92,6 +94,7 @@ RELATIONSHIP_FILES = {
     "pdf_relationships.jsonl",
     "rawfile_relationships.jsonl",
     "rawfiles_pxd_relationships.jsonl",
+    "advisory_relationships.jsonl",   # KI-8: FLAGS edges (Advisory -> RawDataFile)
 }
 
 # --------------------------------------------------------------------------- #
@@ -111,6 +114,8 @@ SCHEMA_VERSION = "v1.0"
 SOURCE_TYPE_ENUM = {
     "api", "csv", "manual_annotation", "fisher_py", "merged_csv_foxden", "llm_extraction",
     "merged_csv_llm",  # E1: same-fact CSV+PDF agreement (the 74 USES_INSTRUMENT), merged edge
+    "graph_derived",   # KI-8: Advisory nodes + FLAGS edges computed by the pipeline from its
+                       # own data, not extracted from a source document.
 }
 CONFIDENCE_ENUM = {"high", "medium", "low"}
 
@@ -118,11 +123,13 @@ CONFIDENCE_ENUM = {"high", "medium", "low"}
 DOI_RE = re.compile(r"^10\.\d{4,}/.+")
 ORCID_RE = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
 
-# The M1/KI-8 sha256 collisions block 05 (db.py sha256_hash IS UNIQUE). That they
-# BLOCK is settled (KI-8); only the remediation is open. Blockers gate the exit code
-# exactly like quarantine (RULED 2026-07-17). This stays True unless the constraint
-# itself is ever dropped.
-SHA256_COLLISION_IS_BLOCKER = True
+# KI-8 REMEDIATED (2026-07-20): RawDataFile identity is now the composite
+# rawfile:{filename}:{sha16}, uniqueness enforced on `identifier`. sha256_hash is a
+# non-unique property, so byte-identical files across distinct identifiers are NO
+# LONGER a load blocker — they are an expected, reported fact. The former blocker
+# becomes a COUNTED, non-fatal category (byte_identical_sets), one entry per hash
+# shared by >1 node, mirroring the Advisory sets 03 emits.
+SHA256_COLLISION_IS_BLOCKER = False
 
 # --------------------------------------------------------------------------- #
 # THE REQUIRED-SET (R5) — one entry per entity_type present on disk.
@@ -165,8 +172,15 @@ REQUIRED_SET: dict[str, dict] = {
     "RawDataFile": {
         "hard": ["filename", "sha256_hash"],
         "coverage_gap": ["operator_initials", "date_acquired"],   # ④b / ④c
-        "unique_on": "sha256_hash",
-        "id_not_unique": True,                        # R7 — identifier NOT globally unique
+        # KI-8 remediated: identity is now the composite rawfile:{filename}:{sha16},
+        # so `identifier` IS globally unique and is uniqueness-checked like every
+        # other type. sha256_hash is a non-unique property (byte-identical sets are
+        # expected and reported, not a uniqueness violation).
+    },
+    "Advisory": {
+        # KI-8: graph-derived metadata about a byte-identical content set. Not tied
+        # to a Publication (no node type is required to be). source_type graph_derived.
+        "hard": ["advisory_type", "sha256_hash"],
     },
 }
 
@@ -394,8 +408,11 @@ def main() -> int:
                        if len(owners) > 1}
     counted_totals["duplicate_identifier"] += len(dup_identifiers)
 
-    # ---- Blocker (M1): RawDataFile sha256_hash collisions ---------------- #
-    sha_collisions = [
+    # ---- Counted (KI-8 remediated): byte-identical content sets ---------- #
+    # COUNT-FREE, held to the T3 standard: one entry per sha256_hash shared by more
+    # than one RawDataFile node. Post-composite these are EXPECTED (distinct files,
+    # same content) — 03 emits an Advisory node per set. No longer a blocker.
+    byte_identical_sets = [
         {"sha256_hash": sha, "identifiers": idents}
         for sha, idents in sha_owner.items() if len(idents) > 1
     ]
@@ -440,9 +457,9 @@ def main() -> int:
     report = {
         "generated_at": now_iso(),
         # L5 gate: 05_load.py refuses to load unless this is True. It is the
-        # materialized equivalent of "04 exited 0" — clean iff nothing quarantined
-        # AND no KI-8 blocker.
-        "load_cleared": (len(quarantine) == 0 and len(sha_collisions) == 0),
+        # materialized equivalent of "04 exited 0" — clean iff nothing quarantined.
+        # KI-8 remediated: byte-identical sets are counted, not a blocker.
+        "load_cleared": (len(quarantine) == 0),
         "inputs": {
             "entity_files": [p.name for p in entity_files],
             "relationship_files": [p.name for p in rel_files],
@@ -460,6 +477,11 @@ def main() -> int:
             "missing_coverage_by_field": dict(missing_coverage_by_field),
             "provenance_out_of_enum": dict(prov_out_of_enum_detail),
             "duplicate_identifiers": {i: owners for i, owners in list(dup_identifiers.items())[:50]},
+            # KI-8 remediated: one entry per sha256_hash shared by >1 RawDataFile.
+            # Expected post-composite (distinct files, same content); 03 emits an
+            # Advisory node per set. COUNTED, non-fatal.
+            "byte_identical_sets_count": len(byte_identical_sets),
+            "byte_identical_sets": byte_identical_sets,
         },
         "edges": {
             "total": edges_total,
@@ -471,17 +493,18 @@ def main() -> int:
             "duplicate_edge_triple_by_type": dict(dup_triple_by_type),
         },
         "blockers": {
-            "note": ("KI-8: RawDataFile sha256_hash collisions across distinct identifiers "
-                     "violate db.py sha256_hash IS UNIQUE and block 05. Reported separately "
-                     "from 'quarantined'; they gate the exit code. NOT auto-quarantined — the "
-                     "remediation (merge / keep-both / drop constraint) is an open ruling."),
-            "sha256_hash_collisions": sha_collisions,
+            "note": ("KI-8 remediated 2026-07-20: RawDataFile identity is the composite "
+                     "rawfile:{filename}:{sha16}; uniqueness on identifier. sha256_hash "
+                     "collisions are no longer a blocker — see counted_categories."
+                     "byte_identical_sets."),
+            # Kept for shape compatibility with 05's L5 gate reader; always empty now.
+            "sha256_hash_collisions": [],
         },
     }
 
-    blocker_count = len(sha_collisions)
+    blocker_count = 0  # KI-8 remediated: byte-identical sets no longer block.
     print(f"[04_validate] passed={passed} quarantined={len(quarantine)} "
-          f"blockers(sha256_collisions)={blocker_count} "
+          f"byte_identical_sets={len(byte_identical_sets)} "
           f"uncanonicalized={counted_totals.get('uncanonicalized', 0)}")
     print(f"[04_validate] missing_coverage_by_field={dict(missing_coverage_by_field)}")
     if prov_out_of_enum_detail:

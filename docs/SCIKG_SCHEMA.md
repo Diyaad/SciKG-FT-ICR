@@ -77,29 +77,37 @@ CREATE CONSTRAINT protein_identifier      FOR (p:Protein)      REQUIRE p.identif
 CREATE CONSTRAINT organism_identifier     FOR (o:Organism)     REQUIRE o.identifier IS UNIQUE;
 CREATE CONSTRAINT modification_identifier FOR (m:Modification) REQUIRE m.identifier IS UNIQUE;
 CREATE CONSTRAINT software_identifier     FOR (s:Software)     REQUIRE s.identifier IS UNIQUE;
-// RawDataFile: identifier (rawfile:{filename}) is NOT globally unique across the
-// two RAW sources; global uniqueness is enforced on the checksum instead.
-CREATE CONSTRAINT rawfile_sha256          FOR (r:RawDataFile)  REQUIRE r.sha256_hash IS UNIQUE;
+// KI-8 remediated 2026-07-20: RawDataFile identity is the COMPOSITE
+// rawfile:{filename}:{sha16} (sha16 = first 16 hex of sha256_hash), so `identifier`
+// IS globally unique and is constrained like every other type. sha256_hash is a
+// non-unique property (byte-identical files under different names share it by design).
+CREATE CONSTRAINT rawfile_identifier      FOR (r:RawDataFile)  REQUIRE r.identifier IS UNIQUE;
+// Advisory: graph-derived byte-identical-content sets (one per shared sha256).
+CREATE CONSTRAINT advisory_identifier     FOR (a:Advisory)     REQUIRE a.identifier IS UNIQUE;
 ```
 
-### MERGE key vs uniqueness constraint — deliberately different (L2, ruled 2026-07-17)
+### MERGE key = uniqueness key = `identifier` (KI-8 remediated 2026-07-20)
 
-**`05_load.py` MERGEs every node — including `RawDataFile` — on `identifier`, NOT on
-`sha256_hash`.** The MERGE key and the uniqueness constraint are **different things** and are
-deliberately not the same key for `RawDataFile`:
+**`05_load.py` MERGEs every node — including `RawDataFile` — on `identifier`, and the uniqueness
+constraint is on `identifier` for every type.** MERGE key and uniqueness key are now the **same
+key** everywhere. This replaces the earlier RawDataFile split (MERGE on identifier, uniqueness on
+`sha256_hash`), which existed only because the old identifier `rawfile:{filename}` was not unique.
 
-- **MERGE key = `identifier`**, uniformly for all node types. It is 03's dedup key, present on
-  every node, and post-03 it has **0 collisions** (measured 2026-07-17). Uniform, safe, idempotent.
-- **`RawDataFile` uniqueness constraint = `sha256_hash`**, exactly as stated above. Unchanged.
+**What changed (KI-8).** RawDataFile identity became the **composite**
+`rawfile:{filename}:{sha16}`, `sha16 = sha256_hash[:16]` (03 Pass 1.5). This folds file content
+into the identity, so the four content/name cases resolve without a special uniqueness key:
 
-**Why this is load-bearing (KI-8).** If 05 MERGEd on `sha256_hash`, KI-8's 21 collisions (42
-records, distinct identifiers, identical hash) would **silently collapse to 21 nodes** — MERGE
-would match the existing node and overwrite one filename per pair, **no error, load "succeeds,"
-one filename destroyed quietly.** MERGE on `identifier` instead attempts all 42 distinct nodes, and
-the `sha256_hash IS UNIQUE` constraint **rejects them loudly**. Same data, opposite outcome — one
-path destroys a filename in silence, the other surfaces KI-8 as the load error it is. (In practice
-05 never reaches this: the L5 gate stops the load at 04 while KI-8 is unresolved. The constraint is
-the backstop if the gate is ever bypassed.)
+- **same name + same content** (KI-1 re-ingest) → same composite → 03 collapses to **one** node.
+- **different name + same content** (KI-8's 21) → different composite → **two** distinct nodes;
+  the `identifier IS UNIQUE` constraint accepts them because their identifiers differ.
+- **same name + different content** (0 today) → different composite → two nodes; **no silent
+  merge** — this is the case the old filename-only identifier got wrong.
+- **different name + different content** → ordinary distinct nodes.
+
+`sha256_hash` remains a **non-unique property**. Byte-identical sets (a hash shared by >1 node) are
+**expected**, reported by 04 as the counted `byte_identical_sets` category, and materialized as
+**Advisory** nodes + **FLAGS** edges by 03 (see Node: Advisory). N=16 is collision-safe far past
+corpus scale (the measured floor for the 913 distinct hashes is 6; 16 = 64 bits of margin).
 
 ---
 
@@ -139,10 +147,12 @@ are aspirational only: in the current data Researcher never uses `orcid:`,
 Journal never `issn:`, Software/Instrument never `ms:` — all use minted internal
 PIDs.
 
-**Uniqueness:** `identifier` is unique for every type **except `RawDataFile`**,
-whose `rawfile:{filename}` value is not globally unique across the two RAW
-sources (64 PXD cross-deposits share filenames). RawDataFile global uniqueness is
-enforced on `sha256_hash` instead (see that node).
+**Uniqueness:** `identifier` is unique for **every** type, `RawDataFile` included.
+KI-8 remediated 2026-07-20: RawDataFile identity is the composite
+`rawfile:{filename}:{sha16}` (`sha16 = sha256_hash[:16]`), which is globally unique
+even though bare filenames are not (byte-identical files under different names carry
+different composites; a re-ingested identical file carries the same one). `sha256_hash`
+is a non-unique property. See Node: RawDataFile and Node: Advisory.
 
 **One type spans multiple files:** `Dataset` records live in **two** files —
 `datasets.jsonl` (CSV) and embedded in `rawfiles_pxd.jsonl` (32 PXD datasets).
@@ -158,7 +168,7 @@ what makes the graph FAIR (R1.2) and PROV-O-aligned.
 
 | Property | Type | Allowed values | PROV-O mapping |
 |---|---|---|---|
-| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `llm_extraction` | `prov:wasGeneratedBy` |
+| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `llm_extraction`, `graph_derived` | `prov:wasGeneratedBy` |
 | `confidence` | string | `high`, `medium`, `low` | — |
 | `extracted_at` | ISO 8601 | `2026-06-29T14:00:00Z` | `prov:generatedAtTime` |
 | `evidence_note` | string | Free text, human-readable basis | — |
@@ -201,6 +211,15 @@ and `merged_csv_foxden` (the 46 Thermo RawDataFiles). The PXD (6th) source reuse
 `fisher_py` and is distinguished by file/prefix, not by `source_type`. `api` and
 `llm_extraction` are defined but currently unused (source 1 and stage 02d are
 dormant).
+
+**`graph_derived` (added 2026-07-20, KI-8).** A node/edge computed **by the pipeline from its own
+data**, not extracted from a source document — the first such provenance value. Used by `Advisory`
+nodes and their `FLAGS` edges (byte-identical content sets). The six provenance fields still apply,
+with honestly graph-scoped meanings: `source_id` = the member composite identifiers the node
+summarizes (there is no primary-source document to cite); `evidence_note` states the computation
+("byte-identical content set detected during normalization; members share sha256 …");
+`extracted_at` = the normalization run time; `confidence: high` reflects that the grouping is exact
+(a hash match), not source trust. This is the only `source_type` whose "source" is the graph itself.
 
 **Note on `confidence`:** the value reflects source trust (API and curated 
 records are high; LLM extractions are medium), not factual accuracy of the 
@@ -772,14 +791,18 @@ Sources 5 and 6. One node per RAW file — 46 Thermo `.raw` files (source 5) plu
 
 **Conforms to:** SDRF-Proteomics, schema.org/DigitalDocument, SPDX 
 (for checksum), PROV-O  
-**Identifier:** `rawfile:{filename}` — human-readable, but **not** globally
-unique (filenames repeat across the two RAW sources; 64 PXD cross-deposits
-share filenames). Global uniqueness is enforced on `sha256_hash` instead.  
+**Identifier:** `rawfile:{filename}:{sha16}` — the **composite** of filename and the
+first 16 hex chars of `sha256_hash` (KI-8 remediation, 03 Pass 1.5). Globally unique
+and constrained on `identifier` like every other type. The composite folds content
+into identity, so byte-identical files under different names get distinct identifiers
+(kept as distinct nodes) while a re-ingested identical file gets the same identifier
+(collapsed to one). `sha256_hash` remains a **non-unique property**.  
 **Coverage:** 998 source RAW files (46 Thermo + 952 PXD; the 952 PXD dedup to 888 distinct nodes).
 **Total RawDataFile nodes on disk = 934** (46 Thermo + 888 PXD). **Distinct `sha256_hash` = 913**,
-because **21 hashes collide across 42 nodes** (byte-identical files under different names) — see
-**KI-8**. The gap between 934 nodes and 913 distinct hashes IS the 05 blocker: db.py's
-`sha256_hash IS UNIQUE` constraint rejects the second of each colliding pair.
+because **21 hashes are shared across 42 nodes** (byte-identical files under different names) — see
+**KI-8**. Post-remediation this is NOT a blocker: the 21 shared-hash sets are expected, reported by
+04 as the counted `byte_identical_sets` category, and materialized as 21 **Advisory** nodes + 42
+**FLAGS** edges (see Node: Advisory).
 
 ### Properties from manual filename metadata (data/raw/rawfile_metadata.csv)
 
@@ -812,7 +835,7 @@ because **21 hashes collide across 42 nodes** (byte-identical files under differ
 | `ms_run_time_minutes` | float | O | FOXDEN `MS Run Time (min)` |
 | `acquisition_method_creator` | string | O | FOXDEN `instrumentMethod.Creator` |
 | `acquisition_method_file` | string | O | E.g., `DSB_20200531_FT_Top2_CID_msnfills4_125min.meth` |
-| `sha256_hash` | string | M | FOXDEN `spdx:checksum`. Global uniqueness key for RawDataFile (filenames are not unique across sources). |
+| `sha256_hash` | string | M | FOXDEN `spdx:checksum`. Non-unique property (KI-8 remediated 2026-07-20); its first 16 hex chars form the `sha16` in the composite `identifier`. Byte-identical files under different names share it by design → an Advisory node per shared value. |
 | `activation_types_raw` | list[string] | O | Dissociation/activation techniques parsed from the RAW file, e.g. `[CID, HCD]`. Present on all 998 RawDataFiles today. Promotion to Method nodes is planned (see Method → Activation modeling). |
 | `original_filepath` | string | O | FOXDEN `filepath` |
 | `date_created` | datetime | R | FOXDEN `dateCreated` |
@@ -830,6 +853,39 @@ Manual filename metadata and FOXDEN fields are merged into a single record
 per filename. Each property carries its own `source_type`:
 - Manual filename metadata → `source_type: "manual_annotation"`
 - FOXDEN → `source_type: "fisher_py"`
+
+---
+
+## Node: Advisory
+
+**Added 2026-07-20 (KI-8 remediation).** Graph-derived metadata **about the dataset itself**, not
+about a research entity — the first node type of this kind. One Advisory node per **byte-identical
+content set**: a `sha256_hash` shared by more than one `RawDataFile` node (distinct files, identical
+bytes). Generated by `03_normalize.py` Pass 5.5, **count-free** — one node per hash with >1 member,
+for any member count N, never assuming pairs. Not tied to a Publication (no node type is required to
+be). On the current corpus: **21 Advisory nodes** (all 2-member sets).
+
+**Conforms to:** PROV-O (as a `prov:Entity` generated by the normalization activity)  
+**Identifier:** `advisory:byte_identical:{sha16}` (`sha16 = sha256_hash[:16]`) — unique per shared
+content.  
+**Provenance:** `source_type: graph_derived` (see Universal Provenance Properties). `source_id` is
+the list of member composite identifiers; `evidence_note` records the computation; `confidence: high`.
+
+### Properties
+
+| Property | Type | M/R/O | Notes |
+|---|---|---|---|
+| `advisory_type` | string | M | `byte_identical_content` (the only type today). |
+| `sha256_hash` | string | M | The full 64-hex checksum shared by every member of the set. |
+| `member_identifiers` | list[string] | M | Composite `identifier` of each RawDataFile in the set (length follows the data, ≥2). |
+| `member_filenames` | list[string] | M | The members' filenames, index-aligned with `member_identifiers`. |
+| `deposit` | string \| null | O | The single PXD accession if the set is intra-deposit (all members derive from one deposit), else null (cross-deposit). |
+
+### FLAGS edge
+
+`Advisory -[:FLAGS]-> RawDataFile`, one edge per member (N edges for an N-member set — never
+hardcoded to 2). Carries `source_type: graph_derived`. On the current corpus: **42 FLAGS edges**
+(21 sets × 2 members). See Relationships → FLAGS.
 
 ---
 
@@ -892,7 +948,14 @@ extraction (source 4) is dormant; zero of these edges exist on disk.
 | `CONTAINS_SAMPLE` | RawDataFile → Sample | manual annotation | MANY-ONE | Active (46, Thermo only) |
 | `ACQUIRED_WITH` | RawDataFile → Software | fisher_py | MANY-ONE | Active (934); property `version` (string, O) — per-acquisition version |
 | `DERIVED_FROM` | RawDataFile → Dataset | fisher_py | MANY-ONE | Active (952, PXD) |
+| `FLAGS` | Advisory → RawDataFile | graph_derived | ONE-MANY | Active (42) — byte-identical set membership; one edge per member (KI-8) |
 | `ANALYZED_IN` | RawDataFile → Publication | — | MANY-ONE | **PENDING** |
+
+### FLAGS
+
+`Advisory → RawDataFile`, 42 edges (21 sets × 2 members on the current corpus; count follows the
+data, N edges for an N-member set). Emitted by `03_normalize.py` Pass 5.5 alongside the Advisory
+node. `source_type: graph_derived` — computed by the pipeline, not extracted (see Node: Advisory).
 
 ### DERIVED_FROM
 
