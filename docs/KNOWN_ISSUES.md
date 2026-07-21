@@ -7,6 +7,30 @@ Add new issues at the top.
 
 ---
 
+## KI-14 — 05_load.py is MERGE-only and cannot shrink the graph (node/edge retirements leave stale data)
+**Status:** open — needs a fix (a `--prune` step); worked around manually on 2026-07-21.
+**Surfaced by:** the instrument dedup load (typo merges + FT-ICR generic collapse + Velos split), 2026-07-21.
+
+`05_load.py` loads with idempotent `MERGE`, which only creates-or-matches. It has **no delete
+path**, so when a pipeline run *retires* nodes or reassigns edges, the old ones **remain in
+Neo4j**. Measured after the 2026-07-21 instrument reload: `validated/` held 443 Instruments /
+1023 USES_INSTRUMENT, but the graph showed **472 / 1108** — 29 stale retired Instrument nodes
+plus 85 stale edges (84 pointing to the retired nodes, 1 reassigned-away edge lingering on a
+kept node, `doi:10.1007/s13361-019-02290-8 -> velos_pro_linear_ion_trap`).
+
+**Worked around** by a targeted reconcile (Option A): `DETACH DELETE` the Instrument nodes not
+in `validated/`, plus `DELETE` the one lingering edge — 30 deletes, after which the graph
+matched `validated/` exactly (443 / 1023 / 4883 nodes / 11643 edges, all acceptance checks pass).
+
+**The fix:** add a `--prune` mode to `05_load.py` that, after the MERGE load, deletes any graph
+node/edge absent from `validated/`, so the graph becomes a true *projection* of `validated/`
+and future dedups don't strand data. Diff-and-delete keyed on the validated identifier set (the
+manual reconcile above is the reference implementation). **Do not build yet** (deferred by the
+operator 2026-07-21); dry-run it first when built. Until then, any pipeline run that shrinks a
+node set needs the manual reconcile as a follow-up, or the graph silently over-reports.
+
+---
+
 ## KI-13 — the PDF facility and instrument transforms were never committed (producers now confirmed from their runs' pickles)
 **Status:** open — **do not fix, do not promote, do not rewrite** (filed 2026-07-17; **rewritten 2026-07-17** after recovery)
 **Surfaced by:** the D1 CLAUDE.md pipeline-block audit, 2026-07-17.
