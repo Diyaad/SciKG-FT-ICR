@@ -10,7 +10,9 @@ AI-assisted exploration.
 > publication corpus (CrossRef + MagLab CSV), the 46 Thermo RAW
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
 > extraction (stage 02d) exists and is under evaluation. Normalization,
-> validation, and Neo4j load (stages 03-05) are the current work.
+> validation, and load (stages 03-05) are DONE — the graph is loaded into
+> Neo4j AuraDB (4,909 nodes, 11,668 edges). Current focus: graph
+> validation/analysis against the researcher discovery questions and the poster.
 
 ---
 
@@ -83,7 +85,7 @@ scikg/
 │       ├── relationships/           # Extracted relationships (JSONL)
 │       ├── normalized/              # Normalized entities + relationships (03 output)
 │       ├── logs/                    # Extraction/normalization logs (JSONL)
-│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,888 entities, 11,626 edges)
+│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,909 nodes, 11,668 edges; load_cleared)
 ├── scripts/                         # Pipeline scripts — run in order
 │   ├── 01_fetch.py
 │   ├── 01b_fetch_pdfs.py
@@ -93,10 +95,12 @@ scikg/
 │   ├── 02c_extract_rawfiles.py
 │   ├── 02f_extract_pxd_rawfiles.py  # Blood Proteoform Atlas PXD (local-only)
 │   ├── 02d_extract_pdf.py           # PDF gap-field extraction (under evaluation)
+│   ├── transform_pdf_software.py    # PDF Software transform (Software nodes + USES_SOFTWARE)
 │   ├── 03_normalize.py
 │   ├── 04_validate.py              # (built)
-│   ├── 05_load.py                  # (drafted — not yet run)
-│   └── db.py
+│   ├── 05_load.py                  # (run — graph loaded into Neo4j AuraDB)
+│   ├── db.py
+│   └── ...                         # plus helper/verification utilities (build_vocabulary, verify_pdf_corpus, audit_repo, etc.)
 ├── tests/                           # One test file per pipeline script
 │   ├── test_fetch.py
 │   ├── test_extract.py
@@ -114,6 +118,7 @@ scikg/
 │   ├── METADATA_INVENTORY.md
 │   ├── VERIFIED_FACTS_AND_ASSUMPTIONS.md
 │   ├── REVIEW_LOG.md
+│   ├── KNOWN_ISSUES.md
 │   ├── controlled_vocabulary.md
 │   ├── DISCOVERY_QUESTIONS.md
 │   ├── PDF_EXTRACTION_EVAL.md
@@ -133,9 +138,10 @@ scikg/
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Proposed, evolving research workflow (not an approved plan) |
 | [docs/FAIR_PRINCIPLES.md](docs/FAIR_PRINCIPLES.md) | FAIR notes and how each principle maps to design decisions |
 | [docs/METADATA_INVENTORY.md](docs/METADATA_INVENTORY.md) | Metadata cataloguing approach + template usage |
-| [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md) | The 17 questions the graph is designed to answer |
+| [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md) | The 14 real researcher-submitted questions the graph is evaluated against |
 | [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md) | Verified facts vs. proposed ideas vs. unknowns |
 | [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md) | Log of review-worthy changes and assumptions |
+| [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md) | Known issues register — data-quality limitations, caught errors, and their rulings (KI-1..KI-13) |
 | [docs/controlled_vocabulary.md](docs/controlled_vocabulary.md) | Controlled vocabulary — instrument/method terms mapped to PSI-MS accessions |
 | [docs/PDF_EXTRACTION_EVAL.md](docs/PDF_EXTRACTION_EVAL.md) | PDF gap-field extraction (stage 02d) evaluation results |
 | [docs/annotations/](docs/annotations/) | Manual paper-review notes (paper_reviews.md) |
@@ -147,13 +153,17 @@ scikg/
 
 Extraction now covers the ICR publication corpus (CrossRef API and
 MagLab CSV), the 46 Thermo RAW files, and the 952 Blood Proteoform
-Atlas PXD files. From the PXD set, 888 distinct RawDataFile nodes remain
-after 64 files cross-deposited under overlapping accessions were
-correctly merged; a maglab_acquired_confirmed flag marks the 199
-confirmed MagLab-acquired (LTQ FT Ultra), with the rest unconfirmed
-(attribution not recoverable from metadata). PDF gap-field extraction
-(stage 02d) exists and is under evaluation. Normalization, validation,
-and Neo4j load (stages 03-05) are the current work.
+Atlas PXD files. The graph holds 934 distinct RawDataFile nodes (46
+Thermo RAW + the PXD set): 64 files cross-deposited under overlapping
+accessions were correctly merged (KI-1), and under KI-8's composite
+identity (rawfile:{filename}:{sha16}, remediated 2026-07-20) byte-identical
+files deposited under different names load as distinct nodes — 21 such
+pairs, each recorded by an Advisory node. A maglab_acquired_confirmed
+flag marks the 199 confirmed MagLab-acquired (LTQ FT Ultra), with the
+rest unconfirmed (attribution not recoverable from metadata). PDF
+gap-field extraction (stage 02d) exists and is under evaluation.
+Normalization, validation, and load (stages 03-05) are complete; the
+graph is loaded into Neo4j AuraDB (4,909 nodes, 11,668 edges).
 
 Instrument identity is derived from the FOXDEN 'model' field, so the
 same physical instrument deduplicates across sources. Controlled-
@@ -166,7 +176,7 @@ articles (from the MagLab CSV) plus five other sources: the CrossRef
 API, the Web Applications Group publications export, 46 Thermo RAW
 files, manual annotations, and the 952 Blood Proteoform Atlas PXD
 files (local-only — gitignored, not reproducible from a clean clone).
-Graph loaded into Neo4j (local).
+Graph loaded into Neo4j AuraDB (cloud).
 Validated against a ground-truth set of 8 manually annotated papers.
 Software and Instrument are logged as entities.
 
@@ -186,7 +196,8 @@ cd scikg
 # 2. Install dependencies (requests, neo4j, pytest, python-dotenv)
 pip install -r requirements.txt
 
-# 3. Set up a local Neo4j instance (Neo4j Desktop)
+# 3. Provision a Neo4j AuraDB instance and set NEO4J_URI (neo4j+s://...),
+#    NEO4J_USER, NEO4J_PASSWORD in .env at the repo root (read by scripts/db.py)
 
 # 4. Run the pipeline scripts in order
 python scripts/01_fetch.py
@@ -195,9 +206,10 @@ python scripts/02b_extract_csv.py
 python scripts/02c_extract_rawfiles.py
 python scripts/02f_extract_pxd_rawfiles.py  # Blood Proteoform Atlas PXD files (local-only source; see CLAUDE.md)
 python scripts/02d_extract_pdf.py     # PDF gap-field extraction (under evaluation)
+python scripts/transform_pdf_software.py  # PDF Software transform (see CLAUDE.md pipeline block + KI-13)
 python scripts/03_normalize.py
 python scripts/04_validate.py           # (built)
-python scripts/05_load.py               # (drafted — not yet run)
+python scripts/05_load.py               # (run — loads validated records into Neo4j AuraDB)
 ```
 
 Read the foundation docs first: README.md → docs/ROADMAP.md →

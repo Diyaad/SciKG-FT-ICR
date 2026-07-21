@@ -8,9 +8,10 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j (local). Validation uses a ground-truth set of 8
-papers manually annotated by the team. 2-person team, CI Compass
-Fellowship, June 1 – July 31 (8 weeks).
+Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,909 nodes, 11,668 edges
+(validation_report.json, load_cleared, 2026-07-20). Validation uses a
+ground-truth set of 8 papers manually annotated by the team. 2-person
+team, CI Compass Fellowship, June 1 – July 31 (8 weeks).
 
 ## Pipeline — always run in this exact order
 01_fetch.py     reads  data/raw/doi_list.csv
@@ -57,15 +58,23 @@ PDF transform (02d extraction -> entity/relationship nodes)
                 - transform_pdf_software.py  (BUILT, in scripts/): Software nodes
                   + USES_SOFTWARE edges; reads + preserves the Institution/
                   Instrument nodes already in pdf_entities.jsonl.
-                - facility->Institution transform: NOT in scripts/ (scratch,
-                  uncommitted — see docs/pdf_transform_logic.md §6,
-                  finalize_pdf_facility.py). Produced the 62 Institution nodes +
-                  89 INVOLVES_INSTITUTION edges.
-                - instrument transform: NOT in scripts/ (scratch, uncommitted).
-                  Produced the 462 PDF Instrument nodes + USES_INSTRUMENT edges.
-                (Output is on disk; the two uncommitted transforms cannot be
-                re-run from a clean clone. A stage named here without its code is
-                still better than an unmentioned stage.)
+                - facility->Institution transform (finalize.py) and instrument
+                  transform (finalize_inst.py): NOT in scripts/ — they lived in
+                  session scratch and were RECOVERED to ~/scikg-scratch-all.
+                  Both are CONFIRMED against the pickles their own runs wrote:
+                  facility by exact identifier set (62 Institution + 89
+                  INVOLVES_INSTITUTION); instrument on 461/462 nodes + 962/968
+                  USES_INSTRUMENT edges (the one difference is one physical
+                  instrument under two slugs, KI-7a, not a different producer).
+                The real risk is REGENERATION, not reproducibility: pdf_entities.jsonl
+                is committed, so a clean clone has all 524 Institution/Instrument
+                nodes and the graph works. But transform_pdf_software.py READS
+                pdf_entities.jsonl rather than creating it, so re-running the PDF
+                transform after a fresh extraction produces Software only, silently,
+                and the 524 Institution/Instrument nodes vanish. Anyone re-extracting
+                must know this. Promotion is not a copy (the scratch scripts use
+                per-module BASE/REPO literals and do repo I/O at import time).
+                See docs/KNOWN_ISSUES.md KI-13.
 03_normalize.py reads  data/processed/entities/
                 writes data/processed/normalized/
 04_validate.py  (built)
@@ -75,9 +84,11 @@ PDF transform (02d extraction -> entity/relationship nodes)
                 writes data/processed/validated/validation_report.json
                 writes data/processed/validated/quarantine.jsonl
                 exits non-zero on any quarantine or blocker
-05_load.py      (drafted — not yet run)
+05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
-                writes to Neo4j via scripts/db.py
+                writes to Neo4j AuraDB via scripts/db.py
+                Loaded 4,909 nodes + 11,668 edges (validation_report.json,
+                load_cleared: true, 2026-07-20).
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships
@@ -113,7 +124,8 @@ PDF transform (02d extraction -> entity/relationship nodes)
 - Authoritative schema: docs/SCIKG_SCHEMA.md (node types,
   relationships, identifiers, provenance properties, normalization
   and validation rules)
-- Graph database: Neo4j, running locally (Neo4j Desktop)
+- Graph database: Neo4j AuraDB (cloud), connection scheme neo4j+s://
+  (credentials in .env at the repo root, read by scripts/db.py)
 - Metadata sources: six sources (CrossRef API, MagLab CSV, Web Apps
   export, 46 Thermo RAW files, manual annotations, and the 952 Blood
   Proteoform Atlas PXD files — local-only, gitignored). DOI is the
@@ -128,6 +140,17 @@ PDF transform (02d extraction -> entity/relationship nodes)
   instrument terms were audited against PSI-MS via EBI OLS4 and
   corrected (several had used generic analyzer/parent accessions as
   specific instruments — the MS:1000079 class).
+- RawDataFile identity is the COMPOSITE identifier
+  rawfile:{filename}:{sha16} (filename + first 16 hex of sha256), NOT
+  filename alone (KI-8, remediated 2026-07-20). Byte-identical files
+  deposited under different names therefore load as DISTINCT nodes
+  (21 such pairs on the current corpus). Each byte-identical set is
+  recorded by an Advisory node (a new node type — 21 nodes) via FLAGS
+  edges (42). Advisory carries a new source_type: graph_derived — a fact
+  the pipeline computes from its own data, not extracted from a source.
+  The uniqueness constraint is on identifier, not sha256_hash (sha256_hash
+  is a non-unique property). See KI-8 and docs/SCIKG_SCHEMA.md (Node:
+  RawDataFile, Node: Advisory).
 - Removed from scope: Workflow entity, Streamlit UI, chatbot, NetworkX,
   ASSOCIATED_WITH relationship, ProvenanceRecord node
 - RAW-file relationships: OPERATED_BY, CONTAINS_SAMPLE, COLLECTED_ON,
