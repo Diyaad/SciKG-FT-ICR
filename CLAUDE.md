@@ -8,8 +8,8 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,909 nodes, 11,668 edges
-(validation_report.json, load_cleared, 2026-07-20). Validation uses a
+Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,883 nodes, 11,643 edges
+(validation_report.json, load_cleared, 2026-07-21). Validation uses a
 ground-truth set of 8 papers manually annotated by the team. 2-person
 team, CI Compass Fellowship, June 1 – July 31 (8 weeks).
 
@@ -87,8 +87,8 @@ PDF transform (02d extraction -> entity/relationship nodes)
 05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
                 writes to Neo4j AuraDB via scripts/db.py
-                Loaded 4,909 nodes + 11,668 edges (validation_report.json,
-                load_cleared: true, 2026-07-20).
+                Loaded 4,883 nodes + 11,643 edges (validation_report.json,
+                load_cleared: true, 2026-07-21).
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships
