@@ -29,6 +29,7 @@ import argparse
 import json
 import re
 import sys
+import collections
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -71,6 +72,150 @@ ENABLE_ORCID_CANONICALIZATION = True
 # Re-minting to a canonical instrument ID (and rewriting USES_INSTRUMENT edges
 # through the crosswalk) is a deliberate future option, not assumed here.
 REMINT_INSTRUMENT_IDS = False
+
+# ---------------- instrument typo/spacing dedup (Pass 4.5) -----------
+# Table-driven, EXACT-slug retirements of OCR/spacing variants that the PDF
+# instrument transform's signature-collapse mechanically missed. Each pair is
+# the SAME physical instrument spelled two ways (reviewed against
+# data/processed/review/instrument_review.md; verification pass 2026-07-21).
+# Matching is EXACT identifier only — NEVER substring: shimadzu_toc_l_cph_cpn
+# contains "lcph" and must never be swept in. DELIBERATELY EXCLUDED (deferred to
+# David): the generics ruling (ft_icr/fticr/ft_icr_ms/fticr_ms/fticrms) and the
+# ltq_velos hybrid-vs-ion-trap question. No magnet-strength node is touched.
+INSTRUMENT_TYPO_MERGES = [
+    # (retire_variant_id, survivor_id)  — survivor is an EXISTING live node.
+    ("instrument:raw:custombuilt_hybrid_linear_ion_trap_ft_icr_ms",
+     "instrument:raw:custom_built_hybrid_linear_ion_trap_ft_icr_ms"),           # grp 1
+    ("instrument:raw:doc_labor_lc_ocd_sizeexclusion_chromatography_system",
+     "instrument:raw:doc_labor_lc_ocd_size_exclusion_chromatography_system"),   # grp 2
+    ("instrument:raw:inductively_coupled_plasma_highresolution_mass_spectrom",
+     "instrument:raw:inductively_coupled_plasma_high_resolution_mass_spectro"),  # grp 6 (survivor slug is truncated at 60 chars — the exact live form)
+    ("instrument:raw:pegasus_gchrt_4d",
+     "instrument:raw:pegasus_gc_hrt_4d"),                                        # grp 7
+    ("instrument:raw:shimadzu_toc_lcph_analyzer",
+     "instrument:raw:shimadzu_toc_l_cph_analyzer"),                             # grp 8 (TOC-L CPH spacing)
+    ("instrument:raw:shimadzu_tocl_cph_analyzer",
+     "instrument:raw:shimadzu_toc_l_cph_analyzer"),                             # grp 8
+    ("instrument:raw:shimadzu_toclcph_analyzer",
+     "instrument:raw:shimadzu_toc_l_cph_analyzer"),                             # grp 8
+    ("instrument:raw:spectrum_two_ftir_spectrophotometer",
+     "instrument:raw:spectrum_two_ft_ir_spectrophotometer"),                    # grp 9
+]
+
+# Group 5 — BOTH live slugs are OCR-defective (one has the "cyclo_tron" break,
+# the other "fouriertransform" run-together), so neither is an acceptable
+# survivor. Retire BOTH onto a NEW clean canonical id. This repairs ONE hi-res
+# descriptor spelled two broken ways; it is NOT the deferred bare-generic FT-ICR
+# collapse (the id is the full hi-res phrase, not ft_icr/fticr/ft_icr_ms).
+INSTRUMENT_TYPO_NEW_SURVIVOR = {
+    "survivor_id": ("instrument:raw:high_resolution_fourier_transform_ion_"
+                    "cyclotron_resonance_mass_spectrometer"),
+    "survivor_name": ("High-Resolution Fourier Transform Ion Cyclotron "
+                      "Resonance Mass Spectrometry"),
+    "retire": [
+        "instrument:raw:high_resolution_fourier_transform_ion_cyclo_tron_resona",
+        "instrument:raw:high_resolution_fouriertransform_ion_cyclotron_resonanc",
+    ],
+}
+
+# Guardrail: no slug in the typo tables may be a protected node — the 21T node
+# or any magnet-strength node. (The bare-generic FT-ICR nodes and the ltq_velos
+# family are NO LONGER protected here: David authorized the FT-ICR collapse
+# (Op1) and the Velos split (Op2), which are handled by their own passes below.)
+# Pass 4.5 HARD-STOPS if a typo/Op1 table touches a protected slug.
+INSTRUMENT_DEDUP_PROTECTED = {
+    "instrument:raw:21t_icr",
+}
+# A magnet-strength token in a slug: e.g. 4t_, 5_6t_, 9_4t_, 12t_, 21t_ (tesla).
+MAGNET_TOKEN_RE = re.compile(r"(^|_)\d+(_\d+)?t(_|$)")
+
+# ---------------- Op1: FT-ICR generic collapse (David-authorized) ---
+# The 13 Bucket-A generic FT-ICR spelling variants collapse into ONE node,
+# canonicalized to MS:1003948 (FT-ICR instrument class). Qualifier- (hi-res),
+# magnet-, vendor-, and ionization-specific FT-ICR nodes stay SEPARATE
+# (verification 2026-07-21). EXACT slug only. name_raw accumulated (lossless).
+INSTRUMENT_GENERIC_COLLAPSE = {
+    "survivor_id": "instrument:raw:ft_icr_ms",
+    "canonical_name": "FT-ICR MS",
+    "psi_ms_id": "MS:1003948",
+    "retire": [
+        "instrument:raw:fourier_transform_ion_cyclotron_resonance_mass_spectrom",
+        "instrument:raw:fticr_ms",
+        "instrument:raw:ft_icr_mass_spectrometer",
+        "instrument:raw:ft_icr",
+        "instrument:raw:ft_icr_mass_spectrometry",
+        "instrument:raw:ion_cyclotron_resonance_mass_analyzer",
+        "instrument:raw:fticrms",
+        "instrument:raw:ft_icr_mass_analyzer",
+        "instrument:raw:ft_icr_ms_instrument",
+        "instrument:raw:fticr",
+        "instrument:raw:fourier_transform_ion_cyclotron_resonance",
+        "instrument:raw:fourier_ion_cyclotron_resonance_mass_spectrometer",
+    ],
+}
+
+# ---------------- Op2: Velos split (David-authorized) ---------------
+# LTQ Orbitrap Velos (hybrid) and LTQ Velos / Velos Pro (plain ion traps) are
+# DIFFERENT instruments. The PDF signature-collapse conflated them into two
+# nodes; split by per-EDGE reassignment keyed on (paper_doi, source_node) ->
+# target, because the disambiguating verbatim lives only in pdf_extraction, not
+# on the edge. name_raw per target is CURATED (not blind-accumulated) so the
+# conflated node's mixed strings do not cross-contaminate the split.
+INSTRUMENT_VELOS_SPLIT = {
+    "targets": {
+        "instrument:raw:ltq_orbitrap_velos": {
+            "new": True, "template": "instrument:raw:ltq_orbitrapvelos",
+            "canonical_name": "LTQ Orbitrap Velos", "psi_ms_id": "MS:1001742",
+            "name_raw": ["LTQ Orbitrap Velos", "LTQ OrbitrapVelos",
+                         "LTQ Orbitrap Velos (Thermo Fisher Scientific)",
+                         "Velos LTQ-Orbitrap Mass Spectrometer", "Orbitrap Velos Pro"],
+        },
+        "instrument:raw:ltq_velos": {
+            "new": True, "template": "instrument:raw:ltq_velos_ion_trap_mass_spectrometer",
+            "canonical_name": "LTQ Velos", "psi_ms_id": None,
+            "name_raw": ["LTQ Velos", "LTQ-Velos",
+                         "LTQ Velos ion trap mass spectrometer", "Velos"],
+        },
+        "instrument:raw:velos_pro_linear_ion_trap": {
+            "new": False,
+            "canonical_name": "Velos Pro", "psi_ms_id": "MS:1003495",
+            "name_raw": ["Velos Pro", "Velos Pro linear ion trap",
+                         "custom-built Velos Pro",
+                         "Velos Pro dual cell rf ion trap assembly",
+                         "Velos-Pro dual cell linear RF ion trap",
+                         "Velos Pro dualcell linear ion trap",
+                         "modified Velos Pro linear ion trap assembly"],
+        },
+    },
+    # Per-edge reassignment: (paper_doi, current_object_node) -> target_node.
+    "edge_moves": [
+        ("doi:10.1021/jp503413s", "instrument:raw:ltq_orbitrapvelos", "instrument:raw:ltq_orbitrap_velos"),
+        ("doi:10.1002/pmic.201300438", "instrument:raw:ltq_velos_ion_trap_mass_spectrometer", "instrument:raw:ltq_orbitrap_velos"),
+        ("doi:10.1016/j.str.2017.08.002", "instrument:raw:ltq_velos_ion_trap_mass_spectrometer", "instrument:raw:ltq_orbitrap_velos"),
+        ("doi:10.1007/s13361-019-02290-8", "instrument:raw:velos_pro_linear_ion_trap", "instrument:raw:ltq_orbitrap_velos"),
+        ("doi:10.1002/jms.3345", "instrument:raw:ltq_velos_ion_trap_mass_spectrometer", "instrument:raw:ltq_velos"),
+        ("doi:10.1016/j.chroma.2016.10.005", "instrument:raw:ltq_velos_ion_trap_mass_spectrometer", "instrument:raw:ltq_velos"),
+        ("doi:10.1074/jbc.m116.719591", "instrument:raw:ltq_velos_ion_trap_mass_spectrometer", "instrument:raw:ltq_velos"),
+        ("doi:10.3390/life11030234", "instrument:raw:ltq_velos_ion_trap_mass_spectrometer", "instrument:raw:ltq_velos"),
+        ("doi:10.1002/jms.3345", "instrument:raw:velos", "instrument:raw:ltq_velos"),
+        ("doi:10.1021/jasms.4c00261", "instrument:raw:velos_pro_dual_cell_linear_rf_ion_trap", "instrument:raw:velos_pro_linear_ion_trap"),
+        ("doi:10.1007/s13361-017-1702-3", "instrument:raw:velos_pro_dual_cell_rf_ion_trap_assembly", "instrument:raw:velos_pro_linear_ion_trap"),
+        ("doi:10.1021/acs.energyfuels.4c05674", "instrument:raw:velos_pro_dualcell_linear_ion_trap", "instrument:raw:velos_pro_linear_ion_trap"),
+        ("doi:10.1016/j.jbc.2022.102768", "instrument:raw:modified_velos_pro_linear_ion_trap_assembly", "instrument:raw:velos_pro_linear_ion_trap"),
+    ],
+    # Source nodes expected EMPTY after reassignment -> retire (remove record).
+    "retire_if_empty": [
+        "instrument:raw:ltq_orbitrapvelos",
+        "instrument:raw:ltq_velos_ion_trap_mass_spectrometer",
+        "instrument:raw:velos",
+        "instrument:raw:velos_pro_dual_cell_linear_rf_ion_trap",
+        "instrument:raw:velos_pro_dual_cell_rf_ion_trap_assembly",
+        "instrument:raw:velos_pro_dualcell_linear_ion_trap",
+        "instrument:raw:modified_velos_pro_linear_ion_trap_assembly",
+    ],
+    # Explicitly NOT part of the split (plain LTQ Orbitrap, not a Velos).
+    "excluded": ["instrument:raw:ltqorbitrap"],
+}
 
 # KI-8 remediation (R1). RawDataFile identity becomes the composite
 # rawfile:{filename}:{sha16}, sha16 = first N hex chars of sha256_hash. N=16 is
@@ -355,6 +500,12 @@ def main(dry_run=False):
     rels_by_file = {p.name: load_jsonl(p) for p in rel_files}
 
     total_in = sum(len(v) for v in entities_by_file.values())
+    # Distinct Instrument identifiers on input (pre-dedup) — for the typo-dedup report.
+    inst_in = len({rec["identifier"]
+                   for recs in entities_by_file.values() for rec in recs
+                   if rec.get("entity_type") == "Instrument"})
+    uses_in = sum(1 for recs in rels_by_file.values() for r in recs
+                  if r.get("relationship_type") == "USES_INSTRUMENT")
 
     # --- Pass 1: identifier canonicalization --------------------------
     for records in entities_by_file.values():
@@ -453,6 +604,117 @@ def main(dry_run=False):
         log.append({"action": "institution_pass_skipped",
                     "reason": "no Institution entities in current data", "at": now_iso()})
 
+    # --- Pass 4.5: instrument typo/spacing dedup (table-driven, EXACT slug) ---
+    # Seed crosswalk retirements for OCR/spacing variants the PDF signature-collapse
+    # missed. The terminal-merge fold below rewrites node identity; Pass 6 rewrites
+    # USES_INSTRUMENT edge endpoints onto the survivor. EXACT-slug only (never
+    # substring). Generics + ltq_velos excluded; no magnet-strength node touched.
+    inst_ids_now = {rec["identifier"]
+                    for recs in entities_by_file.values() for rec in recs
+                    if rec.get("entity_type") == "Instrument"}
+
+    def _guard_dedup_slug(slug):
+        """Refuse to touch a protected or magnet-strength slug. Returns True if OK."""
+        if slug in INSTRUMENT_DEDUP_PROTECTED:
+            print(f"HARD STOP (instrument dedup): protected slug in merge table: "
+                  f"{slug!r}. No output written.")
+            return False
+        if MAGNET_TOKEN_RE.search(slug.replace("instrument:raw:", "")):
+            print(f"HARD STOP (instrument dedup): magnet-strength token in merge slug: "
+                  f"{slug!r}. No output written.")
+            return False
+        return True
+
+    typo_events = 0
+    survivor_to_retired = defaultdict(list)   # survivor_id -> [retired_id, ...]
+    # Lossless: name_raw strings of every retired node, captured BEFORE the fold
+    # (which keeps only the survivor's name_raw), accumulated per survivor.
+    alias_accumulate = defaultdict(list)
+
+    def _capture_aliases(node_id, survivor_id):
+        rec = next((r for recs in entities_by_file.values() for r in recs
+                    if r.get("identifier") == node_id), None)
+        nr = (rec.get("properties") or {}).get("name_raw") if rec else None
+        for s in (nr if isinstance(nr, list) else [nr] if nr else []):
+            if s and s not in alias_accumulate[survivor_id]:
+                alias_accumulate[survivor_id].append(s)
+
+    # (a) Standard pairs — both variant and survivor must be live Instrument nodes.
+    for variant, survivor in INSTRUMENT_TYPO_MERGES:
+        for slug in (variant, survivor):
+            if not _guard_dedup_slug(slug):
+                return 1
+        if variant not in inst_ids_now:
+            print(f"HARD STOP (instrument dedup): retire slug is not a live Instrument "
+                  f"node: {variant!r}. No output written.")
+            return 1
+        if survivor not in inst_ids_now:
+            print(f"HARD STOP (instrument dedup): survivor slug is not a live Instrument "
+                  f"node: {survivor!r}. No output written.")
+            return 1
+        _capture_aliases(variant, survivor)
+        crosswalk.retire(variant, survivor)
+        survivor_to_retired[survivor].append(variant)
+        typo_events += 1
+        log.append({"action": "instrument_typo_merge", "retired": variant,
+                    "survivor": survivor, "at": now_iso()})
+
+    # (a2) Op1 — FT-ICR generic collapse into the existing ft_icr_ms survivor.
+    gc = INSTRUMENT_GENERIC_COLLAPSE
+    fticr_survivor = gc["survivor_id"]
+    if not _guard_dedup_slug(fticr_survivor):
+        return 1
+    if fticr_survivor not in inst_ids_now:
+        print(f"HARD STOP (FT-ICR collapse): survivor {fticr_survivor!r} is not a live "
+              f"Instrument node. No output written.")
+        return 1
+    fticr_retired = []
+    for variant in gc["retire"]:
+        if not _guard_dedup_slug(variant):
+            return 1
+        if variant not in inst_ids_now:
+            print(f"HARD STOP (FT-ICR collapse): retire slug {variant!r} is not a live "
+                  f"Instrument node. No output written.")
+            return 1
+        _capture_aliases(variant, fticr_survivor)
+        crosswalk.retire(variant, fticr_survivor)
+        survivor_to_retired[fticr_survivor].append(variant)
+        fticr_retired.append(variant)
+        log.append({"action": "instrument_fticr_collapse", "retired": variant,
+                    "survivor": fticr_survivor, "at": now_iso()})
+
+    # (b) Group 5 — retire BOTH OCR-defective slugs onto a NEW clean canonical id.
+    # Capture the original verbatim strings BEFORE the fold (merge_entities keeps
+    # only the survivor's name_raw), so Pass 4.6 can preserve both as provenance.
+    g5 = INSTRUMENT_TYPO_NEW_SURVIVOR
+    if not _guard_dedup_slug(g5["survivor_id"]):
+        return 1
+    g5_live = [v for v in g5["retire"] if v in inst_ids_now]
+    g5_originals = []
+    if g5_live:
+        if g5["survivor_id"] in inst_ids_now:
+            print(f"HARD STOP (instrument dedup): group-5 clean survivor already exists as "
+                  f"a live node: {g5['survivor_id']!r}. No output written.")
+            return 1
+        for v in g5["retire"]:
+            if not _guard_dedup_slug(v):
+                return 1
+        for v in g5_live:
+            rec = next((r for recs in entities_by_file.values() for r in recs
+                        if r.get("identifier") == v), None)
+            nr = (rec.get("properties") or {}).get("name_raw") if rec else None
+            for s in (nr if isinstance(nr, list) else [nr] if nr else []):
+                if s and s not in g5_originals:
+                    g5_originals.append(s)
+            crosswalk.retire(v, g5["survivor_id"])
+            survivor_to_retired[g5["survivor_id"]].append(v)
+            typo_events += 1
+            log.append({"action": "instrument_typo_merge", "retired": v,
+                        "survivor": g5["survivor_id"], "group": "g5_ocr_repair",
+                        "at": now_iso()})
+    log.append({"action": "instrument_typo_dedup_summary", "retired": typo_events,
+                "survivors": len(survivor_to_retired), "at": now_iso()})
+
     # After all retirements, collapse re-dedup: if two identifiers were merged to
     # the same terminal via the crosswalk, fold their records together too.
     def resolved(rec):
@@ -471,6 +733,163 @@ def main(dry_run=False):
                 merge_entities(survivor, other, log, reason="crosswalk_terminal_merge")
             folded.append(survivor)
         entities_by_file[fname] = folded
+
+    # --- Pass 4.6: finalize the group-5 clean survivor name -----------
+    # The fold merged the two OCR-defective records into the clean id but kept a
+    # defective name_raw. Set the clean display form, PRESERVING both original
+    # verbatim strings as provenance. No fabricated data — the clean form is the
+    # same descriptor with the OCR damage repaired.
+    if g5_live:
+        found = False
+        for recs in entities_by_file.values():
+            for rec in recs:
+                if rec.get("identifier") == g5["survivor_id"]:
+                    props = rec.setdefault("properties", {})
+                    props["name_raw"] = [g5["survivor_name"]] + [
+                        o for o in g5_originals if o != g5["survivor_name"]]
+                    found = True
+                    log.append({"action": "instrument_typo_g5_name_set",
+                                "identifier": g5["survivor_id"],
+                                "clean_name": g5["survivor_name"],
+                                "preserved_raw": g5_originals, "at": now_iso()})
+        if not found:
+            print(f"HARD STOP (instrument dedup): group-5 clean survivor "
+                  f"{g5['survivor_id']!r} not present after fold. No output written.")
+            return 1
+
+    def _find_entity(ident):
+        for recs in entities_by_file.values():
+            for rec in recs:
+                if rec.get("identifier") == ident:
+                    return rec
+        return None
+
+    # Lossless name_raw accumulation onto every typo/Op1 survivor (append the
+    # retired nodes' strings after the survivor's own, de-duplicated). The
+    # group-5 survivor is excluded — it was set explicitly above.
+    for survivor_id, extra in alias_accumulate.items():
+        if survivor_id == g5["survivor_id"]:
+            continue
+        rec = _find_entity(survivor_id)
+        if rec is None:
+            continue
+        props = rec.setdefault("properties", {})
+        cur = props.get("name_raw")
+        cur = list(cur) if isinstance(cur, list) else ([cur] if cur else [])
+        for s in extra:
+            if s not in cur:
+                cur.append(s)
+        props["name_raw"] = cur
+
+    # Op1 — set the FT-ICR survivor's canonical name + accession directly (the
+    # generic phrase is not in the Instruments CV, so Pass 5 leaves it unmapped;
+    # this is the authoritative assignment, David-ruled MS:1003948).
+    _fticr = _find_entity(fticr_survivor)
+    if _fticr is not None:
+        _fp = _fticr.setdefault("properties", {})
+        _fp["canonical_name"] = gc["canonical_name"]
+        _fp["psi_ms_id"] = gc["psi_ms_id"]
+        log.append({"action": "instrument_fticr_collapse_finalize",
+                    "survivor": fticr_survivor, "canonical_name": gc["canonical_name"],
+                    "psi_ms_id": gc["psi_ms_id"], "retired": len(fticr_retired),
+                    "at": now_iso()})
+
+    # --- Pass 4.7: Velos split (per-edge reassignment, Op2) -----------
+    # NOT node retirement: the conflated nodes send different edges to different
+    # targets by (paper_doi, source_node). Create the target nodes, rewrite the
+    # matching edge object_ids, then retire the emptied source nodes. Every move
+    # must match EXACTLY one live edge and every retire_if_empty node must reach
+    # zero edges, else HARD STOP (a silent miss would orphan an edge).
+    vs = INSTRUMENT_VELOS_SPLIT
+    # (i) Create the two new target node records from a template (deep-ish copy),
+    # overriding identity/name/accession. Provenance carries from the template
+    # (a real PDF extraction), which is honest — the node is derived, not invented.
+    velos_new_created = []
+    for tid, spec in vs["targets"].items():
+        if not spec.get("new"):
+            continue
+        if _find_entity(tid) is not None:
+            print(f"HARD STOP (Velos split): new target {tid!r} already exists. "
+                  f"No output written.")
+            return 1
+        tmpl = _find_entity(spec["template"])
+        if tmpl is None:
+            print(f"HARD STOP (Velos split): template {spec['template']!r} for {tid!r} "
+                  f"not found. No output written.")
+            return 1
+        newrec = dict(tmpl)
+        newrec["identifier"] = tid
+        newprops = dict(tmpl.get("properties") or {})
+        newprops["name_raw"] = list(spec["name_raw"])
+        newprops["canonical_name"] = spec["canonical_name"]
+        newprops["psi_ms_id"] = spec["psi_ms_id"]
+        newrec["properties"] = newprops
+        # Instrument nodes live in pdf_entities.jsonl; add the new record there.
+        entities_by_file.setdefault("pdf_entities.jsonl", []).append(newrec)
+        velos_new_created.append(tid)
+        log.append({"action": "velos_split_new_node", "identifier": tid,
+                    "template": spec["template"], "psi_ms_id": spec["psi_ms_id"],
+                    "at": now_iso()})
+
+    # (ii) Curate name_raw + accession on the reused Velos Pro survivor.
+    for tid, spec in vs["targets"].items():
+        if spec.get("new"):
+            continue
+        rec = _find_entity(tid)
+        if rec is None:
+            print(f"HARD STOP (Velos split): reused target {tid!r} not found. "
+                  f"No output written.")
+            return 1
+        p = rec.setdefault("properties", {})
+        p["name_raw"] = list(spec["name_raw"])
+        p["canonical_name"] = spec["canonical_name"]
+        p["psi_ms_id"] = spec["psi_ms_id"]
+
+    # (iii) Per-edge reassignment on the relationship records. Match on
+    # canonicalized DOI + exact source object_id; each move must hit exactly one.
+    velos_move_hits = collections.Counter()
+    for rels in rels_by_file.values():
+        for rel in rels:
+            if rel.get("relationship_type") != "USES_INSTRUMENT":
+                continue
+            subj = canonicalize_identifier(rel.get("subject_id"))
+            obj = rel.get("object_id")
+            for mv_doi, mv_from, mv_to in vs["edge_moves"]:
+                if obj == mv_from and subj == canonicalize_identifier(mv_doi):
+                    rel["object_id"] = mv_to
+                    velos_move_hits[(mv_doi, mv_from, mv_to)] += 1
+                    log.append({"action": "velos_split_edge_move", "doi": mv_doi,
+                                "from": mv_from, "to": mv_to, "at": now_iso()})
+                    break
+    bad_moves = [m for m in vs["edge_moves"] if velos_move_hits.get(m, 0) != 1]
+    if bad_moves:
+        print(f"HARD STOP (Velos split): {len(bad_moves)} edge move(s) did not match "
+              f"exactly one edge. No output written. First few: "
+              f"{[(m[0], m[1].replace('instrument:raw:',''), velos_move_hits.get(m,0)) for m in bad_moves[:5]]}")
+        return 1
+
+    # (iv) Retire the emptied source nodes — assert each now has ZERO edges.
+    remaining = collections.Counter()
+    for rels in rels_by_file.values():
+        for rel in rels:
+            remaining[rel.get("object_id")] += 1
+            remaining[rel.get("subject_id")] += 1
+    still_referenced = [n for n in vs["retire_if_empty"] if remaining.get(n, 0) > 0]
+    if still_referenced:
+        print(f"HARD STOP (Velos split): retire_if_empty nodes still have edges: "
+              f"{[(n.replace('instrument:raw:',''), remaining[n]) for n in still_referenced]}. "
+              f"No output written.")
+        return 1
+    velos_retired = []
+    for fname, records in entities_by_file.items():
+        kept = [r for r in records if r.get("identifier") not in vs["retire_if_empty"]]
+        if len(kept) != len(records):
+            velos_retired += [r["identifier"] for r in records
+                              if r.get("identifier") in vs["retire_if_empty"]]
+            entities_by_file[fname] = kept
+    log.append({"action": "velos_split_summary", "new_nodes": velos_new_created,
+                "retired_nodes": velos_retired, "edge_moves": len(vs["edge_moves"]),
+                "at": now_iso()})
 
     # --- Pass 5: controlled-vocabulary mapping (instruments) ----------
     vocab = parse_instrument_vocab(VOCAB_PATH, log)
@@ -527,6 +946,21 @@ def main(dry_run=False):
                                "note": "No alias match in Instruments vocab for ANY variant. "
                                        "Add an alias or check ALIAS_SEPARATORS.",
                                "at": now_iso()})
+
+    # --- Pass 5.6: force the David-ruled accessions (win over CV) ------
+    # Op1/Op2 accessions are authoritative rulings; re-assert them AFTER Pass 5 so
+    # a CV alias match can never overwrite them. (For the hybrid + Velos Pro nodes
+    # Pass 5 already lands the same value; this is bulletproofing, not a change.)
+    _force = {gc["survivor_id"]: (gc["canonical_name"], gc["psi_ms_id"])}
+    for tid, spec in INSTRUMENT_VELOS_SPLIT["targets"].items():
+        _force[tid] = (spec["canonical_name"], spec["psi_ms_id"])
+    for records in entities_by_file.values():
+        for rec in records:
+            if rec.get("identifier") in _force:
+                cn, psi = _force[rec["identifier"]]
+                p = rec.setdefault("properties", {})
+                p["canonical_name"] = cn
+                p["psi_ms_id"] = psi
 
     # Build the surviving-node set for relationship integrity checks.
     surviving_ids = set()
@@ -801,6 +1235,78 @@ def main(dry_run=False):
     print(f"  cross-file findings:     {cross_file_findings}  (unexpected multi-source; NOT merged)")
     print(f"  dangling edges withheld: {dangling}  (see review_queue.jsonl)")
     print(f"  review queue entries:    {len(review)}")
+
+    # --- instrument typo/spacing dedup report (safe OCR/spacing merges) ---
+    if survivor_to_retired:
+        inst_out = len({rec["identifier"]
+                        for recs in entities_by_file.values() for rec in recs
+                        if rec.get("entity_type") == "Instrument"})
+        uses_out = sum(1 for rels in rels_out.values() for r in rels
+                       if r.get("relationship_type") == "USES_INSTRUMENT")
+        uses_out_by_obj = defaultdict(int)
+        for rels in rels_out.values():
+            for r in rels:
+                if r.get("relationship_type") == "USES_INSTRUMENT":
+                    uses_out_by_obj[r.get("object_id")] += 1
+        alive_ids = {rec["identifier"]
+                     for recs in entities_by_file.values() for rec in recs}
+        print("  --- instrument dedup: 3 operations ---")
+        print(f"  instrument nodes:        {inst_in} -> {inst_out}  "
+              f"(net {inst_out - inst_in})")
+
+        print("  [Op typo] 6 groups + group-5 clean node:")
+        for survivor in sorted(survivor_to_retired):
+            if survivor == fticr_survivor:
+                continue
+            retired = survivor_to_retired[survivor]
+            short = survivor.replace("instrument:raw:", "")
+            print(f"    survivor {short}  (+{len(retired)}) "
+                  f"-> USES_INSTRUMENT now {uses_out_by_obj.get(survivor, 0)}")
+
+        print("  [Op1 FT-ICR generic collapse]:")
+        print(f"    survivor {fticr_survivor.replace('instrument:raw:','')}  "
+              f"(+{len(fticr_retired)} retired) -> USES_INSTRUMENT now "
+              f"{uses_out_by_obj.get(fticr_survivor, 0)}  "
+              f"[canonical_name/psi_ms_id set: {gc['psi_ms_id']}]")
+        for v in fticr_retired:
+            print(f"        retired {v.replace('instrument:raw:', '')}")
+
+        print("  [Op2 Velos split] target edge counts + retired sources:")
+        for tid in ("instrument:raw:ltq_orbitrap_velos",
+                    "instrument:raw:velos_pro_linear_ion_trap",
+                    "instrument:raw:ltq_velos"):
+            spec = INSTRUMENT_VELOS_SPLIT["targets"][tid]
+            print(f"    {tid.replace('instrument:raw:','')}  "
+                  f"({'new' if spec.get('new') else 'reused'}, psi={spec['psi_ms_id']}) "
+                  f"-> USES_INSTRUMENT now {uses_out_by_obj.get(tid, 0)}")
+        print(f"    retired (emptied) source nodes: "
+              f"{[n.replace('instrument:raw:','') for n in velos_retired]}")
+        excl = INSTRUMENT_VELOS_SPLIT['excluded'][0]
+        print(f"    EXCLUDED (untouched): {excl.replace('instrument:raw:','')}="
+              f"{'live' if excl in alive_ids else 'GONE!'} "
+              f"({uses_out_by_obj.get(excl,0)} edge)")
+
+        print(f"  USES_INSTRUMENT edges:   {uses_in} -> {uses_out}  "
+              f"(net drop {uses_in - uses_out}; cross-file merges + same-paper dups only)")
+
+        # Guardrails — must all hold.
+        g5id = INSTRUMENT_TYPO_NEW_SURVIVOR["survivor_id"]
+        magnets = ["instrument:raw:3t_ft_icr", "instrument:raw:4t_ft_icr",
+                   "instrument:raw:5t_ft_icr", "instrument:raw:5_6t_ft_icr",
+                   "instrument:raw:7t_ft_icr", "instrument:raw:9_4t_ft_icr",
+                   "instrument:raw:9_4_ft_icr_mass_spectrometer",
+                   "instrument:raw:12t_ft_icr", "instrument:raw:12_0t_ft_icr",
+                   "instrument:raw:14_5t_ft_icr", "instrument:raw:21t_icr"]
+        quals = ["instrument:raw:ultra_high_resolution_ft_icr_ms",
+                 "instrument:raw:ultrahigh_resolution_ft_icr_mass_spectrometer",
+                 "instrument:raw:high_resolution_ft_icr_mass_spectrometer",
+                 "instrument:raw:lower_field_ft_icr_ms",
+                 "instrument:raw:bruker_solarix_ft_icr_ms"]
+        print(f"  guardrails: 21T={'live' if 'instrument:raw:21t_icr' in alive_ids else 'GONE!'}"
+              f"({uses_out_by_obj.get('instrument:raw:21t_icr',0)}), "
+              f"all magnets live={all(m in alive_ids for m in magnets)}, "
+              f"qualifier FT-ICR live={all(q in alive_ids for q in quals)}, "
+              f"group-5 hi-res live={g5id in alive_ids}")
     print("  --- KI-8 remediation (R1/R2) ---")
     print(f"  RawDataFile composite ids minted: {composite_events}")
     print(f"  RawDataFile nodes out:            {rawfile_out}")
