@@ -36,10 +36,21 @@ crosswalk. **1 held** — MSV000085978 (jproteome.0c00403), a known duplicate of
 HAS_DATASET 290 -> 293, totals 4,891/11,654 -> 4,894/11,657; read back from Neo4j, load_cleared,
 0 quarantined).
 
+**New-namespace deposits (SRA / BioProject / BCO-DMO) — RESOLVED 2026-07-22.** Rather than mint
+new `dataset:sra:` / `dataset:bioproject:` / `dataset:bco-dmo:` prefixes, the **6** genuinely-new
+deposits were minted under the existing `dataset:other:` namespace with the **true repo preserved
+in the `repository` property**: SRP097447 & SRP093781 (NCBI SRA), PRJNA1066388/792827/598915
+(NCBI BioProject), and 472758 (BCO-DMO, `dataset:other:bco-dmo_472758`). Each was graph-absence
+checked three ways (other-id, old-prefix, fuzzy) before minting; `source_url` is the canonical
+repo landing page (deterministic reformatting, not a lookup). Durable path (Dataset 300 -> 306,
+HAS_DATASET 293 -> 299, totals 4,894/11,657 -> 4,900/11,663; read back from Neo4j, load_cleared,
+0 quarantined). *Sibling deposits in the two bundle citations were verified **already captured**
+(nodes + paper edges present, not uncaptured): `d2em00184e` -> `dataset:osf:t4eqx` &
+`dataset:zenodo:5806541`; `fmicb.2020.01753` -> `dataset:other:10.5066/p933aplh` (USGS).*
+
 **Still HELD (NOT minted — await David's ruling):**
 - **MSV000085978** — held as a duplicate of `dataset:other:10.25345/c54n1p` (same submission,
   two accession schemes); reconcile via crosswalk, do not mint a second node.
-- **New-namespace deposits** (SRA / BioProject / BCO-DMO) — no repository handler yet.
 - **PXD026178** — cited in a PDF but has no raw-file lineage in the graph.
 - **`other:0516284a`** — the PRIDE search-URL node (candidate to fold into the Blood Proteoform
   Atlas PXD set).
