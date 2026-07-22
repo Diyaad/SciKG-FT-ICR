@@ -7,6 +7,50 @@ Add new issues at the top.
 
 ---
 
+## KI-15 — Researcher identity fragmentation (one person split across multiple mangled/clean nodes)
+**Status:** open — detected read-only, awaiting human adjudication; NOT applied.
+**Surfaced by:** the researcher de-fragmentation pass, 2026-07-22.
+
+The 2,076 Researcher nodes contain the same person under multiple identifiers (diacritic collapse
+`Chac_n-Pati_o` ↔ `chacon_patino`, `_x` middle-initial artifacts, fuzzy surname typos). Detection
+wrote a 179-row ledger (`data/processed/review/researcher_merge_ledger.jsonl`): 13 MERGE-HIGH
+(clean twin + shared co-author anchor), 141 REVIEW (fuzzy, human-decides), 23 DISPLAY-ONLY (no twin),
+2 PARSE-FAIL (identifier-caught fused strings). **Queues, so nothing floats:** MERGE-HIGH sign-off →
+`review/researcher_merge_13_humanread.md`; REVIEW + DISPLAY-ONLY + PARSE-FAIL →
+`review/researcher_review_queue.md`. Phase-2 apply script `scripts/merge_researcher_nodes.py`
+(built, dry-run only; ledger unsigned, 0 rows `apply:true`). Applying the 13 changes Researcher
+count 2076→~2063 and the co-authorship network (incl. the Marshall–Rodgers pair). Depends on KI-14
+(retiring nodes needs a prune path to avoid stale data).
+
+**FUSED-AUTHOR SWEEP (updated 2026-07-22): PARSE-FAIL is not 2 but ~110.** The ledger's PARSE-FAIL
+detection scanned the **identifier** for an `_and_` token and caught only 2
+(`chanton_j_p_and_cooper_w_2012`, `vanishing_glaciers_field_team_x_2025`). Most fusions survive only
+in **`name_full`** (the identifier keeps just the first author, e.g. `emmett_m_2012` labeled
+`"Emmett, M.R. and Marshall, A.G."`). A read-only `name_full` sweep of the live graph found **110**
+fused nodes (107 two-name "X and Y", 3 collective/et-al) — full list + per-node paper counts in
+`review/researcher_review_queue.md` §3. Each fused id is the **sole node for its first author**
+(identifier is correct); the second name was swallowed into the label, so on affected papers the
+co-author has **no edge to their real node**. **Sign-off safety: 0 of the 110 appear in the 13
+MERGE-HIGH pairs** (verified) — the sign-off sheet is safe. **Poster impact — touches the "55":** 26
+fused nodes swallow **Marshall, A.G.**
+
+**Edge-fix reconciliation (2026-07-22, ground-truth measured).** Direction chosen: ADD the missing
+`AUTHORED_BY` edges (the swallowed co-author is already named in `name_full` — no re-extraction). A
+fused node's identifier is its FIRST author and accumulates ALL that author's papers (`emmett_m_2012`
+= 64), so the co-author was swallowed ONLY on the papers whose RAW CSV author string actually contains
+the fused token (Emmett: **13 of 64**; Purcell: **1 of 21**). Staging an edge for every paper on the
+node would **fabricate 119 co-authorships** — so each edge is grounded per-paper in the CSV string.
+Result (STEP 1 resolve on 110 nodes): **57 RESOLVED → 79 grounded edges**, 0 AMBIGUOUS, **50 NO-NODE**
+(second author has no node → needs a mint, separate call), **3 COLLECTIVE**. **Corrected Marshall–
+Rodgers pair: 56 → 64 (+8)** — NOT the earlier ~72 estimate, which wrongly assumed all node-papers
+carried Marshall (8 of those 16 papers never had Marshall as an author). Dry-run ledger:
+`review/coauthor_edge_fix_ledger.jsonl` (79 rows, all `apply:false`); review:
+`review/coauthor_edge_fix_review.md`; portable apply script: `scripts/apply_coauthor_edge_fix.py`
+(built, dry-run verified; awaiting Diya/David sign-off). **The pending Rodgers `_x` merge also moves
+this pair — reconcile the two corrections together, not stacked.** **Root-cause fix = the author-token
+parser in 02/03** (split "X and Y" author strings) — future work; this is post-load reconciliation, not
+a merge, and `name_full` label cleanup is flagged separately (not overwritten here).
+
 ## KI-14 — 05_load.py is MERGE-only and cannot shrink the graph (node/edge retirements leave stale data)
 **Status:** open — needs a fix (a `--prune` step); worked around manually on 2026-07-21.
 **Surfaced by:** the instrument dedup load (typo merges + FT-ICR generic collapse + Velos split), 2026-07-21.
