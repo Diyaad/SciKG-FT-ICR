@@ -27,9 +27,18 @@ counts**. First application: **11 HAS_DATASET edges = 3 link (accession matched 
 Dataset node) + 8 mint (new Dataset node + edge)** — Dataset 289 -> 297, HAS_DATASET 279 -> 290,
 totals 4,883/11,643 -> 4,891/11,654.
 
+**MSV native accessions — RESOLVED 2026-07-22.** After a MassIVE lookup paired each `MSV000*`
+with its `10.25345/` DOI and confirmed no in-graph twin, **3 minted** as `dataset:massive:{msv}`
+(MSV000094542 -> mcpro.2024.100814, MSV000094385 -> orggeochem.2024.104880, MSV000095816 ->
+jasms.4c00380), each carrying its paired DOI in the evidence_note for a future MSV<->DOI
+crosswalk. **1 held** — MSV000085978 (jproteome.0c00403), a known duplicate of the existing
+`dataset:other:10.25345/c54n1p`. Emitted through the same durable path (Dataset 297 -> 300,
+HAS_DATASET 290 -> 293, totals 4,891/11,654 -> 4,894/11,657; read back from Neo4j, load_cleared,
+0 quarantined).
+
 **Still HELD (NOT minted — await David's ruling):**
-- **MSV native accessions** (MassIVE `MSV000*`) — pending a namespace decision (the MassIVE
-  ProteomeXchange twin exists, but how to store it is unruled).
+- **MSV000085978** — held as a duplicate of `dataset:other:10.25345/c54n1p` (same submission,
+  two accession schemes); reconcile via crosswalk, do not mint a second node.
 - **New-namespace deposits** (SRA / BioProject / BCO-DMO) — no repository handler yet.
 - **PXD026178** — cited in a PDF but has no raw-file lineage in the graph.
 - **`other:0516284a`** — the PRIDE search-URL node (candidate to fold into the Blood Proteoform
