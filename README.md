@@ -11,7 +11,7 @@ AI-assisted exploration.
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
 > extraction (stage 02d) exists and is under evaluation. Normalization,
 > validation, and load (stages 03-05) are DONE — the graph is loaded into
-> Neo4j AuraDB (4,909 nodes, 11,668 edges). Current focus: graph
+> Neo4j AuraDB (4,891 nodes, 11,654 edges; instrument dedup + dataset-accession mint applied 2026-07-22). Current focus: graph
 > validation/analysis against the researcher discovery questions and the poster.
 
 ---
@@ -85,7 +85,7 @@ scikg/
 │       ├── relationships/           # Extracted relationships (JSONL)
 │       ├── normalized/              # Normalized entities + relationships (03 output)
 │       ├── logs/                    # Extraction/normalization logs (JSONL)
-│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,909 nodes, 11,668 edges; load_cleared)
+│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,891 nodes, 11,654 edges; load_cleared)
 ├── scripts/                         # Pipeline scripts — run in order
 │   ├── 01_fetch.py
 │   ├── 01b_fetch_pdfs.py
@@ -99,6 +99,7 @@ scikg/
 │   ├── 03_normalize.py
 │   ├── 04_validate.py              # (built)
 │   ├── 05_load.py                  # (run — graph loaded into Neo4j AuraDB)
+│   ├── mint_dataset_operator_edges.py  # human-gated post-load: PDF dataset_accession -> HAS_DATASET
 │   ├── db.py
 │   └── ...                         # plus helper/verification utilities (build_vocabulary, verify_pdf_corpus, audit_repo, etc.)
 ├── tests/                           # One test file per pipeline script
@@ -163,12 +164,31 @@ flag marks the 199 confirmed MagLab-acquired (LTQ FT Ultra), with the
 rest unconfirmed (attribution not recoverable from metadata). PDF
 gap-field extraction (stage 02d) exists and is under evaluation.
 Normalization, validation, and load (stages 03-05) are complete; the
-graph is loaded into Neo4j AuraDB (4,909 nodes, 11,668 edges).
+graph is loaded into Neo4j AuraDB (4,891 nodes, 11,654 edges).
+
+A human-gated post-load reconciliation (`mint_dataset_operator_edges.py`,
+applied 2026-07-22) mints the PDF-extracted `dataset_accession` values that
+02d extracts but never links into `HAS_DATASET` edges. It is deliberately
+separate from 02d and gated behind human review because these accessions
+carry fuzzy/hallucinated values (wrong-repo, mis-OCR'd, or invented) that
+must be confirmed before entering the graph — keeping 02d fabrication-free.
+Approved records are `--emit`-ted to pre-normalize JSONL and flow through
+03->04->05 like any other extracted record, so `graph = f(files)` still
+holds (verified by a files-only rebuild into an empty Neo4j instance). The
+first application added 8 Dataset + 11 HAS_DATASET (289->297, 279->290).
+Held for rulings, not minted: MSV native accessions, new-namespace deposits
+(SRA/BioProject/BCO-DMO), PXD026178, the `other:0516284a` PRIDE search-URL
+node, and raw-file operators (intentionally unmodeled — FOXDEN metadata
+carries no reliable person identity).
 
 Instrument identity is derived from the FOXDEN 'model' field, so the
 same physical instrument deduplicates across sources. Controlled-
 vocabulary instrument terms were audited against PSI-MS (via EBI OLS4)
-and corrected. The Dataset repository namespace is ProteomeXchange,
+and corrected. A table-driven instrument dedup in 03 (applied 2026-07-21,
+469 -> 443) additionally merged OCR/spacing typo variants, collapsed the
+bare-generic FT-ICR spellings into one FT-ICR MS node (MS:1003948), and
+split the conflated Velos node into distinct hybrid (LTQ Orbitrap Velos)
+and ion-trap (Velos Pro, LTQ Velos) instruments. The Dataset repository namespace is ProteomeXchange,
 aligned across the CSV (02b) and PXD (02f) extractors.
 
 Building a provenance-aware knowledge graph from 806 ICR journal
