@@ -238,9 +238,11 @@ def classify_mechanism(nodes):
         reasons.append("accent-collapse")
     elif len(norm) > 1:
         reasons.append("spelling-variant")
-    stems = {re.sub(r"_\d{4}$", "", n["researcher_id"]) for n in nodes}
-    if len(stems) == 1:
-        reasons.append("year-suffix-duplicate")
+    # NOTE: the former "year-suffix-duplicate" reason (re.sub(r"_\d{4}$", ...))
+    # is removed. Researcher ids no longer carry a year suffix (KI-16 slug fix:
+    # researcher:{translit_family}_{initial}), and accent variants now share one
+    # id and merge in 03, so this heuristic could no longer fire — it went
+    # silently dead rather than erroring. Dropped rather than left inert.
     return "/".join(dict.fromkeys(reasons)) or "same-name-distinct-nodes"
 
 

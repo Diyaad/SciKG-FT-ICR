@@ -29,7 +29,7 @@ Relationship source_type follows the evidence the edge is drawn from:
   OPERATED_BY  / CONTAINS_SAMPLE -> "manual_annotation"  (filename_metadata)
 
 The operator of all 46 files is one person who already exists in
-researchers.jsonl as "researcher:butcher_d_2024" (from 02b). That identifier is
+researchers.jsonl as "researcher:butcher_d" (from 02b). That identifier is
 reused verbatim for every OPERATED_BY edge; no new Researcher is minted and the
 operator name is never parsed. If that identifier is absent when this stage
 runs, it stops rather than guessing.
@@ -71,7 +71,9 @@ SOURCE_SOFTWARE = "fisher_py"
 
 # The operator of every RAW file already exists as a Researcher (from 02b).
 # Reused verbatim — never minted, never parsed from operator_name.
-OPERATOR_RESEARCHER_ID = "researcher:butcher_d_2024"
+# Format is researcher:{translit_family}_{first_initial} (no year — KI-16 slug fix);
+# if this id is absent when 02c runs (e.g. Butcher not in the CSV), the stage stops.
+OPERATOR_RESEARCHER_ID = "researcher:butcher_d"
 
 # Filename-metadata keys copied straight onto the RawDataFile record.
 FILENAME_METADATA_FIELDS = [

@@ -120,7 +120,7 @@ corpus scale (the measured floor for the 913 distinct hashes is 6; 16 = 64 bits 
 - **Identifiers:** lowercase namespace + `:` + value
   - `doi:10.1021/acs.analchem.5c06165`
   - `pub:maglab:18517`
-  - `researcher:lastname_f_2019`
+  - `researcher:lastname_f` (transliterated family + first initial; no year — KI-16)
   - `facility:icr_facility`
   - `instrument:raw:21t_icr`
 - **PSI-MS IDs:** uppercase, `MS:XXXXXXX` format
@@ -297,9 +297,16 @@ When CrossRef and CSV both provide a field:
 Sources 1, 2, 4, and 5 (RAW file operator).
 
 **Conforms to:** schema.org/Person, DataCite creator  
-**Identifier:** `orcid:{value}` when present; otherwise `researcher:{family_lower}_{given_initial}_{first_pub_year}`
-— **the `orcid:` form is DEFERRED and not in use; identity is always the minted
-`researcher:*` form. See "ORCID (Added 2026-07-23)" below before acting on this line.**
+**Identifier:** `orcid:{value}` when present; otherwise
+`researcher:{translit_family}_{given_initial}[_{seq}]` — the family name is
+NFKD-transliterated (accents/hyphens/spaces normalized together, so "Chacón-Patiño"
+and "Chacon Patino" share one id), `given_initial` is the FIRST initial only, and
+there is **no year** (it was order-dependent and fragmented identities — KI-16).
+`_{seq}` is appended only on a genuine collision between two different people
+sharing a key (0 in the current corpus), assigned deterministically (earliest
+publication year → first DOI → given string). — **the `orcid:` form is DEFERRED
+and not in use; identity is always the minted `researcher:*` form. See "ORCID
+(Added 2026-07-23)" below before acting on this line.**
 
 ### Properties
 
@@ -1052,7 +1059,7 @@ In order of preference:
    `inst:`, `dataset:`, `instrument:`, `sample:`
 
 Internal PIDs are lowercase, underscored, and human-readable. Example: 
-`researcher:lastname_f_2019`.
+`researcher:lastname_f` (transliterated family + first initial; no year — KI-16).
 
 JSON-LD export format uses namespace prefix (`doi:10.1021/...`, 
 `orcid:0000-...`, `ms:1003948`). Internal Neo4j storage may use bare 
