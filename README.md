@@ -11,7 +11,7 @@ AI-assisted exploration.
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
 > extraction (stage 02d) exists and is under evaluation. Normalization,
 > validation, and load (stages 03-05) are DONE — the graph is loaded into
-> Neo4j AuraDB (4,891 nodes, 11,654 edges; instrument dedup + dataset-accession mint applied 2026-07-22). Current focus: graph
+> Neo4j AuraDB (4,886 nodes, 11,663 edges; instrument dedup, dataset-accession mint, ORCID enrichment, and a researcher-identifier slug fix — transliterate accents, drop the year — 2,076→2,062, all applied 2026-07-24). A researcher-equivalence layer (SAME_AS) is committed but not yet production-loaded. Current focus: graph
 > validation/analysis against the researcher discovery questions and the poster.
 
 ---
@@ -85,7 +85,7 @@ scikg/
 │       ├── relationships/           # Extracted relationships (JSONL)
 │       ├── normalized/              # Normalized entities + relationships (03 output)
 │       ├── logs/                    # Extraction/normalization logs (JSONL)
-│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,891 nodes, 11,654 edges; load_cleared)
+│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,886 nodes, 11,663 edges; load_cleared)
 ├── scripts/                         # Pipeline scripts — run in order
 │   ├── 01_fetch.py
 │   ├── 01b_fetch_pdfs.py
@@ -100,6 +100,10 @@ scikg/
 │   ├── 04_validate.py              # (built)
 │   ├── 05_load.py                  # (run — graph loaded into Neo4j AuraDB)
 │   ├── mint_dataset_operator_edges.py  # human-gated post-load: PDF dataset_accession -> HAS_DATASET
+│   ├── fetch_crossref_orcid.py     # ORCID enrichment 1/4: cache CrossRef author/ORCID JSON
+│   ├── analyze_orcid_coverage.py   # ORCID enrichment 2/4: read-only coverage + bounded match
+│   ├── emit_orcid_properties.py    # ORCID enrichment 3/4: apply ruling -> proposed + exclusions
+│   ├── enrich_researchers_orcid.py # ORCID enrichment 4/4: write orcid props into researchers.jsonl
 │   ├── db.py
 │   └── ...                         # plus helper/verification utilities (build_vocabulary, verify_pdf_corpus, audit_repo, etc.)
 ├── tests/                           # One test file per pipeline script
@@ -142,7 +146,7 @@ scikg/
 | [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md) | The 14 real researcher-submitted questions the graph is evaluated against |
 | [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md) | Verified facts vs. proposed ideas vs. unknowns |
 | [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md) | Log of review-worthy changes and assumptions |
-| [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md) | Known issues register — data-quality limitations, caught errors, and their rulings (KI-1..KI-13) |
+| [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md) | Known issues register — data-quality limitations, caught errors, and their rulings (KI-1..KI-17) |
 | [docs/controlled_vocabulary.md](docs/controlled_vocabulary.md) | Controlled vocabulary — instrument/method terms mapped to PSI-MS accessions |
 | [docs/PDF_EXTRACTION_EVAL.md](docs/PDF_EXTRACTION_EVAL.md) | PDF gap-field extraction (stage 02d) evaluation results |
 | [docs/annotations/](docs/annotations/) | Manual paper-review notes (paper_reviews.md) |
@@ -164,7 +168,7 @@ flag marks the 199 confirmed MagLab-acquired (LTQ FT Ultra), with the
 rest unconfirmed (attribution not recoverable from metadata). PDF
 gap-field extraction (stage 02d) exists and is under evaluation.
 Normalization, validation, and load (stages 03-05) are complete; the
-graph is loaded into Neo4j AuraDB (4,891 nodes, 11,654 edges).
+graph is loaded into Neo4j AuraDB (4,886 nodes, 11,663 edges).
 
 A human-gated post-load reconciliation (`mint_dataset_operator_edges.py`,
 applied 2026-07-22) mints the PDF-extracted `dataset_accession` values that
@@ -190,6 +194,40 @@ bare-generic FT-ICR spellings into one FT-ICR MS node (MS:1003948), and
 split the conflated Velos node into distinct hybrid (LTQ Orbitrap Velos)
 and ion-trap (Velos Pro, LTQ Velos) instruments. The Dataset repository namespace is ProteomeXchange,
 aligned across the CSV (02b) and PXD (02f) extractors.
+
+Author identity was enriched with ORCIDs from CrossRef structured metadata
+(author[].ORCID — a deterministic per-DOI lookup, not extraction). 471 of 2,062
+Researcher nodes (22.9%) now carry an orcid, split 192 author-verified / 279
+publisher-asserted; stored as two properties (orcid + orcid_authenticated), never
+flattened. RULED properties-only: ORCID-as-identifier is DEFERRED and
+ENABLE_ORCID_CANONICALIZATION stays False (turning it on would mint a duplicate
+Researcher node set — see CLAUDE.md and KI-16). Note: docs/DISCOVERY_QUESTIONS.md
+cites 4,909 / 11,668 (2026-07-20), higher than the current graph (by 23 nodes /
+5 edges) and not yet reconciled.
+
+Researcher identifiers were re-minted this session to
+`researcher:{translit_family}_{initial}` — NFKD-transliterated accents, separators
+normalized, and the YEAR DROPPED (it was order-dependent, and all 14 same-key
+collisions were fragmentations of one person, never two people; ORCID-verified 0
+false collapses). On collapse the most diacritic-rich `name_full` wins, with fused
+"A and B" forms filtered first (David's preserve-accents ruling) — slugs are ASCII,
+names keep their diacritics. This dissolved 14 accent-variant duplicates (2,076 →
+2,062). Two non-destructive equivalence edge types were added: `SAME_AS` (PROVEN,
+shared author-verified ORCID) and `POSSIBLY_SAME_AS` (INFERRED, human-confirm),
+both undirected and additive (nothing merged, both names kept). 3 SAME_AS edges are
+committed (aguilera↔chacón-patiño surname change, hoeschen↔hoschen,
+salvato_vallverdu↔vallverdu); 25 POSSIBLY_SAME_AS candidates await review
+(docs/researcher_equivalence_review_packet.txt), not applied. See CLAUDE.md and KI-17.
+
+The graph rebuilds from committed files (03 -> 04 -> 05 into an empty instance) —
+VERIFIED 2026-07-24: a clean rebuild from the release commit reproduced 4,886/11,663
+exactly. It is reproducible-from-committed-files, NOT re-derivable-from-source:
+three curated files are hand-maintained migrations a clean 02x extractor run does
+NOT reproduce — pdf_entities.jsonl (Institution/Instrument/Software), pdf_dataset_*.jsonl
+(the dataset mint, its ledger removed from the repo), and software.jsonl (the
+Xcalibur collapse: 7 versioned nodes → 1, versions moved to the ACQUIRED_WITH edge).
+A fresh clone runs 03 -> 04 -> 05 and gets the exact graph; re-running the extractors
+overwrites those three (KI-13). Also rawfiles_pxd/ and pdf_extraction/ are local-only.
 
 Building a provenance-aware knowledge graph from 806 ICR journal
 articles (from the MagLab CSV) plus five other sources: the CrossRef

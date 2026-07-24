@@ -89,6 +89,10 @@ REL_TYPES = {
     "USES_INSTRUMENT", "HAS_DATASET", "USES_SOFTWARE", "COLLECTED_ON", "OPERATED_BY",
     "CONTAINS_SAMPLE", "ACQUIRED_WITH", "DERIVED_FROM",
     "FLAGS",   # KI-8: Advisory -> RawDataFile (byte-identical set membership)
+    "SAME_AS", # KI-17: Researcher <-> Researcher, PROVEN equivalence (shared author-verified ORCID)
+    # POSSIBLY_SAME_AS is INTENTIONALLY absent: those are inferred, awaiting David's
+    # per-edge review (docs/researcher_equivalence_review.md). Keeping it out means a
+    # premature POSSIBLY_SAME_AS edge ABORTS 05 rather than loading unreviewed.
 }
 
 PROVENANCE_PROPS = (

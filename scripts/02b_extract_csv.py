@@ -45,6 +45,7 @@ import hashlib
 import json
 import re
 import sys
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -159,12 +160,36 @@ def parse_bool(value):
 def slugify(text):
     """Lowercase, collapse any run of non-alphanumerics to a single underscore.
 
-    Used for facility/journal/instrument/researcher identifier components, e.g.
-    "ICR Facility" -> "icr_facility", "21T ICR" -> "21t_icr".
+    Used for facility/journal/instrument identifier components, e.g.
+    "ICR Facility" -> "icr_facility", "21T ICR" -> "21t_icr". NOTE: ASCII-only —
+    it maps every accented letter to "_". Researcher family names use
+    translit_family() below instead; do NOT switch instrument/facility/journal
+    slugs to it (their dedup tables are keyed on these exact ASCII forms).
     """
     if text is None:
         return ""
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
+
+
+def translit_family(text):
+    """Transliterate a family name to a stable ASCII slug for Researcher ids.
+
+    NFKD-deaccents (ó->o, ñ->n, ü->u, å->a, ć->c, š->s, è->e, ä->a), folds the
+    Latin-1 artifacts seen in the MagLab CSV (\\x96/\\x97 en/em-dash, \\x9a
+    s-caron), then collapses any run of non-alphanumerics to "_". Because accents
+    AND hyphen/space normalize together, "Chacón-Patiño" and "Chacon Patino" both
+    yield "chacon_patino" — the same person no longer fragments into two nodes on
+    a data-entry spelling difference. Replaces slugify() ONLY for the researcher
+    family component (KI-16 root-cause fix).
+    """
+    if not text:
+        return ""
+    text = text.replace("\x96", "-").replace("\x97", "-").replace("\x9a", "s")
+    stripped = "".join(
+        c for c in unicodedata.normalize("NFKD", text)
+        if not unicodedata.combining(c)
+    )
+    return re.sub(r"[^a-z0-9]+", "_", stripped.lower()).strip("_")
 
 
 def split_multi(value, sep):
@@ -260,8 +285,15 @@ def parse_name(token):
 
 
 def name_natural_key(family_name, given_name):
-    """Stable within-publication key for matching authors to corr-authors."""
-    fam = slugify(family_name)
+    """Stable within-publication key for matching authors to corr-authors.
+
+    Family is transliterated (translit_family), so accented and de-accented
+    spellings of one surname share a key. `initial` is the FIRST given initial
+    only — deliberately NOT the fuller given name: the CSV writes middle initials
+    inconsistently ("M." vs "M.L."), so a fuller key would re-fragment ~121 real
+    people (KI-16 given-name study).
+    """
+    fam = translit_family(family_name)
     initial = given_name.strip()[0].lower() if given_name and given_name.strip() else "x"
     if not initial.isalnum():
         # given_name starting with a non-alphanumeric (rare) -> fall back to x
@@ -416,13 +448,28 @@ class Extractor:
 
     # --- researcher minting ------------------------------------------------
     def mint_researcher_id(self, family_name, given_name, year):
-        """Mint/reuse a researcher identifier, keeping the first-seen year."""
+        """Mint/reuse a researcher identifier: researcher:{translit_family}_{initial}.
+
+        The YEAR IS DROPPED. It was the first-seen publication year, which is
+        order-dependent (first author instance in CSV order wins), so the same
+        person got a different suffix depending on row order — an identity-
+        fragmentation source independent of accents (KI-16). Identity is
+        (translit_family, first_initial).
+
+        No _seq suffix is minted here: distinguishing two genuinely different
+        people who share a key needs ORCID, which 02b does not have. The current
+        corpus has ZERO such collisions (all 14 same-key pairs are one person,
+        ORCID-verified), so every key maps to exactly one identifier. If a real
+        collision ever appears, it is resolved downstream where ORCID is
+        available, with a deterministic _seq (earliest year -> first DOI ->
+        given string). `year` is retained in the signature for callers but is no
+        longer part of the identifier.
+        """
         fam, initial = name_natural_key(family_name, given_name)
         key = (fam, initial)
         if key in self.researcher_registry:
             return self.researcher_registry[key]
-        year_part = str(year) if year is not None else "unknown"
-        identifier = f"researcher:{fam}_{initial}_{year_part}"
+        identifier = f"researcher:{fam}_{initial}"
         self.researcher_registry[key] = identifier
         return identifier
 

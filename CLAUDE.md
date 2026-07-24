@@ -8,10 +8,20 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,891 nodes, 11,654 edges
-(validation_report.json, load_cleared, 2026-07-22; instrument dedup applied,
-469 -> 443 Instrument; dataset-accession mint applied, Dataset 289 -> 297,
-HAS_DATASET 279 -> 290). Validation uses a
+Loaded into Neo4j AuraDB (cloud, neo4j+s://3e16fe28): 4,886 nodes, 11,663 edges
+(production, load_cleared, 2026-07-24; live-graph verified). Researcher
+2,076 -> 2,062 via the researcher-identifier slug fix (14 accent-collapse merges,
+see Architecture decisions); prior state was 4,900/11,663. Also: instrument dedup
+469 -> 443 Instrument; dataset-accession mint across three batches, Dataset
+289 -> 306, HAS_DATASET 279 -> 299; ORCID enrichment 471 of 2,062 Researcher
+nodes (192 author-verified / 279 publisher-asserted). A researcher-equivalence
+layer (3 SAME_AS edges, researcher_equivalence.jsonl) is committed and Docker-
+verified but NOT yet loaded to production — it loads ADDITIVELY (11,663 -> 11,666,
+no node change). NOTE: docs/DISCOVERY_QUESTIONS.md cites 4,909 / 11,668 (measured
+2026-07-20, v1.0) — HIGHER than the current graph by 23 nodes / 5 edges and not
+explained by the mints; flagged, not reconciled (POSTER_FINDINGS.md T2). Do not
+overwrite that file's figure until it is traced.
+Validation uses a
 ground-truth set of 8 papers manually annotated by the team. 2-person
 team, CI Compass Fellowship, June 1 – July 31 (8 weeks).
 
@@ -90,8 +100,8 @@ PDF transform (02d extraction -> entity/relationship nodes)
 05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
                 writes to Neo4j AuraDB via scripts/db.py
-                Loaded 4,891 nodes + 11,654 edges (validation_report.json,
-                load_cleared: true, 2026-07-22).
+                Loaded 4,886 nodes + 11,663 edges (production, load_cleared: true,
+                2026-07-24; Researcher 2,062 after the slug fix).
                 NOTE: 05 is MERGE-only and cannot shrink the graph — a load that
                 RETIRES nodes/edges (e.g. the instrument dedup) leaves stale data
                 that needs a manual reconcile until a --prune step exists. See KI-14.
@@ -122,6 +132,40 @@ mint_dataset_operator_edges.py
                 Blood Proteoform Atlas PXD set); and raw-file OPERATORS, left
                 intentionally unmodeled (FOXDEN data_creator carries no reliable
                 person identity — no OPERATED_BY minted for PXD files).
+ORCID enrichment sub-flow (post-load; properties only, human-gated ruling)
+                Source: CrossRef structured author[].ORCID / authenticated-orcid —
+                a deterministic per-DOI lookup, NOT text extraction and NOT inferred.
+                Matching is bounded per paper (only against Researcher nodes already
+                linked to that Publication by AUTHORED_BY; no global name search).
+                Coverage (post slug fix): 471 of 2,062 Researcher nodes (22.9%) carry
+                an orcid, split 192 author-verified (authenticated-orcid: true) / 279
+                publisher-asserted (false). 63 candidates EXCLUDED, not applied: 31 rows
+                on 7 reverse-error nodes (one node holding 2+ distinct ORCIDs), 30
+                compound-surname UNMATCHED, 2 fused. Enrichment enters through
+                pre-normalize JSONL and flows 03 -> 04 -> 05, so graph = f(files) holds.
+                (Was 475/2,076 before the slug fix collapsed 14 accent-variant nodes;
+                the 4-node drop is 4 both-ORCID accent pairs merging into one node
+                each.) See KI-16.
+fetch_crossref_orcid.py
+                caches CrossRef author/ORCID JSON for graph DOIs to
+                data/processed/cache/crossref/ (gitignored)
+analyze_orcid_coverage.py
+                READ-ONLY; cache + graph -> data/processed/review/orcid_coverage_report.md
+                + orcid_candidates.jsonl (bounded per-paper match, no global search)
+emit_orcid_properties.py
+                applies the eligibility ruling -> review/proposed_researcher_orcid_entities.jsonl
+                + orcid_exclusions.jsonl (dry-run by default)
+enrich_researchers_orcid.py
+                writes orcid / orcid_authenticated into the committed
+                data/processed/entities/researchers.jsonl in place; then re-run 03 -> 04 -> 05
+Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
+                No extractor script — edges are authored to
+                data/processed/relationships/researcher_equivalence.jsonl and flow
+                03 -> 04 -> 05 like any other relationship file (durable, never
+                direct-to-graph). SAME_AS (proven, shared ORCID) is emitted directly;
+                POSSIBLY_SAME_AS (inferred) goes through human review
+                (docs/researcher_equivalence_review_packet.txt -> David -> emit approved).
+                New types must be registered in 04 RELATIONSHIP_FILES + 05 REL_TYPES.
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships
@@ -197,6 +241,63 @@ mint_dataset_operator_edges.py
   The uniqueness constraint is on identifier, not sha256_hash (sha256_hash
   is a non-unique property). See KI-8 and docs/SCIKG_SCHEMA.md (Node:
   RawDataFile, Node: Advisory).
+- ORCID is PROPERTIES-ONLY; ORCID-as-canonical-identifier is DEFERRED (RULED
+  2026-07-23). ENABLE_ORCID_CANONICALIZATION in 03_normalize.py is False and MUST
+  NOT be flipped without a new ruling. WHY: with it True, 03 Pass 3 retires
+  researcher:* -> orcid:* and rewrites AUTHORED_BY through the crosswalk; because
+  05 is MERGE-only and cannot retire the superseded nodes (KI-14), the result is a
+  DUPLICATE Researcher node set at orcid:* with authorship split across both — not a
+  property set on the existing nodes. The flag was inert only because orcid was
+  empty; now that 471 nodes carry ORCIDs, anyone who repopulates or re-runs without
+  reading this WILL hit it. See docs/SCIKG_SCHEMA.md "ORCID (Added 2026-07-23)" and
+  docs/KNOWN_ISSUES.md KI-16.
+- Rebuild is reproducible from COMMITTED FILES, but NOT re-derivable from original
+  sources — these are different guarantees. A fresh clone runs 03 -> 04 -> 05 and
+  reproduces the EXACT graph (VERIFIED 2026-07-24: a clean rebuild from commit 900c651
+  into an empty Neo4j instance reproduced 4,886/11,663 exactly). BUT re-running the
+  02x EXTRACTORS does NOT reproduce the graph, because THREE committed files are
+  hand-maintained migrations a clean extractor run overwrites/destroys:
+    * pdf_entities.jsonl + pdf_relationships.jsonl — 62 Institution + Instrument + 51
+      Software; the facility/instrument transforms are not in scripts/ (KI-13).
+    * pdf_dataset_entities.jsonl + pdf_dataset_relationships.jsonl — the dataset mint;
+      its input ledger was deleted from the repo (mint --emit is non-runnable).
+    * software.jsonl — the Xcalibur collapse (7 versioned nodes -> 1 software:xcalibur,
+      versions moved to ACQUIRED_WITH.version). A clean 02c/02f run regenerates the 8
+      raw versioned nodes WITHOUT canonical_name -> 04 quarantines them (proven this
+      session). Also data/raw/rawfiles_pxd/ (952 FOXDEN) and data/raw/pdf_extraction/
+      are local-only (02f / PDF extraction can't run from a clean clone).
+  RULE: rebuild from committed files (03 -> 04 -> 05), NEVER "clear and re-run all
+  extractors" — that was the mistake that destroyed the Xcalibur collapse mid-rebuild.
+  A researcher-only change regenerates ONLY researchers.jsonl + AUTHORED_BY (csv_
+  relationships) + the OPERATED_BY endpoint; everything else is restored from HEAD.
+  See KI-13.
+- Researcher identifier scheme (CHANGED 2026-07-24, KI-16). New form
+  researcher:{translit_family}_{initial}[_seq]: family is NFKD-transliterated
+  (accents dropped, hyphens/spaces normalized together, so "Chacón-Patiño" and
+  "Chacon Patino" share one slug), given is the FIRST initial only, and there is
+  NO YEAR. The year was dropped because it was order-dependent (first-seen wins in
+  02b, so the same person got a different suffix by CSV row order) — a fragmentation
+  source, and all 14 same-key collisions were fragmentations (one person), never two
+  different people (ORCID-verified 0 false collapses). _seq is appended only on a
+  genuine future collision (0 today), deterministically (earliest year -> first DOI).
+  SURVIVOR RULE (03_normalize.py, David's preserve-accents ruling): when accent
+  variants collapse, the surviving name_full is the MOST DIACRITIC-RICH form, but
+  fused "A and B" forms are FILTERED FIRST (so a co-author's accent never wins the
+  name — the Marshall/Brüschweiler inversion). Slugs are ASCII; names keep diacritics.
+  translit_family() is researcher-only; slugify() is UNCHANGED for
+  instrument/facility/journal (their dedup tables are keyed on the ASCII forms).
+- Researcher equivalence (NEW 2026-07-24, KI-17). Two non-destructive, undirected
+  Researcher<->Researcher edge types, stored ONE per pair from the lex-earlier
+  identifier; NEITHER merges/retires/repoints (both nodes and names kept). SAME_AS =
+  PROVEN (shared author-verified ORCID); POSSIBLY_SAME_AS = INFERRED (typo/co-author,
+  human-confirm). 3 SAME_AS live in files/Docker (aguilera<->chacon_patino surname
+  change, hoeschen<->hoschen, salvato_vallverdu<->vallverdu); 25 POSSIBLY_SAME_AS are
+  in docs/researcher_equivalence_review_packet.txt for David, NOT applied. Query
+  undirected: MATCH (a)-[:SAME_AS]-(b). GOTCHA — a NEW relationship type must be
+  registered in BOTH scripts/04_validate.py RELATIONSHIP_FILES (valid input files)
+  AND scripts/05_load.py REL_TYPES (loadable types); 03 and 04 pass without it but 05
+  ABORTS. POSSIBLY_SAME_AS is deliberately kept OUT of REL_TYPES so a premature
+  inferred edge aborts 05 rather than loading unreviewed.
 - Removed from scope: Workflow entity, Streamlit UI, chatbot, NetworkX,
   ASSOCIATED_WITH relationship, ProvenanceRecord node
 - RAW-file relationships: OPERATED_BY, CONTAINS_SAMPLE, COLLECTED_ON,

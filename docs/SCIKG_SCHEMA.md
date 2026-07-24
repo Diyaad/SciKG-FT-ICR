@@ -120,7 +120,7 @@ corpus scale (the measured floor for the 913 distinct hashes is 6; 16 = 64 bits 
 - **Identifiers:** lowercase namespace + `:` + value
   - `doi:10.1021/acs.analchem.5c06165`
   - `pub:maglab:18517`
-  - `researcher:lastname_f_2019`
+  - `researcher:lastname_f` (transliterated family + first initial; no year — KI-16)
   - `facility:icr_facility`
   - `instrument:raw:21t_icr`
 - **PSI-MS IDs:** uppercase, `MS:XXXXXXX` format
@@ -168,7 +168,7 @@ what makes the graph FAIR (R1.2) and PROV-O-aligned.
 
 | Property | Type | Allowed values | PROV-O mapping |
 |---|---|---|---|
-| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `llm_extraction`, `graph_derived` | `prov:wasGeneratedBy` |
+| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `merged_csv_api`, `llm_extraction`, `graph_derived` | `prov:wasGeneratedBy` |
 | `confidence` | string | `high`, `medium`, `low` | — |
 | `extracted_at` | ISO 8601 | `2026-06-29T14:00:00Z` | `prov:generatedAtTime` |
 | `evidence_note` | string | Free text, human-readable basis | — |
@@ -190,6 +190,28 @@ paper used `instrument:raw:21t_icr`. Merged in **03** (cross-file reconciliation
 than either), and an `evidence_note` quoting both. One paper using the 21 T is **one fact confirmed
 twice**, not two — a second edge would double-count it and force `DISTINCT` into every query. See
 KI-12.
+
+**`merged_csv_api` (added 2026-07-23) — COMPOSED fields, NOT corroborated ones.**
+`merged_csv_foxden` and `merged_csv_llm` both mark **one fact attested by two sources**, and
+both therefore carry a confidence implication (agreement is stronger than either source alone).
+**`merged_csv_api` is a different thing wearing a similar name.** It marks a Researcher record
+whose fields come from **different** sources: identity (`name_full`, `family_name`,
+`given_name`) from the MagLab CSV, and `orcid` / `orcid_authenticated` from the CrossRef API.
+The two sources attest **different fields** and corroborate **nothing**.
+
+Consequences, which differ from the other two composite labels:
+- **No confidence bump.** `confidence` is left exactly as the CSV record carried it (`high`) and
+  continues to describe the CSV identity fields. Raising it would import a
+  corroboration argument that does not apply here. The ORCID's own evidentiary weight is carried
+  by `orcid_authenticated` (author-verified vs publisher-asserted) and stated in `evidence_note`,
+  which also records how many papers independently produced the same match.
+- **`source_id` is a list** (`[maglab:{id}, doi:{...}]`), following the G1 widening below — here
+  the two origins are not corroboration but the *provenance of different fields*, so neither may
+  be dropped.
+
+A single scalar `confidence` cannot describe a record whose fields have different evidentiary
+strengths. Rather than average or overwrite it, this label leaves it alone and pushes the
+per-field strength into typed properties. Do not read `merged_csv_api` as "two sources agreed".
 
 **`source_id` as a list is a NEW choice, NOT the precedent (measured 2026-07-17, G1).**
 `merged_csv_foxden`'s `source_id` is a **scalar** pointing at `rawfiles_enriched/*.json` — a fused
@@ -275,7 +297,16 @@ When CrossRef and CSV both provide a field:
 Sources 1, 2, 4, and 5 (RAW file operator).
 
 **Conforms to:** schema.org/Person, DataCite creator  
-**Identifier:** `orcid:{value}` when present; otherwise `researcher:{family_lower}_{given_initial}_{first_pub_year}`
+**Identifier:** `orcid:{value}` when present; otherwise
+`researcher:{translit_family}_{given_initial}[_{seq}]` — the family name is
+NFKD-transliterated (accents/hyphens/spaces normalized together, so "Chacón-Patiño"
+and "Chacon Patino" share one id), `given_initial` is the FIRST initial only, and
+there is **no year** (it was order-dependent and fragmented identities — KI-16).
+`_{seq}` is appended only on a genuine collision between two different people
+sharing a key (0 in the current corpus), assigned deterministically (earliest
+publication year → first DOI → given string). — **the `orcid:` form is DEFERRED
+and not in use; identity is always the minted `researcher:*` form. See "ORCID
+(Added 2026-07-23)" below before acting on this line.**
 
 ### Properties
 
@@ -285,10 +316,43 @@ Sources 1, 2, 4, and 5 (RAW file operator).
 | `name_full` | string | M | CrossRef, CSV | Display form |
 | `family_name` | string | M | CrossRef, CSV | |
 | `given_name` | string | R | CrossRef, CSV | |
-| `orcid` | string | O | CrossRef | `0000-0000-0000-0000` format |
+| `orcid` | string | O | CrossRef | `0000-0000-0000-0000` format. From CrossRef structured `author[].ORCID` — a deterministic per-DOI lookup, never extraction |
+| `orcid_authenticated` | boolean | O | CrossRef | From `author[].authenticated-orcid`. `true` = author verified the iD at deposit; `false` = publisher-asserted. Only meaningful when `orcid` is present |
 | `initials` | string | O | RAW filename | e.g., "DSB" |
 | `is_nhmfl_author` | boolean | O | CSV | |
 | `is_corresponding_author` | boolean | O | CSV | |
+
+### ORCID (Added 2026-07-23)
+
+`orcid` was declared in v1.0 but never populated (0 nodes). It is now populated from
+CrossRef structured metadata for the DOI-bearing corpus.
+
+**Two properties, deliberately not one.** CrossRef distinguishes an iD the author
+authenticated at deposit (`authenticated-orcid: true`) from one the publisher asserted
+on their behalf (`false`). These carry different evidentiary weight, so they are stored
+as `orcid` + `orcid_authenticated` and MUST NOT be flattened into a single field. A
+consumer treating a publisher-asserted iD as author-verified is making a claim the
+source does not support.
+
+**RULED 2026-07-23 — properties only; ORCID-as-canonical-identifier is DEFERRED.**
+Populating `orcid` does NOT repoint node identifiers. Researcher identity remains the
+minted `researcher:{family_lower}_{given_initial}_{first_pub_year}`. This overrides the
+`orcid:{value}`-preferred minting rule above (see Universal Identity, which already
+records the external-PID tiers as aspirational) for as long as the deferral stands.
+
+Consequently `ENABLE_ORCID_CANONICALIZATION` in `03_normalize.py` is set to `False`.
+**This flag is not a feature awaiting activation — do not flip it back without a new
+ruling.** With it enabled, Pass 3 retires `researcher:*` to `orcid:*` and rewrites
+`AUTHORED_BY` endpoints through the crosswalk. Because 05 is MERGE-only and cannot
+retire the superseded nodes (KI-14), the result would be a duplicate Researcher node
+set at `orcid:*` identifiers, with authorship edges split across both — not a property
+set on the existing nodes.
+
+**Entity resolution is unchanged by this.** The ORCID-first merge rule (Entity
+resolution step 1, and Normalization Rules step 4) stays as written but remains
+DEFERRED: ORCIDs are recorded as evidence, not yet used to merge nodes. Merging on
+ORCID is a separate ruling, because the ORCID evidence itself shows 7 nodes carrying
+two distinct iDs — nodes that must be split, not merged.
 
 ### Email handling
 
@@ -971,6 +1035,67 @@ fisher_py`).
 inspecting RAW file FOXDEN JSONs for embedded DOI references after pipeline 
 load (Week 5 task). Not loaded into v1.0 until verification.
 
+### Entity-resolution relationships (`SAME_AS`, `POSSIBLY_SAME_AS`) — Researcher ↔ Researcher
+
+Two `Researcher → Researcher` equivalence edges that record "these two nodes are the
+same person" **without merging, retiring, or repointing anything** (RULED 2026-07-24).
+Additive only: node count, identifiers, and each node's own `name_full` are unchanged —
+the schema keeps **both** real names because both can be correct (preserve-names ruling;
+e.g. a surname change where one author published under each surname). This is
+equivalence-*linking*, **not** merging.
+
+| Relationship | Subject → Object | Source | Cardinality | Status |
+|---|---|---|---|---|
+| `SAME_AS` | Researcher → Researcher | graph_derived | MANY-MANY (symmetric) | Active 2026-07-24 (3 edges in committed files; loads additively) |
+| `POSSIBLY_SAME_AS` | Researcher → Researcher | graph_derived | MANY-MANY (symmetric) | Defined 2026-07-24 — NOT populated (candidates await human review) |
+
+**`SAME_AS` — PROVEN same person.** An exact anchor establishes identity beyond
+inference: a shared **author-verified ORCID** spanning both nodes, or another exact
+external anchor. It is also the tool for a **surname change** — two individually-correct
+surnames the same person published under, both nodes and names kept. A query may trust
+`SAME_AS` absolutely.
+
+**`POSSIBLY_SAME_AS` — INFERRED, not proven.** A lead for human confirmation:
+OCR/spelling variants, co-author overlap without an ORCID anchor, or period-parse
+residue that transliteration did not collapse (KI-16 / KI-17). **Never auto-trusted.**
+Kept a **separate type** precisely so a query can trust `SAME_AS` absolutely while
+treating `POSSIBLY_SAME_AS` as a hypothesis to verify.
+
+**Symmetric, stored once (undirected).** Both types are symmetric in meaning and MUST
+be queried undirected (`MATCH (a)-[:SAME_AS]-(b)`). Exactly **one** edge is stored per
+pair, written from the **lexicographically-earlier `identifier` to the later**. Writers
+dedupe on the unordered pair; readers never assume direction.
+
+**Distinct from the removed `ASSOCIATED_WITH`.** These are specific, typed,
+evidence-bearing equivalence assertions — not the generic catch-all `ASSOCIATED_WITH`
+(removed from scope).
+
+**DEFERRED — unchanged by this.** ORCID-as-canonical-identifier and node **merging**
+both remain DEFERRED (see "ORCID (Added 2026-07-23)" and Entity resolution). `SAME_AS`
+does **not** repoint `researcher:*` to `orcid:*`, does not retire either node, and does
+not move any `AUTHORED_BY` edge. Merging on ORCID is a separate, unmade ruling; these
+edges are the non-destructive alternative that preserves both identifiers and both names.
+
+**Edge properties** (beyond the six universal provenance props):
+
+| Property | Type | M/R/O | Values | Notes |
+|---|---|---|---|---|
+| `anchor_type` | string | M | `orcid` \| `shared_coauthor` \| `ocr_variant` \| `period_parse` \| `surname_change` \| `human_review` | What established the (candidate) equivalence. `human_review` = a `POSSIBLY_SAME_AS` a reviewer confirmed into a `SAME_AS` |
+| `orcid` | string | O | ORCID format | The matching ORCID when `anchor_type` is `orcid`/`surname_change`; else null |
+| `mechanism` | string | M | free text | Human-readable "why" the two nodes are (candidate) equivalent |
+
+`confidence` is the standard provenance field, **constrained** for these edges:
+**`proven`** for `SAME_AS`; **`high` \| `medium` \| `low`** for `POSSIBLY_SAME_AS`.
+`source_type` is **`graph_derived`** (computed from the graph's own ORCID / name /
+co-author data, like `FLAGS`); the other four universal props (`source_id`,
+`extracted_at`, `evidence_note`, `schema_version`) follow the usual pattern.
+
+**Registration (both required).** A new relationship type must be registered in BOTH
+`scripts/04_validate.py` `RELATIONSHIP_FILES` (valid input files —
+`researcher_equivalence.jsonl`) AND `scripts/05_load.py` `REL_TYPES` (loadable types);
+03/04 pass without it but 05 aborts. `POSSIBLY_SAME_AS` is deliberately absent from
+`REL_TYPES` so an unreviewed inferred edge aborts 05 rather than loading. See KI-17.
+
 ### Relationship properties
 
 | Relationship | Property | Type | Notes |
@@ -995,7 +1120,7 @@ In order of preference:
    `inst:`, `dataset:`, `instrument:`, `sample:`
 
 Internal PIDs are lowercase, underscored, and human-readable. Example: 
-`researcher:lastname_f_2019`.
+`researcher:lastname_f` (transliterated family + first initial; no year — KI-16).
 
 JSON-LD export format uses namespace prefix (`doi:10.1021/...`, 
 `orcid:0000-...`, `ms:1003948`). Internal Neo4j storage may use bare 
@@ -1041,6 +1166,7 @@ if any of these are true:
 - A required property is missing
 - DOI present but malformed (does not match `^10\.\d{4,}/.+`)
 - ORCID present but malformed (not `0000-0000-0000-0000` format)
+- `orcid_authenticated` present without `orcid`, or not a boolean
 - Any of the 6 provenance properties is missing
 - Relationship references a node that does not exist in entity tables
 - `schema_version` ≠ `"v1.0"`

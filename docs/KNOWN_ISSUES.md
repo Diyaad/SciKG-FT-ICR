@@ -7,49 +7,74 @@ Add new issues at the top.
 
 ---
 
-## KI-16 — Researcher identity fragmentation (one person split across multiple mangled/clean nodes)
-**Status:** open — detected read-only, awaiting human adjudication; NOT applied.
-**Surfaced by:** the researcher de-fragmentation pass, 2026-07-22.
+## KI-17 — 25 candidate researcher equivalences flagged for human review (POSSIBLY_SAME_AS), NOT applied
+**Status:** queued for David's sign-off (2026-07-24). NOT in the graph. Distinct from the 3 `SAME_AS` edges below.
 
-The 2,076 Researcher nodes contain the same person under multiple identifiers (diacritic collapse
-`Chac_n-Pati_o` ↔ `chacon_patino`, `_x` middle-initial artifacts, fuzzy surname typos). Detection
-wrote a 179-row ledger (`data/processed/review/researcher_merge_ledger.jsonl`): 13 MERGE-HIGH
-(clean twin + shared co-author anchor), 141 REVIEW (fuzzy, human-decides), 23 DISPLAY-ONLY (no twin),
-2 PARSE-FAIL (identifier-caught fused strings). **Queues, so nothing floats:** MERGE-HIGH sign-off →
-`review/researcher_merge_13_humanread.md`; REVIEW + DISPLAY-ONLY + PARSE-FAIL →
-`review/researcher_review_queue.md`. Phase-2 apply script `scripts/merge_researcher_nodes.py`
-(built, dry-run only; ledger unsigned, 0 rows `apply:true`). Applying the 13 changes Researcher
-count 2076→~2063 and the co-authorship network (incl. the Marshall–Rodgers pair). Depends on KI-14
-(retiring nodes needs a prune path to avoid stale data).
+The researcher slug fix (KI-16, transliterate + drop year) collapsed all accent/separator fragmentations,
+but **25 pairs did not collapse because the difference is not an accent** — mechanical artifacts that
+transliteration cannot reach: **period-parse** (`Rodgers. R.P.` vs `Rodgers, R.P.` — 2), **OCR/typo on a
+distinctive surname** (`Colilo`/`Corilo`, `Dzeilewski`/`Dzwilewski`, `Chamot-Rook`/`-Rooke`, … — ~19),
+**transposition/transliteration** (`Guluyz`/`Gulyuz`, `Schulga`/`Shul'ga`, Paša-Tolić residue — 3),
+**suffix** (`Avery`/`Avery Jr.` — 1). Each is likely one person but **not proven**, so they are
+`POSSIBLY_SAME_AS` candidates (inferred), **not applied** — a lead for human confirmation.
 
-**FUSED-AUTHOR SWEEP (updated 2026-07-22): PARSE-FAIL is not 2 but ~110.** The ledger's PARSE-FAIL
-detection scanned the **identifier** for an `_and_` token and caught only 2
-(`chanton_j_p_and_cooper_w_2012`, `vanishing_glaciers_field_team_x_2025`). Most fusions survive only
-in **`name_full`** (the identifier keeps just the first author, e.g. `emmett_m_2012` labeled
-`"Emmett, M.R. and Marshall, A.G."`). A read-only `name_full` sweep of the live graph found **110**
-fused nodes (107 two-name "X and Y", 3 collective/et-al) — full list + per-node paper counts in
-`review/researcher_review_queue.md` §3. Each fused id is the **sole node for its first author**
-(identifier is correct); the second name was swallowed into the label, so on affected papers the
-co-author has **no edge to their real node**. **Sign-off safety: 0 of the 110 appear in the 13
-MERGE-HIGH pairs** (verified) — the sign-off sheet is safe. **Poster impact — touches the "55":** 26
-fused nodes swallow **Marshall, A.G.**
+Non-destructive by design (KI-16 preserve-names ruling): even after review, an approved pair gets a
+`POSSIBLY_SAME_AS`/`SAME_AS` edge, never a merge — both nodes and names stay.
 
-**Edge-fix reconciliation (2026-07-22, ground-truth measured).** Direction chosen: ADD the missing
-`AUTHORED_BY` edges (the swallowed co-author is already named in `name_full` — no re-extraction). A
-fused node's identifier is its FIRST author and accumulates ALL that author's papers (`emmett_m_2012`
-= 64), so the co-author was swallowed ONLY on the papers whose RAW CSV author string actually contains
-the fused token (Emmett: **13 of 64**; Purcell: **1 of 21**). Staging an edge for every paper on the
-node would **fabricate 119 co-authorships** — so each edge is grounded per-paper in the CSV string.
-Result (STEP 1 resolve on 110 nodes): **57 RESOLVED → 79 grounded edges**, 0 AMBIGUOUS, **50 NO-NODE**
-(second author has no node → needs a mint, separate call), **3 COLLECTIVE**. **Corrected Marshall–
-Rodgers pair: 56 → 64 (+8)** — NOT the earlier ~72 estimate, which wrongly assumed all node-papers
-carried Marshall (8 of those 16 papers never had Marshall as an author). Dry-run ledger:
-`review/coauthor_edge_fix_ledger.jsonl` (79 rows, all `apply:false`); review:
-`review/coauthor_edge_fix_review.md`; portable apply script: `scripts/apply_coauthor_edge_fix.py`
-(built, dry-run verified; awaiting Diya/David sign-off). **The pending Rodgers `_x` merge also moves
-this pair — reconcile the two corrections together, not stacked.** **Root-cause fix = the author-token
-parser in 02/03** (split "X and Y" author strings) — future work; this is post-load reconciliation, not
-a merge, and `name_full` label cleanup is flagged separately (not overwritten here).
+**Review sheet: `docs/researcher_equivalence_review.md`** (one row per candidate, grouped by mechanism,
+tick same/different). It also lists **~12 pairs excluded as different people** (Slavic m/f
+`Vladimirov`/`Vladimirova`; distinct surnames `Baker`/`Parker`, `Curry`/`Murray`, `Kieber`/`Weber`, …)
+plus **~80 common-Chinese-surname confusables excluded upstream** (`wang`/`yang`, `chen`/`shen`, …) — so
+the same-vs-different judgment is visible, not skipped.
+
+Separately, **3 `SAME_AS` edges** (PROVEN, shared author-verified ORCID) were emitted through the durable
+file path (`researcher_equivalence.jsonl` → 03 → 04 → 05): `hoeschen`↔`hoschen` (oe/o spelling),
+`aguilera`↔`chacon_patino` (surname change, ORCID `0000-0002-7273-5343`), `salvato_vallverdu`↔`vallverdu`
+(compound-surname). These need no review — the shared author-verified ORCID is proof.
+
+---
+
+## KI-16 — ORCID enrichment exposed four Researcher-identity defects (all rooted in the MagLab CSV's name handling)
+**Status:** measured 2026-07-23; recorded as evidence, not acted on. Resolution is future identity work.
+**Surfaced by:** applying CrossRef ORCIDs to the graph (475 of 2,076 Researcher nodes, properties-only).
+
+Applying ORCIDs turned author identity into something measurable. Four *independent* defects surfaced —
+they are separable and want separate fixes, but they share a single root cause (the MagLab CSV's name
+parser/normalizer) and were all revealed by one method (an external, structured identifier disagreeing
+with the graph). Distinct from KI-15 (dataset linking).
+
+(a) **FUSION — one node holds two people.** The CSV "A and B" convention parsed a first-author-and-
+    last-author string into a single Researcher node. **108** nodes carry `" and "` in `name_full` (live).
+    PROVEN for `researcher:martin_b_2017` ("Martin, B.R. and Hakansson, K."): CrossRef returned two
+    distinct ORCIDs for it from the SAME paper (`10.1021/acs.analchem.7b01461`) — a paper cannot list one
+    person twice. Corroborated graph-wide: **7** nodes carry 2+ distinct ORCIDs in the survey (all 7
+    EXCLUDED from application, none applied; 31 excluded candidate rows).
+
+(b) **COMPOUND-SURNAME MIS-PARSE — the parser takes the last whitespace-delimited word as the family
+    name**, folding the rest into initials. "Kevin M. Van Geem" -> `Geem, K.M.V.`; "Diana Catalina Palacio
+    Lozano" -> `Lozano, D.C.P.` Accounts for ALL **30** UNMATCHED CrossRef authors. Damages author identity
+    independently of ORCID; only visible because an external source disagreed.
+
+(c) **FRAGMENTATION — one person, multiple nodes.** **6** ORCIDs each resolve to 2+ Researcher nodes IN
+    THE LOADED GRAPH — now queryable as a graph property:
+    `MATCH (n:Researcher) WHERE n.orcid IS NOT NULL WITH n.orcid AS o, count(DISTINCT n) AS c WHERE c>=2`.
+    Mechanisms: accent-collapse and spelling variants. NOTE the subtle 6-vs-7: the read-only survey found
+    **7**; the 7th pair's second node was the fused `martin_b_2017`, which was excluded from application, so
+    that ORCID now maps to a single node — **6** is the applied-graph truth, **7** is the survey count. This
+    is the strongest de-dup signal in the corpus: it needs no name-similarity heuristic. (A related case —
+    the same ORCID `0000-0002-7273-5343`, author-verified, spanning `chacon_patino` AND a DIFFERENT surname
+    `aguilera_m_2026` — is a surname change of one person, catchable only by ORCID, not name-key.)
+
+(d) **THE IDENTITY-ENRICHMENT BOUNDARY — ORCID reaches only DOI-bearing papers, and coverage collapses
+    before 2017.** Only **397** of **805** publications carry a DOI. Of **395** fetched, ORCID coverage is
+    **1 of 43 papers (2.3%)** through 2016 vs **284 of 352 (80.7%)** from 2017 on — a cliff, not a slope.
+    The pre-2016 corpus is unreachable twice over: no DOI to query, no ORCID if queried. Any ORCID-based
+    identity work touches only the recent half of the graph. (Figures: `data/processed/review/orcid_coverage_report.md`
+    §1.1, §1.3, §1.4.)
+
+**Ruling:** ORCIDs are recorded as EVIDENCE of (a)/(c), not yet used to merge or split nodes
+(`ENABLE_ORCID_CANONICALIZATION = False`; see `docs/SCIKG_SCHEMA.md` "ORCID (Added 2026-07-23)" and KI-14).
+Resolving (a)-(d) is future identity work, not done here.
 
 ---
 

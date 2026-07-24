@@ -96,6 +96,7 @@ RELATIONSHIP_FILES = {
     "rawfiles_pxd_relationships.jsonl",
     "advisory_relationships.jsonl",   # KI-8: FLAGS edges (Advisory -> RawDataFile)
     "pdf_dataset_relationships.jsonl",  # PDF dataset_accession -> HAS_DATASET (mint_dataset_operator_edges.py)
+    "researcher_equivalence.jsonl",   # KI-17: SAME_AS / POSSIBLY_SAME_AS (Researcher <-> Researcher, graph_derived)
 }
 
 # --------------------------------------------------------------------------- #
@@ -117,6 +118,15 @@ SOURCE_TYPE_ENUM = {
     "merged_csv_llm",  # E1: same-fact CSV+PDF agreement (the 74 USES_INSTRUMENT), merged edge
     "graph_derived",   # KI-8: Advisory nodes + FLAGS edges computed by the pipeline from its
                        # own data, not extracted from a source document.
+    "merged_csv_api",  # 2026-07-23: COMPOSED, not corroborated. Marks a Researcher record whose
+                       # fields come from DIFFERENT sources — identity (name_full, family_name,
+                       # given_name) from the MagLab CSV, orcid/orcid_authenticated from the
+                       # CrossRef API. Unlike merged_csv_foxden / merged_csv_llm, the two sources
+                       # do NOT attest the same fact and corroborate nothing, so this label
+                       # carries NO confidence implication: `confidence` continues to describe
+                       # the CSV identity fields and is left unchanged. The ORCID's own
+                       # evidentiary weight is carried by `orcid_authenticated` and stated in
+                       # `evidence_note`. See SCIKG_SCHEMA.md "ORCID (Added 2026-07-23)".
 }
 CONFIDENCE_ENUM = {"high", "medium", "low"}
 
