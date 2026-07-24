@@ -30,6 +30,7 @@ import json
 import re
 import sys
 import collections
+import unicodedata
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -325,6 +326,27 @@ def canonicalize_identifier(identifier):
     return ident
 
 
+def is_fused_name(name_full):
+    """A CSV 'A and B' node holds two people. Same ' and ' detector used by the
+    ORCID eligibility filter (emit_orcid_properties) and analyze_orcid_coverage —
+    reused so name-survival and ORCID-eligibility never disagree about what is
+    fused."""
+    return bool(name_full) and " and " in name_full
+
+
+def diacritic_score(name_full):
+    """Rank a name form by faithfulness to ONE person's OWN accents. Higher wins:
+    (# combining accents, length). Fusion is NOT scored here — it is filtered
+    BEFORE ranking (see Pass 2), so a fused form can never win on a co-author's
+    accent (the 'Marshall, A.G. and Brüschweiler, R.' inversion). So among single
+    -person forms 'Chacón-Patiño, M.L.' beats 'Chacon Patino, M.L.'."""
+    if not name_full:
+        return (-1, 0)
+    accents = sum(1 for c in unicodedata.normalize("NFD", name_full)
+                  if unicodedata.combining(c))
+    return (accents, len(name_full))
+
+
 def merge_entities(survivor, other, log, reason):
     """Merge `other` into `survivor` (survivor already chosen by source rank).
     Survivor's non-null property values win; survivor nulls are filled from
@@ -577,6 +599,38 @@ def main(dry_run=False):
             survivor = group[0]
             for other in group[1:]:
                 merge_entities(survivor, other, log, reason="duplicate_identifier")
+            # David's ruling — preserve the accents in a person's OWN name. Source
+            # rank picks the survivor RECORD (its provenance/orcid); the NAME is
+            # chosen separately. Precedence (inverted from the buggy tie-break):
+            #   1. FILTER OUT fused 'A and B' forms — a co-author's accent must
+            #      never win it the name (the Marshall/Brüschweiler inversion).
+            #   2. Among the remaining single-person forms, take the most
+            #      diacritic-rich (then longest).
+            #   3. EDGE CASE — if EVERY candidate form is fused (a genuinely two-
+            #      person node, e.g. martin_b), there is nothing to filter to, so
+            #      fall back to the most diacritic-rich fused form. That keeps the
+            #      faithful record of a node that IS a fusion; the fusion itself is
+            #      handled downstream (ORCID eligibility excludes it, KI-16a) and
+            #      is NOT hidden by picking a clean per-paper token here.
+            if survivor.get("entity_type") == "Researcher":
+                def _nf(r):
+                    return (r.get("properties") or {}).get("name_full")
+                non_fused = [r for r in group if not is_fused_name(_nf(r))]
+                pool = non_fused if non_fused else group
+                richest = max(pool, key=lambda r: diacritic_score(_nf(r)))
+                rp = richest.get("properties") or {}
+                sp = survivor.setdefault("properties", {})
+                if _nf(richest) and _nf(richest) != sp.get("name_full"):
+                    replaced = sp.get("name_full")
+                    for f in ("name_full", "family_name", "given_name"):
+                        if rp.get(f):
+                            sp[f] = rp[f]
+                    log.append({"action": "researcher_name_preference",
+                                "identifier": ident,
+                                "chosen_name": rp.get("name_full"),
+                                "replaced": replaced,
+                                "all_fused_fallback": not non_fused,
+                                "at": now_iso()})
             deduped.append(survivor)
         entities_by_file[fname] = deduped
 
