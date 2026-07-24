@@ -7,6 +7,50 @@ Add new issues at the top.
 
 ---
 
+## KI-16 — ORCID enrichment exposed four Researcher-identity defects (all rooted in the MagLab CSV's name handling)
+**Status:** measured 2026-07-23; recorded as evidence, not acted on. Resolution is future identity work.
+**Surfaced by:** applying CrossRef ORCIDs to the graph (475 of 2,076 Researcher nodes, properties-only).
+
+Applying ORCIDs turned author identity into something measurable. Four *independent* defects surfaced —
+they are separable and want separate fixes, but they share a single root cause (the MagLab CSV's name
+parser/normalizer) and were all revealed by one method (an external, structured identifier disagreeing
+with the graph). Distinct from KI-15 (dataset linking).
+
+(a) **FUSION — one node holds two people.** The CSV "A and B" convention parsed a first-author-and-
+    last-author string into a single Researcher node. **108** nodes carry `" and "` in `name_full` (live).
+    PROVEN for `researcher:martin_b_2017` ("Martin, B.R. and Hakansson, K."): CrossRef returned two
+    distinct ORCIDs for it from the SAME paper (`10.1021/acs.analchem.7b01461`) — a paper cannot list one
+    person twice. Corroborated graph-wide: **7** nodes carry 2+ distinct ORCIDs in the survey (all 7
+    EXCLUDED from application, none applied; 31 excluded candidate rows).
+
+(b) **COMPOUND-SURNAME MIS-PARSE — the parser takes the last whitespace-delimited word as the family
+    name**, folding the rest into initials. "Kevin M. Van Geem" -> `Geem, K.M.V.`; "Diana Catalina Palacio
+    Lozano" -> `Lozano, D.C.P.` Accounts for ALL **30** UNMATCHED CrossRef authors. Damages author identity
+    independently of ORCID; only visible because an external source disagreed.
+
+(c) **FRAGMENTATION — one person, multiple nodes.** **6** ORCIDs each resolve to 2+ Researcher nodes IN
+    THE LOADED GRAPH — now queryable as a graph property:
+    `MATCH (n:Researcher) WHERE n.orcid IS NOT NULL WITH n.orcid AS o, count(DISTINCT n) AS c WHERE c>=2`.
+    Mechanisms: accent-collapse and spelling variants. NOTE the subtle 6-vs-7: the read-only survey found
+    **7**; the 7th pair's second node was the fused `martin_b_2017`, which was excluded from application, so
+    that ORCID now maps to a single node — **6** is the applied-graph truth, **7** is the survey count. This
+    is the strongest de-dup signal in the corpus: it needs no name-similarity heuristic. (A related case —
+    the same ORCID `0000-0002-7273-5343`, author-verified, spanning `chacon_patino` AND a DIFFERENT surname
+    `aguilera_m_2026` — is a surname change of one person, catchable only by ORCID, not name-key.)
+
+(d) **THE IDENTITY-ENRICHMENT BOUNDARY — ORCID reaches only DOI-bearing papers, and coverage collapses
+    before 2017.** Only **397** of **805** publications carry a DOI. Of **395** fetched, ORCID coverage is
+    **1 of 43 papers (2.3%)** through 2016 vs **284 of 352 (80.7%)** from 2017 on — a cliff, not a slope.
+    The pre-2016 corpus is unreachable twice over: no DOI to query, no ORCID if queried. Any ORCID-based
+    identity work touches only the recent half of the graph. (Figures: `data/processed/review/orcid_coverage_report.md`
+    §1.1, §1.3, §1.4.)
+
+**Ruling:** ORCIDs are recorded as EVIDENCE of (a)/(c), not yet used to merge or split nodes
+(`ENABLE_ORCID_CANONICALIZATION = False`; see `docs/SCIKG_SCHEMA.md` "ORCID (Added 2026-07-23)" and KI-14).
+Resolving (a)-(d) is future identity work, not done here.
+
+---
+
 ## KI-15 — PDF-extracted dataset_accession was never linked to HAS_DATASET (the C4 gap) — RESOLVED for the confident subset by a human-gated mint
 **Status:** resolved for the confident subset (2026-07-22); a held tail awaits David's rulings.
 **Surfaced by:** the C4 dropped-field audit + the dataset-identity review (Blood Proteoform Atlas fragmentation), 2026-07-21.

@@ -8,10 +8,15 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,891 nodes, 11,654 edges
-(validation_report.json, load_cleared, 2026-07-22; instrument dedup applied,
-469 -> 443 Instrument; dataset-accession mint applied, Dataset 289 -> 297,
-HAS_DATASET 279 -> 290). Validation uses a
+Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,900 nodes, 11,663 edges
+(validation_report.json, load_cleared, 2026-07-24; live-graph verified;
+instrument dedup 469 -> 443 Instrument; dataset-accession mint across three
+batches, Dataset 289 -> 306, HAS_DATASET 279 -> 299; ORCID enrichment applied
+as Researcher properties — no node/edge change). NOTE: docs/DISCOVERY_QUESTIONS.md
+cites 4,909 / 11,668 (measured 2026-07-20, v1.0) — HIGHER than the current graph
+by 9 nodes / 5 edges and not explained by the mints; flagged, not reconciled
+(POSTER_FINDINGS.md T2). Do not overwrite that file's figure until it is traced.
+Validation uses a
 ground-truth set of 8 papers manually annotated by the team. 2-person
 team, CI Compass Fellowship, June 1 – July 31 (8 weeks).
 
@@ -90,8 +95,8 @@ PDF transform (02d extraction -> entity/relationship nodes)
 05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
                 writes to Neo4j AuraDB via scripts/db.py
-                Loaded 4,891 nodes + 11,654 edges (validation_report.json,
-                load_cleared: true, 2026-07-22).
+                Loaded 4,900 nodes + 11,663 edges (validation_report.json,
+                load_cleared: true, 2026-07-24).
                 NOTE: 05 is MERGE-only and cannot shrink the graph — a load that
                 RETIRES nodes/edges (e.g. the instrument dedup) leaves stale data
                 that needs a manual reconcile until a --prune step exists. See KI-14.
@@ -122,6 +127,29 @@ mint_dataset_operator_edges.py
                 Blood Proteoform Atlas PXD set); and raw-file OPERATORS, left
                 intentionally unmodeled (FOXDEN data_creator carries no reliable
                 person identity — no OPERATED_BY minted for PXD files).
+ORCID enrichment sub-flow (post-load; properties only, human-gated ruling)
+                Source: CrossRef structured author[].ORCID / authenticated-orcid —
+                a deterministic per-DOI lookup, NOT text extraction and NOT inferred.
+                Matching is bounded per paper (only against Researcher nodes already
+                linked to that Publication by AUTHORED_BY; no global name search).
+                Coverage: 475 of 2,076 Researcher nodes (22.9%) carry an orcid, split
+                195 author-verified (authenticated-orcid: true) / 280 publisher-asserted
+                (false). 63 candidates EXCLUDED, not applied: 31 rows on 7 reverse-error
+                nodes (one node holding 2+ distinct ORCIDs), 30 compound-surname
+                UNMATCHED, 2 fused. Enrichment enters through pre-normalize JSONL and
+                flows 03 -> 04 -> 05, so graph = f(files) holds. See KI-16.
+fetch_crossref_orcid.py
+                caches CrossRef author/ORCID JSON for graph DOIs to
+                data/processed/cache/crossref/ (gitignored)
+analyze_orcid_coverage.py
+                READ-ONLY; cache + graph -> data/processed/review/orcid_coverage_report.md
+                + orcid_candidates.jsonl (bounded per-paper match, no global search)
+emit_orcid_properties.py
+                applies the eligibility ruling -> review/proposed_researcher_orcid_entities.jsonl
+                + orcid_exclusions.jsonl (dry-run by default)
+enrich_researchers_orcid.py
+                writes orcid / orcid_authenticated into the committed
+                data/processed/entities/researchers.jsonl in place; then re-run 03 -> 04 -> 05
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships
@@ -197,6 +225,23 @@ mint_dataset_operator_edges.py
   The uniqueness constraint is on identifier, not sha256_hash (sha256_hash
   is a non-unique property). See KI-8 and docs/SCIKG_SCHEMA.md (Node:
   RawDataFile, Node: Advisory).
+- ORCID is PROPERTIES-ONLY; ORCID-as-canonical-identifier is DEFERRED (RULED
+  2026-07-23). ENABLE_ORCID_CANONICALIZATION in 03_normalize.py is False and MUST
+  NOT be flipped without a new ruling. WHY: with it True, 03 Pass 3 retires
+  researcher:* -> orcid:* and rewrites AUTHORED_BY through the crosswalk; because
+  05 is MERGE-only and cannot retire the superseded nodes (KI-14), the result is a
+  DUPLICATE Researcher node set at orcid:* with authorship split across both — not a
+  property set on the existing nodes. The flag was inert only because orcid was
+  empty; now that 475 nodes carry ORCIDs, anyone who repopulates or re-runs without
+  reading this WILL hit it. See docs/SCIKG_SCHEMA.md "ORCID (Added 2026-07-23)" and
+  docs/KNOWN_ISSUES.md KI-16.
+- Rebuild is reproducible from COMMITTED FILES, not re-derivable from original
+  sources. A fresh clone runs 03 -> 04 -> 05 and reproduces the exact graph
+  (files-only rebuild into an empty Neo4j instance — see the mint block above and
+  KI-15). BUT data/raw/rawfiles_pxd/ (952 FOXDEN files) and data/raw/pdf_extraction/
+  are local-only: a clone CANNOT re-run 02f or the PDF extraction. Their committed
+  outputs (rawfiles_pxd.jsonl, pdf_entities.jsonl, pdf_relationships.jsonl) rebuild
+  the nodes fine. This is pre-existing (KI-13), not a new gap.
 - Removed from scope: Workflow entity, Streamlit UI, chatbot, NetworkX,
   ASSOCIATED_WITH relationship, ProvenanceRecord node
 - RAW-file relationships: OPERATED_BY, CONTAINS_SAMPLE, COLLECTED_ON,

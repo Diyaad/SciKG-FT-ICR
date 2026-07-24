@@ -62,10 +62,18 @@ DEFAULT_RANK = 99
 # affected instruments surface in review_queue.jsonl (fails loud, not silent).
 ALIAS_SEPARATORS = [";", ",", "|"]
 
-# ORCID canonicalization. Inert today (0 ORCIDs in researchers.jsonl). Goes live
-# once 02e (annotation extractor) and/or 02d emit ORCID-bearing researcher
-# records. Leaving it enabled simply no-ops when no ORCID is present.
-ENABLE_ORCID_CANONICALIZATION = True
+# ORCID canonicalization — DISABLED 2026-07-23 by ruling. NOT a feature awaiting
+# activation: do not flip this back without a new ruling. See SCIKG_SCHEMA.md
+# "Node: Researcher -> ORCID (Added 2026-07-23)".
+#
+# ORCIDs are now populated as PROPERTIES on Researcher nodes (from CrossRef
+# structured metadata). The ruling is properties only — node identifiers are NOT
+# repointed. With this enabled, Pass 3 below retires researcher:* to orcid:* and
+# rewrites AUTHORED_BY endpoints through the crosswalk; because 05 is MERGE-only
+# and cannot retire the superseded nodes (KI-14), that would mint a DUPLICATE
+# Researcher node set at orcid:* identifiers with authorship split across both,
+# instead of setting a property on the existing nodes.
+ENABLE_ORCID_CANONICALIZATION = False
 
 # Instrument identifiers are left stable in this draft; canonical_name and
 # psi_ms_id are filled into properties instead of re-minting the identifier.

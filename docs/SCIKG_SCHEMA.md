@@ -168,7 +168,7 @@ what makes the graph FAIR (R1.2) and PROV-O-aligned.
 
 | Property | Type | Allowed values | PROV-O mapping |
 |---|---|---|---|
-| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `llm_extraction`, `graph_derived` | `prov:wasGeneratedBy` |
+| `source_type` | string | `api`, `csv`, `manual_annotation`, `fisher_py`, `merged_csv_foxden`, `merged_csv_llm`, `merged_csv_api`, `llm_extraction`, `graph_derived` | `prov:wasGeneratedBy` |
 | `confidence` | string | `high`, `medium`, `low` | — |
 | `extracted_at` | ISO 8601 | `2026-06-29T14:00:00Z` | `prov:generatedAtTime` |
 | `evidence_note` | string | Free text, human-readable basis | — |
@@ -190,6 +190,28 @@ paper used `instrument:raw:21t_icr`. Merged in **03** (cross-file reconciliation
 than either), and an `evidence_note` quoting both. One paper using the 21 T is **one fact confirmed
 twice**, not two — a second edge would double-count it and force `DISTINCT` into every query. See
 KI-12.
+
+**`merged_csv_api` (added 2026-07-23) — COMPOSED fields, NOT corroborated ones.**
+`merged_csv_foxden` and `merged_csv_llm` both mark **one fact attested by two sources**, and
+both therefore carry a confidence implication (agreement is stronger than either source alone).
+**`merged_csv_api` is a different thing wearing a similar name.** It marks a Researcher record
+whose fields come from **different** sources: identity (`name_full`, `family_name`,
+`given_name`) from the MagLab CSV, and `orcid` / `orcid_authenticated` from the CrossRef API.
+The two sources attest **different fields** and corroborate **nothing**.
+
+Consequences, which differ from the other two composite labels:
+- **No confidence bump.** `confidence` is left exactly as the CSV record carried it (`high`) and
+  continues to describe the CSV identity fields. Raising it would import a
+  corroboration argument that does not apply here. The ORCID's own evidentiary weight is carried
+  by `orcid_authenticated` (author-verified vs publisher-asserted) and stated in `evidence_note`,
+  which also records how many papers independently produced the same match.
+- **`source_id` is a list** (`[maglab:{id}, doi:{...}]`), following the G1 widening below — here
+  the two origins are not corroboration but the *provenance of different fields*, so neither may
+  be dropped.
+
+A single scalar `confidence` cannot describe a record whose fields have different evidentiary
+strengths. Rather than average or overwrite it, this label leaves it alone and pushes the
+per-field strength into typed properties. Do not read `merged_csv_api` as "two sources agreed".
 
 **`source_id` as a list is a NEW choice, NOT the precedent (measured 2026-07-17, G1).**
 `merged_csv_foxden`'s `source_id` is a **scalar** pointing at `rawfiles_enriched/*.json` — a fused
@@ -276,6 +298,8 @@ Sources 1, 2, 4, and 5 (RAW file operator).
 
 **Conforms to:** schema.org/Person, DataCite creator  
 **Identifier:** `orcid:{value}` when present; otherwise `researcher:{family_lower}_{given_initial}_{first_pub_year}`
+— **the `orcid:` form is DEFERRED and not in use; identity is always the minted
+`researcher:*` form. See "ORCID (Added 2026-07-23)" below before acting on this line.**
 
 ### Properties
 
@@ -285,10 +309,43 @@ Sources 1, 2, 4, and 5 (RAW file operator).
 | `name_full` | string | M | CrossRef, CSV | Display form |
 | `family_name` | string | M | CrossRef, CSV | |
 | `given_name` | string | R | CrossRef, CSV | |
-| `orcid` | string | O | CrossRef | `0000-0000-0000-0000` format |
+| `orcid` | string | O | CrossRef | `0000-0000-0000-0000` format. From CrossRef structured `author[].ORCID` — a deterministic per-DOI lookup, never extraction |
+| `orcid_authenticated` | boolean | O | CrossRef | From `author[].authenticated-orcid`. `true` = author verified the iD at deposit; `false` = publisher-asserted. Only meaningful when `orcid` is present |
 | `initials` | string | O | RAW filename | e.g., "DSB" |
 | `is_nhmfl_author` | boolean | O | CSV | |
 | `is_corresponding_author` | boolean | O | CSV | |
+
+### ORCID (Added 2026-07-23)
+
+`orcid` was declared in v1.0 but never populated (0 nodes). It is now populated from
+CrossRef structured metadata for the DOI-bearing corpus.
+
+**Two properties, deliberately not one.** CrossRef distinguishes an iD the author
+authenticated at deposit (`authenticated-orcid: true`) from one the publisher asserted
+on their behalf (`false`). These carry different evidentiary weight, so they are stored
+as `orcid` + `orcid_authenticated` and MUST NOT be flattened into a single field. A
+consumer treating a publisher-asserted iD as author-verified is making a claim the
+source does not support.
+
+**RULED 2026-07-23 — properties only; ORCID-as-canonical-identifier is DEFERRED.**
+Populating `orcid` does NOT repoint node identifiers. Researcher identity remains the
+minted `researcher:{family_lower}_{given_initial}_{first_pub_year}`. This overrides the
+`orcid:{value}`-preferred minting rule above (see Universal Identity, which already
+records the external-PID tiers as aspirational) for as long as the deferral stands.
+
+Consequently `ENABLE_ORCID_CANONICALIZATION` in `03_normalize.py` is set to `False`.
+**This flag is not a feature awaiting activation — do not flip it back without a new
+ruling.** With it enabled, Pass 3 retires `researcher:*` to `orcid:*` and rewrites
+`AUTHORED_BY` endpoints through the crosswalk. Because 05 is MERGE-only and cannot
+retire the superseded nodes (KI-14), the result would be a duplicate Researcher node
+set at `orcid:*` identifiers, with authorship edges split across both — not a property
+set on the existing nodes.
+
+**Entity resolution is unchanged by this.** The ORCID-first merge rule (Entity
+resolution step 1, and Normalization Rules step 4) stays as written but remains
+DEFERRED: ORCIDs are recorded as evidence, not yet used to merge nodes. Merging on
+ORCID is a separate ruling, because the ORCID evidence itself shows 7 nodes carrying
+two distinct iDs — nodes that must be split, not merged.
 
 ### Email handling
 
@@ -1041,6 +1098,7 @@ if any of these are true:
 - A required property is missing
 - DOI present but malformed (does not match `^10\.\d{4,}/.+`)
 - ORCID present but malformed (not `0000-0000-0000-0000` format)
+- `orcid_authenticated` present without `orcid`, or not a boolean
 - Any of the 6 provenance properties is missing
 - Relationship references a node that does not exist in entity tables
 - `schema_version` ≠ `"v1.0"`
