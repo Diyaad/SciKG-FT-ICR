@@ -7,7 +7,7 @@ Add new issues at the top.
 
 ---
 
-## KI-15 — Researcher identity fragmentation (one person split across multiple mangled/clean nodes)
+## KI-16 — Researcher identity fragmentation (one person split across multiple mangled/clean nodes)
 **Status:** open — detected read-only, awaiting human adjudication; NOT applied.
 **Surfaced by:** the researcher de-fragmentation pass, 2026-07-22.
 
@@ -50,6 +50,61 @@ carried Marshall (8 of those 16 papers never had Marshall as an author). Dry-run
 this pair — reconcile the two corrections together, not stacked.** **Root-cause fix = the author-token
 parser in 02/03** (split "X and Y" author strings) — future work; this is post-load reconciliation, not
 a merge, and `name_full` label cleanup is flagged separately (not overwritten here).
+
+---
+
+## KI-15 — PDF-extracted dataset_accession was never linked to HAS_DATASET (the C4 gap) — RESOLVED for the confident subset by a human-gated mint
+**Status:** resolved for the confident subset (2026-07-22); a held tail awaits David's rulings.
+**Surfaced by:** the C4 dropped-field audit + the dataset-identity review (Blood Proteoform Atlas fragmentation), 2026-07-21.
+
+02d extracts a `dataset_accession` per paper (5 corpus papers name a PXD/MSV accession in their
+PDF), but the pipeline **never turned it into a HAS_DATASET edge** — datasets came only from the
+CSV `Data Set Urls`. So a paper could cite a deposit that already exists as a node and stay
+unlinked: e.g. the Blood Proteoform Atlas paper `doi:10.1126/science.aaz5284` cites `PXD026123`,
+a loaded `dataset:proteomexchange:pxd026123` node, with **no edge between them**.
+
+**Resolved** by `scripts/mint_dataset_operator_edges.py` — a human-gated post-load reconciliation
+(2026-07-22). It proposes edges for review (dataset accessions carry fuzzy/hallucinated values —
+wrong-repo, mis-OCR'd, or invented — so 02d stays fabrication-free and the human gate lives
+here, not in extraction). On approval, `--emit` writes the approved records to PRE-NORMALIZE
+JSONL, which flow through 03 -> 04 -> 05 like any other extracted record, so **graph = f(files)**
+still holds — **proven by a files-only rebuild into an empty Neo4j instance reproducing the
+counts**. First application: **11 HAS_DATASET edges = 3 link (accession matched an existing
+Dataset node) + 8 mint (new Dataset node + edge)** — Dataset 289 -> 297, HAS_DATASET 279 -> 290,
+totals 4,883/11,643 -> 4,891/11,654.
+
+**MSV native accessions — RESOLVED 2026-07-22.** After a MassIVE lookup paired each `MSV000*`
+with its `10.25345/` DOI and confirmed no in-graph twin, **3 minted** as `dataset:massive:{msv}`
+(MSV000094542 -> mcpro.2024.100814, MSV000094385 -> orggeochem.2024.104880, MSV000095816 ->
+jasms.4c00380), each carrying its paired DOI in the evidence_note for a future MSV<->DOI
+crosswalk. **1 held** — MSV000085978 (jproteome.0c00403), a known duplicate of the existing
+`dataset:other:10.25345/c54n1p`. Emitted through the same durable path (Dataset 297 -> 300,
+HAS_DATASET 290 -> 293, totals 4,891/11,654 -> 4,894/11,657; read back from Neo4j, load_cleared,
+0 quarantined).
+
+**New-namespace deposits (SRA / BioProject / BCO-DMO) — RESOLVED 2026-07-22.** Rather than mint
+new `dataset:sra:` / `dataset:bioproject:` / `dataset:bco-dmo:` prefixes, the **6** genuinely-new
+deposits were minted under the existing `dataset:other:` namespace with the **true repo preserved
+in the `repository` property**: SRP097447 & SRP093781 (NCBI SRA), PRJNA1066388/792827/598915
+(NCBI BioProject), and 472758 (BCO-DMO, `dataset:other:bco-dmo_472758`). Each was graph-absence
+checked three ways (other-id, old-prefix, fuzzy) before minting; `source_url` is the canonical
+repo landing page (deterministic reformatting, not a lookup). Durable path (Dataset 300 -> 306,
+HAS_DATASET 293 -> 299, totals 4,894/11,657 -> 4,900/11,663; read back from Neo4j, load_cleared,
+0 quarantined). *Sibling deposits in the two bundle citations were verified **already captured**
+(nodes + paper edges present, not uncaptured): `d2em00184e` -> `dataset:osf:t4eqx` &
+`dataset:zenodo:5806541`; `fmicb.2020.01753` -> `dataset:other:10.5066/p933aplh` (USGS).*
+
+**Still HELD (NOT minted — await David's ruling):**
+- **MSV000085978** — held as a duplicate of `dataset:other:10.25345/c54n1p` (same submission,
+  two accession schemes); reconcile via crosswalk, do not mint a second node.
+- **PXD026178** — cited in a PDF but has no raw-file lineage in the graph.
+- **`other:0516284a`** — the PRIDE search-URL node (candidate to fold into the Blood Proteoform
+  Atlas PXD set).
+- **Raw-file operators** — intentionally unmodeled: FOXDEN metadata carries no reliable person
+  identity, so no OPERATED_BY is minted for PXD files (distinct from the 46 MagLab RAW files,
+  which genuinely are all D.S. Butcher and ARE linked).
+
+---
 
 ## KI-14 — 05_load.py is MERGE-only and cannot shrink the graph (node/edge retirements leave stale data)
 **Status:** open — needs a fix (a `--prune` step); worked around manually on 2026-07-21.

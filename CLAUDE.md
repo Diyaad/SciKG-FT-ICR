@@ -8,8 +8,10 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,883 nodes, 11,643 edges
-(validation_report.json, load_cleared, 2026-07-21). Validation uses a
+Loaded into Neo4j AuraDB (cloud, neo4j+s://): 4,891 nodes, 11,654 edges
+(validation_report.json, load_cleared, 2026-07-22; instrument dedup applied,
+469 -> 443 Instrument; dataset-accession mint applied, Dataset 289 -> 297,
+HAS_DATASET 279 -> 290). Validation uses a
 ground-truth set of 8 papers manually annotated by the team. 2-person
 team, CI Compass Fellowship, June 1 – July 31 (8 weeks).
 
@@ -53,7 +55,8 @@ PDF transform (02d extraction -> entity/relationship nodes)
                 writes data/processed/entities/pdf_entities.jsonl
                 writes data/processed/relationships/pdf_relationships.jsonl
                 Populates THREE of the graph's node types (62 Institution,
-                469 Instrument, 51 Software) + INVOLVES_INSTITUTION,
+                469 Instrument [raw, pre-dedup; 03 dedups to 443 in the graph],
+                51 Software) + INVOLVES_INSTITUTION,
                 USES_INSTRUMENT, USES_SOFTWARE edges. Split across scripts:
                 - transform_pdf_software.py  (BUILT, in scripts/): Software nodes
                   + USES_SOFTWARE edges; reads + preserves the Institution/
@@ -87,8 +90,38 @@ PDF transform (02d extraction -> entity/relationship nodes)
 05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
                 writes to Neo4j AuraDB via scripts/db.py
-                Loaded 4,883 nodes + 11,643 edges (validation_report.json,
-                load_cleared: true, 2026-07-21).
+                Loaded 4,891 nodes + 11,654 edges (validation_report.json,
+                load_cleared: true, 2026-07-22).
+                NOTE: 05 is MERGE-only and cannot shrink the graph — a load that
+                RETIRES nodes/edges (e.g. the instrument dedup) leaves stale data
+                that needs a manual reconcile until a --prune step exists. See KI-14.
+mint_dataset_operator_edges.py
+                (run — human-gated post-load reconciliation, applied 2026-07-22)
+                Mints PDF-extracted dataset_accession -> HAS_DATASET edges that
+                02d extracts but never links (the C4 gap: PDF dataset accessions
+                were extracted to disk but never became edges). Separate from 02d
+                and GATED because these accessions carry FUZZY / hallucinated
+                values (wrong-repo, mis-OCR'd, or invented accessions) that need
+                human confirmation before they enter the graph — 02d must stay
+                fabrication-free, so the human-review gate lives here, not in
+                extraction. Flow: proposes edges to
+                data/processed/review/proposed_dataset_operator_edges.jsonl for
+                review; on approval, --emit writes the approved records to
+                PRE-NORMALIZE JSONL (data/processed/entities/pdf_dataset_entities.jsonl,
+                data/processed/relationships/pdf_dataset_relationships.jsonl) so they
+                flow through 03 -> 04 -> 05 like any other extracted record. This
+                preserves graph = f(files): the mint is committed source, not a
+                direct graph write — PROVEN by a files-only rebuild into an empty
+                Neo4j instance reproducing the 297/290 counts. First application
+                added 8 Dataset + 11 HAS_DATASET (289 -> 297, 279 -> 290).
+                HELD for David's ruling (NOT minted): MSV000* accessions (MassIVE
+                native IDs, pending a namespace decision); new-namespace deposits
+                (SRA / BioProject / BCO-DMO — no repository handler yet); PXD026178
+                (cited in a PDF but no raw-file lineage in the graph); the
+                other:0516284a PRIDE search-URL node (a candidate to fold into the
+                Blood Proteoform Atlas PXD set); and raw-file OPERATORS, left
+                intentionally unmodeled (FOXDEN data_creator carries no reliable
+                person identity — no OPERATED_BY minted for PXD files).
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships
@@ -140,6 +173,19 @@ PDF transform (02d extraction -> entity/relationship nodes)
   instrument terms were audited against PSI-MS via EBI OLS4 and
   corrected (several had used generic analyzer/parent accessions as
   specific instruments — the MS:1000079 class).
+- Instrument dedup (03_normalize.py, applied 2026-07-21, 469 -> 443).
+  Table-driven, EXACT-slug (never substring). Three David-authorized ops:
+  (1) safe OCR/spacing typo merges the PDF signature-collapse mechanically
+  missed (6 groups + one repaired hi-res node); (2) the 13 bare-generic
+  FT-ICR spellings COLLAPSE into instrument:raw:ft_icr_ms @ MS:1003948
+  (magnet-strength, hi-res/ultra-hi-res, vendor, ionization-prefixed, and
+  custom-built FT-ICR nodes stay SEPARATE — do not fold them); (3) the
+  conflated Velos node SPLITS into ltq_orbitrap_velos (hybrid, MS:1001742),
+  velos_pro_linear_ion_trap (MS:1003495), and ltq_velos (distinct model,
+  psi_ms_id null — CV has no LTQ Velos row); ltqorbitrap (plain LTQ
+  Orbitrap) stays separate. 21T (21t_icr, MS:1003948, 168 papers) is
+  unchanged. Rulings recorded in data/processed/review/instrument_review.md
+  (SUPERSEDED banner). Do not revisit without David.
 - RawDataFile identity is the COMPOSITE identifier
   rawfile:{filename}:{sha16} (filename + first 16 hex of sha256), NOT
   filename alone (KI-8, remediated 2026-07-20). Byte-identical files
