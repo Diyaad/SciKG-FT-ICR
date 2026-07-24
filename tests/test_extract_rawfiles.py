@@ -219,7 +219,7 @@ class TestRelationships(unittest.TestCase):
         ex = run_extractor([("f1.raw", make_record("f1.raw"))])
         op = [r for r in ex.relationships if r["relationship_type"] == "OPERATED_BY"]
         self.assertEqual(len(op), 1)
-        self.assertEqual(op[0]["object_id"], "researcher:butcher_d_2024")
+        self.assertEqual(op[0]["object_id"], "researcher:butcher_d")
 
     def test_four_relationships_per_rawfile(self):
         ex = run_extractor([("f1.raw", make_record("f1.raw"))])

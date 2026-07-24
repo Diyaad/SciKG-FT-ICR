@@ -7,6 +7,33 @@ Add new issues at the top.
 
 ---
 
+## KI-17 — 25 candidate researcher equivalences flagged for human review (POSSIBLY_SAME_AS), NOT applied
+**Status:** queued for David's sign-off (2026-07-24). NOT in the graph. Distinct from the 3 `SAME_AS` edges below.
+
+The researcher slug fix (KI-16, transliterate + drop year) collapsed all accent/separator fragmentations,
+but **25 pairs did not collapse because the difference is not an accent** — mechanical artifacts that
+transliteration cannot reach: **period-parse** (`Rodgers. R.P.` vs `Rodgers, R.P.` — 2), **OCR/typo on a
+distinctive surname** (`Colilo`/`Corilo`, `Dzeilewski`/`Dzwilewski`, `Chamot-Rook`/`-Rooke`, … — ~19),
+**transposition/transliteration** (`Guluyz`/`Gulyuz`, `Schulga`/`Shul'ga`, Paša-Tolić residue — 3),
+**suffix** (`Avery`/`Avery Jr.` — 1). Each is likely one person but **not proven**, so they are
+`POSSIBLY_SAME_AS` candidates (inferred), **not applied** — a lead for human confirmation.
+
+Non-destructive by design (KI-16 preserve-names ruling): even after review, an approved pair gets a
+`POSSIBLY_SAME_AS`/`SAME_AS` edge, never a merge — both nodes and names stay.
+
+**Review sheet: `docs/researcher_equivalence_review.md`** (one row per candidate, grouped by mechanism,
+tick same/different). It also lists **~12 pairs excluded as different people** (Slavic m/f
+`Vladimirov`/`Vladimirova`; distinct surnames `Baker`/`Parker`, `Curry`/`Murray`, `Kieber`/`Weber`, …)
+plus **~80 common-Chinese-surname confusables excluded upstream** (`wang`/`yang`, `chen`/`shen`, …) — so
+the same-vs-different judgment is visible, not skipped.
+
+Separately, **3 `SAME_AS` edges** (PROVEN, shared author-verified ORCID) were emitted through the durable
+file path (`researcher_equivalence.jsonl` → 03 → 04 → 05): `hoeschen`↔`hoschen` (oe/o spelling),
+`aguilera`↔`chacon_patino` (surname change, ORCID `0000-0002-7273-5343`), `salvato_vallverdu`↔`vallverdu`
+(compound-surname). These need no review — the shared author-verified ORCID is proof.
+
+---
+
 ## KI-16 — ORCID enrichment exposed four Researcher-identity defects (all rooted in the MagLab CSV's name handling)
 **Status:** measured 2026-07-23; recorded as evidence, not acted on. Resolution is future identity work.
 **Surfaced by:** applying CrossRef ORCIDs to the graph (475 of 2,076 Researcher nodes, properties-only).

@@ -96,6 +96,7 @@ RELATIONSHIP_FILES = {
     "rawfiles_pxd_relationships.jsonl",
     "advisory_relationships.jsonl",   # KI-8: FLAGS edges (Advisory -> RawDataFile)
     "pdf_dataset_relationships.jsonl",  # PDF dataset_accession -> HAS_DATASET (mint_dataset_operator_edges.py)
+    "researcher_equivalence.jsonl",   # KI-17: SAME_AS / POSSIBLY_SAME_AS (Researcher <-> Researcher, graph_derived)
 }
 
 # --------------------------------------------------------------------------- #

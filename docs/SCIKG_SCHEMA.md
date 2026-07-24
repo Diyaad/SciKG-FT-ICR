@@ -1035,6 +1035,67 @@ fisher_py`).
 inspecting RAW file FOXDEN JSONs for embedded DOI references after pipeline 
 load (Week 5 task). Not loaded into v1.0 until verification.
 
+### Entity-resolution relationships (`SAME_AS`, `POSSIBLY_SAME_AS`) — Researcher ↔ Researcher
+
+Two `Researcher → Researcher` equivalence edges that record "these two nodes are the
+same person" **without merging, retiring, or repointing anything** (RULED 2026-07-24).
+Additive only: node count, identifiers, and each node's own `name_full` are unchanged —
+the schema keeps **both** real names because both can be correct (preserve-names ruling;
+e.g. a surname change where one author published under each surname). This is
+equivalence-*linking*, **not** merging.
+
+| Relationship | Subject → Object | Source | Cardinality | Status |
+|---|---|---|---|---|
+| `SAME_AS` | Researcher → Researcher | graph_derived | MANY-MANY (symmetric) | Active 2026-07-24 (3 edges in committed files; loads additively) |
+| `POSSIBLY_SAME_AS` | Researcher → Researcher | graph_derived | MANY-MANY (symmetric) | Defined 2026-07-24 — NOT populated (candidates await human review) |
+
+**`SAME_AS` — PROVEN same person.** An exact anchor establishes identity beyond
+inference: a shared **author-verified ORCID** spanning both nodes, or another exact
+external anchor. It is also the tool for a **surname change** — two individually-correct
+surnames the same person published under, both nodes and names kept. A query may trust
+`SAME_AS` absolutely.
+
+**`POSSIBLY_SAME_AS` — INFERRED, not proven.** A lead for human confirmation:
+OCR/spelling variants, co-author overlap without an ORCID anchor, or period-parse
+residue that transliteration did not collapse (KI-16 / KI-17). **Never auto-trusted.**
+Kept a **separate type** precisely so a query can trust `SAME_AS` absolutely while
+treating `POSSIBLY_SAME_AS` as a hypothesis to verify.
+
+**Symmetric, stored once (undirected).** Both types are symmetric in meaning and MUST
+be queried undirected (`MATCH (a)-[:SAME_AS]-(b)`). Exactly **one** edge is stored per
+pair, written from the **lexicographically-earlier `identifier` to the later**. Writers
+dedupe on the unordered pair; readers never assume direction.
+
+**Distinct from the removed `ASSOCIATED_WITH`.** These are specific, typed,
+evidence-bearing equivalence assertions — not the generic catch-all `ASSOCIATED_WITH`
+(removed from scope).
+
+**DEFERRED — unchanged by this.** ORCID-as-canonical-identifier and node **merging**
+both remain DEFERRED (see "ORCID (Added 2026-07-23)" and Entity resolution). `SAME_AS`
+does **not** repoint `researcher:*` to `orcid:*`, does not retire either node, and does
+not move any `AUTHORED_BY` edge. Merging on ORCID is a separate, unmade ruling; these
+edges are the non-destructive alternative that preserves both identifiers and both names.
+
+**Edge properties** (beyond the six universal provenance props):
+
+| Property | Type | M/R/O | Values | Notes |
+|---|---|---|---|---|
+| `anchor_type` | string | M | `orcid` \| `shared_coauthor` \| `ocr_variant` \| `period_parse` \| `surname_change` \| `human_review` | What established the (candidate) equivalence. `human_review` = a `POSSIBLY_SAME_AS` a reviewer confirmed into a `SAME_AS` |
+| `orcid` | string | O | ORCID format | The matching ORCID when `anchor_type` is `orcid`/`surname_change`; else null |
+| `mechanism` | string | M | free text | Human-readable "why" the two nodes are (candidate) equivalent |
+
+`confidence` is the standard provenance field, **constrained** for these edges:
+**`proven`** for `SAME_AS`; **`high` \| `medium` \| `low`** for `POSSIBLY_SAME_AS`.
+`source_type` is **`graph_derived`** (computed from the graph's own ORCID / name /
+co-author data, like `FLAGS`); the other four universal props (`source_id`,
+`extracted_at`, `evidence_note`, `schema_version`) follow the usual pattern.
+
+**Registration (both required).** A new relationship type must be registered in BOTH
+`scripts/04_validate.py` `RELATIONSHIP_FILES` (valid input files —
+`researcher_equivalence.jsonl`) AND `scripts/05_load.py` `REL_TYPES` (loadable types);
+03/04 pass without it but 05 aborts. `POSSIBLY_SAME_AS` is deliberately absent from
+`REL_TYPES` so an unreviewed inferred edge aborts 05 rather than loading. See KI-17.
+
 ### Relationship properties
 
 | Relationship | Property | Type | Notes |

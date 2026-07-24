@@ -198,7 +198,7 @@ class TestEmailPrivacy(unittest.TestCase):
         )
         ext.process_row(row)
         butcher = next(r for r in ext.entities["Researcher"]
-                       if r["identifier"] == "researcher:butcher_d_2019")
+                       if r["identifier"] == "researcher:butcher_d")
         self.assertTrue(butcher["properties"]["is_corresponding_author"])
         self.assertTrue(butcher["properties"]["is_nhmfl_author"])
         # Non-corresponding author keeps null flags.
