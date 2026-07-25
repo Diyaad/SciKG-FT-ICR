@@ -1,0 +1,297 @@
+﻿==============================================================================
+ADDENDUM ΓÇö source DOIs for the 25 POSSIBLY_SAME_AS candidate pairs
+==============================================================================
+
+Purpose: open the source paper and check the AUTHOR NAME AS PRINTED.
+Read-only extract from the live graph (Publication nodes via AUTHORED_BY).
+
+Graph verified at generation time: 4,886 nodes / 11,666 edges, 2,062 Researcher,
+0 old-scheme identifiers, 471 ORCID-bearing, 3 SAME_AS. Packet identifiers
+resolve directly against this graph (new scheme, no year suffix).
+
+A pair with FEW papers on one side is the normal shape for an OCR/typo
+artifact: the misspelling usually appears on exactly one paper. That is
+supporting evidence, not a reason to doubt the pair.
+
+
+------------------------------------------------------------------------------
+## period-parse (Last. First ΓåÆ wrong family; strong co-author)
+------------------------------------------------------------------------------
+
+[ 1] Rodgers, R.P.  <->  Rodgers. R.P.    (mechanism: period_parse)
+   researcher:rodgers_r   "Rodgers, R.P."
+       [graph: researcher:rodgers_r]  166 paper(s)  [resolved by exact]
+         10.1021/acs.analchem.5c05562
+         10.1021/acs.analchem.5c02420
+         10.1021/acs.energyfuels.4c03107
+         10.1021/acs.energyfuels.4c05674
+         10.1021/acs.energyfuels.5c04213
+         ... and 161 more
+   researcher:rodgers_r_p_x   "Rodgers. R.P."
+       [graph: researcher:rodgers_r_p_x]  1 paper(s)  [resolved by exact]
+         no DOI -- "Characterization of Pyrogenic Black Carbon by Desorption Atmospheric P" (2012)
+
+[ 2] Peru, K.M.  <->  Peru. K.M.    (mechanism: period_parse)
+   researcher:peru_k   "Peru, K.M."
+       [graph: researcher:peru_k]  9 paper(s)  [resolved by exact]
+         10.1021/acs.energyfuels.3c04994
+         10.1021/acs.energyfuels.9b00469
+         10.1021/acs.energyfuels.6b02643
+         no DOI -- "Fourier Transform Ion Cyclotron Resonance Mass Spectrometry Characteri" (2015)
+         no DOI -- "Atmospheric Pressure Photoionization Fourier Transform IonCyclotron Re" (2014)
+         ... and 4 more
+   researcher:peru_k_m_x   "Peru. K.M."
+       [graph: researcher:peru_k_m_x]  1 paper(s)  [resolved by exact]
+         no DOI -- "Comparison of the Levels of Chloride Ions with the Characterization of" (2012)
+
+------------------------------------------------------------------------------
+## OCR / typo ΓÇö distinctive surname (lev-1)
+------------------------------------------------------------------------------
+
+[ 3] Angstrom, J.  <->  Anstrom, J.    (mechanism: ocr_variant)
+   researcher:angstrom_j   "Angstrom, J."
+       [graph: researcher:angstrom_j]  1 paper(s)  [resolved by exact]
+         no DOI -- "Chemical Cross-Linking of the Urease Complex from Helicobacter pylori " (2004)
+   researcher:anstrom_j   "Anstrom, J."
+       [graph: researcher:anstrom_j]  1 paper(s)  [resolved by exact]
+         no DOI -- "Chemical Cross-Linking of Ureas Complex From Helicobacter pylori and A" (2004)
+
+[ 4] Arumanayagam, A.S.  <->  Asumanayagam, A.S.    (mechanism: ocr_variant)
+   researcher:arumanayagam_a   "Arumanayagam, A.S."
+       [graph: researcher:arumanayagam_a]  2 paper(s)  [resolved by exact]
+         10.1016/b978-0-12-819311-2.00018-8
+         10.1007/s12010-019-03055-5
+   researcher:asumanayagam_a   "Asumanayagam, A.S."
+       [graph: researcher:asumanayagam_a]  1 paper(s)  [resolved by exact]
+         10.1038/s41598-024-79780-7
+
+[ 5] Chamot-Rook, J.  <->  Chamot-Rooke, J.    (mechanism: ocr_variant)
+   researcher:chamot_rook_j   "Chamot-Rook, J."
+       [graph: researcher:chamot_rook_j]  1 paper(s)  [resolved by exact]
+         10.1038/s41592-019-0573-x
+   researcher:chamot_rooke_j   "Chamot-Rooke, J."
+       [graph: researcher:chamot_rooke_j]  1 paper(s)  [resolved by exact]
+         10.1021/jasms.0c00036
+
+[ 6] Colilo, Y.E.  <->  Corilo, Y.E.    (mechanism: ocr_variant)
+   researcher:colilo_y   "Colilo, Y.E."
+       [graph: researcher:colilo_y]  1 paper(s)  [resolved by exact]
+         no DOI -- "Solid-Phase Extraction Fractionation To Extend the Characterization of" (2014)
+   researcher:corilo_y   "Corilo, Y.E."
+       [graph: researcher:corilo_y]  22 paper(s)  [resolved by exact]
+         10.1016/j.orggeochem.2024.104880
+         10.1021/acs.analchem.1c01169
+         10.1021/acs.energyfuels.0c02158
+         10.1021/acs.energyfuels.9b00469
+         10.1021/acs.energyfuels.9b00626
+         ... and 17 more
+
+[ 7] Dehghanizade, M.  <->  Dehghanizadeh, M.    (mechanism: ocr_variant)
+   researcher:dehghanizade_m   "Dehghanizade, M."
+       [graph: researcher:dehghanizade_m]  1 paper(s)  [resolved by exact]
+         10.3389/fsufs.2021.658592
+   researcher:dehghanizadeh_m   "Dehghanizadeh, M."
+       [graph: researcher:dehghanizadeh_m]  3 paper(s)  [resolved by exact]
+         10.1016/j.algal.2021.102282
+         10.1016/j.dib.2020.105989
+         10.1016/j.indcrop.2020.112311
+
+[ 8] Dzeilewski, A.  <->  Dzwilewski, A.    (mechanism: ocr_variant)
+   researcher:dzeilewski_a   "Dzeilewski, A."
+       [graph: researcher:dzeilewski_a]  1 paper(s)  [resolved by exact]
+         no DOI -- "Hydrogenation of C60 at 2 GPa Pressure and High Temperature" (2006)
+   researcher:dzwilewski_a   "Dzwilewski, A."
+       [graph: researcher:dzwilewski_a]  1 paper(s)  [resolved by exact]
+         no DOI -- "Reaction of Hydrogen Gas with C60 at Elevated Pressure and Temperature" (2006)
+
+[ 9] Nagirnov, K.O.  <->  Nagornov, K.O.    (mechanism: ocr_variant)
+   researcher:nagirnov_k   "Nagirnov, K.O."
+       [graph: researcher:nagirnov_k]  1 paper(s)  [resolved by exact]
+         10.1021/jasms.4c00232
+   researcher:nagornov_k   "Nagornov, K.O."
+       [graph: researcher:nagornov_k]  1 paper(s)  [resolved by exact]
+         10.1021/jasms.0c00036
+
+[10] Standford, L.A.  <->  Stanford, L.A.    (mechanism: ocr_variant)
+   researcher:standford_l   "Standford, L.A."
+       [graph: researcher:standford_l]  1 paper(s)  [resolved by exact]
+         no DOI -- "Microbial Alteration of the Acidic and Neutral Polar NSO Compounds in " (2005)
+   researcher:stanford_l   "Stanford, L.A."
+       [graph: researcher:stanford_l]  5 paper(s)  [resolved by exact]
+         no DOI -- "Chemical Speciation of Calcium and Sodium Naphthenate Deposits by Elec" (2009)
+         no DOI -- "Identification of Water-Soluble Heavy Crude Oil Organics. Acidic and B" (2007)
+         no DOI -- "Compositional Characterization of Bitumen/Water Emulsion Films by Nega" (2007)
+         no DOI -- "Detailed Elemental Compositions of Emulsion Interfacial Material vs. P" (2007)
+         no DOI -- "Characterization of Compositional Changes in Vacuum Gas Oil Distillati" (2006)
+
+[11] Tzortiziou, M.  <->  Tzortziou, M.    (mechanism: ocr_variant)
+   researcher:tzortiziou_m   "Tzortiziou, M."
+       [graph: researcher:tzortiziou_m]  1 paper(s)  [resolved by exact]
+         10.1016/j.marchem.2023.104281
+   researcher:tzortziou_m   "Tzortziou, M."
+       [graph: researcher:tzortziou_m]  1 paper(s)  [resolved by exact]
+         10.1029/2025jg008899
+
+[12] Jeppensen, E.  <->  Jeppesen, E.    (mechanism: ocr_variant)
+   researcher:jeppensen_e   "Jeppensen, E."
+       [graph: researcher:jeppensen_e]  1 paper(s)  [resolved by exact]
+         10.1016/j.watres.2019.115048
+   researcher:jeppesen_e   "Jeppesen, E."
+       [graph: researcher:jeppesen_e]  4 paper(s)  [resolved by exact]
+         10.1002/lno.11716
+         10.1016/j.scitotenv.2019.01.220
+         10.1016/j.scitotenv.2018.05.180
+         10.1021/acs.est.8b02163
+
+[13] Hawkings, J.R.  <->  Hawkins, J.R.    (mechanism: ocr_variant)
+   researcher:hawkings_j   "Hawkings, J.R."
+       [graph: researcher:hawkings_j]  6 paper(s)  [resolved by exact]
+         10.5194/bg-22-41-2025
+         10.5194/egusphere-2024-492-rc1
+         10.1016/j.watres.2022.119357
+         10.1029/2022jg006852
+         10.1007/s10533-021-00852-1
+         ... and 1 more
+   researcher:hawkins_j   "Hawkins, J.R."
+       [graph: researcher:hawkins_j]  1 paper(s)  [resolved by exact]
+         10.1016/j.orggeochem.2024.104846
+
+[14] Mathews, J.P.  <->  Matthews, J.P.    (mechanism: ocr_variant)
+   researcher:mathews_j   "Mathews, J.P."
+       [graph: researcher:mathews_j]  1 paper(s)  [resolved by exact]
+         10.1016/j.fuel.2011.12.026
+   researcher:matthews_j   "Matthews, J.P."
+       [graph: researcher:matthews_j]  1 paper(s)  [resolved by exact]
+         10.1021/acs.energyfuels.3c05200
+
+[15] Rodgers, R.P.  <->  Rogers, R.P.    (mechanism: spelling_variant)
+   researcher:rodgers_r   "Rodgers, R.P."
+       [graph: researcher:rodgers_r]  166 paper(s)  [resolved by exact]
+         10.1021/acs.analchem.5c05562
+         10.1021/acs.analchem.5c02420
+         10.1021/acs.energyfuels.4c03107
+         10.1021/acs.energyfuels.4c05674
+         10.1021/acs.energyfuels.5c04213
+         ... and 161 more
+   researcher:rogers_r   "Rogers, R.P."
+       [graph: researcher:rogers_r]  2 paper(s)  [resolved by exact]
+         10.1080/01932690500357909
+         no DOI -- "Nonpolar Compositional Analysis of Vacuum Gas Oil Distillation Fractio" (2006)
+
+[16] Zimmerman, R.  <->  Zimmermann, R.    (mechanism: spelling_variant)
+   researcher:zimmerman_r   "Zimmerman, R."
+       [graph: researcher:zimmerman_r]  1 paper(s)  [resolved by exact]
+         10.1021/acs.energyfuels.2c04274
+   researcher:zimmermann_r   "Zimmermann, R."
+       [graph: researcher:zimmermann_r]  6 paper(s)  [resolved by exact]
+         10.1021/acs.molpharmaceut.5c00679
+         10.1021/acs.analchem.4c01288
+         10.1021/jasms.4c00120
+         10.1038/s43247-024-01304-y
+         10.1021/acs.energyfuels.2c02122
+         ... and 1 more
+
+[17] Meyer-Baese, A.  <->  Meyer-B├ñse, A.    (mechanism: spelling_variant (ae/├ñ digraph, not a slug miss))
+   researcher:meyer_baese_a   "Meyer-Baese, A."
+       [graph: researcher:meyer_baese_a]  2 paper(s)  [resolved by exact]
+         no DOI -- "Computing H/D-Exchange Rates of Single Residues from Data of Proteolyt" (2010)
+         no DOI -- "Global stability analysis and robust design of multi-time-scale biolog" (2009)
+   researcher:meyer_base_a   "Meyer-B├ñse, A."
+       [graph: researcher:meyer_base_a]  1 paper(s)  [resolved by exact]
+         no DOI -- "Determining and Interpreting Correlations in Lipidomic Networks Found " (2010)
+
+------------------------------------------------------------------------------
+## short typo
+------------------------------------------------------------------------------
+
+[18] Ahif, D.R.  <->  Ahlf, D.R.    (mechanism: ocr_variant)
+   researcher:ahif_d   "Ahif, D.R."
+       [graph: researcher:ahif_d]  1 paper(s)  [resolved by exact]
+         no DOI -- "A Robust Two-Dimensional Separation for Top-Down Tandem Mass Spectrome" (2009)
+   researcher:ahlf_d   "Ahlf, D.R."
+       [graph: researcher:ahlf_d]  1 paper(s)  [resolved by exact]
+         no DOI -- "Nano-LC FT-ICR Mass Spectrometry for Top-Down Proteomics: Routine Base" (2012)
+
+[19] Oomens, J.  <->  Oomes, J.    (mechanism: ocr_variant)
+   researcher:oomens_j   "Oomens, J."
+       [graph: researcher:oomens_j]  13 paper(s)  [resolved by exact]
+         no DOI -- "Infrared multiple photon dissociation spectroscopy of sodium and potas" (2010)
+         no DOI -- "Effect of Peptide Fragment Size on the Propensity of Cyclization in Co" (2009)
+         no DOI -- "Mid-infrared Vibrational Spectra of Discrete Acetone-ligated Cerium Hy" (2007)
+         no DOI -- "IRMPD Spectroscopy of Metal-ion Tryptophan Complexes" (2006)
+         no DOI -- "Infrared Spectroscopy of Phenylalanine Ag(I) and Zn(II) Complexes in t" (2006)
+         ... and 8 more
+   researcher:oomes_j   "Oomes, J."
+       [graph: researcher:oomes_j]  1 paper(s)  [resolved by exact]
+         no DOI -- "Vibrational spectra of discrete UO22+ halide complexes in the gas phas" (2010)
+
+[20] Sets, E.G.  <->  Stets, E.G.    (mechanism: ocr_variant)
+   researcher:sets_e   "Sets, E.G."
+       [graph: researcher:sets_e]  1 paper(s)  [resolved by exact]
+         10.1007/s10533-021-00852-1
+   researcher:stets_e   "Stets, E.G."
+       [graph: researcher:stets_e]  1 paper(s)  [resolved by exact]
+         10.1016/j.watres.2022.119357
+
+[21] Wang, X.  <->  Wnag, X.    (mechanism: transposition)
+   researcher:wang_x   "Wang, X."
+       [graph: researcher:wang_x]  8 paper(s)  [resolved by exact]
+         10.1002/lno.11716
+         no DOI -- "Laserspray and Matrix-Assisted Ionization Inlet Coupled to High-Field " (2013)
+         no DOI -- "Identification of Potential Glycoprotein Biomarkers in Estrogen Recept" (2012)
+         no DOI -- "Differential Phosphopeptide Expression in a Benign Breast Tissue, and " (2011)
+         no DOI -- "Characterization of the Phosphoproteome in Androgen-Repressed Human Pr" (2011)
+         ... and 3 more
+   researcher:wnag_x   "Wnag, X."
+       [graph: researcher:wnag_x]  1 paper(s)  [resolved by exact]
+         10.1016/j.palaeo.2025.112798
+
+------------------------------------------------------------------------------
+## transposition / transliteration
+------------------------------------------------------------------------------
+
+[22] Guluyz, K.  <->  Gulyuz, K.    (mechanism: transposition)
+   researcher:guluyz_k   "Guluyz, K."
+       [graph: researcher:guluyz_k]  2 paper(s)  [resolved by exact]
+         no DOI -- "Hybrid quadrupole mass filter/quadrupole ion trap/time-of-flight-mass " (2011)
+         no DOI -- "Diagnostic NH and OH vibrations for oxazolone and diketopiperazine str" (2011)
+   researcher:gulyuz_k   "Gulyuz, K."
+       [graph: researcher:gulyuz_k]  1 paper(s)  [resolved by exact]
+         no DOI -- "Gas-phase structure and dissociation chemistry of protonated tryptopha" (2011)
+
+[23] Schulga, Y.M.  <->  Shul'ga, Y.M.    (mechanism: transliteration)
+   researcher:schulga_y   "Schulga, Y.M."
+       [graph: researcher:schulga_y]  1 paper(s)  [resolved by exact]
+         no DOI -- "Selective synthesis of the C3v isomer of C60H18" (2005)
+   researcher:shul_ga_y   "Shul'ga, Y.M."
+       [graph: researcher:shul_ga_y]  1 paper(s)  [resolved by exact]
+         no DOI -- "Composition of Hydrofullerene Mixtures Produced by C60 Reaction with H" (2005)
+
+[24] Pa-sa-Toli, L.  <->  Pasa-Tolic, L.    (mechanism: transliteration (Pa┼ía-Toli─ç))
+   researcher:pa_sa_toli_l   "Pa-sa-Toli, L."
+       [graph: researcher:pa_sa_toli_l]  1 paper(s)  [resolved by exact]
+         10.1002/pmic.201300438
+   researcher:pasa_tolic_l   "Pasa-Tolic, L."
+       [graph: researcher:pasa_tolic_l]  2 paper(s)  [resolved by exact]
+         10.1021/jasms.0c00036
+         10.1038/s41592-019-0573-x
+
+------------------------------------------------------------------------------
+## suffix
+------------------------------------------------------------------------------
+
+[25] Avery, G.B.  <->  Avery Jr., G.B.    (mechanism: suffix_Jr)
+   researcher:avery_g   "Avery, G.B."
+       [graph: researcher:avery_g]  2 paper(s)  [resolved by exact]
+         no DOI -- "Characterization of CHOS Compounds in Rainwater from Continental and C" (2015)
+         no DOI -- "Insights Into Dissolved Organic Matter Complexity in Rainwater from Co" (2013)
+   researcher:avery_jr_g   "Avery Jr., G.B."
+       [graph: researcher:avery_jr_g]  1 paper(s)  [resolved by exact]
+         10.1016/j.orggeochem.2020.104164
+
+==============================================================================
+SUMMARY
+==============================================================================
+candidate pairs listed          : 25
+pairs sharing >=1 DOI           : 0
+nodes that could not be resolved: 0
