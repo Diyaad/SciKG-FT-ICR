@@ -146,62 +146,59 @@ The matcher deliberately does **not** resolve these: family `Van Geem` does not 
 
 Grouping the 1129 `MATCH-UNIQUE` candidates by ORCID across all papers.
 
-### 3.1 Clean — one ORCID, one Researcher node everywhere (474)
+### 3.1 Clean — one ORCID, one Researcher node everywhere (477)
 
 These are the strongest candidates: the ORCID resolved to the same single node on every paper it appeared on.
 
-**Caveat — 'clean' here means clean *from the ORCID side*, and 13 of these 474 are not safe to apply.** This section groups by ORCID; section 3.3 groups by node. An ORCID can point unambiguously at one node while that node is itself a conflation of two people. `researcher:anderson_l_2026` below is exactly this: the ORCID `0000-0001-8633-0251` resolves to it consistently across 14 papers, yet the node also answers to a second ORCID. Writing the ORCID onto the node would silently assert that the conflated node is one person. **Intersect this list against section 3.3 before applying anything.**
+**Caveat — 'clean' here means clean *from the ORCID side*, and 13 of these 477 are not safe to apply.** This section groups by ORCID; section 3.3 groups by node. An ORCID can point unambiguously at one node while that node is itself a conflation of two people. `researcher:anderson_l_2026` below is exactly this: the ORCID `0000-0001-8633-0251` resolves to it consistently across 14 papers, yet the node also answers to a second ORCID. Writing the ORCID onto the node would silently assert that the conflated node is one person. **Intersect this list against section 3.3 before applying anything.**
 
-Of these, **131 are corroborated across more than one paper** (the same ORCID independently matching the same node on 2+ DOIs), which is the strongest evidence class here. The remaining 343 rest on a single paper.
+Of these, **134 are corroborated across more than one paper** (the same ORCID independently matching the same node on 2+ DOIs), which is the strongest evidence class here. The remaining 343 rest on a single paper.
 
 | ORCID | Researcher node | Papers |
 |---|---|---:|
-| `0000-0001-7213-521X` | `researcher:mckenna_a_2026` | 66 |
-| `0000-0003-1302-2850` | `researcher:rodgers_r_2026` | 63 |
-| `0000-0001-9375-2532` | `researcher:marshall_a_2026` | 38 |
-| `0000-0003-0777-0748` | `researcher:spencer_r_2026` | 38 |
-| `0000-0002-7348-4814` | `researcher:kellerman_a_2025` | 27 |
-| `0000-0002-6032-6569` | `researcher:chen_h_2025` | 26 |
-| `0000-0002-4251-1613` | `researcher:borch_t_2025` | 17 |
-| `0000-0002-9569-3158` | `researcher:giusti_p_2026` | 16 |
-| `0000-0002-4205-9866` | `researcher:blakney_g_2024` | 15 |
-| `0000-0001-8633-0251` | `researcher:anderson_l_2026` | 14 |
-| `0000-0001-5324-4525` | `researcher:weisbrod_c_2025` | 14 |
-| `0000-0002-1070-5923` | `researcher:podgorski_d_2025` | 13 |
-| `0000-0002-3487-6612` | `researcher:niles_s_2024` | 12 |
-| `0000-0001-7485-0604` | `researcher:young_r_2026` | 10 |
-| `0000-0003-3331-0526` | `researcher:smith_d_2021` | 9 |
-| `0000-0002-4272-2939` | `researcher:hendrickson_c_2025` | 7 |
-| `0000-0002-6904-5253` | `researcher:kurek_m_2025` | 7 |
-| `0000-0003-3244-3722` | `researcher:dayton_d_2025` | 6 |
-| `0000-0002-2406-5664` | `researcher:afonso_c_2025` | 6 |
-| `0000-0001-7091-9416` | `researcher:holt_a_2025` | 6 |
-| `0000-0001-9930-3690` | `researcher:fellman_j_2025` | 6 |
-| `0000-0003-2733-517X` | `researcher:roth_h_2025` | 6 |
-| `0000-0002-7011-1940` | `researcher:zito_p_2025` | 6 |
-| `0000-0001-8494-2908` | `researcher:tang_y_2024` | 6 |
-| `0000-0002-9654-9078` | `researcher:behnke_m_2026` | 6 |
-| `0000-0002-6237-0379` | `researcher:johnston_s_2023` | 6 |
-| `0000-0003-2333-8410` | `researcher:guillemette_f_2022` | 6 |
-| `0000-0001-6114-417X` | `researcher:hood_e_2025` | 5 |
-| `0000-0002-6400-0590` | `researcher:wickland_k_2025` | 5 |
-| `0000-0001-7323-5108` | `researcher:mcdonough_l_2025` | 4 |
+| `0000-0001-7213-521X` | `researcher:mckenna_a` | 66 |
+| `0000-0003-1302-2850` | `researcher:rodgers_r` | 63 |
+| `0000-0001-9375-2532` | `researcher:marshall_a` | 38 |
+| `0000-0003-0777-0748` | `researcher:spencer_r` | 38 |
+| `0000-0002-7348-4814` | `researcher:kellerman_a` | 27 |
+| `0000-0002-6032-6569` | `researcher:chen_h` | 26 |
+| `0000-0002-4251-1613` | `researcher:borch_t` | 17 |
+| `0000-0002-9569-3158` | `researcher:giusti_p` | 16 |
+| `0000-0001-5878-6067` | `researcher:bouyssiere_b` | 16 |
+| `0000-0002-4205-9866` | `researcher:blakney_g` | 15 |
+| `0000-0001-8633-0251` | `researcher:anderson_l` | 14 |
+| `0000-0001-5324-4525` | `researcher:weisbrod_c` | 14 |
+| `0000-0002-1070-5923` | `researcher:podgorski_d` | 13 |
+| `0000-0002-3487-6612` | `researcher:niles_s` | 12 |
+| `0000-0001-7485-0604` | `researcher:young_r` | 10 |
+| `0000-0003-3331-0526` | `researcher:smith_d` | 9 |
+| `0000-0001-9634-9239` | `researcher:ruger_c` | 8 |
+| `0000-0002-4272-2939` | `researcher:hendrickson_c` | 7 |
+| `0000-0002-6904-5253` | `researcher:kurek_m` | 7 |
+| `0000-0003-3244-3722` | `researcher:dayton_d` | 6 |
+| `0000-0002-2406-5664` | `researcher:afonso_c` | 6 |
+| `0000-0001-7091-9416` | `researcher:holt_a` | 6 |
+| `0000-0001-9930-3690` | `researcher:fellman_j` | 6 |
+| `0000-0003-2733-517X` | `researcher:roth_h` | 6 |
+| `0000-0002-7011-1940` | `researcher:zito_p` | 6 |
+| `0000-0001-8494-2908` | `researcher:tang_y` | 6 |
+| `0000-0002-9654-9078` | `researcher:behnke_m` | 6 |
+| `0000-0002-6237-0379` | `researcher:johnston_s` | 6 |
+| `0000-0003-2333-8410` | `researcher:guillemette_f` | 6 |
+| `0000-0001-6114-417X` | `researcher:hood_e` | 5 |
 
-_(101 more)_
+_(104 more)_
 
-### 3.2 FRAGMENTATION — one ORCID, multiple Researcher nodes (7)
+### 3.2 FRAGMENTATION — one ORCID, multiple Researcher nodes (4)
 
 **This is definitive same-person-multiple-nodes evidence.** An ORCID is a persistent personal identifier; where one resolves to two or more distinct nodes, those nodes are the same human being. This is the strongest de-duplication signal available to the project — it does not depend on name-similarity heuristics.
 
 | ORCID | Researcher nodes | `name_full` values | Implicated mechanism |
 |---|---|---|---|
-| `0000-0001-5774-2062` | `researcher:hoeschen_c_2022`<br>`researcher:hoschen_c_2021` | Hoeschen, C.<br>Hoschen, C. | spelling-variant |
-| `0000-0001-5878-6067` | `researcher:bouyssiere_b_2025`<br>`researcher:bouyssi_re_b_2018` | Bouyssiere, B.<br>Bouyssière, B. | accent-collapse |
-| `0000-0001-5884-5629` | `researcher:rodr_guez_fortea_a_2019`<br>`researcher:rodriguez_fortea_a_2018` | Rodríguez‐Fortea, A.<br>Rodriguez-Fortea, A. | accent-collapse |
-| `0000-0001-9634-9239` | `researcher:ruger_c_2025`<br>`researcher:r_ger_c_2024` | Ruger, C.P.<br>Rüger, C.P. | accent-collapse |
-| `0000-0002-7273-5343` | `researcher:aguilera_m_2026`<br>`researcher:chacon_patino_m_2025`<br>`researcher:chac_n_pati_o_m_2022` | Aguilera, M.<br>Chacon Patino, M.L.<br>Chacón-Patiño, M.L. | spelling-variant |
-| `0000-0003-1116-8776` | `researcher:salvato_vallverdu_g_2025`<br>`researcher:vallverdu_g_2026` | Salvato Vallverdu, G.<br>Vallverdu, G.S. | spelling-variant |
-| `0000-0003-1926-0542` | `researcher:h_kansson_k_2024`<br>`researcher:martin_b_2017` | Håkansson, K.<br>Martin, B.R. and Hakansson, K. | fused-name/spelling-variant |
+| `0000-0001-5774-2062` | `researcher:hoeschen_c`<br>`researcher:hoschen_c` | Hoeschen, C.<br>Hoschen, C. | spelling-variant |
+| `0000-0002-7273-5343` | `researcher:aguilera_m`<br>`researcher:chacon_patino_m` | Aguilera, M.L.<br>Chacón-Patiño, M.L. | spelling-variant |
+| `0000-0003-1116-8776` | `researcher:salvato_vallverdu_g`<br>`researcher:vallverdu_g` | Salvato Vallverdu, G.<br>Vallverdu, G.S. | spelling-variant |
+| `0000-0003-1926-0542` | `researcher:hakansson_k`<br>`researcher:martin_b` | Håkansson, K.<br>Martin, B.R. and Hakansson, K. | fused-name/spelling-variant |
 
 ### 3.3 REVERSE ERROR — one Researcher node, multiple ORCIDs (7)
 
@@ -216,13 +213,13 @@ That only **1 of 1129** MATCH-UNIQUE rows produced a same-paper collision is als
 
 | Researcher node | `name_full` | Evidence | ORCIDs | DOIs |
 |---|---|---|---|---|
-| `researcher:martin_b_2017` | Martin, B.R. and Hakansson, K. | **same-paper — definitive** | `0000-0002-7136-2397`<br>`0000-0003-1926-0542` | `10.1021/acs.analchem.7b01461` |
-| `researcher:anderson_l_2026` | Anderson, L.C. | cross-paper | `0000-0001-7738-168X`<br>`0000-0001-8633-0251` | `10.1016/j.jbc.2022.102768`<br>`10.1016/j.mcpro.2024.100814`<br>`10.1016/j.mcpro.2024.100875`<br>`10.1016/j.xphs.2025.01.020`<br>`10.1021/acs.analchem.0c01064`<br>`10.1021/acs.analchem.1c00847` |
-| `researcher:huang_c_2025` | Huang, C. | cross-paper | `0000-0002-3865-6414`<br>`0000-0002-9833-5663` | `10.1016/j.envres.2025.123052`<br>`10.1016/j.watres.2023.119812`<br>`10.1016/j.watres.2023.120808` |
-| `researcher:lin_y_2025` | Lin, Y. | cross-paper | `0000-0001-8653-0050`<br>`0000-0002-0655-9580` | `10.1021/acs.energyfuels.8b03835`<br>`10.1021/jasms.1c00291` |
-| `researcher:smith_l_2024` | Smith, L.C. | cross-paper | `0000-0001-6866-5904`<br>`0000-0002-6652-8639` | `10.1029/2022gb007495`<br>`10.1029/2023jg007797`<br>`10.1038/s41592-019-0573-x` |
-| `researcher:zhang_y_2025` | Zhang, Y. | cross-paper | `0000-0002-3071-8625`<br>`0000-0002-3382-4570` | `10.1002/lno.11716`<br>`10.1016/j.scitotenv.2018.05.180`<br>`10.1016/j.scitotenv.2019.01.220`<br>`10.1016/j.watres.2019.115048`<br>`10.1021/acs.energyfuels.0c01564` |
-| `researcher:zhang_z_2025` | Zhang, Z. | cross-paper | `0000-0002-4472-7653`<br>`0000-0003-3249-0465` | `10.1016/j.wasman.2020.03.011`<br>`10.1021/acsestwater.4c00832`<br>`10.1039/d0ew00376j` |
+| `researcher:martin_b` | Martin, B.R. and Hakansson, K. | **same-paper — definitive** | `0000-0002-7136-2397`<br>`0000-0003-1926-0542` | `10.1021/acs.analchem.7b01461` |
+| `researcher:anderson_l` | Anderson, L.C. | cross-paper | `0000-0001-7738-168X`<br>`0000-0001-8633-0251` | `10.1016/j.jbc.2022.102768`<br>`10.1016/j.mcpro.2024.100814`<br>`10.1016/j.mcpro.2024.100875`<br>`10.1016/j.xphs.2025.01.020`<br>`10.1021/acs.analchem.0c01064`<br>`10.1021/acs.analchem.1c00847` |
+| `researcher:huang_c` | Huang, C. | cross-paper | `0000-0002-3865-6414`<br>`0000-0002-9833-5663` | `10.1016/j.envres.2025.123052`<br>`10.1016/j.watres.2023.119812`<br>`10.1016/j.watres.2023.120808` |
+| `researcher:lin_y` | Lin, Y.J. | cross-paper | `0000-0001-8653-0050`<br>`0000-0002-0655-9580` | `10.1021/acs.energyfuels.8b03835`<br>`10.1021/jasms.1c00291` |
+| `researcher:smith_l` | Smith, L.C. | cross-paper | `0000-0001-6866-5904`<br>`0000-0002-6652-8639` | `10.1029/2022gb007495`<br>`10.1029/2023jg007797`<br>`10.1038/s41592-019-0573-x` |
+| `researcher:zhang_y` | Zhang, Y. | cross-paper | `0000-0002-3071-8625`<br>`0000-0002-3382-4570` | `10.1002/lno.11716`<br>`10.1016/j.scitotenv.2018.05.180`<br>`10.1016/j.scitotenv.2019.01.220`<br>`10.1016/j.watres.2019.115048`<br>`10.1021/acs.energyfuels.0c01564` |
+| `researcher:zhang_z` | Zhang, Z. | cross-paper | `0000-0002-4472-7653`<br>`0000-0003-3249-0465` | `10.1016/j.wasman.2020.03.011`<br>`10.1021/acsestwater.4c00832`<br>`10.1039/d0ew00376j` |
 
 The same-paper case, `researcher:martin_b_2017` (`"Martin, B.R. and Hakansson, K."`), is the fused-name mechanism caught red-handed: the node is literally two people, and ORCID independently confirms it. Note it appears in section 3.2 as well — it is simultaneously a fragment of Håkansson's identity and a fusion of two people, which is exactly what a first-author-and-last-author CSV string collapsed into one node produces.
 

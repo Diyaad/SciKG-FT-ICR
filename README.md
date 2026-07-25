@@ -11,7 +11,7 @@ AI-assisted exploration.
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
 > extraction (stage 02d) exists and is under evaluation. Normalization,
 > validation, and load (stages 03-05) are DONE — the graph is loaded into
-> Neo4j AuraDB (4,886 nodes, 11,663 edges; instrument dedup, dataset-accession mint, ORCID enrichment, and a researcher-identifier slug fix — transliterate accents, drop the year — 2,076→2,062, all applied 2026-07-24). A researcher-equivalence layer (SAME_AS) is committed but not yet production-loaded. Current focus: graph
+> Neo4j AuraDB (4,886 nodes, 11,690 edges; instrument dedup, dataset-accession mint, ORCID enrichment, and a researcher-identifier slug fix — transliterate accents, drop the year — 2,076→2,062, all applied 2026-07-24). The researcher-equivalence layer is production-loaded: 27 `SAME_AS` edges, 24 of them added 2026-07-25 from human review. Current focus: graph
 > validation/analysis against the researcher discovery questions and the poster.
 
 ---
@@ -39,8 +39,8 @@ findable, linkable, and reusable — by both humans and machines.
 
 Build a flexible, extensible platform that models the scientific research
 ecosystem as a knowledge graph and layers AI-assisted retrieval on top, so that
-a researcher can ask *"what experiments used instrument X on sample type Y, and
-which publications and grants are connected to them?"* and get a grounded,
+a researcher can ask _"what experiments used instrument X on sample type Y, and
+which publications and grants are connected to them?"_ and get a grounded,
 traceable answer.
 
 The architecture is designed from day one to integrate (over time):
@@ -57,12 +57,12 @@ agent-based retrieval · natural-language search interfaces
 
 SciKG is designed around the [FAIR principles](docs/FAIR_PRINCIPLES.md):
 
-| Principle | How SciKG approaches it |
-|---|---|
-| **Findable** | Rich metadata, persistent identifiers, searchable relationships |
-| **Accessible** | Standardized retrieval mechanisms, clear access pathways |
-| **Interoperable** | Structured schemas, standard vocabularies, machine-readable metadata |
-| **Reusable** | Provenance tracking, context preservation, documentation & reproducibility support |
+| Principle         | How SciKG approaches it                                                            |
+| ----------------- | ---------------------------------------------------------------------------------- |
+| **Findable**      | Rich metadata, persistent identifiers, searchable relationships                    |
+| **Accessible**    | Standardized retrieval mechanisms, clear access pathways                           |
+| **Interoperable** | Structured schemas, standard vocabularies, machine-readable metadata               |
+| **Reusable**      | Provenance tracking, context preservation, documentation & reproducibility support |
 
 ---
 
@@ -85,7 +85,7 @@ scikg/
 │       ├── relationships/           # Extracted relationships (JSONL)
 │       ├── normalized/              # Normalized entities + relationships (03 output)
 │       ├── logs/                    # Extraction/normalization logs (JSONL)
-│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,886 nodes, 11,663 edges; load_cleared)
+│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,886 nodes, 11,690 edges; load_cleared)
 ├── scripts/                         # Pipeline scripts — run in order
 │   ├── 01_fetch.py
 │   ├── 01b_fetch_pdfs.py
@@ -115,7 +115,7 @@ scikg/
 │   ├── test_validate.py
 │   └── test_load.py
 ├── notebooks/                       # Exploratory analysis and demo
-├── outputs/                    
+├── outputs/
 ├── docs/                            # Project documentation
 │   ├── SCIKG_SCHEMA.md
 │   ├── ROADMAP.md
@@ -137,20 +137,20 @@ scikg/
 
 ## Documentation Index
 
-| Document | Purpose |
-|---|---|
-| [docs/SCIKG_SCHEMA.md](docs/SCIKG_SCHEMA.md) | Authoritative v1.0 schema — node types, relationships, identifiers, provenance rules |
-| [docs/ROADMAP.md](docs/ROADMAP.md) | Proposed, evolving research workflow (not an approved plan) |
-| [docs/FAIR_PRINCIPLES.md](docs/FAIR_PRINCIPLES.md) | FAIR notes and how each principle maps to design decisions |
-| [docs/METADATA_INVENTORY.md](docs/METADATA_INVENTORY.md) | Metadata cataloguing approach + template usage |
-| [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md) | The 14 real researcher-submitted questions the graph is evaluated against |
-| [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md) | Verified facts vs. proposed ideas vs. unknowns |
-| [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md) | Log of review-worthy changes and assumptions |
-| [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md) | Known issues register — data-quality limitations, caught errors, and their rulings (KI-1..KI-17) |
-| [docs/controlled_vocabulary.md](docs/controlled_vocabulary.md) | Controlled vocabulary — instrument/method terms mapped to PSI-MS accessions |
-| [docs/PDF_EXTRACTION_EVAL.md](docs/PDF_EXTRACTION_EVAL.md) | PDF gap-field extraction (stage 02d) evaluation results |
-| [docs/annotations/](docs/annotations/) | Manual paper-review notes (paper_reviews.md) |
-| [docs/metadata_templates/](docs/metadata_templates/) | Fillable inventory templates (CSV/YAML), no fabricated rows |
+| Document                                                                         | Purpose                                                                                          |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [docs/SCIKG_SCHEMA.md](docs/SCIKG_SCHEMA.md)                                     | Authoritative v1.0 schema — node types, relationships, identifiers, provenance rules             |
+| [docs/ROADMAP.md](docs/ROADMAP.md)                                               | Proposed, evolving research workflow (not an approved plan)                                      |
+| [docs/FAIR_PRINCIPLES.md](docs/FAIR_PRINCIPLES.md)                               | FAIR notes and how each principle maps to design decisions                                       |
+| [docs/METADATA_INVENTORY.md](docs/METADATA_INVENTORY.md)                         | Metadata cataloguing approach + template usage                                                   |
+| [docs/DISCOVERY_QUESTIONS.md](docs/DISCOVERY_QUESTIONS.md)                       | The 14 real researcher-submitted questions the graph is evaluated against                        |
+| [docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md](docs/VERIFIED_FACTS_AND_ASSUMPTIONS.md) | Verified facts vs. proposed ideas vs. unknowns                                                   |
+| [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md)                                         | Log of review-worthy changes and assumptions                                                     |
+| [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md)                                     | Known issues register — data-quality limitations, caught errors, and their rulings (KI-1..KI-18) |
+| [docs/controlled_vocabulary.md](docs/controlled_vocabulary.md)                   | Controlled vocabulary — instrument/method terms mapped to PSI-MS accessions                      |
+| [docs/PDF_EXTRACTION_EVAL.md](docs/PDF_EXTRACTION_EVAL.md)                       | PDF gap-field extraction (stage 02d) evaluation results                                          |
+| [docs/annotations/](docs/annotations/)                                           | Manual paper-review notes (paper_reviews.md)                                                     |
+| [docs/metadata_templates/](docs/metadata_templates/)                             | Fillable inventory templates (CSV/YAML), no fabricated rows                                      |
 
 ---
 
@@ -168,7 +168,7 @@ flag marks the 199 confirmed MagLab-acquired (LTQ FT Ultra), with the
 rest unconfirmed (attribution not recoverable from metadata). PDF
 gap-field extraction (stage 02d) exists and is under evaluation.
 Normalization, validation, and load (stages 03-05) are complete; the
-graph is loaded into Neo4j AuraDB (4,886 nodes, 11,663 edges).
+graph is loaded into Neo4j AuraDB (4,886 nodes, 11,690 edges).
 
 A human-gated post-load reconciliation (`mint_dataset_operator_edges.py`,
 applied 2026-07-22) mints the PDF-extracted `dataset_accession` values that
@@ -196,35 +196,50 @@ and ion-trap (Velos Pro, LTQ Velos) instruments. The Dataset repository namespac
 aligned across the CSV (02b) and PXD (02f) extractors.
 
 Author identity was enriched with ORCIDs from CrossRef structured metadata
-(author[].ORCID — a deterministic per-DOI lookup, not extraction). 471 of 2,062
-Researcher nodes (22.9%) now carry an orcid, split 192 author-verified / 279
-publisher-asserted; stored as two properties (orcid + orcid_authenticated), never
+(author[].ORCID — a deterministic per-DOI lookup, not extraction). 481 of 2,062
+Researcher nodes (23.3%) now carry an orcid: 471 from CrossRef (192 author-verified /
+279 publisher-asserted) plus 10 found during the 2026-07-25 researcher-equivalence
+review. The 10 have `orcid_authenticated` NULL — there is no CrossRef attestation
+behind them, and `false` would falsely read as publisher-asserted. Stored as two
+properties (orcid + orcid_authenticated), never
 flattened. RULED properties-only: ORCID-as-identifier is DEFERRED and
 ENABLE_ORCID_CANONICALIZATION stays False (turning it on would mint a duplicate
 Researcher node set — see CLAUDE.md and KI-16). Note: docs/DISCOVERY_QUESTIONS.md
-cites 4,909 / 11,668 (2026-07-20), higher than the current graph (by 23 nodes /
-5 edges) and not yet reconciled.
+cites 4,909 / 11,668 (2026-07-20); its node count is still 23 higher than the current
+graph and unreconciled, while its edge count now reads 22 lower only because the
+2026-07-25 SAME_AS emit overtook it.
 
 Researcher identifiers were re-minted this session to
 `researcher:{translit_family}_{initial}` — NFKD-transliterated accents, separators
 normalized, and the YEAR DROPPED (it was order-dependent, and all 14 same-key
 collisions were fragmentations of one person, never two people; ORCID-verified 0
 false collapses). On collapse the most diacritic-rich `name_full` wins, with fused
-"A and B" forms filtered first (David's preserve-accents ruling) — slugs are ASCII,
+"A and B" forms filtered first — slugs are ASCII,
 names keep their diacritics. This dissolved 14 accent-variant duplicates (2,076 →
-2,062). Two non-destructive equivalence edge types were added: `SAME_AS` (PROVEN,
-shared author-verified ORCID) and `POSSIBLY_SAME_AS` (INFERRED, human-confirm),
-both undirected and additive (nothing merged, both names kept). 3 SAME_AS edges are
-committed (aguilera↔chacón-patiño surname change, hoeschen↔hoschen,
-salvato_vallverdu↔vallverdu); 25 POSSIBLY_SAME_AS candidates await review
-(docs/researcher_equivalence_review_packet.txt), not applied. See CLAUDE.md and KI-17.
+2,062). Two non-destructive equivalence edge types were added: `SAME_AS` (PROVEN) and
+`POSSIBLY_SAME_AS` (INFERRED, human-confirm), both undirected and additive (nothing
+merged, both names kept). **27 `SAME_AS` edges are now live in production** (up from
+3), with 0 `POSSIBLY_SAME_AS`. They split by `anchor_type` into two proof classes that
+must not be conflated: **3 ORCID-anchored** (a shared author-verified ORCID spans both
+nodes — aguilera↔chacón-patiño surname change, hoeschen↔hoschen,
+salvato_vallverdu↔vallverdu) and **24 human-reviewed** (`anchor_type='human_review'`,
+added 2026-07-25), whose proof is a reviewer's judgment on mechanical-artifact pairs
+— OCR variants (14), period-parse residue (2), spelling variants (2),
+transliteration (2), and one each of an accent/umlaut variant, a Jr. suffix, a
+character transposition, and a corrected exclusion. `properties.orcid` is null on all
+24, so a consumer needing ORCID-grade proof filters on `anchor_type`, not on the
+`SAME_AS` type alone. The candidate set is now resolved: 24 emitted, 1 held
+(angstrom↔anstrom, unresolved), 11 confirmed different. See CLAUDE.md and KI-17.
 
 The graph rebuilds from committed files (03 -> 04 -> 05 into an empty instance) —
 VERIFIED 2026-07-24: a clean rebuild from the release commit reproduced 4,886/11,663
-exactly. It is reproducible-from-committed-files, NOT re-derivable-from-source:
+exactly; RE-VERIFIED 2026-07-25 after the human-review SAME_AS emit — a files-only
+03→04→05 into an empty Docker Neo4j reproduced 4,886/11,690 with `SAME_AS` 27, and the
+production load that followed created 0 nodes / 24 edges, matching.
+It is reproducible-from-committed-files, NOT re-derivable-from-source:
 three curated files are hand-maintained migrations a clean 02x extractor run does
-NOT reproduce — pdf_entities.jsonl (Institution/Instrument/Software), pdf_dataset_*.jsonl
-(the dataset mint, its ledger removed from the repo), and software.jsonl (the
+NOT reproduce — `pdf_entities.jsonl` (Institution/Instrument/Software), `pdf_dataset_*.jsonl`
+(the dataset mint, its ledger removed from the repo), and `software.jsonl` (the
 Xcalibur collapse: 7 versioned nodes → 1, versions moved to the ACQUIRED_WITH edge).
 A fresh clone runs 03 -> 04 -> 05 and gets the exact graph; re-running the extractors
 overwrites those three (KI-13). Also rawfiles_pxd/ and pdf_extraction/ are local-only.

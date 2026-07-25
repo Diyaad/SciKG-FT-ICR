@@ -12,24 +12,35 @@ not survive verification, the verified figure is used and the discrepancy is not
 **Tags.** `CAPABILITY` = what the method achieved · `BOUNDARY` = what it structurally cannot
 reach · `ARTIFACT` = a defect found and characterized.
 
-**Verification basis.** All graph counts below were re-queried against the live Neo4j AuraDB
-instance on **2026-07-23** (read-only `MATCH`/`RETURN` only). Live totals at that time:
+**Verification basis.** Graph counts below were re-queried against the live Neo4j AuraDB
+instance (read-only `MATCH`/`RETURN` only). Both dated columns are kept: the 2026-07-23 column is
+the basis the findings below were originally written against, and the 2026-07-25 column is the
+current state. Where a finding's number moved, the entry says so inline.
 
-| Measure | Live value (2026-07-23) |
-|---|---:|
-| Nodes | 4,900 |
-| Edges | 11,663 |
-| Publication | 805 |
-| Researcher | 2,076 |
-| Instrument | 443 |
-| Dataset | 306 |
-| RawDataFile | 934 |
-| Advisory | 21 |
+| Measure | Live (2026-07-23) | Live (2026-07-25) | what moved |
+|---|---:|---:|---|
+| Nodes | 4,900 | **4,886** | researcher-identifier slug fix, 14 accent-collapse merges (2026-07-24) |
+| Edges | 11,663 | **11,690** | +27 `SAME_AS` (3 ORCID-anchored, then +24 human-reviewed on 2026-07-25) |
+| Publication | 805 | 805 | — |
+| Researcher | 2,076 | **2,062** | the same 14 merges |
+| Researcher with `orcid` | 475 | **481** | +10 found during the equivalence review, then −4 from the merges |
+| `SAME_AS` | 0 | **27** | the equivalence layer (CAPABILITY 6c) |
+| `POSSIBLY_SAME_AS` | 0 | 0 | type defined, never populated |
+| Instrument | 443 | 443 | — |
+| Dataset | 306 | 306 | — |
+| RawDataFile | 934 | 934 | — |
+| Advisory | 21 | 21 | — |
 
-> **Note on totals.** `CLAUDE.md` and KI-15 both record the current **4,900 / 11,663**, matching the
-> live graph exactly (`CLAUDE.md` updated 2026-07-24; it previously carried a stale 4,891 / 11,654).
-> `docs/DISCOVERY_QUESTIONS.md` still cites a third pair (4,909 / 11,668, dated 2026-07-20), higher
-> than the current graph — the one remaining discrepancy; see [TO-VERIFY](#to-verify).
+> **Note on totals.** Current live state is **4,886 / 11,690** (2026-07-25), and `CLAUDE.md`,
+> `README.md`, and KI-17 all now record it. Two corrections are on record from that pass: `CLAUDE.md`
+> had said the 3 ORCID-anchored `SAME_AS` edges were "not yet loaded to production" when they had in
+> fact already been applied (production was never at 11,663 once they landed), and it had recorded 7
+> reverse-error ORCID nodes where `orcid_exclusions.jsonl` measures 6.
+> `docs/DISCOVERY_QUESTIONS.md` still cites a third pair (4,909 / 11,668, dated 2026-07-20). Its
+> **node** count remains **23 higher** than the live graph and unreconciled — that is the real
+> discrepancy. Its **edge** count now reads 22 *lower*, but only because the 2026-07-25 `SAME_AS`
+> emit overtook it; the edge gap has flipped sign and is no longer a useful signal. See
+> [TO-VERIFY](#to-verify) T2.
 
 ---
 
@@ -156,17 +167,58 @@ instance on **2026-07-23** (read-only `MATCH`/`RETURN` only). Live totals at tha
 - **What was found:** CrossRef author ORCIDs were written onto Researcher nodes as evidence, from a
   deterministic per-DOI lookup (CrossRef structured `author[].ORCID`) — never text extraction, never
   inferred, and matched only within the bounded per-paper author set (no global name search).
-- **The numbers:** **475** of **2,076** Researcher nodes (**22.9%**) carry an `orcid` (verified live),
-  split **195** author-verified (`orcid_authenticated: true`) / **280** publisher-asserted (`false`) —
-  stored as two properties, never flattened. **63** candidates were EXCLUDED, not applied (31 rows on
-  7 reverse-error nodes, 30 compound-surname UNMATCHED, 2 fused). **0** `orcid:*` identifier nodes exist:
+- **The numbers:** **475** of **2,076** Researcher nodes (**22.9%**) carry an `orcid` (verified live
+  2026-07-23), split **195** author-verified (`orcid_authenticated: true`) / **280** publisher-asserted
+  (`false`) — stored as two properties, never flattened. **63** candidates were EXCLUDED, not applied
+  (31 rows on 7 reverse-error nodes, 30 compound-surname UNMATCHED, 2 fused). **0** `orcid:*` identifier
+  nodes exist:
   the ruling is properties-only, so `ENABLE_ORCID_CANONICALIZATION` stays False (with it on, 03 would
   retire `researcher:*` -> `orcid:*` and, because 05 is MERGE-only per KI-14, mint a duplicate node set).
 - **Why it matters:** The positive result behind BOUNDARY 7 and ARTIFACT 10 — identity enrichment landed
   on the modern corpus without touching node identity, and it flowed through pre-normalize JSONL -> 03 ->
   04 -> 05 so `graph = f(files)` holds.
+- **`UPDATED 2026-07-25`:** these figures are the CrossRef path as measured on 2026-07-23 and are kept
+  as written. Current live state is **481 of 2,062 (23.3%)**, because (i) the slug fix collapsed 14
+  accent-variant nodes, 4 of which were both-ORCID pairs, and (ii) the equivalence review found **10**
+  further ORCIDs from a non-CrossRef path. Those 10 carry `orcid_authenticated` **null** — no CrossRef
+  attestation exists, and `false` would falsely read as publisher-asserted — so the split above still
+  describes the CrossRef path exactly: **481 = 192 true + 279 false + 10 null** (live-verified).
 - **Source:** live graph (2026-07-24); `docs/SCIKG_SCHEMA.md` "ORCID (Added 2026-07-23)";
   `docs/KNOWN_ISSUES.md` KI-16.
+
+### 6c. Non-destructive identity resolution: 27 `SAME_AS` edges linking same-person nodes
+
+- **Tag:** CAPABILITY
+- **What was found:** Duplicate Researcher nodes for one person can be linked as equivalent **without
+  merging anything**. Two undirected `Researcher↔Researcher` edge types were added; the applied one,
+  `SAME_AS`, asserts "these two nodes are the same person" while leaving both nodes, both identifiers,
+  and **both `name_full` values** in place. This matters because both names are often individually
+  correct — a surname change, or a diacritic form the person actually publishes under — so merging would
+  destroy a true name to fix a duplicate. Nothing is retired and no `AUTHORED_BY` edge is repointed.
+- **The numbers:** **27** `SAME_AS` edges live, spanning **53** distinct Researcher nodes; **0**
+  `POSSIBLY_SAME_AS` (the inferred type is defined but deliberately never populated, and is kept out of
+  `05_load.py REL_TYPES` so a premature inferred edge aborts the load rather than entering the graph).
+  The edges carry **33** distinct publications on their minor side — 33 paper-to-author attributions
+  that a name match on the dominant spelling alone does not reach. Split by `anchor_type`:
+  - **3 ORCID-anchored** (`orcid` ×2, `surname_change` ×1) — proof is a shared **author-verified**
+    ORCID spanning both nodes. No human judgment involved.
+  - **24 human-reviewed** (`anchor_type='human_review'`, emitted 2026-07-25) — proof is a reviewer's
+    judgment on mechanical-artifact pairs: **14** OCR variants, **2** period-parse, **2** spelling
+    variants, **2** transliteration, and 1 each of an ae/umlaut variant, a `Jr.` suffix, a character
+    transposition, and one reversed prior exclusion. `properties.orcid` is null on all 24.
+- **Honest limit — the two classes are not equally strong.** All 27 carry `confidence='proven'` because
+  the schema constrains `SAME_AS` to that value; the weaker basis of the 24 is recorded by
+  `anchor_type`, not by `confidence`. A consumer needing ORCID-grade proof must filter on `anchor_type`.
+  The poster should not present all 27 as identifier-proven.
+- **Audited dispositions, nothing left implicit:** of 37 pairs reviewed, **24** were confirmed same and
+  emitted, **11** were confirmed *different* people and upheld as exclusions (no edge), and **1** is
+  **HELD** as unresolved (`angstrom_j`↔`anstrom_j`). The held pair has no edge.
+- **Why it matters:** It separates *identity resolution* from *data destruction*. The graph can answer
+  "everything by this person" through an undirected `SAME_AS` traversal while still reporting each
+  name as published — and every edge is reversible, because it is only an edge.
+- **Source:** live graph (2026-07-25); `data/processed/relationships/researcher_equivalence.jsonl`
+  (27 records, emitted through 03 → 04 → 05, never written to the graph directly);
+  `docs/KNOWN_ISSUES.md` KI-17; `docs/SCIKG_SCHEMA.md` "SAME_AS / POSSIBLY_SAME_AS".
 
 ---
 
@@ -312,6 +364,34 @@ instance on **2026-07-23** (read-only `MATCH`/`RETURN` only). Live totals at tha
 - **Source:** live graph 2026-07-23; `docs/KNOWN_ISSUES.md` KI-7, KI-7a;
   `data/processed/review/instrument_review.md` (SUPERSEDED banner).
 
+### 12. A MagLab researcher whose full output is invisible to name matching
+
+- **Tag:** ARTIFACT
+- **What was found:** `researcher:chacon_patino_m` ("Chacón-Patiño, M.L.") and
+  `researcher:aguilera_m` ("Aguilera, M.L.") are **one MagLab researcher who published under two
+  surnames**. Both nodes carry the **same author-verified ORCID** `0000-0002-7273-5343`
+  (`orcid_authenticated: true` on both). Neither name is wrong and neither is a typo — this is a real
+  surname change, so no amount of string normalization, OCR repair, or transliteration reaches it.
+  Only a **persistent identifier** could catch it.
+- **The numbers:** `chacon_patino_m` carries **54** publications; `aguilera_m` carries **5**; the
+  overlap is **0** papers, and the union via `SAME_AS` is **59**. So a query that name-matches on
+  "Chacón-Patiño" — the form a reader would search — returns **54 of 59 (91.5%)** of this person's
+  output in the graph, and **5 papers (8.5%) are invisible**, filed under a name a searcher has no
+  reason to try. Before the `SAME_AS` edge there was nothing in the graph connecting them.
+- **Why it matters:** This is the strongest single argument in the project for persistent identifiers
+  over name matching, and it is a **MagLab** researcher, not a hypothetical. Every other identity
+  defect on this poster (fusion, OCR, period-parse, accent collapse) is a *processing* artifact — a
+  better parser would reduce it. This one is not a defect in our pipeline at all: the source data is
+  correct on both sides, and the fragmentation is a fact about how people's names change over a career.
+  It sets the floor on what name-based author disambiguation can achieve.
+- **Honest limit:** this case is *proven* (shared author-verified ORCID) and should be presented as
+  such — distinctly from the 24 human-reviewed equivalences in CAPABILITY 6c, whose basis is a
+  reviewer's judgment, not an identifier. The 8.5%-invisible figure is specific to this researcher and
+  must not be generalized into a corpus-wide miss rate; no such rate has been measured.
+- **Source:** live graph (2026-07-25) — node `orcid`/`orcid_authenticated` and `AUTHORED_BY` counts
+  queried directly; `data/processed/relationships/researcher_equivalence.jsonl`
+  (`anchor_type='surname_change'`); `docs/KNOWN_ISSUES.md` KI-17.
+
 ---
 
 ## TO-VERIFY
@@ -321,7 +401,7 @@ Claims that are **not** cleared for the poster until confirmed. Do not state the
 | # | Claim | Status | What would settle it |
 |---|---|---|---|
 | T1 | **Extraction error rate.** The reliability claim currently rests on *individual catches* (CAPABILITY 6), not a measured rate. | **Unmeasured — and the exposure is documented.** KI-10 records that **no audit pass** was run on the **274 instrument + 23 facility** fuzzy-grounded extractions (**297** total), because that is 297 PDF reads and `data/processed/pdf_text/` does not exist to grep. KI-10 explicitly calls this "a poster limitation, not this week's work." | A sampled audit over the 297 fuzzy-grounded extractions, with the sample size and confidence interval stated. Until then the poster may claim *specific errors caught*, never *an error rate*. |
-| T2 | **Corpus drift between Aura instances.** | **Confirmed discrepancy, cause unverified.** Now on record: live graph **4,900 / 11,663** (2026-07-24), KI-15 and `CLAUDE.md` both **4,900 / 11,663** (agree; `CLAUDE.md` updated 2026-07-24 from a stale 4,891 / 11,654), and `docs/DISCOVERY_QUESTIONS.md` **4,909 / 11,668** (2026-07-20). The 4,909/11,668 pair is **higher** than the current graph and is not explained by the mints — the one remaining discrepancy. | Identify which instance `DISCOVERY_QUESTIONS.md` was measured against and reconcile the 9-node / 5-edge difference, or re-run its verification queries against the current instance. |
+| T2 | **Corpus drift between Aura instances.** | **Confirmed discrepancy, cause unverified. Narrowed to NODES only, 2026-07-25.** History on record: live graph **4,900 / 11,663** (2026-07-24), KI-15 and `CLAUDE.md` both **4,900 / 11,663** (agree; `CLAUDE.md` updated 2026-07-24 from a stale 4,891 / 11,654), and `docs/DISCOVERY_QUESTIONS.md` **4,909 / 11,668** (2026-07-20). As of **2026-07-25** the live graph is **4,886 / 11,690** (slug fix −14 nodes; `SAME_AS` +27 edges). So `DISCOVERY_QUESTIONS.md` is now **23 nodes higher** and **22 edges lower** than live. **Only the node gap is the open question** — the edge gap flipped sign because our own emit added edges, so it no longer indicates drift and should not be cited as evidence of it. Do NOT overwrite `DISCOVERY_QUESTIONS.md`'s figure until the node gap is traced. | Identify which instance `DISCOVERY_QUESTIONS.md` was measured against and reconcile the **23-node** difference (note: the earlier "9-node" framing predates the slug fix), or re-run its verification queries against the current instance. |
 | T3 | **"Most facet-rich paper reported 10 instruments; ~6–7 real."** | **Did not verify as worded.** The live maximum is 14 instruments, not 10, and "most facet-rich" was not the selection criterion tested. The "~6–7 real" figure requires a human PDF read that has not been performed and recorded. | A recorded PDF read of the chosen paper establishing the true instrument count. ARTIFACT 11 states the verified portion; use that instead. |
 | T4 | **"141 spelling variants held for human review."** | **Source not found.** The figure `141` does not appear anywhere in `docs/` or `data/processed/review/`. | Locate the review artifact that produced it, or re-derive and commit the count. |
 | T5 | **952 → 888 raw-file reconciliation.** | **Endpoints verified, mechanism not.** `data/raw/rawfiles_pxd/` holds **952** source JSON files; `data/processed/entities/rawfiles_pxd.jsonl` has **984** lines / **920** distinct identifiers; the graph holds **888** `fisher_py` RawDataFile nodes. KI-1 documents that 02f emits duplicate node lines, which explains 952 → 984, but 920 → 888 is not established. | Trace the 32-node difference through `03`/`04` (dedup vs quarantine) and record it. Until then cite 934 total / 888 PXD-derived (live) and 952 source files separately — never as a chain. |

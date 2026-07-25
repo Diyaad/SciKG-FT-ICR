@@ -7,30 +7,119 @@ Add new issues at the top.
 
 ---
 
-## KI-17 — 25 candidate researcher equivalences flagged for human review (POSSIBLY_SAME_AS), NOT applied
-**Status:** queued for David's sign-off (2026-07-24). NOT in the graph. Distinct from the 3 `SAME_AS` edges below.
+## KI-17 — candidate researcher equivalences: REVIEWED and RESOLVED; 27 `SAME_AS` live, 1 held
+**Status:** RESOLVED 2026-07-25 (was: queued for sign-off, 2026-07-24). The candidate set has been
+reviewed and emitted. Production carries **27 `SAME_AS`, 0 `POSSIBLY_SAME_AS`** (live-verified
+2026-07-25). One pair remains open — see "Still open" below.
 
 The researcher slug fix (KI-16, transliterate + drop year) collapsed all accent/separator fragmentations,
 but **25 pairs did not collapse because the difference is not an accent** — mechanical artifacts that
-transliteration cannot reach: **period-parse** (`Rodgers. R.P.` vs `Rodgers, R.P.` — 2), **OCR/typo on a
-distinctive surname** (`Colilo`/`Corilo`, `Dzeilewski`/`Dzwilewski`, `Chamot-Rook`/`-Rooke`, … — ~19),
-**transposition/transliteration** (`Guluyz`/`Gulyuz`, `Schulga`/`Shul'ga`, Paša-Tolić residue — 3),
-**suffix** (`Avery`/`Avery Jr.` — 1). Each is likely one person but **not proven**, so they are
-`POSSIBLY_SAME_AS` candidates (inferred), **not applied** — a lead for human confirmation.
+transliteration cannot reach: **period-parse** (`Rodgers. R.P.` vs `Rodgers, R.P.`), **OCR/typo on a
+distinctive surname** (`Colilo`/`Corilo`, `Dzeilewski`/`Dzwilewski`, `Chamot-Rook`/`-Rooke`, …),
+**transposition/transliteration** (`Guluyz`/`Gulyuz`, `Schulga`/`Shul'ga`, Paša-Tolić residue),
+**suffix** (`Avery`/`Avery Jr.`). These were `POSSIBLY_SAME_AS` candidates — inferred, not proven.
 
-Non-destructive by design (KI-16 preserve-names ruling): even after review, an approved pair gets a
-`POSSIBLY_SAME_AS`/`SAME_AS` edge, never a merge — both nodes and names stay.
+### Outcome of the human review (2026-07-25)
+All 37 reviewed pairs were dispositioned. Nothing was left implicit:
 
-**Review sheet: `docs/researcher_equivalence_review.md`** (one row per candidate, grouped by mechanism,
-tick same/different). It also lists **~12 pairs excluded as different people** (Slavic m/f
-`Vladimirov`/`Vladimirova`; distinct surnames `Baker`/`Parker`, `Curry`/`Murray`, `Kieber`/`Weber`, …)
-plus **~80 common-Chinese-surname confusables excluded upstream** (`wang`/`yang`, `chen`/`shen`, …) — so
-the same-vs-different judgment is visible, not skipped.
+| disposition | count | in the graph? |
+|---|---|---|
+| confirmed SAME → emitted as `SAME_AS`, `anchor_type='human_review'` | **24** | yes |
+| **HELD** — reviewer unsure, awaiting a second look | **1** | no edge |
+| confirmed DIFFERENT people — exclusion upheld | **11** | no edge, by decision |
+| (`POSSIBLY_SAME_AS` edges ever written) | **0** | the type is still unpopulated |
 
-Separately, **3 `SAME_AS` edges** (PROVEN, shared author-verified ORCID) were emitted through the durable
-file path (`researcher_equivalence.jsonl` → 03 → 04 → 05): `hoeschen`↔`hoschen` (oe/o spelling),
-`aguilera`↔`chacon_patino` (surname change, ORCID `0000-0002-7273-5343`), `salvato_vallverdu`↔`vallverdu`
-(compound-surname). These need no review — the shared author-verified ORCID is proof.
+Note the candidate set grew from 25 to 37 pairs under review, because the reviewer also re-examined the
+previously-excluded pairs; one exclusion was **reversed** (see `corrected_exclusion` below).
+
+The 24 were emitted through the durable file path (`researcher_equivalence.jsonl` → 03 → 04 → 05), never
+written to the graph directly. Input: `data/processed/review/researcher_equivalence_EMIT.md`; every edge
+carries `source_id='review:researcher_equivalence_EMIT.md'`. `mechanism` distribution, live:
+14 `ocr_variant`, 2 `period_parse`, 2 `spelling_variant`, 2 `transliteration`, and 1 each of
+`corrected_exclusion`, `spelling_variant_ae_umlaut`, `suffix_jr`, `transposition`.
+
+**`anchor_type` is what separates the two proof classes** — they share one `SAME_AS` type, so a consumer
+needing ORCID-grade proof MUST filter on `anchor_type`, not on the relationship type alone:
+- **3 ORCID-anchored** (`orcid` ×2, `surname_change` ×1) — proof is a shared author-verified ORCID
+  spanning both nodes, carried in `properties.orcid`: `hoeschen`↔`hoschen` (oe/o spelling),
+  `aguilera`↔`chacon_patino` (surname change, ORCID `0000-0002-7273-5343`),
+  `salvato_vallverdu`↔`vallverdu` (compound-surname). These needed no review.
+- **24 human_review** — proof is a reviewer's judgment. `properties.orcid` is **null** on all 24.
+  All 27 nonetheless carry `source_type='graph_derived'` and `confidence='proven'`, because the schema
+  constrains `SAME_AS` to exactly those two values; the weaker evidentiary basis of the 24 is recorded
+  by `anchor_type`, not by `confidence`. **Do not read `confidence='proven'` on a `human_review` edge as
+  meaning ORCID-proven.**
+
+One reversal is worth recording: **`vladimirov_g`↔`vladimirova_g`** was previously excluded as a Slavic
+masculine/feminine surname pair (two people). The reviewer corrected this to SAME — one person, Gleb
+Vladimirov — and it was emitted with `mechanism='corrected_exclusion'` after independent confirmation
+(both nodes first author on a single FT-ICR ion-cyclotron-motion paper, same given initial, 2 shared
+NHMFL co-authors Hendrickson + Blakney, and only two `vladimirov*` nodes exist graph-wide). It is the one
+edge in the batch whose basis is a *reversed prior judgment*, so it is the one most worth re-checking if
+the identity is ever disputed. Basis is name/position/topic/co-author overlap, **not** an ORCID.
+
+Non-destructive by design (KI-16 preserve-names ruling): an approved pair gets an edge, **never a
+merge** — both nodes and both `name_full` values stay. Verified additive: the emit created 0 nodes.
+
+### Still open
+- **1 HELD pair: `researcher:angstrom_j` ('Angstrom, J.') ↔ `researcher:anstrom_j` ('Anstrom, J.')** —
+  reviewer marked UNSURE; needs a second look. 1 paper and no ORCID on each, so there is little to
+  adjudicate on. No edge exists. Distinct from the *confirmed-different* `angstrom_j`↔`nystrom_j`.
+- The 11 confirmed-different pairs are decided, not pending. `researcher:parker_a` must **never**
+  receive ORCID `0000-0002-1552-6166` — that iD belongs to Baker only (verified: `parker_a.orcid` is
+  null and 0 `SAME_AS` edges touch it).
+- The underlying **parser bugs** that manufactured these duplicate nodes are NOT fixed by this — the
+  equivalence edges record the identity, they do not repair the names. Tracked as a batch in **KI-18**.
+
+---
+
+## KI-18 — parser-family name defects in `Researcher.name_full`: known-deferred, quantified
+**Status:** measured live 2026-07-25. Deliberately NOT fixed. Recorded so none of these reads as
+"silently broken". All four share one root cause with KI-16: the MagLab CSV name parser/normalizer.
+KI-17's `SAME_AS` edges record the *identities* these bugs fragmented; they do not repair the *strings*.
+
+**Why deferred, not fixed:** repairing `name_full` in place rewrites committed source records and would
+re-run the slug/survivor logic, which is how identity churn gets introduced (KI-16). A parser fix belongs
+upstream in 02b with a fresh identity pass, not as a string patch. Until then these are visible facts.
+
+**(a) Comma-fusion — one node's `name_full` holds two people. 3 nodes (live).** A comma-separated
+co-author was swallowed into the name string. Distinct from KI-16(a), which counts the `" and "`
+convention; this is the comma form:
+
+| node | `name_full` | note |
+|---|---|---|
+| `researcher:rodgers_r` | `'Rodgers, R.P., Weinheber, P.'` | Weinheber, P. has **no node and no edge** on those papers — the second person is simply absent from the graph. This node is also the hub of the 3-node Rodgers `SAME_AS` cluster (KI-17), so the fused name is highly visible. 166 papers, ORCID `0000-0003-1302-2850` (Rodgers'). |
+| `researcher:hughey_c` | `'Hughey, C.A., Cooper, H.J.'` | same shape |
+| `researcher:sk_n` | `'Sk, N.A., Roesky, H.W.'` | same shape |
+
+The `SAME_AS` edges converging on `rodgers_r` link the **Rodgers** identity correctly; they assert
+nothing about Weinheber, and no edge in that batch represents a Weinheber equivalence (verified).
+Related: KI-16(a) recorded **108** nodes containing `" and "` on 2026-07-23; the live count is now
+**81**. The 27-node difference exceeds the 14 slug-fix collapses and is **not traced** — flagged here,
+not reconciled.
+
+**(b) Mojibake control characters in `name_full`. 2 nodes (live).** A C1 control byte sits where a
+diacritic character belongs — an encoding round-trip defect, not a transliteration one, so the accent
+rules in KI-16 never see it:
+
+| node | `name_full` (repr) | should be | bad codepoint |
+|---|---|---|---|
+| `researcher:pasa_tolic_l` | `'Pa\x9aa-Tolić, L.'` | `Paša-Tolić, L.` | `U+009A` for `š` |
+| `researcher:alvarez_salgado_x` | `'Álvarez\x96Salgado, X.A.'` | `Álvarez–Salgado, X.A.` | `U+0096` for an en-dash |
+
+Both are display-breaking and would defeat a string match on the name. Identifiers are unaffected
+(slugs are ASCII-transliterated), so graph identity is intact.
+
+**(c) Period-parse residue — a period where a comma belongs mints a second node. 2 nodes (live).**
+`researcher:rodgers_r_p_x` (`'Rodgers. R.P.'`) and `researcher:peru_k_m_x` (`'Peru. K.M.'`), each with
+1 paper, shadowing `rodgers_r` (166 papers) and `peru_k` (9 papers). Both are now linked by
+`SAME_AS`/`period_parse` (KI-17), so the identity is recoverable — but the parser still produces the
+shape, and the `_x` suffix in those identifiers is itself a residue of the old minting scheme.
+
+**(d) 1 held equivalence pair.** `angstrom_j`↔`anstrom_j` — see KI-17 "Still open". Listed here because
+if it resolves to SAME it is the same class of mechanical artifact as (c).
+
+**Not in this batch:** the `researcher:martin_b` fusion is KI-16(a) (`" and "` form, ORCID-proven).
 
 ---
 

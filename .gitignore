@@ -93,6 +93,7 @@ Thumbs.db
 logs/
 slurm-*.out
 data/processed/entities/pdf_extracted.jsonl
+archive/
 
 # Vocabulary outputs (regenerable via scripts/build_vocabulary.py)
 !data/processed/vocab/
