@@ -8,19 +8,25 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j AuraDB (cloud, neo4j+s://3e16fe28): 4,886 nodes, 11,663 edges
-(production, load_cleared, 2026-07-24; live-graph verified). Researcher
+Loaded into Neo4j AuraDB (cloud, neo4j+s://3e16fe28): 4,886 nodes, 11,690 edges
+(production, load_cleared, 2026-07-25; live-graph verified). Researcher
 2,076 -> 2,062 via the researcher-identifier slug fix (14 accent-collapse merges,
 see Architecture decisions); prior state was 4,900/11,663. Also: instrument dedup
 469 -> 443 Instrument; dataset-accession mint across three batches, Dataset
-289 -> 306, HAS_DATASET 279 -> 299; ORCID enrichment 471 of 2,062 Researcher
-nodes (192 author-verified / 279 publisher-asserted). A researcher-equivalence
-layer (3 SAME_AS edges, researcher_equivalence.jsonl) is committed and Docker-
-verified but NOT yet loaded to production — it loads ADDITIVELY (11,663 -> 11,666,
-no node change). NOTE: docs/DISCOVERY_QUESTIONS.md cites 4,909 / 11,668 (measured
-2026-07-20, v1.0) — HIGHER than the current graph by 23 nodes / 5 edges and not
-explained by the mints; flagged, not reconciled (POSTER_FINDINGS.md T2). Do not
-overwrite that file's figure until it is traced.
+289 -> 306, HAS_DATASET 279 -> 299; ORCID enrichment 481 of 2,062 Researcher
+nodes (192 author-verified / 279 publisher-asserted / 10 human-review, no CrossRef
+attestation). The researcher-equivalence layer IS loaded to production:
+SAME_AS = 27, POSSIBLY_SAME_AS = 0 (live-verified 2026-07-25). It arrived in two
+additive loads with NO node change: the 3 ORCID-anchored edges (11,663 -> 11,666)
+and then today's 24 human-reviewed edges (11,666 -> 11,690). CORRECTION: this file
+previously said the 3 were "NOT yet loaded to production" — they had in fact
+already been applied; production was never at 11,663 once they landed.
+NOTE: docs/DISCOVERY_QUESTIONS.md cites 4,909 / 11,668 (measured
+2026-07-20, v1.0) — its NODE count is still HIGHER than the current graph by 23 and
+is not explained by the mints; that is the unreconciled part. Its EDGE count is now
+LOWER by 22, but only because today's +24 SAME_AS overtook it — the edge gap flipped
+sign and is no longer a useful signal; the node gap is. Flagged, not reconciled
+(POSTER_FINDINGS.md T2). Do not overwrite that file's figure until it is traced.
 Validation uses a
 ground-truth set of 8 papers manually annotated by the team. 2-person
 team, CI Compass Fellowship, June 1 – July 31 (8 weeks).
@@ -100,8 +106,8 @@ PDF transform (02d extraction -> entity/relationship nodes)
 05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
                 writes to Neo4j AuraDB via scripts/db.py
-                Loaded 4,886 nodes + 11,663 edges (production, load_cleared: true,
-                2026-07-24; Researcher 2,062 after the slug fix).
+                Loaded 4,886 nodes + 11,690 edges (production, load_cleared: true,
+                2026-07-25; Researcher 2,062 after the slug fix, SAME_AS 27).
                 NOTE: 05 is MERGE-only and cannot shrink the graph — a load that
                 RETIRES nodes/edges (e.g. the instrument dedup) leaves stale data
                 that needs a manual reconcile until a --prune step exists. See KI-14.
@@ -124,7 +130,7 @@ mint_dataset_operator_edges.py
                 direct graph write — PROVEN by a files-only rebuild into an empty
                 Neo4j instance reproducing the 297/290 counts. First application
                 added 8 Dataset + 11 HAS_DATASET (289 -> 297, 279 -> 290).
-                HELD for David's ruling (NOT minted): MSV000* accessions (MassIVE
+                HELD for a maintainer ruling (NOT minted): MSV000* accessions (MassIVE
                 native IDs, pending a namespace decision); new-namespace deposits
                 (SRA / BioProject / BCO-DMO — no repository handler yet); PXD026178
                 (cited in a PDF but no raw-file lineage in the graph); the
@@ -137,15 +143,23 @@ ORCID enrichment sub-flow (post-load; properties only, human-gated ruling)
                 a deterministic per-DOI lookup, NOT text extraction and NOT inferred.
                 Matching is bounded per paper (only against Researcher nodes already
                 linked to that Publication by AUTHORED_BY; no global name search).
-                Coverage (post slug fix): 471 of 2,062 Researcher nodes (22.9%) carry
-                an orcid, split 192 author-verified (authenticated-orcid: true) / 279
-                publisher-asserted (false). 63 candidates EXCLUDED, not applied: 31 rows
-                on 7 reverse-error nodes (one node holding 2+ distinct ORCIDs), 30
-                compound-surname UNMATCHED, 2 fused. Enrichment enters through
-                pre-normalize JSONL and flows 03 -> 04 -> 05, so graph = f(files) holds.
+                Coverage from THIS (CrossRef) path: 471 of 2,062 Researcher nodes
+                (22.8%) carry an orcid, split 192 author-verified (authenticated-orcid:
+                true) / 279 publisher-asserted (false). 63 candidates EXCLUDED, not
+                applied: 31 rows on 6 reverse-error nodes (one node holding 2+ distinct
+                ORCIDs — anderson_l, huang_c, lin_y, smith_l, zhang_y, zhang_z; this
+                file previously said 7, measured 6 in orcid_exclusions.jsonl 2026-07-25),
+                30 compound-surname UNMATCHED (researcher_id null — no node to attach
+                to), 2 fused (martin_b). Enrichment enters through pre-normalize JSONL
+                and flows 03 -> 04 -> 05, so graph = f(files) holds.
                 (Was 475/2,076 before the slug fix collapsed 14 accent-variant nodes;
                 the 4-node drop is 4 both-ORCID accent pairs merging into one node
                 each.) See KI-16.
+                A SECOND, non-CrossRef path added 10 more on 2026-07-25 (see the
+                researcher-equivalence sub-flow below), bringing the graph total to
+                481 of 2,062 (23.3%). Those 10 have orcid_authenticated NULL, so the
+                192/279 split above still describes the CrossRef path exactly:
+                481 = 192 true + 279 false + 10 null (live-verified).
 fetch_crossref_orcid.py
                 caches CrossRef author/ORCID JSON for graph DOIs to
                 data/processed/cache/crossref/ (gitignored)
@@ -164,8 +178,31 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
                 03 -> 04 -> 05 like any other relationship file (durable, never
                 direct-to-graph). SAME_AS (proven, shared ORCID) is emitted directly;
                 POSSIBLY_SAME_AS (inferred) goes through human review
-                (docs/researcher_equivalence_review_packet.txt -> David -> emit approved).
+                (docs/researcher_equivalence_review_packet.txt -> reviewer -> emit approved).
                 New types must be registered in 04 RELATIONSHIP_FILES + 05 REL_TYPES.
+                STATE (live-verified 2026-07-25): 27 SAME_AS in production, 0
+                POSSIBLY_SAME_AS. Split by anchor_type: 24 human_review, 2 orcid,
+                1 surname_change. All 27 carry source_type graph_derived and
+                confidence proven (the schema constrains SAME_AS to both).
+                The 24 human_review edges came from the 2026-07-25 emit of the
+                reviewed candidate set (input: data/processed/review/
+                researcher_equivalence_EMIT.md; source_id review:researcher_
+                equivalence_EMIT.md on every edge). Their proof is a reviewer's
+                judgment, NOT a shared ORCID — anchor_type human_review is what
+                records that distinction, and `properties.orcid` is null on all 24.
+                mechanism distribution: 14 ocr_variant, 2 period_parse, 2
+                spelling_variant, 2 transliteration, 1 each corrected_exclusion /
+                spelling_variant_ae_umlaut / suffix_jr / transposition.
+                The same emit SET 10 Researcher `orcid` properties the reviewer
+                found. Those node records keep source_type `csv` (unchanged): no
+                enum value covers CSV identity + human-review orcid, and
+                merged_csv_api is defined as CSV identity + CrossRef-API orcid,
+                which these are not. Origin is carried in source_id (orcid:{value}
+                + review:researcher_equivalence_EMIT.md) and evidence_note instead.
+                orcid_authenticated is left NULL on all 10 — it is the CrossRef
+                authenticated-orcid flag and no CrossRef attestation exists, so
+                `false` would falsely read as publisher-asserted. Both RULED
+                2026-07-25. Do not "fix" either by inventing an enum value.
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships
@@ -218,7 +255,7 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
   corrected (several had used generic analyzer/parent accessions as
   specific instruments — the MS:1000079 class).
 - Instrument dedup (03_normalize.py, applied 2026-07-21, 469 -> 443).
-  Table-driven, EXACT-slug (never substring). Three David-authorized ops:
+  Table-driven, EXACT-slug (never substring). Three maintainer-authorized ops:
   (1) safe OCR/spacing typo merges the PDF signature-collapse mechanically
   missed (6 groups + one repaired hi-res node); (2) the 13 bare-generic
   FT-ICR spellings COLLAPSE into instrument:raw:ft_icr_ms @ MS:1003948
@@ -229,7 +266,7 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
   psi_ms_id null — CV has no LTQ Velos row); ltqorbitrap (plain LTQ
   Orbitrap) stays separate. 21T (21t_icr, MS:1003948, 168 papers) is
   unchanged. Rulings recorded in data/processed/review/instrument_review.md
-  (SUPERSEDED banner). Do not revisit without David.
+  (SUPERSEDED banner). Do not revisit without a new maintainer ruling.
 - RawDataFile identity is the COMPOSITE identifier
   rawfile:{filename}:{sha16} (filename + first 16 hex of sha256), NOT
   filename alone (KI-8, remediated 2026-07-20). Byte-identical files
@@ -248,13 +285,16 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
   05 is MERGE-only and cannot retire the superseded nodes (KI-14), the result is a
   DUPLICATE Researcher node set at orcid:* with authorship split across both — not a
   property set on the existing nodes. The flag was inert only because orcid was
-  empty; now that 471 nodes carry ORCIDs, anyone who repopulates or re-runs without
+  empty; now that 481 nodes carry ORCIDs, anyone who repopulates or re-runs without
   reading this WILL hit it. See docs/SCIKG_SCHEMA.md "ORCID (Added 2026-07-23)" and
   docs/KNOWN_ISSUES.md KI-16.
 - Rebuild is reproducible from COMMITTED FILES, but NOT re-derivable from original
   sources — these are different guarantees. A fresh clone runs 03 -> 04 -> 05 and
   reproduces the EXACT graph (VERIFIED 2026-07-24: a clean rebuild from commit 900c651
-  into an empty Neo4j instance reproduced 4,886/11,663 exactly). BUT re-running the
+  into an empty Neo4j instance reproduced 4,886/11,663 exactly. RE-VERIFIED 2026-07-25
+  after the human_review SAME_AS emit: a files-only 03 -> 04 -> 05 into an empty Docker
+  Neo4j reproduced 4,886/11,690 with SAME_AS 27, and the subsequent production load
+  created 0 nodes / 24 edges — the two agree). BUT re-running the
   02x EXTRACTORS does NOT reproduce the graph, because THREE committed files are
   hand-maintained migrations a clean extractor run overwrites/destroys:
     * pdf_entities.jsonl + pdf_relationships.jsonl — 62 Institution + Instrument + 51
@@ -280,20 +320,32 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
   source, and all 14 same-key collisions were fragmentations (one person), never two
   different people (ORCID-verified 0 false collapses). _seq is appended only on a
   genuine future collision (0 today), deterministically (earliest year -> first DOI).
-  SURVIVOR RULE (03_normalize.py, David's preserve-accents ruling): when accent
+  SURVIVOR RULE (03_normalize.py, the project's preserve-accents ruling): when accent
   variants collapse, the surviving name_full is the MOST DIACRITIC-RICH form, but
   fused "A and B" forms are FILTERED FIRST (so a co-author's accent never wins the
   name — the Marshall/Brüschweiler inversion). Slugs are ASCII; names keep diacritics.
   translit_family() is researcher-only; slugify() is UNCHANGED for
   instrument/facility/journal (their dedup tables are keyed on the ASCII forms).
-- Researcher equivalence (NEW 2026-07-24, KI-17). Two non-destructive, undirected
-  Researcher<->Researcher edge types, stored ONE per pair from the lex-earlier
-  identifier; NEITHER merges/retires/repoints (both nodes and names kept). SAME_AS =
-  PROVEN (shared author-verified ORCID); POSSIBLY_SAME_AS = INFERRED (typo/co-author,
-  human-confirm). 3 SAME_AS live in files/Docker (aguilera<->chacon_patino surname
-  change, hoeschen<->hoschen, salvato_vallverdu<->vallverdu); 25 POSSIBLY_SAME_AS are
-  in docs/researcher_equivalence_review_packet.txt for David, NOT applied. Query
-  undirected: MATCH (a)-[:SAME_AS]-(b). GOTCHA — a NEW relationship type must be
+- Researcher equivalence (NEW 2026-07-24, EXTENDED 2026-07-25, KI-17). Two
+  non-destructive, undirected Researcher<->Researcher edge types, stored ONE per pair
+  from the lex-earlier identifier; NEITHER merges/retires/repoints (both nodes and
+  names kept). SAME_AS = PROVEN; POSSIBLY_SAME_AS = INFERRED (typo/co-author,
+  human-confirm). PRODUCTION: 27 SAME_AS, 0 POSSIBLY_SAME_AS (live-verified
+  2026-07-25). Two proof classes share the one SAME_AS type, distinguished by
+  anchor_type — do not conflate them:
+    * 3 ORCID-ANCHORED (anchor_type orcid x2 / surname_change x1): proof is a shared
+      author-verified ORCID spanning both nodes, carried in properties.orcid.
+      aguilera<->chacon_patino (surname change), hoeschen<->hoschen,
+      salvato_vallverdu<->vallverdu.
+    * 24 HUMAN-REVIEWED (anchor_type human_review): proof is a reviewer's judgment on
+      mechanical-artifact pairs (OCR/spelling/transliteration/period-parse), NOT a
+      shared ORCID; properties.orcid is null on all 24. Emitted 2026-07-25 from
+      data/processed/review/researcher_equivalence_EMIT.md.
+  All 27 carry source_type graph_derived + confidence proven (schema-constrained).
+  A consumer that needs ORCID-grade proof must filter on anchor_type, not on the
+  SAME_AS type alone. The candidate set that fed this is now RESOLVED: 24 emitted,
+  1 HELD (angstrom_j<->anstrom_j, unresolved), 11 confirmed different (no edge).
+  Query undirected: MATCH (a)-[:SAME_AS]-(b). GOTCHA — a NEW relationship type must be
   registered in BOTH scripts/04_validate.py RELATIONSHIP_FILES (valid input files)
   AND scripts/05_load.py REL_TYPES (loadable types); 03 and 04 pass without it but 05
   ABORTS. POSSIBLY_SAME_AS is deliberately kept OUT of REL_TYPES so a premature

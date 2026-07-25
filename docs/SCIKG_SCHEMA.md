@@ -1105,6 +1105,9 @@ co-author data, like `FLAGS`); the other four universal props (`source_id`,
 | `FUNDED_BY` | `award_acknowledgment_text` | string | Original acknowledgment string |
 | `HAS_DATASET` | `relationship_type` | string | `primary`, `supplementary` |
 | `CITES` | `reference_position` | integer | Position in reference list |
+| `SAME_AS` / `POSSIBLY_SAME_AS` | `anchor_type` | string | `orcid`/`shared_coauthor`/`ocr_variant`/`period_parse`/`surname_change`/`human_review` |
+| `SAME_AS` / `POSSIBLY_SAME_AS` | `orcid` | string | matching ORCID when `anchor_type` is `orcid`/`surname_change`, else null |
+| `SAME_AS` / `POSSIBLY_SAME_AS` | `mechanism` | string | human-readable equivalence rationale |
 
 ---
 
