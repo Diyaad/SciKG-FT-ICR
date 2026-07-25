@@ -1,0 +1,4 @@
+{"researcher_id": "researcher:cawley_k_2017", "orcid": "https://orcid.org/0000-0002-0443-0070", "authenticated": true, "source_doi": "10.1021/acs.est.6b05126", "crossref_author_string": "Kaelin M. Cawley", "match": "unique"}
+{"researcher_id": "researcher:martin_b_2017", "orcid": "https://orcid.org/0000-0002-7136-2397", "authenticated": true, "source_doi": "10.1021/acs.analchem.7b01461", "crossref_author_string": "Brent R. Martin", "match": "unique"}
+{"researcher_id": null, "orcid": "https://orcid.org/0000-0003-1926-0542", "authenticated": true, "source_doi": "10.1021/acs.analchem.7b01461", "crossref_author_string": "Kristina Håkansson", "match": "REVIEW-ambiguous", "candidates": ["researcher:h_kansson_k_2024", "researcher:hakansson_k_2005"]}
+{"researcher_id": "researcher:manning_t_2017", "orcid": "https://orcid.org/0000-0002-0862-1739", "authenticated": false, "source_doi": "10.1016/j.bmcl.2017.04.070", "crossref_author_string": "Thomas Manning", "match": "unique"}
