@@ -326,25 +326,57 @@ def canonicalize_identifier(identifier):
     return ident
 
 
-def is_fused_name(name_full):
-    """A CSV 'A and B' node holds two people. Same ' and ' detector used by the
-    ORCID eligibility filter (emit_orcid_properties) and analyze_orcid_coverage —
-    reused so name-survival and ORCID-eligibility never disagree about what is
-    fused."""
-    return bool(name_full) and " and " in name_full
+# A second person smuggled into the GIVEN part as '. Surname' —
+# 'A.M. CORILO. Y.E.' (CSV Id=9938). Requires 2+ trailing letters so a real
+# middle initial ('Y.E.D.') is never mistaken for a surname.
+SECOND_PERSON_IN_GIVEN = re.compile(r"\.\s*[A-Z][A-Za-z\-]{2,}")
+
+
+def is_fused_name(name_full, given_name=None):
+    """True when one node's name string holds more than one person.
+
+    KI-16a: the MagLab CSV 'Authors' column is ';'-delimited, but four rows typed
+    a different character, so two people landed in one token. All four forms are
+    detected here:
+      ' and '  'Rodgers, R.P. and Marshall, A.G.'   (the original detector)
+      ','      'Rodgers, R.P., Weinheber, P.'       (CSV Id=3297)
+      '.'      'McKenna, A.M. CORILO. Y.E.'         (CSV Id=9938)
+      ':'/';'  'Maie, N.: Cooper, W.T.'
+    The ',' and '.' tests read GIVEN_NAME, not name_full — every name_full has a
+    'Family, Given' comma, so testing it there would flag all 2,062 researchers.
+    A comma inside the given part is always a second person or an 'et al.'; both
+    disqualify the form from winning the name.
+
+    NOTE: emit_orcid_properties.is_fused() and analyze_orcid_coverage keep their
+    own NARROWER ' and '-only checks. They are not callers of this function, so
+    widening here does not move ORCID eligibility — deliberately, since that
+    ruling is already applied. Aligning them is a separate change."""
+    if not name_full:
+        return False
+    if " and " in name_full or ";" in name_full or ":" in name_full:
+        return True
+    given = given_name or ""
+    return ("," in given) or bool(SECOND_PERSON_IN_GIVEN.search(given))
 
 
 def diacritic_score(name_full):
     """Rank a name form by faithfulness to ONE person's OWN accents. Higher wins:
-    (# combining accents, length). Fusion is NOT scored here — it is filtered
-    BEFORE ranking (see Pass 2), so a fused form can never win on a co-author's
-    accent (the 'Marshall, A.G. and Brüschweiler, R.' inversion). So among single
-    -person forms 'Chacón-Patiño, M.L.' beats 'Chacon Patino, M.L.'."""
+    (# combining accents, non-space length, then FEWER characters). Fusion is NOT
+    scored here — it is filtered BEFORE ranking (see Pass 2), so a fused form can
+    never win on a co-author's accent (the 'Marshall, A.G. and Brüschweiler, R.'
+    inversion). So among single-person forms 'Chacón-Patiño, M.L.' beats
+    'Chacon Patino, M.L.'.
+
+    Length is measured WITHOUT spaces so pure spacing variants tie on richness and
+    are then broken toward the tighter form: 'Rodgers, R.P.' (119 records) beats
+    'Rodgers, R. P.' (1 record) instead of losing to it on raw length. Both carry
+    identical information; only the spacing differs. Real extra information still
+    wins — 'Weisbrod, C.R.' keeps its middle initial over 'Weisbrod, C.'."""
     if not name_full:
-        return (-1, 0)
+        return (-1, 0, 0)
     accents = sum(1 for c in unicodedata.normalize("NFD", name_full)
                   if unicodedata.combining(c))
-    return (accents, len(name_full))
+    return (accents, len(name_full.replace(" ", "")), -len(name_full))
 
 
 def merge_entities(survivor, other, log, reason):
@@ -615,7 +647,11 @@ def main(dry_run=False):
             if survivor.get("entity_type") == "Researcher":
                 def _nf(r):
                     return (r.get("properties") or {}).get("name_full")
-                non_fused = [r for r in group if not is_fused_name(_nf(r))]
+
+                def _gn(r):
+                    return (r.get("properties") or {}).get("given_name")
+                non_fused = [r for r in group
+                             if not is_fused_name(_nf(r), _gn(r))]
                 pool = non_fused if non_fused else group
                 richest = max(pool, key=lambda r: diacritic_score(_nf(r)))
                 rp = richest.get("properties") or {}

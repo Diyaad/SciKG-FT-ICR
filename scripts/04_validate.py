@@ -97,6 +97,7 @@ RELATIONSHIP_FILES = {
     "advisory_relationships.jsonl",   # KI-8: FLAGS edges (Advisory -> RawDataFile)
     "pdf_dataset_relationships.jsonl",  # PDF dataset_accession -> HAS_DATASET (mint_dataset_operator_edges.py)
     "researcher_equivalence.jsonl",   # KI-17: SAME_AS / POSSIBLY_SAME_AS (Researcher <-> Researcher, graph_derived)
+    "researcher_unfusion_relationships.jsonl",  # KI-16a: AUTHORED_BY edges 02b dropped to a fused author token (source_type api)
 }
 
 # --------------------------------------------------------------------------- #
