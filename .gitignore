@@ -93,3 +93,4 @@ Thumbs.db
 logs/
 slurm-*.out
 data/processed/entities/pdf_extracted.jsonl
+archive/

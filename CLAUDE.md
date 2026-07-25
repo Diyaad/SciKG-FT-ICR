@@ -177,8 +177,11 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
                 data/processed/relationships/researcher_equivalence.jsonl and flow
                 03 -> 04 -> 05 like any other relationship file (durable, never
                 direct-to-graph). SAME_AS (proven, shared ORCID) is emitted directly;
-                POSSIBLY_SAME_AS (inferred) goes through human review
-                (docs/researcher_equivalence_review_packet.txt -> reviewer -> emit approved).
+                POSSIBLY_SAME_AS (inferred) goes through human review before any emit:
+                candidates and their dispositions live in the committed review sheet
+                docs/researcher_equivalence_review.md, and the outcome is recorded in
+                KI-17. The reviewer hand-off itself is sent out of band and is
+                deliberately NOT tracked, so no committed file cites it.
                 New types must be registered in 04 RELATIONSHIP_FILES + 05 REL_TYPES.
                 STATE (live-verified 2026-07-25): 27 SAME_AS in production, 0
                 POSSIBLY_SAME_AS. Split by anchor_type: 24 human_review, 2 orcid,
