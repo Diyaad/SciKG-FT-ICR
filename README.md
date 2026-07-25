@@ -11,7 +11,7 @@ AI-assisted exploration.
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
 > extraction (stage 02d) exists and is under evaluation. Normalization,
 > validation, and load (stages 03-05) are DONE — the graph is loaded into
-> Neo4j AuraDB (4,886 nodes, 11,690 edges; instrument dedup, dataset-accession mint, ORCID enrichment, and a researcher-identifier slug fix — transliterate accents, drop the year — 2,076→2,062, all applied 2026-07-24). The researcher-equivalence layer is production-loaded: 27 `SAME_AS` edges, 24 of them added 2026-07-25 from human review. Current focus: graph
+> Neo4j AuraDB (4,886 nodes, 11,691 edges; instrument dedup, dataset-accession mint, ORCID enrichment, and a researcher-identifier slug fix — transliterate accents, drop the year — 2,076→2,062, all applied 2026-07-24). The researcher-equivalence layer is production-loaded: 27 `SAME_AS` edges, 24 of them added 2026-07-25 from human review. Current focus: graph
 > validation/analysis against the researcher discovery questions and the poster.
 
 ---
@@ -85,7 +85,7 @@ scikg/
 │       ├── relationships/           # Extracted relationships (JSONL)
 │       ├── normalized/              # Normalized entities + relationships (03 output)
 │       ├── logs/                    # Extraction/normalization logs (JSONL)
-│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,886 nodes, 11,690 edges; load_cleared)
+│       └── validated/               # 04 output: entities/, relationships/, report, quarantine (populated: 4,886 nodes, 11,691 edges; load_cleared)
 ├── scripts/                         # Pipeline scripts — run in order
 │   ├── 01_fetch.py
 │   ├── 01b_fetch_pdfs.py
@@ -168,7 +168,7 @@ flag marks the 199 confirmed MagLab-acquired (LTQ FT Ultra), with the
 rest unconfirmed (attribution not recoverable from metadata). PDF
 gap-field extraction (stage 02d) exists and is under evaluation.
 Normalization, validation, and load (stages 03-05) are complete; the
-graph is loaded into Neo4j AuraDB (4,886 nodes, 11,690 edges).
+graph is loaded into Neo4j AuraDB (4,886 nodes, 11,691 edges).
 
 A human-gated post-load reconciliation (`mint_dataset_operator_edges.py`,
 applied 2026-07-22) mints the PDF-extracted `dataset_accession` values that

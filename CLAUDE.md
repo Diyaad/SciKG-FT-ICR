@@ -8,7 +8,7 @@ total: CrossRef API, the MagLab CSV (806 papers), the Web Applications
 Group publications export, 46 Thermo RAW files, manual annotations, and
 the 952 Blood Proteoform Atlas PXD files (local-only — gitignored, not
 reproducible from a clean clone).
-Loaded into Neo4j AuraDB (cloud, neo4j+s://3e16fe28): 4,886 nodes, 11,690 edges
+Loaded into Neo4j AuraDB (cloud, neo4j+s://3e16fe28): 4,886 nodes, 11,691 edges
 (production, load_cleared, 2026-07-25; live-graph verified). Researcher
 2,076 -> 2,062 via the researcher-identifier slug fix (14 accent-collapse merges,
 see Architecture decisions); prior state was 4,900/11,663. Also: instrument dedup
@@ -106,8 +106,10 @@ PDF transform (02d extraction -> entity/relationship nodes)
 05_load.py      (run — graph loaded)
                 reads  data/processed/validated/
                 writes to Neo4j AuraDB via scripts/db.py
-                Loaded 4,886 nodes + 11,690 edges (production, load_cleared: true,
-                2026-07-25; Researcher 2,062 after the slug fix, SAME_AS 27).
+                Loaded 4,886 nodes + 11,691 edges (production, load_cleared: true,
+                2026-07-25; Researcher 2,062 after the slug fix, SAME_AS 27,
+                AUTHORED_BY 5,027 after the KI-18(a) un-fusion +1). The 11,690 ->
+                11,691 step is the single restored Corilo edge; nodes did NOT move.
                 NOTE: 05 is MERGE-only and cannot shrink the graph — a load that
                 RETIRES nodes/edges (e.g. the instrument dedup) leaves stale data
                 that needs a manual reconcile until a --prune step exists. See KI-14.
@@ -206,6 +208,22 @@ Researcher-equivalence sub-flow (post-load; SAME_AS / POSSIBLY_SAME_AS, KI-17)
                 authenticated-orcid flag and no CrossRef attestation exists, so
                 `false` would falsely read as publisher-asserted. Both RULED
                 2026-07-25. Do not "fix" either by inventing an enum value.
+Researcher un-fusion sub-flow (KI-18(a), applied 2026-07-25; names + 1 edge)
+                data/processed/relationships/researcher_unfusion_relationships.jsonl
+                — AUTHORED_BY edges 02b dropped because a CSV delimiter defect (a
+                ',' or '.' typed instead of the ';' author separator) fused two
+                authors into one token. 1 record today: Corilo on
+                doi:10.1021/acs.energyfuels.6b02643, source_type api. Registered in
+                04 RELATIONSHIP_FILES; AUTHORED_BY is already in 05 REL_TYPES.
+                The NAME half is NOT a data file — it is a rule fix in 03
+                (is_fused_name now detects , . : ; fusion, reading given_name;
+                diacritic_score measures length without spaces), so corrected names
+                fall out of extraction instead of being a hand-migration a clean 02b
+                run would overwrite (KI-13). Renamed 12 nodes, NAMES ONLY: 0
+                identifier changes, 0 edges moved, 0 accented nodes disturbed.
+                Do NOT "fix" researchers.jsonl by hand to change a name — change the
+                rule. Root cause still lives in 02b's author splitter; a delimiter
+                guard there (CSV left immutable) is the outstanding durable fix.
 
 ## Non-negotiable rules
 - Never fabricate scientific data, metadata, or relationships

@@ -82,21 +82,67 @@ KI-17's `SAME_AS` edges record the *identities* these bugs fragmented; they do n
 re-run the slug/survivor logic, which is how identity churn gets introduced (KI-16). A parser fix belongs
 upstream in 02b with a fresh identity pass, not as a string patch. Until then these are visible facts.
 
-**(a) Comma-fusion — one node's `name_full` holds two people. 3 nodes (live).** A comma-separated
-co-author was swallowed into the name string. Distinct from KI-16(a), which counts the `" and "`
-convention; this is the comma form:
+**(a) Comma-fusion — one node's `name_full` holds two people. PARTLY RESOLVED 2026-07-25 (high-degree
+half closed).** A co-author was swallowed into the name string. Distinct from KI-16(a), which counts the
+`" and "` convention; this is the comma form — plus a period form found the same day
+(`'McKenna, A.M. CORILO. Y.E.'`, CSV Id=9938) that no detector had been counting at all.
 
-| node | `name_full` | note |
+ROOT CAUSE (measured, not inferred): the CSV `Authors` column is `;`-delimited, but four rows typed a
+different character, so two people landed in one token. The fused string then **won the name** because
+`03_normalize.py` `is_fused_name()` only filtered `" and "`, and the tie-break takes the LONGEST
+remaining form — so a single fused record beat the clean form that was already present 119× (Rodgers)
+and 151× (McKenna). The paper sets were never contaminated: the fused text collapses to the same slug
+(`translit_family + initial`) as the clean rows, so it only ever corrupted the display string.
+
+FIX (2026-07-25, in `03`'s rule — NOT a hand-edit to `researchers.jsonl`, which a clean 02b run would
+overwrite, cf. KI-13): `is_fused_name()` now also detects `,` / `.` / `:` / `;` fusion, reading
+`given_name` (every `name_full` has a Family-Given comma, so testing it there would flag all 2,062);
+`diacritic_score()` measures length WITHOUT spaces so pure spacing variants tie on richness and break
+toward the tighter form. Renamed 12 nodes, **names only — 0 identifier changes, 0 edges moved, 0
+accented nodes disturbed** (David's diacritic ruling intact). Live-verified in production.
+
+| node | was | now |
 |---|---|---|
-| `researcher:rodgers_r` | `'Rodgers, R.P., Weinheber, P.'` | Weinheber, P. has **no node and no edge** on those papers — the second person is simply absent from the graph. This node is also the hub of the 3-node Rodgers `SAME_AS` cluster (KI-17), so the fused name is highly visible. 166 papers, ORCID `0000-0003-1302-2850` (Rodgers'). |
-| `researcher:hughey_c` | `'Hughey, C.A., Cooper, H.J.'` | same shape |
-| `researcher:sk_n` | `'Sk, N.A., Roesky, H.W.'` | same shape |
+| `researcher:rodgers_r` | `'Rodgers, R.P., Weinheber, P.'` | **`'Rodgers, R.P.'`** — 166 papers, ORCID `0000-0003-1302-2850` (Rodgers'). Weinheber, P. appears **once in the entire repo** (that one CSV cell): 0 hits in the CrossRef cache, 0 in `data/raw/publications/`. Its row (Id=3297) carries **no DOI**, so it produced no Publication and contributes **zero** edges. All 166 papers are Ryan P. Rodgers; CrossRef confirms FIRST-ONLY on all 76 cached DOIs. **No Weinheber node was minted — there is no traceable source for one.** |
+| `researcher:mckenna_a` | `'McKenna, A.M. CORILO. Y.E.'` | **`'McKenna, A.M.'`** — 161 papers, ORCID `0000-0001-7213-521X` (hers). This node always WAS the clean McKenna; only the string was fused. Not a split: CrossRef shows 118 FIRST-ONLY / 6 BOTH / 0 Corilo-only, and 5 of the 6 BOTH already had a `corilo_y` edge. |
+| `researcher:hughey_c` | `'Hughey, C.A., Cooper, H.J.'` | **`'Hughey, C.A.'`** |
+| `researcher:sk_n` | `'Sk, N.A., Roesky, H.W.'` | **unchanged — DEFERRED.** Its only source form is the fused one, so there is no clean candidate to select; the all-fused fallback keeps it. Needs the 02b parser fix, not a name-choice fix. |
+
+Also corrected by the same rule: `eyler_j`, `moore_d`, `meijer_g` (`', et al.'` dropped), `maie_n`
+(`':'` form), and spacing/hyphen variants `freitas_m`, `poblet_j`, `blumer_e`, `mulet_gas_m`.
+`researcher:suhai_s` moved sideways `'Suhai, S., et al.'` → `'Suhai, S. and Paizs, B.'` — **both forms
+are fused**, so it stays deferred; the all-fused fallback picks the longest, which per this file's own
+ruling "keeps the faithful record of a node that IS a fusion". A tie-break preferring the terser
+all-fused form was measured (changes exactly this 1 node, 0 diacritic losses, cannot reach the 11
+genuine improvements) but NOT applied: it overturns that ruling, and it would promote code the Docker
+rebuild had not verified. Open for a maintainer call.
+
+ONE EDGE RESTORED (the only data loss either fusion caused): CSV Id=9938 = DOI
+`10.1021/acs.energyfuels.6b02643`, where CrossRef lists 13 authors including `Yuri E. Corilo` at
+position 12, but the fused token made 02b emit a McKenna edge and **no Corilo edge**. Re-minted to the
+**existing** `researcher:corilo_y` (22 → 23 papers) via
+`data/processed/relationships/researcher_unfusion_relationships.jsonl` (`source_type: api`), flowing
+03 → 04 → 05 like any other record. No node was minted or retired; Researcher stayed 2,062.
+**WART:** that edge carries `author_sequence` 12 alongside Headley, who also sits at 12 — the CSV
+fusion made 02b emit 12 authors where CrossRef has 13, so every position from 12 on is off by one.
+Corilo uses CrossRef's true index; Headley's is 02b output and was left alone (KI-13).
+
+SCOPE REMAINING: 89 Researcher nodes still carry a fused `name_full`, but they now hold **97 papers,
+max 3 on any one node** — down from 166. The high-degree half of this defect is closed; the tail is
+low-visibility and still deferred.
 
 The `SAME_AS` edges converging on `rodgers_r` link the **Rodgers** identity correctly; they assert
 nothing about Weinheber, and no edge in that batch represents a Weinheber equivalence (verified).
-Related: KI-16(a) recorded **108** nodes containing `" and "` on 2026-07-23; the live count is now
-**81**. The 27-node difference exceeds the 14 slug-fix collapses and is **not traced** — flagged here,
-not reconciled.
+Related: KI-16(a) recorded **108** nodes containing `" and "` on 2026-07-23; the live count was **81**
+and is now **82** — the +1 is exactly the `suhai_s` move above, traced. The earlier 27-node difference
+still exceeds the 14 slug-fix collapses and is **not traced** — flagged here, not reconciled.
+
+DURABLE FIX STILL OUTSTANDING: the root cause is the 02b author splitter, which still emits the fused
+token. `03` now suppresses it from winning the name, but a delimiter guard in `02b_extract_csv.py`
+(with the CSV left immutable) is what would surface Weinheber and the second Corilo as real author
+tokens. Also note `emit_orcid_properties.is_fused()` and `analyze_orcid_coverage` keep their own
+NARROWER `" and "`-only checks — deliberately not widened here, since that would move an already-applied
+ORCID eligibility ruling.
 
 **(b) Mojibake control characters in `name_full`. 2 nodes (live).** A C1 control byte sits where a
 diacritic character belongs — an encoding round-trip defect, not a transliteration one, so the accent
