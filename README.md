@@ -302,7 +302,7 @@ If you use SciKG or reference this work, please cite:
 
 > Adhikari, D., & Saiadian, V. (2026). *SciKG-FT-ICR: A Provenance-Aware
 > Knowledge Graph of the MagLab's FT-ICR Research* [Poster]. National High
-> Magnetic Field Laboratory, CI Compass Fellowship.
+> Magnetic Field Laboratory, CI Compass Summer Program of the CI Compass Fellowship.
 
 ### Third-party data & vocabularies
 This graph incorporates data from CrossRef (publication metadata), ORCID
