@@ -292,5 +292,21 @@ docs/FAIR_PRINCIPLES.md. Propose changes via PR; keep raw data immutable.
 
 ## License & Citation
 
-License and citation guidance to be defined in a later phase. Until then, treat
-this repository as internal research material.
+### License
+This repository is currently unlicensed for external reuse; source code and
+data pipelines remain internal research material pending a formal license
+decision (e.g., MIT).
+
+### Citation
+If you use SciKG or reference this work, please cite:
+
+> Adhikari, D., & Saiadian, V. (2026). *SciKG-FT-ICR: A Provenance-Aware
+> Knowledge Graph of the MagLab's FT-ICR Research* [Poster]. National High
+> Magnetic Field Laboratory, CI Compass Fellowship.
+
+### Third-party data & vocabularies
+This graph incorporates data from CrossRef (publication metadata), ORCID
+(researcher identifiers), ProteomeXchange/PRIDE (dataset accessions), and
+PSI-MS via EBI OLS4 (instrument controlled vocabulary). Each source's own
+terms of use govern redistribution of that source's data independent of this
+repository's license.
