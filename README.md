@@ -1,11 +1,14 @@
-# SciKG — Scientific Knowledge Graph for FAIR Scientific Data Discovery
+# PRISM: Provenance-Rich Index of Scientific Metadata 
 
-SciKG is a long-term research platform for improving the **discoverability,
+PRISM is a long-term research platform for improving the **discoverability,
 accessibility, interoperability, and reusability** of scientific research
 assets through structured metadata, knowledge graph technologies, and
 AI-assisted exploration.
 
-> **Status:** Active build — 8-week project, June 1 – July 31.
+> **Status:** Completed research project — 8-week CI Compass Fellowship project,
+> June 1 – July 31, 2026. The final graph pipeline, validation workflow,
+> documentation, and analysis are complete. The repository is preserved as a
+> reproducible research artifact.
 > 2-person team. CI Compass Fellowship. Extraction covers the ICR
 > publication corpus (CrossRef + MagLab CSV), the 46 Thermo RAW
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
@@ -16,7 +19,15 @@ AI-assisted exploration.
 
 ---
 
-## Why SciKG
+## Acknowledgments
+
+This work was developed through the CI Compass Fellowship program at the
+National High Magnetic Field Laboratory. We thank the CI Compass mentors and
+MagLab community for their guidance and support throughout the project.
+
+---
+
+## Why PRISM
 
 Scientific facilities and research organizations repeatedly face the same
 structural problems:
@@ -154,7 +165,7 @@ scikg/
 
 ---
 
-## Current Focus
+## Final Project State
 
 Extraction now covers the ICR publication corpus (CrossRef API and
 MagLab CSV), the 46 Thermo RAW files, and the 952 Blood Proteoform
@@ -259,6 +270,35 @@ Out of scope for this phase: scraping, chatbot, Streamlit UI, NetworkX.
 
 ---
 
+## Project Outputs
+
+SciKG produced the following research artifacts:
+
+- A provenance-aware scientific knowledge graph schema
+- Entity extraction and normalization pipelines
+- Validation workflows for graph quality control
+- A Neo4j AuraDB graph representation of FT-ICR research metadata
+- FAIR-aligned documentation for scientific metadata management
+- A symposium poster summarizing project methodology and findings
+
+The final graph integrates publications, researchers, instruments, datasets,
+software, facilities, and provenance relationships.
+
+---
+
+## Technology Stack
+
+SciKG was developed using:
+
+- Python for extraction, normalization, validation, and pipeline orchestration
+- Neo4j AuraDB for graph storage and querying
+- Cypher for graph analysis
+- JSONL and CSV formats for intermediate metadata representation
+- External APIs and vocabularies including CrossRef, ORCID, ProteomeXchange,
+  and PSI-MS via EBI OLS4
+
+---
+
 ## Getting Started (contributors)
 
 ```bash
@@ -293,20 +333,36 @@ docs/FAIR_PRINCIPLES.md. Propose changes via PR; keep raw data immutable.
 ## License & Citation
 
 ### License
-This repository is currently unlicensed for external reuse; source code and
-data pipelines remain internal research material pending a formal license
-decision (e.g., MIT).
+
+This repository's source code and documentation are released under the MIT
+License.
+
+The MIT License applies only to original source code and documentation
+developed within this repository. Third-party datasets, metadata sources,
+controlled vocabularies, and external services remain subject to their own
+licenses and terms of use.
+
+See [LICENSE](LICENSE) for the full license text.
 
 ### Citation
+
 If you use SciKG or reference this work, please cite:
 
 > Adhikari, D., & Saiadian, V. (2026). *SciKG-FT-ICR: A Provenance-Aware
 > Knowledge Graph of the MagLab's FT-ICR Research* [Poster]. National High
-> Magnetic Field Laboratory, CI Compass Summer Program of the CI Compass Fellowship.
+> Magnetic Field Laboratory, CI Compass Summer Program, CI Compass Fellowship.
 
 ### Third-party data & vocabularies
-This graph incorporates data from CrossRef (publication metadata), ORCID
-(researcher identifiers), ProteomeXchange/PRIDE (dataset accessions), and
-PSI-MS via EBI OLS4 (instrument controlled vocabulary). Each source's own
-terms of use govern redistribution of that source's data independent of this
-repository's license.
+
+SciKG integrates metadata, identifiers, datasets, and controlled vocabularies
+from external sources:
+
+- **CrossRef** — publication metadata
+- **ORCID** — researcher identifiers
+- **ProteomeXchange/PRIDE** — dataset accessions and proteomics dataset metadata
+- **PSI-MS via EBI OLS4** — controlled vocabulary for mass spectrometry instruments
+
+The graph is hosted using **Neo4j AuraDB**. Use of third-party data,
+vocabularies, and services is governed by the respective terms and licenses of
+each provider. The MIT License applies only to original source code and
+documentation developed within this repository.
