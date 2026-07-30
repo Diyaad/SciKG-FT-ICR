@@ -10,6 +10,7 @@ AI-assisted exploration.
 > documentation, and analysis are complete.
 >
 > > **Project Poster:** [PRISM: Provenance-Rich Index of Scientific Metadata](https://canva.link/z22qgcy0j30y7ht)
+> > 
 > 2-person team. CI Compass Fellowship. Extraction covers the ICR
 > publication corpus (CrossRef + MagLab CSV), the 46 Thermo RAW
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
