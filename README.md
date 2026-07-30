@@ -7,8 +7,9 @@ AI-assisted exploration.
 
 > **Status:** Completed research project — 8-week CI Compass Fellowship project,
 > June 1 – July 31, 2026. The final graph pipeline, validation workflow,
-> documentation, and analysis are complete. The repository is preserved as a
-> reproducible research artifact.
+> documentation, and analysis are complete.
+>
+> > **Project Poster:** [PRISM: Provenance-Rich Index of Scientific Metadata](https://canva.link/z22qgcy0j30y7ht)
 > 2-person team. CI Compass Fellowship. Extraction covers the ICR
 > publication corpus (CrossRef + MagLab CSV), the 46 Thermo RAW
 > files, and the 952 Blood Proteoform Atlas PXD files; PDF gap-field
@@ -272,23 +273,19 @@ Out of scope for this phase: scraping, chatbot, Streamlit UI, NetworkX.
 
 ## Project Outputs
 
-SciKG produced the following research artifacts:
+PRISM produced the following research artifacts:
 
 - A provenance-aware scientific knowledge graph schema
 - Entity extraction and normalization pipelines
 - Validation workflows for graph quality control
 - A Neo4j AuraDB graph representation of FT-ICR research metadata
 - FAIR-aligned documentation for scientific metadata management
-- A symposium poster summarizing project methodology and findings
-
-The final graph integrates publications, researchers, instruments, datasets,
-software, facilities, and provenance relationships.
-
+- 
 ---
 
 ## Technology Stack
 
-SciKG was developed using:
+PRISM was developed using:
 
 - Python for extraction, normalization, validation, and pipeline orchestration
 - Neo4j AuraDB for graph storage and querying
@@ -346,15 +343,15 @@ See [LICENSE](LICENSE) for the full license text.
 
 ### Citation
 
-If you use SciKG or reference this work, please cite:
+If you use PRISM or reference this work, please cite:
 
-> Adhikari, D., & Saiadian, V. (2026). *SciKG-FT-ICR: A Provenance-Aware
-> Knowledge Graph of the MagLab's FT-ICR Research* [Poster]. National High
-> Magnetic Field Laboratory, CI Compass Summer Program, CI Compass Fellowship.
+> Adhikari, D., & Saiadian, V. (2026). *PRISM: Provenance-Rich Index of
+> Scientific Metadata* [Poster]. National High Magnetic Field Laboratory,
+> CI Compass Summer Program, CI Compass Fellowship.
 
 ### Third-party data & vocabularies
 
-SciKG integrates metadata, identifiers, datasets, and controlled vocabularies
+PRISM integrates metadata, identifiers, datasets, and controlled vocabularies
 from external sources:
 
 - **CrossRef** — publication metadata
