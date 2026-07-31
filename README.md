@@ -42,7 +42,7 @@ structural problems:
   projects, grants, and scientific concepts
 - Barriers to knowledge reuse and scientific reproducibility
 
-SciKG treats these as a **knowledge-organization problem**: if research assets
+PRISM treats these as a **knowledge-organization problem**: if research assets
 and their relationships are captured as a well-described graph, they become
 findable, linkable, and reusable — by both humans and machines.
 
